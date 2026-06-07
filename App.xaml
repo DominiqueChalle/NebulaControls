@@ -1,0 +1,19 @@
+﻿<Application x:Class="NebulaUI.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:NebulaUI"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/DarkPurple/Colors.xaml" />
+                <ResourceDictionary Source="Themes/DarkPurple/Brushes.xaml" />
+                <ResourceDictionary Source="Themes/DarkPurple/Typography.xaml" />
+                <ResourceDictionary Source="Controls/PasswordBoxes.xaml" />
+                <ResourceDictionary Source="Controls/Buttons.xaml" />
+                <ResourceDictionary Source="Controls/TextBoxes.xaml" />
+                <ResourceDictionary Source="Controls/CheckBox.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

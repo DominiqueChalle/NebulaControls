@@ -1,0 +1,105 @@
+Alors, après pleins de recherches hier soir, j'ai essayé ceci et je t'explique pourquoi et ce que j'ai compris (et surtout, corriges moi si je me trompes...)
+
+
+<Style x:Key="PrimaryButtonStyle"
+       TargetType="Button">
+
+--> Je définis le nom du style pour pouvoir l'utiliser avec {DynamicResource...}
+
+        <Setter Property="OverridesDefaultStyle"
+                Value="True"/>
+
+        --> je dirais (par déduction) que je 'force' l'utilisation de mon style en demandant à Windows de ne pas utiliser son style par défaut
+
+        <Setter Property="Foreground"
+                Value="{DynamicResource Brush.TextPrimary}"/>
+
+        --> On en a déja parlé : Couleur d'avant plan et généralement couleur du Texte
+
+        <Setter Property="Background"
+                Value="{DynamicResource Brush.Accent}"/>
+
+        --> Idem : Couleur d'arrière plan du contrôle
+
+        <Setter Property="BorderBrush"
+                Value="{DynamicResource Brush.AccentBorder}"/>
+
+        --> Logiquement : couleur de la 'brosse/pinceau' qui va dessiner la bordure du contrôle
+
+        <Setter Property="BorderThickness"
+                Value="1"/>
+
+        --> Logiquement : Epaisseur de la bordure du contrôle 
+
+        <Setter Property="Padding"
+                Value="18,10"/>
+
+        --> Padding = Marges intérieures du contrôlr
+
+        <Setter Property="Cursor"
+                Value="Hand"/>
+
+        --> Le curseur change en "main" lors du "survol" ou "contact" avec le contrôle 
+
+        <Setter Property="Template">
+            --> Définition du gabarit que le contrôle va utiliser 
+
+            <Setter.Value>
+
+                <ControlTemplate TargetType="Button">
+                --> Contrôle = Bouton
+
+                    <Border x:Name="Border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="8">
+
+                        --> Bordure du bouton : (Background = couleur de fond du contrôle qu'on va chercher dans 'Property="Background" Value"..."')
+
+                        <ContentPresenter
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"/>
+
+                        --> position du contrôle dans son conteneur parent (ici la form) Mais il va falloir m'expliquer comment avoir un bvouton en bas à droite si on a du texte et autres contrôles au dessus...
+
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+                             --> Souris sur le bouton ?
+
+                            <Setter TargetName="Border"
+                                    Property="Background"
+                                    Value="{DynamicResource Brush.AccentActive}"/>
+                                --> Oui : on change la couleur (et là je me demande si il n'y a pas une subtilité avec Border et Background)
+
+                        </Trigger>
+
+                        <Trigger Property="IsPressed"
+                                 Value="True">
+
+                            --> Bouton gauche souris enfoncé ? (on est en train de cliquer ?)
+
+                            <Setter TargetName="Border"
+                                    Property="Opacity"
+                                    Value="0.85"/>
+                                --> oui : On change l(opacité du bouton)
+
+
+
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+
+            </Setter.Value>
+
+        </Setter>
+
+    </Style>
+
+--> On ferme toutes les balises
