@@ -16,7 +16,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="NebulaSimpleCheckBox" TargetType="CheckBox" BasedOn="{StaticResource PrimaryText}">
+    <Style x:Key="NebulaSimpleCheckBox" TargetType="CheckBox" BasedOn="{StaticResource Typography.Text.Primary}">
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="FocusVisualStyle" Value="{StaticResource NebulaCheckBoxFocusVisual}"/>
@@ -45,26 +45,38 @@
                                 </Path>
                             </Border>
                         </BulletDecorator.Bullet>
+
                         <ContentPresenter Margin="8,0,0,0"
                                           HorizontalAlignment="Left"
                                           VerticalAlignment="Center"/>
                     </BulletDecorator>
+
                     <ControlTemplate.Triggers>
+
                         <Trigger Property="IsChecked" Value="False">
                             <Setter TargetName="checkMark" Property="Visibility" Value="Collapsed"/>
                         </Trigger>
+
                         <Trigger Property="IsChecked" Value="{x:Null}">
                             <Setter TargetName="checkMark" Property="Data" Value="M 0 10 L 10 0"/>
                         </Trigger>
+
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="border" Property="Background" Value="{DynamicResource Brush.SurfaceHover}"/>
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Brush.AccentBorder}"/>
                         </Trigger>
+
                         <Trigger Property="IsPressed" Value="True">
                             <Setter TargetName="border" Property="Background" Value="{DynamicResource Brush.Surface}"/>
                             <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Brush.AccentPressed}"/>
                         </Trigger>
 
-                        <!-- TODO:Add more triggers as needed -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Brush.SurfaceDisabled}"/>
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Brush.BorderDisabled}"/>
+                            <Setter TargetName="checkMark" Property="Stroke" Value="{DynamicResource Brush.TextDisabled}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource Brush.TextDisabled}"/>
+                        </Trigger>
 
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

@@ -1,0 +1,83 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="NebulaRadioButtonFocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border>
+                        <Rectangle Margin="15,0,0,0"
+                                   StrokeThickness="1"
+                                   Stroke="{DynamicResource Brush.Accent}"
+                                   StrokeDashArray="1 2"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="NebulaSimpleRadioButton" TargetType="RadioButton" BasedOn="{StaticResource Typography.Text.Primary}">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="FocusVisualStyle" Value="{StaticResource NebulaRadioButtonFocusVisual}"/>
+        <Setter Property="Background" Value="{DynamicResource Brush.Background}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource Brush.Border}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Brush.TextPrimary}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <BulletDecorator Background="Transparent">
+                        <BulletDecorator.Bullet>
+                            <Grid Width="24"
+                                  Height="24" >
+                                <Ellipse x:Name="border"
+                                         Fill="{DynamicResource Brush.Surface}"
+                                         StrokeThickness="1"
+                                         Stroke="{DynamicResource Brush.Border}" />
+                                <Ellipse x:Name="checkMark"
+                                         Margin="6"
+                                         Fill="{DynamicResource Brush.Accent}" />
+                            </Grid>
+                        </BulletDecorator.Bullet>
+
+                        <ContentPresenter Margin="8,0,0,0"
+                                          HorizontalAlignment="Left"
+                                          VerticalAlignment="Center"
+                                          RecognizesAccessKey="True"/>
+                    </BulletDecorator>
+
+                    <ControlTemplate.Triggers>
+
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter TargetName="checkMark" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="checkMark" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="border" Property="Stroke" Value="{DynamicResource Brush.Border}"/>
+                        </Trigger>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Fill" Value="{DynamicResource Brush.SurfaceHover}"/>
+                            <Setter TargetName="border" Property="Stroke" Value="{DynamicResource Brush.AccentBorder}"/>
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter TargetName="checkMark" Property="Fill" Value="{DynamicResource Brush.Accent}" />
+                            <Setter TargetName="checkMark" Property="Stroke" Value="{DynamicResource Brush.AccentPressed}" />
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter TargetName="border" Property="Fill" Value="{DynamicResource Brush.SurfaceDisabled}"/>
+                            <Setter TargetName="border" Property="Stroke" Value="{DynamicResource Brush.BorderDisabled}"/>
+                            <Setter TargetName="checkMark" Property="Stroke" Value="{DynamicResource Brush.TextDisabled}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource Brush.TextDisabled}"/>
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

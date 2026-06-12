@@ -3,12 +3,24 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <!-- ===================================================== -->
-    <!-- Backgrounds -->
+    <!-- Backgrounds Colors                                    -->
     <!-- ===================================================== -->
 
     <Color x:Key="Color.Background">
         #1A1B1E
     </Color>
+
+    <Color x:Key="Color.BackgroundDisabled">
+        #202226
+    </Color>
+
+    <Color x:Key="Color.BackgroundReadOnly">
+        #1F2024
+    </Color>
+
+    <!-- ===================================================== -->
+    <!-- Surface Colors                                        -->
+    <!-- ===================================================== -->
 
     <Color x:Key="Color.Surface">
         #25272B
@@ -22,8 +34,16 @@
         #383C44
     </Color>
 
+    <Color x:Key="Color.SurfaceDisabled">
+        #212328
+    </Color>
+
+    <Color x:Key="Color.SurfaceReadOnly">
+        #2A2C31
+    </Color>
+
     <!-- ===================================================== -->
-    <!-- Accent -->
+    <!-- Accent Colors                                         -->
     <!-- ===================================================== -->
 
     <Color x:Key="Color.Accent">
@@ -38,12 +58,24 @@
         #8450F0
     </Color>
 
+    <Color x:Key="Color.AccentDisabled">
+        #4C3B6D
+    </Color>
+
     <Color x:Key="Color.AccentBorder">
         #C7A9FF
     </Color>
 
+    <Color x:Key="Color.AccentBorderHover">
+        #D9C7FF
+    </Color>
+
+    <Color x:Key="Color.AccentBorderDisabled">
+        #675486
+    </Color>
+
     <!-- ===================================================== -->
-    <!-- Text -->
+    <!-- Text Colors                                           -->
     <!-- ===================================================== -->
 
     <Color x:Key="Color.TextPrimary">
@@ -63,7 +95,7 @@
     </Color>
 
     <!-- ===================================================== -->
-    <!-- Borders -->
+    <!-- Borders Colors                                        -->
     <!-- ===================================================== -->
 
     <Color x:Key="Color.Border">
@@ -78,8 +110,16 @@
         #9C6BFF
     </Color>
 
+    <Color x:Key="Color.BorderDisabled">
+        #33363C
+    </Color>
+
+    <Color x:Key="Color.BorderReadOnly">
+        #50545D
+    </Color>
+
     <!-- ===================================================== -->
-    <!-- States -->
+    <!-- States Colors                                         -->
     <!-- ===================================================== -->
 
     <Color x:Key="Color.Success">
@@ -96,22 +136,6 @@
 
     <Color x:Key="Color.Info">
         #4A90E2
-    </Color>
-
-    <!-- ===================================================== -->
-    <!-- Disabled -->
-    <!-- ===================================================== -->
-
-    <Color x:Key="Color.BackgroundDisabled">
-        #202226
-    </Color>
-
-    <Color x:Key="Color.SurfaceDisabled">
-        #212328
-    </Color>
-
-    <Color x:Key="Color.BorderDisabled">
-        #33363C
     </Color>
 
 </ResourceDictionary>

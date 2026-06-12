@@ -13,6 +13,9 @@
                 <ResourceDictionary Source="Controls/Buttons.xaml" />
                 <ResourceDictionary Source="Controls/TextBoxes.xaml" />
                 <ResourceDictionary Source="Controls/CheckBox.xaml" />
+                <ResourceDictionary Source="Controls/RadioButton.xaml" />
+                <ResourceDictionary Source="Controls/ToggleButton.xaml" />
+                <ResourceDictionary Source="Controls/GalleryCard.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
