@@ -71,6 +71,7 @@
                             <Setter TargetName="border" Property="Fill" Value="{DynamicResource Brush.SurfaceDisabled}"/>
                             <Setter TargetName="border" Property="Stroke" Value="{DynamicResource Brush.BorderDisabled}"/>
                             <Setter TargetName="checkMark" Property="Stroke" Value="{DynamicResource Brush.TextDisabled}"/>
+                            <Setter TargetName="checkMark" Property="Fill" Value="{DynamicResource Brush.TextDisabled}"/>
                             <Setter Property="Foreground" Value="{DynamicResource Brush.TextDisabled}"/>
                         </Trigger>
 

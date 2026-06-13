@@ -9,12 +9,13 @@
                 <ResourceDictionary Source="Themes/DarkPurple/Colors.xaml" />
                 <ResourceDictionary Source="Themes/DarkPurple/Brushes.xaml" />
                 <ResourceDictionary Source="Themes/DarkPurple/Typography.xaml" />
-                <ResourceDictionary Source="Controls/PasswordBoxes.xaml" />
+                <ResourceDictionary Source="Controls/PasswordBox.xaml" />
                 <ResourceDictionary Source="Controls/Buttons.xaml" />
-                <ResourceDictionary Source="Controls/TextBoxes.xaml" />
+                <ResourceDictionary Source="Controls/TextBox.xaml" />
                 <ResourceDictionary Source="Controls/CheckBox.xaml" />
                 <ResourceDictionary Source="Controls/RadioButton.xaml" />
                 <ResourceDictionary Source="Controls/ToggleButton.xaml" />
+                <ResourceDictionary Source="Controls/ComboBox.xaml" />
                 <ResourceDictionary Source="Controls/GalleryCard.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

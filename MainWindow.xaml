@@ -99,6 +99,7 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="0">
+                        <!-- Buttons card -->
                         <Border Style="{StaticResource GalleryCard}">
                             <StackPanel>
                                 <TextBlock Text="Buttons"
@@ -135,6 +136,7 @@
                             </StackPanel>
                         </Border>
 
+                        <!-- CheckBox card -->
                         <Border Style="{StaticResource GalleryCard}">
                             <StackPanel>
                                 <TextBlock Text="CheckBox"
@@ -160,6 +162,7 @@
                             </StackPanel>
                         </Border>
 
+                        <!-- ToggleButton card -->
                         <Border Style="{StaticResource GalleryCard}">
                             <StackPanel>
                                 <TextBlock Text="ToggleButton"
@@ -181,9 +184,43 @@
                                               IsEnabled="False"/>
                             </StackPanel>
                         </Border>
+
+                        <!-- ComboBox card -->
+                        <Border Style="{StaticResource GalleryCard}">
+                            <StackPanel>
+                                <TextBlock Text="ComboBox"
+                                           Style="{StaticResource GallerySectionTitleText}"/>
+
+                                <TextBlock Text="Default selection"
+                                           Style="{StaticResource GalleryLabelText}"/>
+                                <ComboBox Style="{StaticResource NebulaComboBox}"
+                                          Width="300"
+                                          SelectedIndex="0"
+                                          HorizontalAlignment="Left">
+                                    <ComboBoxItem Content="Nebula Dark Purple"/>
+                                    <ComboBoxItem Content="Midnight Gray"/>
+                                    <ComboBoxItem Content="Soft Violet"/>
+                                    <ComboBoxItem Content="Disabled option"
+                                                  IsEnabled="False"/>
+                                </ComboBox>
+
+                                <TextBlock Text="Disabled state"
+                                           Style="{StaticResource GalleryLabelText}"
+                                           Margin="0,18,0,6"/>
+                                <ComboBox Style="{StaticResource NebulaComboBox}"
+                                          Width="300"
+                                          SelectedIndex="0"
+                                          IsEnabled="False"
+                                          HorizontalAlignment="Left">
+                                    <ComboBoxItem Content="Locked theme"/>
+                                    <ComboBoxItem Content="Unavailable theme"/>
+                                </ComboBox>
+                            </StackPanel>
+                        </Border>
                     </StackPanel>
 
                     <StackPanel Grid.Column="1">
+                        <!-- Text inputs card -->
                         <Border Style="{StaticResource GalleryCard}">
                             <StackPanel>
                                 <TextBlock Text="Text inputs"
@@ -241,6 +278,7 @@
                             </StackPanel>
                         </Border>
 
+                        <!-- RadioButton card -->
                         <Border Style="{StaticResource GalleryCard}">
                             <StackPanel>
                                 <TextBlock Text="RadioButton"
@@ -265,6 +303,7 @@
                     </StackPanel>
                 </Grid>
 
+                <!-- Component state color card -->
                 <Border Grid.Row="2"
                         Background="{DynamicResource Brush.Surface}"
                         BorderBrush="{DynamicResource Brush.Border}"
