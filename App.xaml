@@ -9,14 +9,14 @@
                 <ResourceDictionary Source="Themes/DarkPurple/Colors.xaml" />
                 <ResourceDictionary Source="Themes/DarkPurple/Brushes.xaml" />
                 <ResourceDictionary Source="Themes/DarkPurple/Typography.xaml" />
-                <ResourceDictionary Source="Controls/PasswordBox.xaml" />
-                <ResourceDictionary Source="Controls/Buttons.xaml" />
-                <ResourceDictionary Source="Controls/TextBox.xaml" />
-                <ResourceDictionary Source="Controls/CheckBox.xaml" />
-                <ResourceDictionary Source="Controls/RadioButton.xaml" />
-                <ResourceDictionary Source="Controls/ToggleButton.xaml" />
-                <ResourceDictionary Source="Controls/ComboBox.xaml" />
-                <ResourceDictionary Source="Controls/GalleryCard.xaml" />
+                <ResourceDictionary Source="Controls/NebulaPasswordBox.xaml" />
+                <ResourceDictionary Source="Controls/NebulaButtons.xaml" />
+                <ResourceDictionary Source="Controls/NebulaTextBox.xaml" />
+                <ResourceDictionary Source="Controls/NebulaCheckBox.xaml" />
+                <ResourceDictionary Source="Controls/NebulaRadioButton.xaml" />
+                <ResourceDictionary Source="Controls/NebulaToggleButton.xaml" />
+                <ResourceDictionary Source="Controls/NebulaComboBox.xaml" />
+                <ResourceDictionary Source="Controls/NebulaGalleryCard.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

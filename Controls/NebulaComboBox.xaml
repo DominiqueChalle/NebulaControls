@@ -1,5 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:NebulaUI.Controls">
 
     <Style x:Key="NebulaComboBoxItem" TargetType="ComboBoxItem">
         <Setter Property="Foreground" Value="{DynamicResource Brush.TextPrimary}"/>
@@ -11,7 +12,7 @@
                 <ControlTemplate TargetType="ComboBoxItem">
                     <Border x:Name="ItemBorder"
                             Background="{TemplateBinding Background}"
-                            CornerRadius="4"
+                            CornerRadius="6"
                             Padding="{TemplateBinding Padding}">
                         <ContentPresenter/>
                     </Border>
@@ -45,7 +46,7 @@
 
     <Style x:Key="NebulaComboBox"
            BasedOn="{StaticResource Typography.Text.Primary}"
-           TargetType="ComboBox">
+           TargetType="controls:NebulaComboBox">
 
         <Setter Property="Foreground" Value="{DynamicResource Brush.TextPrimary}"/>
         <Setter Property="Background" Value="{DynamicResource Brush.Background}"/>
@@ -53,11 +54,14 @@
         <Setter Property="BorderThickness" Value="0,0,0,2"/>
         <Setter Property="Padding" Value="10,6"/>
         <Setter Property="MinHeight" Value="34"/>
+        <Setter Property="IsTextSearchEnabled" Value="True"/>
+        <Setter Property="IsTextSearchCaseSensitive" Value="False"/>
+        <Setter Property="StaysOpenOnEdit" Value="True"/>
         <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
         <Setter Property="ItemContainerStyle" Value="{StaticResource NebulaComboBoxItem}"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="ComboBox">
+                <ControlTemplate TargetType="controls:NebulaComboBox">
                     <Grid>
                         <Border x:Name="Border"
                                 Background="{TemplateBinding Background}"
@@ -79,6 +83,19 @@
                                                   ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}"
                                                   ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"/>
 
+                                <TextBox x:Name="PART_EditableTextBox"
+                                         Margin="{TemplateBinding Padding}"
+                                         HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                         VerticalAlignment="Center"
+                                         Background="Transparent"
+                                         BorderThickness="0"
+                                         CaretBrush="{DynamicResource Brush.Accent}"
+                                         Foreground="{TemplateBinding Foreground}"
+                                         IsReadOnly="{TemplateBinding IsReadOnly}"
+                                         SelectionBrush="{DynamicResource Brush.AccentHover}"
+                                         SelectionOpacity="0.5"
+                                         Visibility="Collapsed"/>
+
                                 <Path x:Name="Arrow"
                                       Grid.Column="1"
                                       Width="10"
@@ -91,7 +108,8 @@
                             </Grid>
                         </Border>
 
-                        <ToggleButton Focusable="False"
+                        <ToggleButton x:Name="DropDownToggle"
+                                      Focusable="False"
                                       IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                       ClickMode="Press"
                                       Background="Transparent">
@@ -112,7 +130,7 @@
                                   MaxHeight="{TemplateBinding MaxDropDownHeight}">
                                 <Border Background="{DynamicResource Brush.Surface}"
                                         BorderBrush="{DynamicResource Brush.AccentBorder}"
-                                        BorderThickness="1"
+                                        BorderThickness="2"
                                         CornerRadius="6"
                                         Margin="0,4,0,0"
                                         Padding="4">
@@ -129,6 +147,21 @@
                             <Setter TargetName="PART_Popup"
                                     Property="MinHeight"
                                     Value="34"/>
+                        </Trigger>
+
+                        <Trigger Property="IsEditable" Value="True">
+                            <Setter TargetName="ContentSite"
+                                    Property="Visibility"
+                                    Value="Collapsed"/>
+                            <Setter TargetName="PART_EditableTextBox"
+                                    Property="Visibility"
+                                    Value="Visible"/>
+                            <Setter TargetName="DropDownToggle"
+                                    Property="Width"
+                                    Value="32"/>
+                            <Setter TargetName="DropDownToggle"
+                                    Property="HorizontalAlignment"
+                                    Value="Right"/>
                         </Trigger>
 
                         <Trigger Property="IsMouseOver" Value="True">

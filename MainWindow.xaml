@@ -44,6 +44,10 @@
 
     </Window.Resources>
 
+    <!-- ============================================================================================= -->
+    <!-- Header                                                                                        -->
+    <!-- ============================================================================================= -->
+
     <Border Background="{DynamicResource Brush.Background}">
         <ScrollViewer VerticalScrollBarVisibility="Auto"
                       HorizontalScrollBarVisibility="Disabled">
@@ -92,15 +96,24 @@
                     </Border>
                 </Grid>
 
+                <!-- ============================================================================================= -->
+                <!-- Gallery                                                                                       -->
+                <!-- ============================================================================================= -->
+
+
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
+
                     <StackPanel Grid.Column="0">
-                        <!-- Buttons card -->
-                        <Border Style="{StaticResource GalleryCard}">
+
+                        <!-- ================================================== -->
+                        <!-- Buttons                                            -->
+                        <!-- ================================================== -->
+                        <Border Style="{StaticResource NebulaGalleryCard}">
                             <StackPanel>
                                 <TextBlock Text="Buttons"
                                            Style="{StaticResource GallerySectionTitleText}"/>
@@ -136,34 +149,38 @@
                             </StackPanel>
                         </Border>
 
-                        <!-- CheckBox card -->
-                        <Border Style="{StaticResource GalleryCard}">
+                        <!-- ==================================================== -->
+                        <!-- CheckBox                                             -->
+                        <!-- ==================================================== -->
+                        <Border Style="{StaticResource NebulaGalleryCard}">
                             <StackPanel>
                                 <TextBlock Text="CheckBox"
                                            Style="{StaticResource GallerySectionTitleText}"/>
 
                                 <CheckBox Content="Unchecked option"
-                                          Style="{StaticResource NebulaSimpleCheckBox}"
+                                          Style="{StaticResource NebulaCheckBox}"
                                           Margin="0,0,0,12"
                                           IsChecked="False"/>
                                 <CheckBox Content="Checked option"
-                                          Style="{StaticResource NebulaSimpleCheckBox}"
+                                          Style="{StaticResource NebulaCheckBox}"
                                           Margin="0,0,0,12"
                                           IsChecked="True"/>
                                 <CheckBox Content="Indeterminate option"
-                                          Style="{StaticResource NebulaSimpleCheckBox}"
+                                          Style="{StaticResource NebulaCheckBox}"
                                           Margin="0,0,0,12"
                                           IsThreeState="True"
                                           IsChecked="{x:Null}"/>
                                 <CheckBox Content="Disabled option"
-                                          Style="{StaticResource NebulaSimpleCheckBox}"
+                                          Style="{StaticResource NebulaCheckBox}"
                                           IsChecked="True"
                                           IsEnabled="False"/>
                             </StackPanel>
                         </Border>
 
-                        <!-- ToggleButton card -->
-                        <Border Style="{StaticResource GalleryCard}">
+                        <!-- ================================================== -->
+                        <!-- ToggleButton                                       -->
+                        <!-- ================================================== -->
+                        <Border Style="{StaticResource NebulaGalleryCard}">
                             <StackPanel>
                                 <TextBlock Text="ToggleButton"
                                            Style="{StaticResource GallerySectionTitleText}"/>
@@ -185,50 +202,56 @@
                             </StackPanel>
                         </Border>
 
-                        <!-- ComboBox card -->
-                        <Border Style="{StaticResource GalleryCard}">
+                        <!-- ================================================== -->
+                        <!-- ComboBox                                           -->
+                        <!-- ================================================== -->
+                        <Border Style="{StaticResource NebulaGalleryCard}">
                             <StackPanel>
                                 <TextBlock Text="ComboBox"
                                            Style="{StaticResource GallerySectionTitleText}"/>
 
                                 <TextBlock Text="Default selection"
                                            Style="{StaticResource GalleryLabelText}"/>
-                                <ComboBox Style="{StaticResource NebulaComboBox}"
-                                          Width="300"
-                                          SelectedIndex="0"
-                                          HorizontalAlignment="Left">
+                                <controls:NebulaComboBox Style="{StaticResource NebulaComboBox}"
+                                                         Width="300"
+                                                         IsEditable="False"
+                                                         SelectedIndex="0"
+                                                         HorizontalAlignment="Left">
                                     <ComboBoxItem Content="Nebula Dark Purple"/>
                                     <ComboBoxItem Content="Midnight Gray"/>
                                     <ComboBoxItem Content="Soft Violet"/>
                                     <ComboBoxItem Content="Disabled option"
                                                   IsEnabled="False"/>
-                                </ComboBox>
+                                </controls:NebulaComboBox>
 
                                 <TextBlock Text="Disabled state"
                                            Style="{StaticResource GalleryLabelText}"
                                            Margin="0,18,0,6"/>
-                                <ComboBox Style="{StaticResource NebulaComboBox}"
-                                          Width="300"
-                                          SelectedIndex="0"
-                                          IsEnabled="False"
-                                          HorizontalAlignment="Left">
+                                <controls:NebulaComboBox Style="{StaticResource NebulaComboBox}"
+                                                         Width="300"
+                                                         SelectedIndex="0"
+                                                         IsEnabled="False"
+                                                         HorizontalAlignment="Left">
                                     <ComboBoxItem Content="Locked theme"/>
                                     <ComboBoxItem Content="Unavailable theme"/>
-                                </ComboBox>
+                                </controls:NebulaComboBox>
                             </StackPanel>
                         </Border>
                     </StackPanel>
 
                     <StackPanel Grid.Column="1">
-                        <!-- Text inputs card -->
-                        <Border Style="{StaticResource GalleryCard}">
+
+                        <!-- ================================================== -->
+                        <!-- Text inputs                                        -->
+                        <!-- ================================================== -->
+                        <Border Style="{StaticResource NebulaGalleryCard}">
                             <StackPanel>
                                 <TextBlock Text="Text inputs"
                                            Style="{StaticResource GallerySectionTitleText}"/>
 
                                 <TextBlock Text="TextBox"
                                            Style="{StaticResource GalleryLabelText}"/>
-                                <TextBox Style="{StaticResource NebulaBaseTextBox}"
+                                <TextBox Style="{StaticResource NebulaTextBox}"
                                          Text="Nebula text value"
                                          Width="300"
                                          HorizontalAlignment="Left"/>
@@ -262,15 +285,22 @@
                                 <TextBlock Text="PasswordBox"
                                            Style="{StaticResource GalleryLabelText}"
                                            Margin="0,18,0,6"/>
-                                <PasswordBox Style="{StaticResource NebulaBasePasswordBox}"
+                                <PasswordBox Style="{StaticResource NebulaPasswordBox}"
                                              Password="nebula"
                                              Width="300"
                                              HorizontalAlignment="Left"/>
 
+                                <controls:NebulaLabeledPasswordBox Style="{StaticResource NebulaLabeledPasswordBox}"
+                                                                   Label="Password"
+                                                                   Password="nebula"
+                                                                   Width="300"
+                                                                   Margin="0,12,0,0"
+                                                                   HorizontalAlignment="Left"/>
+
                                 <TextBlock Text="Readonly sample"
                                            Style="{StaticResource GalleryLabelText}"
                                            Margin="0,18,0,6"/>
-                                <TextBox Style="{StaticResource NebulaBaseTextBox}"
+                                <TextBox Style="{StaticResource NebulaTextBox}"
                                          Text="Locked field"
                                          Width="300"
                                          HorizontalAlignment="Left"
@@ -278,24 +308,26 @@
                             </StackPanel>
                         </Border>
 
-                        <!-- RadioButton card -->
-                        <Border Style="{StaticResource GalleryCard}">
+                        <!-- ================================================== -->
+                        <!-- RadioButton                                        -->
+                        <!-- ================================================== -->
+                        <Border Style="{StaticResource NebulaGalleryCard}">
                             <StackPanel>
                                 <TextBlock Text="RadioButton"
                                            Style="{StaticResource GallerySectionTitleText}"/>
 
                                 <RadioButton Content="First choice"
                                              GroupName="GalleryChoice"
-                                             Style="{StaticResource NebulaSimpleRadioButton}"
+                                             Style="{StaticResource NebulaRadioButton}"
                                              Margin="0,0,0,12"
                                              IsChecked="True"/>
                                 <RadioButton Content="Second choice"
                                              GroupName="GalleryChoice"
-                                             Style="{StaticResource NebulaSimpleRadioButton}"
+                                             Style="{StaticResource NebulaRadioButton}"
                                              Margin="0,0,0,12"/>
                                 <RadioButton Content="Disabled choice"
                                              GroupName="GalleryChoiceDisabled"
-                                             Style="{StaticResource NebulaSimpleRadioButton}"
+                                             Style="{StaticResource NebulaRadioButton}"
                                              IsChecked="True"
                                              IsEnabled="False"/>
                             </StackPanel>
@@ -303,7 +335,9 @@
                     </StackPanel>
                 </Grid>
 
-                <!-- Component state color card -->
+                <!-- ================================================== -->
+                <!-- Component state color                              -->
+                <!-- ================================================== -->
                 <Border Grid.Row="2"
                         Background="{DynamicResource Brush.Surface}"
                         BorderBrush="{DynamicResource Brush.Border}"

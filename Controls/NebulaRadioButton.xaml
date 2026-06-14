@@ -16,7 +16,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="NebulaSimpleRadioButton" TargetType="RadioButton" BasedOn="{StaticResource Typography.Text.Primary}">
+    <Style x:Key="NebulaRadioButton" TargetType="RadioButton" BasedOn="{StaticResource Typography.Text.Primary}">
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="FocusVisualStyle" Value="{StaticResource NebulaRadioButtonFocusVisual}"/>
