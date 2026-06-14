@@ -1,0 +1,126 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="NebulaScrollBarPageButton"
+           TargetType="RepeatButton">
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RepeatButton">
+                    <Border Background="Transparent"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="NebulaScrollBarThumb"
+           TargetType="Thumb">
+        <Setter Property="Background" Value="{DynamicResource Brush.Border}"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Thumb">
+                    <Border x:Name="ThumbBorder"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="4"/>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ThumbBorder"
+                                    Property="Background"
+                                    Value="{DynamicResource Brush.BorderHover}"/>
+                        </Trigger>
+
+                        <Trigger Property="IsDragging" Value="True">
+                            <Setter TargetName="ThumbBorder"
+                                    Property="Background"
+                                    Value="{DynamicResource Brush.BorderReadOnly}"/>
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="ThumbBorder"
+                                    Property="Background"
+                                    Value="{DynamicResource Brush.BorderDisabled}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="NebulaScrollBar"
+           TargetType="ScrollBar">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{DynamicResource Brush.Border}"/>
+        <Setter Property="Width" Value="10"/>
+        <Setter Property="MinWidth" Value="10"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ScrollBar">
+                    <Grid x:Name="Root"
+                          Width="{TemplateBinding Width}"
+                          Background="{TemplateBinding Background}"
+                          SnapsToDevicePixels="True">
+                        <Border x:Name="TrackBackground"
+                                Width="8"
+                                HorizontalAlignment="Center"
+                                Background="{DynamicResource Brush.Surface}"
+                                CornerRadius="4"
+                                Opacity="0.55"/>
+
+                        <Track x:Name="PART_Track"
+                               IsDirectionReversed="True">
+                            <Track.DecreaseRepeatButton>
+                                <RepeatButton Command="ScrollBar.PageUpCommand"
+                                              Style="{StaticResource NebulaScrollBarPageButton}"/>
+                            </Track.DecreaseRepeatButton>
+                            <Track.Thumb>
+                                <Thumb Style="{StaticResource NebulaScrollBarThumb}"
+                                       Margin="1"/>
+                            </Track.Thumb>
+                            <Track.IncreaseRepeatButton>
+                                <RepeatButton Command="ScrollBar.PageDownCommand"
+                                              Style="{StaticResource NebulaScrollBarPageButton}"/>
+                            </Track.IncreaseRepeatButton>
+                        </Track>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Orientation" Value="Horizontal">
+                            <Setter Property="Width" Value="Auto"/>
+                            <Setter Property="MinWidth" Value="0"/>
+                            <Setter Property="Height" Value="10"/>
+                            <Setter Property="MinHeight" Value="10"/>
+                            <Setter TargetName="Root" Property="Width" Value="Auto"/>
+                            <Setter TargetName="Root" Property="Height" Value="{Binding Height, RelativeSource={RelativeSource TemplatedParent}}"/>
+                            <Setter TargetName="TrackBackground" Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"/>
+                            <Setter TargetName="TrackBackground" Property="Height" Value="8"/>
+                            <Setter TargetName="TrackBackground" Property="VerticalAlignment" Value="Center"/>
+                            <Setter TargetName="PART_Track" Property="IsDirectionReversed" Value="False"/>
+                        </Trigger>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="TrackBackground"
+                                    Property="Opacity"
+                                    Value="0.8"/>
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="TrackBackground"
+                                    Property="Background"
+                                    Value="{DynamicResource Brush.SurfaceDisabled}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource NebulaScrollBar}"
+           TargetType="ScrollBar"/>
+
+</ResourceDictionary>

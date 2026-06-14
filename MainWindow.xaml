@@ -3,33 +3,44 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:NebulaUI"
         xmlns:controls="clr-namespace:NebulaUI.Controls"
+        xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
         mc:Ignorable="d"
         Title="NebulaUI Demo Gallery"
         Height="820"
         Width="1180"
         MinHeight="680"
         MinWidth="980"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="CanResize"
+        Background="Transparent">
+
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome CaptionHeight="0"
+                            CornerRadius="12"
+                            GlassFrameThickness="0"
+                            ResizeBorderThickness="6"
+                            UseAeroCaptionButtons="False"/>
+    </shell:WindowChrome.WindowChrome>
 
     <Window.Resources>
         <Style x:Key="GalleryTitleText" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Segoe UI"/>
-            <Setter Property="FontSize" Value="28"/>
+            <Setter Property="FontSize" Value="26"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="Foreground" Value="{DynamicResource Brush.TextPrimary}"/>
         </Style>
 
         <Style x:Key="GallerySubtitleText" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Segoe UI"/>
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontSize" Value="13"/>
             <Setter Property="Foreground" Value="{DynamicResource Brush.TextSecondary}"/>
         </Style>
 
         <Style x:Key="GallerySectionTitleText" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Segoe UI"/>
-            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontSize" Value="17"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="Foreground" Value="{DynamicResource Brush.TextPrimary}"/>
             <Setter Property="Margin" Value="0,0,0,14"/>
@@ -42,372 +53,904 @@
             <Setter Property="Margin" Value="0,0,0,6"/>
         </Style>
 
+        <Style x:Key="GalleryMetricText" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Foreground" Value="{DynamicResource Brush.TextMuted}"/>
+        </Style>
+
+        <Style x:Key="GalleryCard" TargetType="Border">
+            <Setter Property="Background" Value="{DynamicResource Brush.Surface}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource Brush.Border}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="0,0,18,18"/>
+        </Style>
+
+        <Style x:Key="GalleryNavItem" TargetType="Border">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="12,9"/>
+            <Setter Property="Margin" Value="0,0,0,6"/>
+        </Style>
+
+        <Style x:Key="GalleryWindowButton" TargetType="Button">
+            <Setter Property="Width" Value="42"/>
+            <Setter Property="Height" Value="34"/>
+            <Setter Property="Margin" Value="4,0,0,0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Foreground" Value="{DynamicResource Brush.TextSecondary}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="ButtonBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="7">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource Brush.SurfaceHover}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource Brush.TextPrimary}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource Brush.SurfaceActive}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="GalleryCloseButton"
+               BasedOn="{StaticResource GalleryWindowButton}"
+               TargetType="Button">
+            <Setter Property="Foreground" Value="{DynamicResource Brush.TextSecondary}"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="{DynamicResource Brush.TextPrimary}"/>
+                    <Setter Property="Background" Value="{DynamicResource Brush.Danger}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
 
-    <!-- ============================================================================================= -->
-    <!-- Header                                                                                        -->
-    <!-- ============================================================================================= -->
+    <Border x:Name="MainChrome"
+            Background="{DynamicResource Brush.Background}"
+            BorderBrush="{DynamicResource Brush.Border}"
+            BorderThickness="1"
+            CornerRadius="12"
+            SnapsToDevicePixels="True">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="58"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-    <Border Background="{DynamicResource Brush.Background}">
-        <ScrollViewer VerticalScrollBarVisibility="Auto"
-                      HorizontalScrollBarVisibility="Disabled">
-            <Grid Margin="28">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
+            <Grid x:Name="TitleBar"
+                  Grid.Row="0"
+                  Background="{DynamicResource Brush.Surface}"
+                  MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-                <Grid Grid.Row="0" Margin="0,0,0,26">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-
-                    <StackPanel HorizontalAlignment="Center"
-                                Grid.ColumnSpan="2">
-                        <TextBlock Text="Welcome to NebulaUI!"
-                                   Style="{StaticResource GalleryTitleText}"
-                                   HorizontalAlignment="Center"/>
-                        <TextBlock Text="Experience the beauty of WPF with NebulaUI's Dark Purple theme."
-                                   Style="{StaticResource GallerySubtitleText}"
-                                   Margin="0,8,0,0"
-                                   HorizontalAlignment="Center"/>
-                    </StackPanel>
-
-                    <Border Grid.Column="1"
-                            Background="{DynamicResource Brush.Surface}"
-                            BorderBrush="{DynamicResource Brush.Border}"
-                            BorderThickness="1"
-                            CornerRadius="8"
-                            Padding="16,10"
+                <StackPanel Orientation="Horizontal"
                             VerticalAlignment="Center"
-                            HorizontalAlignment="Right">
-                        <StackPanel Orientation="Horizontal">
-                            <Ellipse Width="10"
-                                     Height="10"
-                                     Fill="{DynamicResource Brush.Accent}"
-                                     Margin="0,0,8,0"/>
-                            <TextBlock Text="Dark Purple"
-                                       Foreground="{DynamicResource Brush.TextSecondary}"
-                                       FontSize="13"
-                                       VerticalAlignment="Center"/>
-                        </StackPanel>
+                            Margin="18,0,0,0">
+                    <Border Width="30"
+                            Height="30"
+                            CornerRadius="8"
+                            Background="{DynamicResource Brush.AccentDisabled}"
+                            BorderBrush="{DynamicResource Brush.AccentBorder}"
+                            BorderThickness="1">
+                        <TextBlock Text="N"
+                                   Foreground="{DynamicResource Brush.AccentBorder}"
+                                   FontSize="15"
+                                   FontWeight="SemiBold"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
                     </Border>
-                </Grid>
-
-                <!-- ============================================================================================= -->
-                <!-- Gallery                                                                                       -->
-                <!-- ============================================================================================= -->
-
-
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-
-                    <StackPanel Grid.Column="0">
-
-                        <!-- ================================================== -->
-                        <!-- Buttons                                            -->
-                        <!-- ================================================== -->
-                        <Border Style="{StaticResource NebulaGalleryCard}">
-                            <StackPanel>
-                                <TextBlock Text="Buttons"
-                                           Style="{StaticResource GallerySectionTitleText}"/>
-
-                                <TextBlock Text="Primary and secondary actions"
-                                           Style="{StaticResource GalleryLabelText}"/>
-                                <WrapPanel Margin="-10,0,0,0">
-                                    <Button Content="Primary"
-                                            Style="{StaticResource NebulaPrimaryButton}"
-                                            MinWidth="132"
-                                            Height="44"/>
-                                    <Button Content="Secondary"
-                                            Style="{StaticResource NebulaSecondaryButton}"
-                                            MinWidth="132"
-                                            Height="44"/>
-                                </WrapPanel>
-
-                                <TextBlock Text="Disabled states"
-                                           Style="{StaticResource GalleryLabelText}"
-                                           Margin="0,22,0,6"/>
-                                <WrapPanel Margin="-10,0,0,0">
-                                    <Button Content="Primary"
-                                            Style="{StaticResource NebulaPrimaryButton}"
-                                            MinWidth="132"
-                                            Height="44"
-                                            IsEnabled="False"/>
-                                    <Button Content="Secondary"
-                                            Style="{StaticResource NebulaSecondaryButton}"
-                                            MinWidth="132"
-                                            Height="44"
-                                            IsEnabled="False"/>
-                                </WrapPanel>
-                            </StackPanel>
-                        </Border>
-
-                        <!-- ==================================================== -->
-                        <!-- CheckBox                                             -->
-                        <!-- ==================================================== -->
-                        <Border Style="{StaticResource NebulaGalleryCard}">
-                            <StackPanel>
-                                <TextBlock Text="CheckBox"
-                                           Style="{StaticResource GallerySectionTitleText}"/>
-
-                                <CheckBox Content="Unchecked option"
-                                          Style="{StaticResource NebulaCheckBox}"
-                                          Margin="0,0,0,12"
-                                          IsChecked="False"/>
-                                <CheckBox Content="Checked option"
-                                          Style="{StaticResource NebulaCheckBox}"
-                                          Margin="0,0,0,12"
-                                          IsChecked="True"/>
-                                <CheckBox Content="Indeterminate option"
-                                          Style="{StaticResource NebulaCheckBox}"
-                                          Margin="0,0,0,12"
-                                          IsThreeState="True"
-                                          IsChecked="{x:Null}"/>
-                                <CheckBox Content="Disabled option"
-                                          Style="{StaticResource NebulaCheckBox}"
-                                          IsChecked="True"
-                                          IsEnabled="False"/>
-                            </StackPanel>
-                        </Border>
-
-                        <!-- ================================================== -->
-                        <!-- ToggleButton                                       -->
-                        <!-- ================================================== -->
-                        <Border Style="{StaticResource NebulaGalleryCard}">
-                            <StackPanel>
-                                <TextBlock Text="ToggleButton"
-                                           Style="{StaticResource GallerySectionTitleText}"/>
-
-                                <ToggleButton Content="Inactive setting"
-                                              Style="{StaticResource NebulaToggleButton}"
-                                              Margin="0,0,0,14"
-                                              IsChecked="False"/>
-
-                                <ToggleButton Content="Active setting"
-                                              Style="{StaticResource NebulaToggleButton}"
-                                              Margin="0,0,0,14"
-                                              IsChecked="True"/>
-
-                                <ToggleButton Content="Disabled setting"
-                                              Style="{StaticResource NebulaToggleButton}"
-                                              IsChecked="True"
-                                              IsEnabled="False"/>
-                            </StackPanel>
-                        </Border>
-
-                        <!-- ================================================== -->
-                        <!-- ComboBox                                           -->
-                        <!-- ================================================== -->
-                        <Border Style="{StaticResource NebulaGalleryCard}">
-                            <StackPanel>
-                                <TextBlock Text="ComboBox"
-                                           Style="{StaticResource GallerySectionTitleText}"/>
-
-                                <TextBlock Text="Default selection"
-                                           Style="{StaticResource GalleryLabelText}"/>
-                                <controls:NebulaComboBox Style="{StaticResource NebulaComboBox}"
-                                                         Width="300"
-                                                         IsEditable="False"
-                                                         SelectedIndex="0"
-                                                         HorizontalAlignment="Left">
-                                    <ComboBoxItem Content="Nebula Dark Purple"/>
-                                    <ComboBoxItem Content="Midnight Gray"/>
-                                    <ComboBoxItem Content="Soft Violet"/>
-                                    <ComboBoxItem Content="Disabled option"
-                                                  IsEnabled="False"/>
-                                </controls:NebulaComboBox>
-
-                                <TextBlock Text="Disabled state"
-                                           Style="{StaticResource GalleryLabelText}"
-                                           Margin="0,18,0,6"/>
-                                <controls:NebulaComboBox Style="{StaticResource NebulaComboBox}"
-                                                         Width="300"
-                                                         SelectedIndex="0"
-                                                         IsEnabled="False"
-                                                         HorizontalAlignment="Left">
-                                    <ComboBoxItem Content="Locked theme"/>
-                                    <ComboBoxItem Content="Unavailable theme"/>
-                                </controls:NebulaComboBox>
-                            </StackPanel>
-                        </Border>
+                    <StackPanel Margin="12,0,0,0"
+                                VerticalAlignment="Center">
+                        <TextBlock Text="NebulaUI"
+                                   Foreground="{DynamicResource Brush.TextPrimary}"
+                                   FontSize="15"
+                                   FontWeight="SemiBold"/>
+                        <TextBlock Text="Professional WPF control gallery"
+                                   Foreground="{DynamicResource Brush.TextMuted}"
+                                   FontSize="11"/>
                     </StackPanel>
+                </StackPanel>
 
-                    <StackPanel Grid.Column="1">
-
-                        <!-- ================================================== -->
-                        <!-- Text inputs                                        -->
-                        <!-- ================================================== -->
-                        <Border Style="{StaticResource NebulaGalleryCard}">
-                            <StackPanel>
-                                <TextBlock Text="Text inputs"
-                                           Style="{StaticResource GallerySectionTitleText}"/>
-
-                                <TextBlock Text="TextBox"
-                                           Style="{StaticResource GalleryLabelText}"/>
-                                <TextBox Style="{StaticResource NebulaTextBox}"
-                                         Text="Nebula text value"
-                                         Width="300"
-                                         HorizontalAlignment="Left"/>
-
-                                <TextBlock Text="TextBox with integrated label"
-                                           Style="{StaticResource GalleryLabelText}"
-                                           Margin="0,18,0,6"/>
-
-                                <controls:NebulaTextBox Style="{StaticResource NebulaLabeledTextBox}"
-                                                        Label="Test Username"
-                                                        Text="domin"
-                                                        Width="300"
-                                                        HorizontalAlignment="Left"/>
-
-                                <controls:NebulaTextBox Style="{StaticResource NebulaLabeledTextBox}"
-                                                        Label="Email: "
-                                                        LabelPlacement="Left"
-                                                        Text="hello@nebula.ui"
-                                                        Width="300"
-                                                        Margin="0,12,0,0"
-                                                        HorizontalAlignment="Left"/>
-
-                                <controls:NebulaTextBox Style="{StaticResource NebulaLabeledTextBox}"
-                                                        Label="Disabled TextBox"
-                                                        Text="NebulaLabeledTextBox"
-                                                        Width="300"
-                                                        Margin="0,12,0,0"
-                                                        HorizontalAlignment="Left"
-                                                        IsEnabled="False"/>
-
-                                <TextBlock Text="PasswordBox"
-                                           Style="{StaticResource GalleryLabelText}"
-                                           Margin="0,18,0,6"/>
-                                <PasswordBox Style="{StaticResource NebulaPasswordBox}"
-                                             Password="nebula"
-                                             Width="300"
-                                             HorizontalAlignment="Left"/>
-
-                                <controls:NebulaLabeledPasswordBox Style="{StaticResource NebulaLabeledPasswordBox}"
-                                                                   Label="Password"
-                                                                   Password="nebula"
-                                                                   Width="300"
-                                                                   Margin="0,12,0,0"
-                                                                   HorizontalAlignment="Left"/>
-
-                                <TextBlock Text="Readonly sample"
-                                           Style="{StaticResource GalleryLabelText}"
-                                           Margin="0,18,0,6"/>
-                                <TextBox Style="{StaticResource NebulaTextBox}"
-                                         Text="Locked field"
-                                         Width="300"
-                                         HorizontalAlignment="Left"
-                                         IsReadOnly="True"/>
-                            </StackPanel>
-                        </Border>
-
-                        <!-- ================================================== -->
-                        <!-- RadioButton                                        -->
-                        <!-- ================================================== -->
-                        <Border Style="{StaticResource NebulaGalleryCard}">
-                            <StackPanel>
-                                <TextBlock Text="RadioButton"
-                                           Style="{StaticResource GallerySectionTitleText}"/>
-
-                                <RadioButton Content="First choice"
-                                             GroupName="GalleryChoice"
-                                             Style="{StaticResource NebulaRadioButton}"
-                                             Margin="0,0,0,12"
-                                             IsChecked="True"/>
-                                <RadioButton Content="Second choice"
-                                             GroupName="GalleryChoice"
-                                             Style="{StaticResource NebulaRadioButton}"
-                                             Margin="0,0,0,12"/>
-                                <RadioButton Content="Disabled choice"
-                                             GroupName="GalleryChoiceDisabled"
-                                             Style="{StaticResource NebulaRadioButton}"
-                                             IsChecked="True"
-                                             IsEnabled="False"/>
-                            </StackPanel>
-                        </Border>
-                    </StackPanel>
-                </Grid>
-
-                <!-- ================================================== -->
-                <!-- Component state color                              -->
-                <!-- ================================================== -->
-                <Border Grid.Row="2"
-                        Background="{DynamicResource Brush.Surface}"
+                <Border Grid.Column="1"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Background="{DynamicResource Brush.Background}"
                         BorderBrush="{DynamicResource Brush.Border}"
                         BorderThickness="1"
                         CornerRadius="8"
-                        Padding="22"
-                        Margin="0,6,18,0">
+                        Padding="14,8">
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Width="8"
+                                 Height="8"
+                                 Fill="{DynamicResource Brush.Success}"
+                                 Margin="0,0,8,0"/>
+                        <TextBlock Text="Dark Purple theme active"
+                                   Foreground="{DynamicResource Brush.TextSecondary}"
+                                   FontSize="12"/>
+                    </StackPanel>
+                </Border>
+
+                <StackPanel Grid.Column="2"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Center"
+                            Margin="0,0,12,0"
+                            shell:WindowChrome.IsHitTestVisibleInChrome="True">
+                    <Button Style="{StaticResource GalleryWindowButton}"
+                            Click="MinimizeButton_Click">
+                        <Path Width="14"
+                              Height="2"
+                              Data="M 0 1 L 14 1"
+                              Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
+                              StrokeThickness="2"
+                              StrokeStartLineCap="Round"
+                              StrokeEndLineCap="Round"
+                              Stretch="Fill"/>
+                    </Button>
+                    <Button x:Name="MaximizeRestoreButton"
+                            Style="{StaticResource GalleryWindowButton}"
+                            Click="MaximizeRestoreButton_Click">
+                        <Grid Width="16"
+                              Height="16">
+                            <Path x:Name="MaximizeIcon"
+                                  Data="M 2 2 H 14 V 14 H 2 Z"
+                                  Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
+                                  StrokeThickness="1.8"
+                                  StrokeLineJoin="Round"
+                                  Fill="Transparent"
+                                  Stretch="Fill"/>
+                            <Grid x:Name="RestoreIcon"
+                                  Visibility="Collapsed">
+                                <Path Data="M 5 2 H 14 V 11"
+                                      Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
+                                      StrokeThickness="1.7"
+                                      StrokeLineJoin="Round"
+                                      Fill="Transparent"
+                                      Stretch="Fill"/>
+                                <Path Data="M 2 5 H 11 V 14 H 2 Z"
+                                      Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
+                                      StrokeThickness="1.7"
+                                      StrokeLineJoin="Round"
+                                      Fill="Transparent"
+                                      Stretch="Fill"/>
+                            </Grid>
+                        </Grid>
+                    </Button>
+                    <Button Style="{StaticResource GalleryCloseButton}"
+                            Click="CloseButton_Click">
+                        <Path Width="14"
+                              Height="14"
+                              Data="M 2 2 L 12 12 M 12 2 L 2 12"
+                              Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
+                              StrokeThickness="2"
+                              StrokeStartLineCap="Round"
+                              StrokeEndLineCap="Round"
+                              Stretch="Fill"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="236"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0"
+                        Background="{DynamicResource Brush.Background}"
+                        BorderBrush="{DynamicResource Brush.Border}"
+                        BorderThickness="0,1,1,0"
+                        Padding="18">
                     <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
 
                         <StackPanel>
-                            <TextBlock Text="Component states"
-                                       Style="{StaticResource GallerySectionTitleText}"/>
-                            <TextBlock Text="Use this window as a living preview while building new NebulaUI controls."
-                                       Style="{StaticResource GallerySubtitleText}"/>
+                            <TextBlock Text="Gallery"
+                                       Foreground="{DynamicResource Brush.TextPrimary}"
+                                       FontSize="18"
+                                       FontWeight="SemiBold"
+                                       Margin="0,0,0,4"/>
+                            <TextBlock Text="Browse the current NebulaUI surface and component states."
+                                       Foreground="{DynamicResource Brush.TextMuted}"
+                                       FontSize="12"
+                                       TextWrapping="Wrap"/>
                         </StackPanel>
 
-                        <WrapPanel Grid.Column="1"
-                                   Margin="28,0,0,0"
-                                   VerticalAlignment="Center">
-                            <Border Background="{DynamicResource Brush.Success}"
-                                    CornerRadius="4"
-                                    Width="72"
-                                    Height="34"
-                                    Margin="0,0,8,0">
-                                <TextBlock Text="Success"
+                        <StackPanel Grid.Row="1"
+                                    Margin="0,24,0,0">
+                            <Border Style="{StaticResource GalleryNavItem}"
+                                    Background="{DynamicResource Brush.SurfaceActive}"
+                                    BorderBrush="{DynamicResource Brush.AccentBorder}"
+                                    BorderThickness="1">
+                                <TextBlock Text="Controls"
                                            Foreground="{DynamicResource Brush.TextPrimary}"
-                                           FontSize="12"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"/>
+                                           FontWeight="SemiBold"/>
                             </Border>
-                            <Border Background="{DynamicResource Brush.Warning}"
-                                    CornerRadius="4"
-                                    Width="72"
-                                    Height="34"
-                                    Margin="0,0,8,0">
-                                <TextBlock Text="Warning"
-                                           Foreground="{DynamicResource Brush.Background}"
-                                           FontSize="12"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"/>
+                            <Border Style="{StaticResource GalleryNavItem}">
+                                <TextBlock Text="Inputs"
+                                           Foreground="{DynamicResource Brush.TextSecondary}"/>
                             </Border>
-                            <Border Background="{DynamicResource Brush.Danger}"
-                                    CornerRadius="4"
-                                    Width="72"
-                                    Height="34"
-                                    Margin="0,0,8,0">
-                                <TextBlock Text="Danger"
+                            <Border Style="{StaticResource GalleryNavItem}">
+                                <TextBlock Text="Selection"
+                                           Foreground="{DynamicResource Brush.TextSecondary}"/>
+                            </Border>
+                            <Border Style="{StaticResource GalleryNavItem}">
+                                <TextBlock Text="States"
+                                           Foreground="{DynamicResource Brush.TextSecondary}"/>
+                            </Border>
+                        </StackPanel>
+
+                        <Border Grid.Row="2"
+                                Background="{DynamicResource Brush.Surface}"
+                                BorderBrush="{DynamicResource Brush.Border}"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Padding="14">
+                            <StackPanel>
+                                <TextBlock Text="Theme"
+                                           Style="{StaticResource GalleryMetricText}"/>
+                                <TextBlock Text="Dark Purple"
                                            Foreground="{DynamicResource Brush.TextPrimary}"
-                                           FontSize="12"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"/>
-                            </Border>
-                            <Border Background="{DynamicResource Brush.Info}"
-                                    CornerRadius="4"
-                                    Width="72"
-                                    Height="34">
-                                <TextBlock Text="Info"
-                                           Foreground="{DynamicResource Brush.TextPrimary}"
-                                           FontSize="12"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"/>
-                            </Border>
-                        </WrapPanel>
+                                           FontWeight="SemiBold"
+                                           Margin="0,4,0,10"/>
+                                <TextBlock Text="15 controls · 4 state colors"
+                                           Style="{StaticResource GalleryMetricText}"/>
+                            </StackPanel>
+                        </Border>
                     </Grid>
                 </Border>
+
+                <ScrollViewer Grid.Column="1"
+                              VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Disabled">
+                    <Grid Margin="28">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0"
+                              Margin="0,0,0,24">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel>
+                                <TextBlock Text="Control Gallery"
+                                           Style="{StaticResource GalleryTitleText}"/>
+                                <TextBlock Text="A focused preview surface for NebulaUI components, interaction states, and theme resources."
+                                           Style="{StaticResource GallerySubtitleText}"
+                                           Margin="0,7,0,0"/>
+                            </StackPanel>
+
+                            <WrapPanel Grid.Column="1"
+                                       VerticalAlignment="Center"
+                                       Margin="24,0,0,0">
+                                <Border Background="{DynamicResource Brush.Surface}"
+                                        BorderBrush="{DynamicResource Brush.Border}"
+                                        BorderThickness="1"
+                                        CornerRadius="8"
+                                        Padding="14,9"
+                                        Margin="0,0,8,0">
+                                    <TextBlock Text="WPF"
+                                               Foreground="{DynamicResource Brush.TextSecondary}"
+                                               FontSize="12"
+                                               FontWeight="SemiBold"/>
+                                </Border>
+                                <Border Background="{DynamicResource Brush.Surface}"
+                                        BorderBrush="{DynamicResource Brush.Border}"
+                                        BorderThickness="1"
+                                        CornerRadius="8"
+                                        Padding="14,9">
+                                    <TextBlock Text="Nebula"
+                                               Foreground="{DynamicResource Brush.AccentBorder}"
+                                               FontSize="12"
+                                               FontWeight="SemiBold"/>
+                                </Border>
+                            </WrapPanel>
+                        </Grid>
+
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0">
+                                <Border Style="{StaticResource GalleryCard}">
+                                    <StackPanel>
+                                        <TextBlock Text="Buttons"
+                                                   Style="{StaticResource GallerySectionTitleText}"/>
+
+                                        <TextBlock Text="Primary and secondary actions"
+                                                   Style="{StaticResource GalleryLabelText}"/>
+                                        <WrapPanel Margin="-10,0,0,0">
+                                            <Button Content="Primary"
+                                                    Style="{StaticResource NebulaPrimaryButton}"
+                                                    MinWidth="132"
+                                                    Height="44"/>
+                                            <Button Content="Secondary"
+                                                    Style="{StaticResource NebulaSecondaryButton}"
+                                                    MinWidth="132"
+                                                    Height="44"/>
+                                        </WrapPanel>
+
+                                        <TextBlock Text="Disabled states"
+                                                   Style="{StaticResource GalleryLabelText}"
+                                                   Margin="0,22,0,6"/>
+                                        <WrapPanel Margin="-10,0,0,0">
+                                            <Button Content="Primary"
+                                                    Style="{StaticResource NebulaPrimaryButton}"
+                                                    MinWidth="132"
+                                                    Height="44"
+                                                    IsEnabled="False"/>
+                                            <Button Content="Secondary"
+                                                    Style="{StaticResource NebulaSecondaryButton}"
+                                                    MinWidth="132"
+                                                    Height="44"
+                                                    IsEnabled="False"/>
+                                        </WrapPanel>
+                                    </StackPanel>
+                                </Border>
+
+                                <Border Style="{StaticResource GalleryCard}">
+                                    <StackPanel>
+                                        <TextBlock Text="Selection"
+                                                   Style="{StaticResource GallerySectionTitleText}"/>
+
+                                        <CheckBox Content="Unchecked option"
+                                                  Style="{StaticResource NebulaCheckBox}"
+                                                  Margin="0,0,0,12"
+                                                  IsChecked="False"/>
+                                        <CheckBox Content="Checked option"
+                                                  Style="{StaticResource NebulaCheckBox}"
+                                                  Margin="0,0,0,12"
+                                                  IsChecked="True"/>
+                                        <CheckBox Content="Indeterminate option"
+                                                  Style="{StaticResource NebulaCheckBox}"
+                                                  Margin="0,0,0,18"
+                                                  IsThreeState="True"
+                                                  IsChecked="{x:Null}"/>
+
+                                        <RadioButton Content="First choice"
+                                                     GroupName="GalleryChoice"
+                                                     Style="{StaticResource NebulaRadioButton}"
+                                                     Margin="0,0,0,12"
+                                                     IsChecked="True"/>
+                                        <RadioButton Content="Second choice"
+                                                     GroupName="GalleryChoice"
+                                                     Style="{StaticResource NebulaRadioButton}"
+                                                     Margin="0,0,0,12"/>
+                                        <RadioButton Content="Disabled choice"
+                                                     GroupName="GalleryChoiceDisabled"
+                                                     Style="{StaticResource NebulaRadioButton}"
+                                                     IsChecked="True"
+                                                     IsEnabled="False"/>
+                                    </StackPanel>
+                                </Border>
+
+                                <Border Style="{StaticResource GalleryCard}">
+                                    <StackPanel>
+                                        <TextBlock Text="ListBox"
+                                                   Style="{StaticResource GallerySectionTitleText}"/>
+
+                                        <TextBlock Text="Single selection"
+                                                   Style="{StaticResource GalleryLabelText}"/>
+                                        <controls:NebulaListBox Style="{StaticResource NebulaListBox}"
+                                                                Width="300"
+                                                                Height="152"
+                                                                SelectedIndex="1"
+                                                                HorizontalAlignment="Left">
+                                            <ListBoxItem Content="Nebula Dark Purple"/>
+                                            <ListBoxItem Content="Midnight Gray"/>
+                                            <ListBoxItem Content="Soft Violet"/>
+                                            <ListBoxItem Content="Disabled option"
+                                                         IsEnabled="False"/>
+                                        </controls:NebulaListBox>
+
+                                        <TextBlock Text="Multiple selection"
+                                                   Style="{StaticResource GalleryLabelText}"
+                                                   Margin="0,18,0,6"/>
+                                        <controls:NebulaListBox Style="{StaticResource NebulaListBox}"
+                                                                Width="300"
+                                                                Height="126"
+                                                                SelectionMode="Extended"
+                                                                HorizontalAlignment="Left">
+                                            <ListBoxItem Content="Primary panel"
+                                                         IsSelected="True"/>
+                                            <ListBoxItem Content="Secondary panel"/>
+                                            <ListBoxItem Content="Inspector panel"
+                                                         IsSelected="True"/>
+                                        </controls:NebulaListBox>
+                                    </StackPanel>
+                                </Border>
+
+                                <Border Style="{StaticResource GalleryCard}">
+                                    <StackPanel>
+                                        <TextBlock Text="TabControl"
+                                                   Style="{StaticResource GallerySectionTitleText}"/>
+
+                                        <TextBlock Text="Top tabs"
+                                                   Style="{StaticResource GalleryLabelText}"/>
+                                        <controls:NebulaTabControl Style="{StaticResource NebulaTabControl}"
+                                                                   Width="382"
+                                                                   Height="170"
+                                                                   HorizontalAlignment="Left">
+                                            <controls:NebulaTabItem Header="Overview">
+                                                <StackPanel>
+                                                    <TextBlock Text="Overview"
+                                                               Foreground="{DynamicResource Brush.TextPrimary}"
+                                                               FontWeight="SemiBold"/>
+                                                    <TextBlock Text="Compact content surface with a selected tab and subdued inactive states."
+                                                               Foreground="{DynamicResource Brush.TextSecondary}"
+                                                               TextWrapping="Wrap"
+                                                               Margin="0,8,0,0"/>
+                                                </StackPanel>
+                                            </controls:NebulaTabItem>
+                                            <controls:NebulaTabItem Header="Details">
+                                                <StackPanel>
+                                                    <TextBlock Text="Details"
+                                                               Foreground="{DynamicResource Brush.TextPrimary}"
+                                                               FontWeight="SemiBold"/>
+                                                    <TextBlock Text="Tab content keeps the same Nebula surface and border language."
+                                                               Foreground="{DynamicResource Brush.TextSecondary}"
+                                                               TextWrapping="Wrap"
+                                                               Margin="0,8,0,0"/>
+                                                </StackPanel>
+                                            </controls:NebulaTabItem>
+                                            <controls:NebulaTabItem Header="Disabled"
+                                                                    IsEnabled="False"/>
+                                        </controls:NebulaTabControl>
+
+                                        <TextBlock Text="Left tabs"
+                                                   Style="{StaticResource GalleryLabelText}"
+                                                   Margin="0,18,0,6"/>
+                                        <controls:NebulaTabControl Style="{StaticResource NebulaTabControl}"
+                                                                   Width="382"
+                                                                   Height="170"
+                                                                   TabStripPlacement="Left"
+                                                                   HorizontalAlignment="Left">
+                                            <controls:NebulaTabItem Header="General">
+                                                <TextBlock Text="Left navigation works well for settings and inspector panels."
+                                                           Foreground="{DynamicResource Brush.TextSecondary}"
+                                                           TextWrapping="Wrap"/>
+                                            </controls:NebulaTabItem>
+                                            <controls:NebulaTabItem Header="Advanced">
+                                                <TextBlock Text="The selected tab remains calm, with border emphasis instead of heavy color."
+                                                           Foreground="{DynamicResource Brush.TextSecondary}"
+                                                           TextWrapping="Wrap"/>
+                                            </controls:NebulaTabItem>
+                                            <controls:NebulaTabItem Header="Locked"
+                                                                    IsEnabled="False"/>
+                                        </controls:NebulaTabControl>
+                                    </StackPanel>
+                                </Border>
+
+                                <Border Style="{StaticResource GalleryCard}">
+                                    <StackPanel>
+                                        <TextBlock Text="DataGrid"
+                                                   Style="{StaticResource GallerySectionTitleText}"/>
+
+                                        <TextBlock Text="Read-only selection"
+                                                   Style="{StaticResource GalleryLabelText}"/>
+                                        <controls:NebulaDataGrid Style="{StaticResource NebulaDataGrid}"
+                                                                 Width="382"
+                                                                 Height="214"
+                                                                 ItemsSource="{Binding GalleryRows, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                                 SelectedIndex="1"
+                                                                 HorizontalAlignment="Left">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Component"
+                                                                    Binding="{Binding Component}"
+                                                                    Width="*"/>
+                                                <DataGridTextColumn Header="Status"
+                                                                    Binding="{Binding Status}"
+                                                                    Width="104"/>
+                                                <DataGridTextColumn Header="Category"
+                                                                    Binding="{Binding Category}"
+                                                                    Width="110"/>
+                                            </DataGrid.Columns>
+                                        </controls:NebulaDataGrid>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1">
+                                <Border Style="{StaticResource GalleryCard}">
+                                    <StackPanel>
+                                        <TextBlock Text="Text Inputs"
+                                                   Style="{StaticResource GallerySectionTitleText}"/>
+
+                                        <TextBlock Text="TextBox"
+                                                   Style="{StaticResource GalleryLabelText}"/>
+                                        <TextBox Style="{StaticResource NebulaTextBox}"
+                                                 Text="Nebula text value"
+                                                 Width="300"
+                                                 HorizontalAlignment="Left"/>
+
+                                        <TextBlock Text="TextBox with integrated label"
+                                                   Style="{StaticResource GalleryLabelText}"
+                                                   Margin="0,18,0,6"/>
+                                        <controls:NebulaTextBox Style="{StaticResource NebulaLabeledTextBox}"
+                                                                Label="Username"
+                                                                Text="domin"
+                                                                Width="300"
+                                                                HorizontalAlignment="Left"/>
+
+                                        <controls:NebulaTextBox Style="{StaticResource NebulaLabeledTextBox}"
+                                                                Label="Email"
+                                                                LabelPlacement="Left"
+                                                                Text="hello@nebula.ui"
+                                                                Width="300"
+                                                                Margin="0,12,0,0"
+                                                                HorizontalAlignment="Left"/>
+
+                                        <controls:NebulaTextBox Style="{StaticResource NebulaLabeledTextBox}"
+                                                                Label="Disabled TextBox"
+                                                                Text="NebulaLabeledTextBox"
+                                                                Width="300"
+                                                                Margin="0,12,0,0"
+                                                                HorizontalAlignment="Left"
+                                                                IsEnabled="False"/>
+
+                                        <TextBlock Text="PasswordBox"
+                                                   Style="{StaticResource GalleryLabelText}"
+                                                   Margin="0,18,0,6"/>
+                                        <PasswordBox Style="{StaticResource NebulaPasswordBox}"
+                                                     Password="nebula"
+                                                     Width="300"
+                                                     HorizontalAlignment="Left"/>
+
+                                        <controls:NebulaLabeledPasswordBox Style="{StaticResource NebulaLabeledPasswordBox}"
+                                                                           Label="Password"
+                                                                           Password="nebula"
+                                                                           Width="300"
+                                                                           Margin="0,12,0,0"
+                                                                           HorizontalAlignment="Left"/>
+                                    </StackPanel>
+                                </Border>
+
+                                <Border Style="{StaticResource GalleryCard}">
+                                    <StackPanel>
+                                        <TextBlock Text="Choice Inputs"
+                                                   Style="{StaticResource GallerySectionTitleText}"/>
+
+                                        <TextBlock Text="ComboBox"
+                                                   Style="{StaticResource GalleryLabelText}"/>
+                                        <controls:NebulaComboBox Style="{StaticResource NebulaComboBox}"
+                                                                 Width="300"
+                                                                 IsEditable="False"
+                                                                 SelectedIndex="0"
+                                                                 HorizontalAlignment="Left">
+                                            <ComboBoxItem Content="Nebula Dark Purple"/>
+                                            <ComboBoxItem Content="Midnight Gray"/>
+                                            <ComboBoxItem Content="Soft Violet"/>
+                                            <ComboBoxItem Content="Disabled option"
+                                                          IsEnabled="False"/>
+                                        </controls:NebulaComboBox>
+
+                                        <TextBlock Text="ToggleButton"
+                                                   Style="{StaticResource GalleryLabelText}"
+                                                   Margin="0,22,0,8"/>
+                                        <ToggleButton Content="Inactive setting"
+                                                      Style="{StaticResource NebulaToggleButton}"
+                                                      Margin="0,0,0,14"
+                                                      IsChecked="False"/>
+                                        <ToggleButton Content="Active setting"
+                                                      Style="{StaticResource NebulaToggleButton}"
+                                                      Margin="0,0,0,14"
+                                                      IsChecked="True"/>
+                                        <ToggleButton Content="Disabled setting"
+                                                      Style="{StaticResource NebulaToggleButton}"
+                                                      IsChecked="True"
+                                                      IsEnabled="False"/>
+                                    </StackPanel>
+                                </Border>
+
+                                <Border Style="{StaticResource GalleryCard}">
+                                    <StackPanel>
+                                        <TextBlock Text="Slider"
+                                                   Style="{StaticResource GallerySectionTitleText}"/>
+
+                                        <TextBlock Text="Horizontal"
+                                                   Style="{StaticResource GalleryLabelText}"/>
+                                        <controls:NebulaSlider Style="{StaticResource NebulaSlider}"
+                                                               Width="300"
+                                                               Minimum="0"
+                                                               Maximum="100"
+                                                               Value="42"
+                                                               HorizontalAlignment="Left"/>
+
+                                        <TextBlock Text="With ticks"
+                                                   Style="{StaticResource GalleryLabelText}"
+                                                   Margin="0,18,0,6"/>
+                                        <controls:NebulaSlider Style="{StaticResource NebulaSlider}"
+                                                               Width="300"
+                                                               Minimum="0"
+                                                               Maximum="10"
+                                                               Value="6"
+                                                               TickFrequency="1"
+                                                               TickPlacement="BottomRight"
+                                                               IsSnapToTickEnabled="True"
+                                                               HorizontalAlignment="Left"/>
+
+                                        <TextBlock Text="Vertical"
+                                                   Style="{StaticResource GalleryLabelText}"
+                                                   Margin="0,18,0,8"/>
+                                        <StackPanel Orientation="Horizontal"
+                                                    Height="150">
+                                            <controls:NebulaSlider Style="{StaticResource NebulaSlider}"
+                                                                   Height="140"
+                                                                   Minimum="0"
+                                                                   Maximum="100"
+                                                                   Value="62"
+                                                                   Orientation="Vertical"
+                                                                   Margin="0,0,28,0"/>
+                                            <controls:NebulaSlider Style="{StaticResource NebulaSlider}"
+                                                                   Height="140"
+                                                                   Minimum="0"
+                                                                   Maximum="10"
+                                                                   Value="4"
+                                                                   TickFrequency="1"
+                                                                   TickPlacement="Both"
+                                                                   IsSnapToTickEnabled="True"
+                                                                   Orientation="Vertical"/>
+                                        </StackPanel>
+
+                                        <TextBlock Text="Disabled"
+                                                   Style="{StaticResource GalleryLabelText}"
+                                                   Margin="0,18,0,6"/>
+                                        <controls:NebulaSlider Style="{StaticResource NebulaSlider}"
+                                                               Width="300"
+                                                               Minimum="0"
+                                                               Maximum="100"
+                                                               Value="54"
+                                                               IsEnabled="False"
+                                                               HorizontalAlignment="Left"/>
+                                    </StackPanel>
+                                </Border>
+
+                                <Border Style="{StaticResource GalleryCard}">
+                                    <StackPanel>
+                                        <TextBlock Text="Progress"
+                                                   Style="{StaticResource GallerySectionTitleText}"/>
+
+                                        <TextBlock Text="Determinate"
+                                                   Style="{StaticResource GalleryLabelText}"/>
+                                        <controls:NebulaProgressBar Style="{StaticResource NebulaProgressBar}"
+                                                                    Width="300"
+                                                                    Height="16"
+                                                                    Value="38"
+                                                                    HorizontalAlignment="Left"/>
+
+                                        <TextBlock Text="Almost complete"
+                                                   Style="{StaticResource GalleryLabelText}"
+                                                   Margin="0,18,0,6"/>
+                                        <controls:NebulaProgressBar Style="{StaticResource NebulaProgressBar}"
+                                                                    Width="300"
+                                                                    Height="16"
+                                                                    Value="78"
+                                                                    HorizontalAlignment="Left"/>
+
+                                        <TextBlock Text="Indeterminate"
+                                                   Style="{StaticResource GalleryLabelText}"
+                                                   Margin="0,18,0,6"/>
+                                        <controls:NebulaProgressBar Style="{StaticResource NebulaProgressBar}"
+                                                                    Width="300"
+                                                                    Height="16"
+                                                                    IsIndeterminate="True"
+                                                                    HorizontalAlignment="Left"/>
+
+                                        <TextBlock Text="Disabled"
+                                                   Style="{StaticResource GalleryLabelText}"
+                                                   Margin="0,18,0,6"/>
+                                        <controls:NebulaProgressBar Style="{StaticResource NebulaProgressBar}"
+                                                                    Width="300"
+                                                                    Height="16"
+                                                                    Value="52"
+                                                                    IsEnabled="False"
+                                                                    HorizontalAlignment="Left"/>
+                                    </StackPanel>
+                                </Border>
+
+                                <Border Style="{StaticResource GalleryCard}">
+                                    <StackPanel>
+                                        <TextBlock Text="Expander"
+                                                   Style="{StaticResource GallerySectionTitleText}"/>
+
+                                        <controls:NebulaExpander Header="Advanced settings"
+                                                                 Style="{StaticResource NebulaExpander}"
+                                                                 Width="300"
+                                                                 HorizontalAlignment="Left">
+                                            <StackPanel>
+                                                <CheckBox Content="Enable diagnostic logs"
+                                                          Style="{StaticResource NebulaCheckBox}"
+                                                          Margin="0,0,0,10"/>
+                                                <CheckBox Content="Show verbose output"
+                                                          Style="{StaticResource NebulaCheckBox}"/>
+                                            </StackPanel>
+                                        </controls:NebulaExpander>
+
+                                        <controls:NebulaExpander Header="Expanded details"
+                                                                 Style="{StaticResource NebulaExpander}"
+                                                                 Width="300"
+                                                                 Margin="0,12,0,0"
+                                                                 IsExpanded="True"
+                                                                 HorizontalAlignment="Left">
+                                            <TextBlock Text="Expanded content uses the same quiet surface language and a subtle divider."
+                                                       Foreground="{DynamicResource Brush.TextSecondary}"
+                                                       TextWrapping="Wrap"/>
+                                        </controls:NebulaExpander>
+
+                                        <controls:NebulaExpander Header="Disabled section"
+                                                                 Style="{StaticResource NebulaExpander}"
+                                                                 Width="300"
+                                                                 Margin="0,12,0,0"
+                                                                 IsEnabled="False"
+                                                                 HorizontalAlignment="Left">
+                                            <TextBlock Text="Unavailable content"
+                                                       Foreground="{DynamicResource Brush.TextDisabled}"/>
+                                        </controls:NebulaExpander>
+                                    </StackPanel>
+                                </Border>
+
+                                <Border Style="{StaticResource GalleryCard}">
+                                    <StackPanel>
+                                        <TextBlock Text="ToolTip"
+                                                   Style="{StaticResource GallerySectionTitleText}"/>
+
+                                        <TextBlock Text="Native tooltip"
+                                                   Style="{StaticResource GalleryLabelText}"/>
+                                        <Button Content="Hover for help"
+                                                Style="{StaticResource NebulaSecondaryButton}"
+                                                MinWidth="156"
+                                                Height="40"
+                                                HorizontalAlignment="Left"
+                                                ToolTip="A native WPF ToolTip styled globally by Nebula."/>
+
+                                        <TextBlock Text="Rich tooltip"
+                                                   Style="{StaticResource GalleryLabelText}"
+                                                   Margin="0,18,0,6"/>
+                                        <Button Content="Inspect details"
+                                                Style="{StaticResource NebulaSecondaryButton}"
+                                                MinWidth="156"
+                                                Height="40"
+                                                HorizontalAlignment="Left">
+                                            <Button.ToolTip>
+                                                <controls:NebulaToolTip Style="{StaticResource NebulaToolTip}">
+                                                    <StackPanel>
+                                                        <TextBlock Text="Nebula tooltip"
+                                                                   Foreground="{DynamicResource Brush.TextPrimary}"
+                                                                   FontWeight="SemiBold"/>
+                                                        <TextBlock Text="Supports richer content while keeping the same compact surface."
+                                                                   Foreground="{DynamicResource Brush.TextSecondary}"
+                                                                   TextWrapping="Wrap"
+                                                                   Margin="0,5,0,0"/>
+                                                    </StackPanel>
+                                                </controls:NebulaToolTip>
+                                            </Button.ToolTip>
+                                        </Button>
+                                    </StackPanel>
+                                </Border>
+
+                                <Border Style="{StaticResource GalleryCard}">
+                                    <StackPanel>
+                                        <TextBlock Text="Readonly"
+                                                   Style="{StaticResource GallerySectionTitleText}"/>
+                                        <TextBlock Text="Locked field"
+                                                   Style="{StaticResource GalleryLabelText}"/>
+                                        <TextBox Style="{StaticResource NebulaTextBox}"
+                                                 Text="Readonly sample"
+                                                 Width="300"
+                                                 HorizontalAlignment="Left"
+                                                 IsReadOnly="True"/>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </Grid>
+
+                        <Border Grid.Row="2"
+                                Background="{DynamicResource Brush.Surface}"
+                                BorderBrush="{DynamicResource Brush.Border}"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Padding="20"
+                                Margin="0,2,18,0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel>
+                                    <TextBlock Text="Component states"
+                                               Style="{StaticResource GallerySectionTitleText}"/>
+                                    <TextBlock Text="Reference colors for status and validation surfaces."
+                                               Style="{StaticResource GallerySubtitleText}"/>
+                                </StackPanel>
+
+                                <WrapPanel Grid.Column="1"
+                                           Margin="28,0,0,0"
+                                           VerticalAlignment="Center">
+                                    <Border Background="{DynamicResource Brush.Success}"
+                                            CornerRadius="5"
+                                            Width="76"
+                                            Height="34"
+                                            Margin="0,0,8,0">
+                                        <TextBlock Text="Success"
+                                                   Foreground="{DynamicResource Brush.TextPrimary}"
+                                                   FontSize="12"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Background="{DynamicResource Brush.Warning}"
+                                            CornerRadius="5"
+                                            Width="76"
+                                            Height="34"
+                                            Margin="0,0,8,0">
+                                        <TextBlock Text="Warning"
+                                                   Foreground="{DynamicResource Brush.Background}"
+                                                   FontSize="12"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Background="{DynamicResource Brush.Danger}"
+                                            CornerRadius="5"
+                                            Width="76"
+                                            Height="34"
+                                            Margin="0,0,8,0">
+                                        <TextBlock Text="Danger"
+                                                   Foreground="{DynamicResource Brush.TextPrimary}"
+                                                   FontSize="12"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Background="{DynamicResource Brush.Info}"
+                                            CornerRadius="5"
+                                            Width="76"
+                                            Height="34">
+                                        <TextBlock Text="Info"
+                                                   Foreground="{DynamicResource Brush.TextPrimary}"
+                                                   FontSize="12"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"/>
+                                    </Border>
+                                </WrapPanel>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </ScrollViewer>
             </Grid>
-        </ScrollViewer>
+        </Grid>
     </Border>
 </Window>

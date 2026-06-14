@@ -16,6 +16,14 @@
                 <ResourceDictionary Source="Controls/NebulaRadioButton.xaml" />
                 <ResourceDictionary Source="Controls/NebulaToggleButton.xaml" />
                 <ResourceDictionary Source="Controls/NebulaComboBox.xaml" />
+                <ResourceDictionary Source="Controls/NebulaScrollBar.xaml" />
+                <ResourceDictionary Source="Controls/NebulaListBox.xaml" />
+                <ResourceDictionary Source="Controls/NebulaProgressBar.xaml" />
+                <ResourceDictionary Source="Controls/NebulaSlider.xaml" />
+                <ResourceDictionary Source="Controls/NebulaTabControl.xaml" />
+                <ResourceDictionary Source="Controls/NebulaToolTip.xaml" />
+                <ResourceDictionary Source="Controls/NebulaExpander.xaml" />
+                <ResourceDictionary Source="Controls/NebulaDataGrid.xaml" />
                 <ResourceDictionary Source="Controls/NebulaGalleryCard.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
