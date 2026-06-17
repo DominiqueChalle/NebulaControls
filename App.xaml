@@ -22,8 +22,15 @@
                 <ResourceDictionary Source="Controls/NebulaSlider.xaml" />
                 <ResourceDictionary Source="Controls/NebulaTabControl.xaml" />
                 <ResourceDictionary Source="Controls/NebulaToolTip.xaml" />
+                <ResourceDictionary Source="Controls/NebulaContextMenu.xaml" />
+                <ResourceDictionary Source="Controls/NebulaMenu.xaml" />
+                <ResourceDictionary Source="Controls/NebulaTreeView.xaml" />
                 <ResourceDictionary Source="Controls/NebulaExpander.xaml" />
+                <ResourceDictionary Source="Controls/NebulaGroupBox.xaml" />
                 <ResourceDictionary Source="Controls/NebulaDataGrid.xaml" />
+                <ResourceDictionary Source="Controls/NebulaBadge.xaml" />
+                <ResourceDictionary Source="Controls/NebulaSpinner.xaml" />
+                <ResourceDictionary Source="Controls/NebulaAlert.xaml" />
                 <ResourceDictionary Source="Controls/NebulaGalleryCard.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

@@ -31,7 +31,7 @@
                                     Property="Background"
                                     Value="{DynamicResource Brush.SurfaceActive}"/>
                             <Setter Property="Foreground"
-                                    Value="{DynamicResource Brush.AccentBorder}"/>
+                                    Value="{DynamicResource Brush.BrandSoft}"/>
                         </Trigger>
 
                         <Trigger Property="IsEnabled" Value="False">
@@ -89,10 +89,10 @@
                                          VerticalAlignment="Center"
                                          Background="Transparent"
                                          BorderThickness="0"
-                                         CaretBrush="{DynamicResource Brush.Accent}"
+                                         CaretBrush="{DynamicResource Brush.Brand}"
                                          Foreground="{TemplateBinding Foreground}"
                                          IsReadOnly="{TemplateBinding IsReadOnly}"
-                                         SelectionBrush="{DynamicResource Brush.AccentHover}"
+                                         SelectionBrush="{DynamicResource Brush.BrandHover}"
                                          SelectionOpacity="0.5"
                                          Visibility="Collapsed"/>
 
@@ -129,7 +129,7 @@
                             <Grid MinWidth="{Binding ActualWidth, RelativeSource={RelativeSource TemplatedParent}}"
                                   MaxHeight="{TemplateBinding MaxDropDownHeight}">
                                 <Border Background="{DynamicResource Brush.Surface}"
-                                        BorderBrush="{DynamicResource Brush.AccentBorder}"
+                                        BorderBrush="{DynamicResource Brush.Brand}"
                                         BorderThickness="2"
                                         CornerRadius="6"
                                         Margin="0,4,0,0"
@@ -170,10 +170,10 @@
                                     Value="{DynamicResource Brush.SurfaceHover}"/>
                             <Setter TargetName="Border"
                                     Property="BorderBrush"
-                                    Value="{DynamicResource Brush.AccentBorder}"/>
+                                    Value="{DynamicResource Brush.Brand}"/>
                             <Setter TargetName="Arrow"
                                     Property="Fill"
-                                    Value="{DynamicResource Brush.AccentBorder}"/>
+                                    Value="{DynamicResource Brush.BrandSoft}"/>
                         </Trigger>
 
                         <Trigger Property="IsDropDownOpen" Value="True">
@@ -182,10 +182,10 @@
                                     Value="{DynamicResource Brush.SurfaceHover}"/>
                             <Setter TargetName="Border"
                                     Property="BorderBrush"
-                                    Value="{DynamicResource Brush.BorderFocus}"/>
+                                    Value="{DynamicResource Brush.BrandHover}"/>
                             <Setter TargetName="Arrow"
                                     Property="Fill"
-                                    Value="{DynamicResource Brush.AccentBorder}"/>
+                                    Value="{DynamicResource Brush.BrandSoft}"/>
                         </Trigger>
 
                         <Trigger Property="IsEnabled" Value="False">

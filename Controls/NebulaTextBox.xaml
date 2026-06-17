@@ -12,10 +12,10 @@
                 Value="{DynamicResource Brush.Border}"/>
 
         <Setter Property="SelectionBrush"
-                Value="{DynamicResource Brush.AccentHover}" />
+                Value="{DynamicResource Brush.BrandHover}" />
 
         <Setter Property="CaretBrush"
-                Value="{DynamicResource Brush.Accent}" />
+                Value="{DynamicResource Brush.Brand}" />
 
         <Setter Property="SelectionOpacity"
                 Value="0.5" />
@@ -58,7 +58,7 @@
 
                             <Setter TargetName="Border"
                                     Property="BorderBrush"
-                                    Value="{DynamicResource Brush.AccentBorder}"/>
+                                    Value="{DynamicResource Brush.Brand}"/>
 
                         </Trigger>
 
@@ -67,7 +67,7 @@
 
                             <Setter TargetName="Border"
                                     Property="BorderBrush"
-                                    Value="{DynamicResource Brush.BorderFocus}"/>
+                                    Value="{DynamicResource Brush.BrandHover}"/>
 
                             <Setter TargetName="Border"
                                     Property="BorderThickness"
@@ -157,7 +157,7 @@
 
                             <Setter TargetName="Border"
                                     Property="BorderBrush"
-                                    Value="{DynamicResource Brush.AccentBorder}"/>
+                                    Value="{DynamicResource Brush.Brand}"/>
 
                         </Trigger>
 
@@ -166,11 +166,11 @@
 
                             <Setter TargetName="Border"
                                     Property="BorderBrush"
-                                    Value="{DynamicResource Brush.BorderFocus}"/>
+                                    Value="{DynamicResource Brush.BrandHover}"/>
 
                             <Setter TargetName="LabelText"
                                     Property="Foreground"
-                                    Value="{DynamicResource Brush.AccentBorder}"/>
+                                    Value="{DynamicResource Brush.BrandSoft}"/>
 
                         </Trigger>
 

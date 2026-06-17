@@ -76,35 +76,40 @@
 
     <SolidColorBrush
         x:Key="Brush.DataGridSelection"
-        Color="{StaticResource Color.AccentDisabled}"
-        Opacity="0.30"/>
+        Color="{StaticResource Color.DataGridSelection}"
+        Opacity="0.55"/>
+
+    <SolidColorBrush
+        x:Key="Brush.BrandLight"
+        Color="{StaticResource Color.BrandLight}"/>
+
+    <SolidColorBrush
+        x:Key="Brush.BrandSoft"
+        Color="{StaticResource Color.BrandSoft}"/>
+
+    <SolidColorBrush
+        x:Key="Brush.BrandHover"
+        Color="{StaticResource Color.BrandHover}"/>
+
+    <SolidColorBrush
+        x:Key="Brush.Brand"
+        Color="{StaticResource Color.Brand}"/>
+
+    <SolidColorBrush
+        x:Key="Brush.BrandActive"
+        Color="{StaticResource Color.BrandActive}"/>
+
+    <SolidColorBrush
+        x:Key="Brush.BrandPressed"
+        Color="{StaticResource Color.BrandPressed}"/>
+
+    <SolidColorBrush
+        x:Key="Brush.BrandStrong"
+        Color="{StaticResource Color.BrandStrong}"/>
 
     <!-- ===================================================== -->
     <!-- Button Brushes                                        -->
     <!-- ===================================================== -->
-
-    <LinearGradientBrush x:Key="Brush.ButtonPrimaryBorder"
-                         StartPoint="0,0"
-                         EndPoint="1,1">
-        <GradientStop Color="{StaticResource Color.AccentPressed}" Offset="0"/>
-        <GradientStop Color="{StaticResource Color.Accent}" Offset="0.55"/>
-        <GradientStop Color="{StaticResource Color.AccentBorderHover}" Offset="1"/>
-    </LinearGradientBrush>
-
-    <LinearGradientBrush x:Key="Brush.ButtonPrimaryBorderHover"
-                         StartPoint="0,0"
-                         EndPoint="1,1">
-        <GradientStop Color="{StaticResource Color.Accent}" Offset="0"/>
-        <GradientStop Color="{StaticResource Color.AccentHover}" Offset="0.55"/>
-        <GradientStop Color="{StaticResource Color.AccentBorderHover}" Offset="1"/>
-    </LinearGradientBrush>
-
-    <LinearGradientBrush x:Key="Brush.ButtonPrimaryBorderPressed"
-                         StartPoint="0,0"
-                         EndPoint="1,1">
-        <GradientStop Color="{StaticResource Color.AccentPressed}" Offset="0"/>
-        <GradientStop Color="{StaticResource Color.AccentBorder}" Offset="1"/>
-    </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="Brush.ButtonSecondaryBorder"
                          StartPoint="0,0"

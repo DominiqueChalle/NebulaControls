@@ -43,19 +43,19 @@
                                     Value="{DynamicResource Brush.SurfaceHover}"/>
                             <Setter TargetName="Track"
                                     Property="BorderBrush"
-                                    Value="{DynamicResource Brush.AccentBorder}"/>
+                                    Value="{DynamicResource Brush.BorderHover}"/>
                         </Trigger>
 
                         <Trigger Property="IsChecked" Value="True">
                             <Setter TargetName="Track"
                                     Property="Background"
-                                    Value="{DynamicResource Brush.AccentDisabled}"/>
+                                    Value="{DynamicResource Brush.BrandStrong}"/>
                             <Setter TargetName="Track"
                                     Property="BorderBrush"
                                     Value="{DynamicResource Brush.Border}"/>
                             <Setter TargetName="Thumb"
                                     Property="Fill"
-                                    Value="{DynamicResource Brush.Accent}"/>
+                                    Value="{DynamicResource Brush.BrandSoft}"/>
                             <Setter TargetName="Thumb"
                                     Property="HorizontalAlignment"
                                     Value="Right"/>
@@ -68,13 +68,13 @@
                             </MultiTrigger.Conditions>
                             <Setter TargetName="Track"
                                     Property="BorderBrush"
-                                    Value="{DynamicResource Brush.AccentBorder}"/>
+                                    Value="{DynamicResource Brush.BrandHover}"/>
                         </MultiTrigger>
 
                         <Trigger Property="IsPressed" Value="True">
                             <Setter TargetName="Track"
                                     Property="Background"
-                                    Value="{DynamicResource Brush.AccentDisabled}"/>
+                                    Value="{DynamicResource Brush.Surface}"/>
                         </Trigger>
 
                         <MultiTrigger>
@@ -84,7 +84,7 @@
                             </MultiTrigger.Conditions>
                             <Setter TargetName="Track"
                                     Property="Background"
-                                    Value="{DynamicResource Brush.SurfaceActive}"/>
+                                    Value="{DynamicResource Brush.BrandPressed}"/>
                         </MultiTrigger>
 
                         <Trigger Property="IsEnabled" Value="False">

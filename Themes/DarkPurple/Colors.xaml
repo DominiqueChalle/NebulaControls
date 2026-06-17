@@ -47,31 +47,65 @@
     <!-- ===================================================== -->
 
     <Color x:Key="Color.Accent">
-        #9C6BFF
+        #8A72D6
     </Color>
 
     <Color x:Key="Color.AccentHover">
-        #B08AFF
+        #9A86E0
     </Color>
 
     <Color x:Key="Color.AccentPressed">
-        #8450F0
+        #715CB8
     </Color>
 
     <Color x:Key="Color.AccentDisabled">
-        #4C3B6D
+        #463D5F
     </Color>
 
     <Color x:Key="Color.AccentBorder">
-        #C7A9FF
+        #B8A8E6
     </Color>
 
     <Color x:Key="Color.AccentBorderHover">
-        #D9C7FF
+        #C8BBEF
     </Color>
 
     <Color x:Key="Color.AccentBorderDisabled">
-        #675486
+        #5E5478
+    </Color>
+
+    <Color x:Key="Color.DataGridSelection">
+        #5A4A78
+    </Color>
+
+    <!-- ........................................................... -->
+
+    <Color x:Key="Color.BrandLight">
+        #B8A9E8
+    </Color>
+
+    <Color x:Key="Color.BrandSoft">
+        #A895DE
+    </Color>
+
+    <Color x:Key="Color.BrandHover">
+        #987FD2
+    </Color>
+
+    <Color x:Key="Color.Brand">
+        #886BC4
+    </Color>
+
+    <Color x:Key="Color.BrandActive">
+        #7958B6
+    </Color>
+
+    <Color x:Key="Color.BrandPressed">
+        #6947A6
+    </Color>
+
+    <Color x:Key="Color.BrandStrong">
+        #5B3E91
     </Color>
 
     <!-- ===================================================== -->
@@ -107,7 +141,7 @@
     </Color>
 
     <Color x:Key="Color.BorderFocus">
-        #9C6BFF
+        #8A72D6
     </Color>
 
     <Color x:Key="Color.BorderDisabled">

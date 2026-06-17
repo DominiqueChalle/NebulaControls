@@ -77,10 +77,10 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="Foreground"
-                                    Value="{DynamicResource Brush.TextPrimary}"/>
+                                    Value="{DynamicResource Brush.BrandSoft}"/>
                             <Setter TargetName="CellBorder"
                                     Property="Background"
-                                    Value="{DynamicResource Brush.DataGridSelection}"/>
+                                    Value="{DynamicResource Brush.SurfaceActive}"/>
                         </Trigger>
 
                         <Trigger Property="IsEnabled" Value="False">
@@ -139,7 +139,7 @@
                         <Trigger Property="IsSelected" Value="True">
                             <Setter TargetName="RowBorder"
                                     Property="Background"
-                                    Value="{DynamicResource Brush.DataGridSelection}"/>
+                                    Value="{DynamicResource Brush.SurfaceActive}"/>
                         </Trigger>
 
                         <Trigger Property="IsEnabled" Value="False">
@@ -198,11 +198,10 @@
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="8"
+                            CornerRadius="4"
                             SnapsToDevicePixels="True">
                         <ScrollViewer x:Name="DG_ScrollViewer"
-                                      Focusable="False"
-                                      Margin="1">
+                                      Focusable="False">
                             <ScrollViewer.Template>
                                 <ControlTemplate TargetType="ScrollViewer">
                                     <Grid>
@@ -254,7 +253,7 @@
                         <Trigger Property="IsKeyboardFocusWithin" Value="True">
                             <Setter TargetName="OuterBorder"
                                     Property="BorderBrush"
-                                    Value="{DynamicResource Brush.BorderFocus}"/>
+                                    Value="{DynamicResource Brush.BorderHover}"/>
                         </Trigger>
 
                         <Trigger Property="IsEnabled" Value="False">

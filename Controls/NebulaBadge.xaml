@@ -1,0 +1,73 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:NebulaUI.Controls">
+
+    <Style x:Key="NebulaBadge"
+           BasedOn="{StaticResource Typography.Text.Primary}"
+           TargetType="controls:NebulaBadge">
+        <Setter Property="Background" Value="{DynamicResource Brush.SurfaceActive}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource Brush.Border}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Foreground" Value="{DynamicResource Brush.TextSecondary}"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Padding" Value="9,4"/>
+        <Setter Property="MinHeight" Value="24"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:NebulaBadge">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="6"
+                            Padding="{TemplateBinding Padding}"
+                            MinHeight="{TemplateBinding MinHeight}"
+                            SnapsToDevicePixels="True">
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          RecognizesAccessKey="True"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="NebulaPurpleBadge"
+           BasedOn="{StaticResource NebulaBadge}"
+           TargetType="controls:NebulaBadge">
+        <Setter Property="Background" Value="{DynamicResource Brush.SurfaceActive}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource Brush.Brand}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Brush.BrandSoft}"/>
+    </Style>
+
+    <Style x:Key="NebulaSuccessBadge"
+           BasedOn="{StaticResource NebulaBadge}"
+           TargetType="controls:NebulaBadge">
+        <Setter Property="BorderBrush" Value="{DynamicResource Brush.Success}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Brush.Success}"/>
+    </Style>
+
+    <Style x:Key="NebulaWarningBadge"
+           BasedOn="{StaticResource NebulaBadge}"
+           TargetType="controls:NebulaBadge">
+        <Setter Property="BorderBrush" Value="{DynamicResource Brush.Warning}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Brush.Warning}"/>
+    </Style>
+
+    <Style x:Key="NebulaDangerBadge"
+           BasedOn="{StaticResource NebulaBadge}"
+           TargetType="controls:NebulaBadge">
+        <Setter Property="BorderBrush" Value="{DynamicResource Brush.Danger}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Brush.Danger}"/>
+    </Style>
+
+    <Style x:Key="NebulaInfoBadge"
+           BasedOn="{StaticResource NebulaBadge}"
+           TargetType="controls:NebulaBadge">
+        <Setter Property="BorderBrush" Value="{DynamicResource Brush.Info}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Brush.Info}"/>
+    </Style>
+
+</ResourceDictionary>

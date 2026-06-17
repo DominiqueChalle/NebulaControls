@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using NebulaUI.Controls;
 
 namespace NebulaUI
 {
@@ -53,6 +54,75 @@ namespace NebulaUI
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void ShowInfoDialogButton_Click(object sender, RoutedEventArgs e)
+        {
+            ShowDialogDemo(
+                "Information",
+                "NebulaDialog Info",
+                "This dialog keeps the Nebula surface neutral while using a contextual rail and icon.",
+                NebulaDialogVariant.Info,
+                primaryButtonText: "Got it");
+        }
+
+        private void ShowWarningDialogButton_Click(object sender, RoutedEventArgs e)
+        {
+            ShowDialogDemo(
+                "Warning",
+                "Unsaved changes",
+                "Some settings have not been saved yet. Review them before leaving this surface.",
+                NebulaDialogVariant.Warning,
+                primaryButtonText: "Review",
+                secondaryButtonText: "Cancel");
+        }
+
+        private void ShowDangerDialogButton_Click(object sender, RoutedEventArgs e)
+        {
+            ShowDialogDemo(
+                "Danger",
+                "Delete component",
+                "This action cannot be undone. The dialog stays calm, but the context remains clear.",
+                NebulaDialogVariant.Danger,
+                primaryButtonText: "Delete",
+                secondaryButtonText: "Cancel");
+        }
+
+        private void ShowThreeButtonDialogButton_Click(object sender, RoutedEventArgs e)
+        {
+            ShowDialogDemo(
+                "Three-button dialog",
+                "Resolve pending action",
+                "A NebulaDialog can expose a tertiary action when a classic two-button result is not enough.",
+                NebulaDialogVariant.Success,
+                primaryButtonText: "Apply",
+                secondaryButtonText: "Cancel",
+                tertiaryButtonText: "Later");
+        }
+
+        private NebulaDialogResult ShowDialogDemo(
+            string title,
+            string dialogTitle,
+            string message,
+            NebulaDialogVariant variant,
+            string primaryButtonText,
+            string secondaryButtonText = "Cancel",
+            string? tertiaryButtonText = null)
+        {
+            var dialog = new NebulaDialog
+            {
+                Owner = this,
+                Title = title,
+                DialogTitle = dialogTitle,
+                Message = message,
+                Variant = variant,
+                PrimaryButtonText = primaryButtonText,
+                SecondaryButtonText = secondaryButtonText,
+                TertiaryButtonText = tertiaryButtonText
+            };
+
+            dialog.ShowDialog();
+            return dialog.Result;
         }
 
         private void ToggleWindowState()

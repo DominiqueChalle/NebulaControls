@@ -20,8 +20,8 @@
            TargetType="Thumb">
         <Setter Property="Width" Value="18"/>
         <Setter Property="Height" Value="18"/>
-        <Setter Property="Background" Value="{DynamicResource Brush.Accent}"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource Brush.AccentBorder}"/>
+        <Setter Property="Background" Value="{DynamicResource Brush.Brand}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource Brush.BrandSoft}"/>
         <Setter Property="BorderThickness" Value="2"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -36,16 +36,16 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="ThumbBorder"
                                     Property="Background"
-                                    Value="{DynamicResource Brush.AccentHover}"/>
+                                    Value="{DynamicResource Brush.BrandHover}"/>
                             <Setter TargetName="ThumbBorder"
                                     Property="BorderBrush"
-                                    Value="{DynamicResource Brush.AccentBorderHover}"/>
+                                    Value="{DynamicResource Brush.BrandLight}"/>
                         </Trigger>
 
                         <Trigger Property="IsDragging" Value="True">
                             <Setter TargetName="ThumbBorder"
                                     Property="Background"
-                                    Value="{DynamicResource Brush.AccentPressed}"/>
+                                    Value="{DynamicResource Brush.BrandPressed}"/>
                         </Trigger>
 
                         <Trigger Property="IsEnabled" Value="False">
@@ -254,7 +254,7 @@
 
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Foreground"
-                                    Value="{DynamicResource Brush.AccentDisabled}"/>
+                                    Value="{DynamicResource Brush.BorderReadOnly}"/>
                             <Setter Property="Background"
                                     Value="{DynamicResource Brush.SurfaceDisabled}"/>
                         </Trigger>

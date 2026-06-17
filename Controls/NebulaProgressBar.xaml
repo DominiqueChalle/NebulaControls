@@ -7,7 +7,7 @@
         <Setter Property="Background" Value="{DynamicResource Brush.Background}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource Brush.Border}"/>
         <Setter Property="BorderThickness" Value="2"/>
-        <Setter Property="Foreground" Value="{DynamicResource Brush.Accent}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Brush.Brand}"/>
         <Setter Property="MinHeight" Value="14"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -32,7 +32,7 @@
                             <Border x:Name="IndeterminateIndicator"
                                     Width="92"
                                     HorizontalAlignment="Left"
-                                    Background="{DynamicResource Brush.AccentHover}"
+                                    Background="{DynamicResource Brush.BrandHover}"
                                     CornerRadius="5"
                                     Opacity="0"
                                     RenderTransformOrigin="0.5,0.5">

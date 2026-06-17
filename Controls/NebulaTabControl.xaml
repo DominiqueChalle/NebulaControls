@@ -47,7 +47,7 @@
                                     Value="{DynamicResource Brush.SurfaceActive}"/>
                             <Setter TargetName="TabBorder"
                                     Property="BorderBrush"
-                                    Value="{DynamicResource Brush.AccentBorder}"/>
+                                    Value="{DynamicResource Brush.BrandSoft}"/>
                             <Setter TargetName="TabBorder"
                                     Property="CornerRadius"
                                     Value="7"/>
