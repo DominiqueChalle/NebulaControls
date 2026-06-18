@@ -6,31 +6,8 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Themes/DarkPurple/Colors.xaml" />
-                <ResourceDictionary Source="Themes/DarkPurple/Brushes.xaml" />
-                <ResourceDictionary Source="Themes/DarkPurple/Typography.xaml" />
-                <ResourceDictionary Source="Controls/NebulaPasswordBox.xaml" />
-                <ResourceDictionary Source="Controls/NebulaButtons.xaml" />
-                <ResourceDictionary Source="Controls/NebulaTextBox.xaml" />
-                <ResourceDictionary Source="Controls/NebulaCheckBox.xaml" />
-                <ResourceDictionary Source="Controls/NebulaRadioButton.xaml" />
-                <ResourceDictionary Source="Controls/NebulaToggleButton.xaml" />
-                <ResourceDictionary Source="Controls/NebulaComboBox.xaml" />
-                <ResourceDictionary Source="Controls/NebulaScrollBar.xaml" />
-                <ResourceDictionary Source="Controls/NebulaListBox.xaml" />
-                <ResourceDictionary Source="Controls/NebulaProgressBar.xaml" />
-                <ResourceDictionary Source="Controls/NebulaSlider.xaml" />
-                <ResourceDictionary Source="Controls/NebulaTabControl.xaml" />
-                <ResourceDictionary Source="Controls/NebulaToolTip.xaml" />
-                <ResourceDictionary Source="Controls/NebulaContextMenu.xaml" />
-                <ResourceDictionary Source="Controls/NebulaMenu.xaml" />
-                <ResourceDictionary Source="Controls/NebulaTreeView.xaml" />
-                <ResourceDictionary Source="Controls/NebulaExpander.xaml" />
-                <ResourceDictionary Source="Controls/NebulaGroupBox.xaml" />
-                <ResourceDictionary Source="Controls/NebulaDataGrid.xaml" />
-                <ResourceDictionary Source="Controls/NebulaBadge.xaml" />
-                <ResourceDictionary Source="Controls/NebulaSpinner.xaml" />
-                <ResourceDictionary Source="Controls/NebulaAlert.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Themes/NebulaDarkPurple/Theme.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaControls.xaml" />
                 <ResourceDictionary Source="Controls/NebulaGalleryCard.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

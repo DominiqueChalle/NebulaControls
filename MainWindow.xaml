@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:controls="clr-namespace:NebulaUI.Controls"
+        xmlns:nebula="clr-namespace:NebulaControls.Controls;assembly=NebulaControls"
         xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
         mc:Ignorable="d"
         Title="NebulaUI Demo Gallery"
@@ -520,7 +520,7 @@
 
                                         <TextBlock Text="Single selection"
                                                    Style="{StaticResource GalleryLabelText}"/>
-                                        <controls:NebulaListBox Style="{StaticResource NebulaListBox}"
+                                        <nebula:NebulaListBox Style="{StaticResource NebulaListBox}"
                                                                 Width="300"
                                                                 Height="152"
                                                                 SelectedIndex="1"
@@ -530,12 +530,12 @@
                                             <ListBoxItem Content="Soft Violet"/>
                                             <ListBoxItem Content="Disabled option"
                                                          IsEnabled="False"/>
-                                        </controls:NebulaListBox>
+                                        </nebula:NebulaListBox>
 
                                         <TextBlock Text="Multiple selection"
                                                    Style="{StaticResource GalleryLabelText}"
                                                    Margin="0,18,0,6"/>
-                                        <controls:NebulaListBox Style="{StaticResource NebulaListBox}"
+                                        <nebula:NebulaListBox Style="{StaticResource NebulaListBox}"
                                                                 Width="300"
                                                                 Height="126"
                                                                 SelectionMode="Extended"
@@ -545,7 +545,7 @@
                                             <ListBoxItem Content="Secondary panel"/>
                                             <ListBoxItem Content="Inspector panel"
                                                          IsSelected="True"/>
-                                        </controls:NebulaListBox>
+                                        </nebula:NebulaListBox>
                                     </StackPanel>
                                 </Border>
 
@@ -556,11 +556,11 @@
 
                                         <TextBlock Text="Top tabs"
                                                    Style="{StaticResource GalleryLabelText}"/>
-                                        <controls:NebulaTabControl Style="{StaticResource NebulaTabControl}"
+                                        <nebula:NebulaTabControl Style="{StaticResource NebulaTabControl}"
                                                                    Width="382"
                                                                    Height="170"
                                                                    HorizontalAlignment="Left">
-                                            <controls:NebulaTabItem Header="Overview">
+                                            <nebula:NebulaTabItem Header="Overview">
                                                 <StackPanel>
                                                     <TextBlock Text="Overview"
                                                                Foreground="{DynamicResource Brush.TextPrimary}"
@@ -570,8 +570,8 @@
                                                                TextWrapping="Wrap"
                                                                Margin="0,8,0,0"/>
                                                 </StackPanel>
-                                            </controls:NebulaTabItem>
-                                            <controls:NebulaTabItem Header="Details">
+                                            </nebula:NebulaTabItem>
+                                            <nebula:NebulaTabItem Header="Details">
                                                 <StackPanel>
                                                     <TextBlock Text="Details"
                                                                Foreground="{DynamicResource Brush.TextPrimary}"
@@ -581,32 +581,32 @@
                                                                TextWrapping="Wrap"
                                                                Margin="0,8,0,0"/>
                                                 </StackPanel>
-                                            </controls:NebulaTabItem>
-                                            <controls:NebulaTabItem Header="Disabled"
+                                            </nebula:NebulaTabItem>
+                                            <nebula:NebulaTabItem Header="Disabled"
                                                                     IsEnabled="False"/>
-                                        </controls:NebulaTabControl>
+                                        </nebula:NebulaTabControl>
 
                                         <TextBlock Text="Left tabs"
                                                    Style="{StaticResource GalleryLabelText}"
                                                    Margin="0,18,0,6"/>
-                                        <controls:NebulaTabControl Style="{StaticResource NebulaTabControl}"
+                                        <nebula:NebulaTabControl Style="{StaticResource NebulaTabControl}"
                                                                    Width="382"
                                                                    Height="170"
                                                                    TabStripPlacement="Left"
                                                                    HorizontalAlignment="Left">
-                                            <controls:NebulaTabItem Header="General">
+                                            <nebula:NebulaTabItem Header="General">
                                                 <TextBlock Text="Left navigation works well for settings and inspector panels."
                                                            Foreground="{DynamicResource Brush.TextSecondary}"
                                                            TextWrapping="Wrap"/>
-                                            </controls:NebulaTabItem>
-                                            <controls:NebulaTabItem Header="Advanced">
+                                            </nebula:NebulaTabItem>
+                                            <nebula:NebulaTabItem Header="Advanced">
                                                 <TextBlock Text="The selected tab remains calm, with border emphasis instead of heavy color."
                                                            Foreground="{DynamicResource Brush.TextSecondary}"
                                                            TextWrapping="Wrap"/>
-                                            </controls:NebulaTabItem>
-                                            <controls:NebulaTabItem Header="Locked"
+                                            </nebula:NebulaTabItem>
+                                            <nebula:NebulaTabItem Header="Locked"
                                                                     IsEnabled="False"/>
-                                        </controls:NebulaTabControl>
+                                        </nebula:NebulaTabControl>
                                     </StackPanel>
                                 </Border>
 
@@ -617,7 +617,7 @@
 
                                         <TextBlock Text="Read-only selection"
                                                    Style="{StaticResource GalleryLabelText}"/>
-                                        <controls:NebulaDataGrid Style="{StaticResource NebulaDataGrid}"
+                                        <nebula:NebulaDataGrid Style="{StaticResource NebulaDataGrid}"
                                                                  Width="382"
                                                                  Height="214"
                                                                  ItemsSource="{Binding GalleryRows, RelativeSource={RelativeSource AncestorType=Window}}"
@@ -634,7 +634,7 @@
                                                                     Binding="{Binding Category}"
                                                                     Width="110"/>
                                             </DataGrid.Columns>
-                                        </controls:NebulaDataGrid>
+                                        </nebula:NebulaDataGrid>
                                     </StackPanel>
                                 </Border>
 
@@ -679,15 +679,15 @@
                                                    Style="{StaticResource GalleryLabelText}"/>
                                         <StackPanel Orientation="Horizontal"
                                                     VerticalAlignment="Center">
-                                            <controls:NebulaSpinner Style="{StaticResource NebulaSpinner}"
-                                                                    Width="20"
-                                                                    Height="20"
-                                                                    Margin="0,0,18,0"/>
-                                            <controls:NebulaSpinner Style="{StaticResource NebulaSpinner}"
-                                                                    Margin="0,0,18,0"/>
-                                            <controls:NebulaSpinner Style="{StaticResource NebulaSpinner}"
-                                                                    Width="38"
-                                                                    Height="38"/>
+                                            <nebula:NebulaSpinner Style="{StaticResource NebulaSpinner}"
+                                                                  Width="20"
+                                                                  Height="20"
+                                                                  Margin="0,0,18,0"/>
+                                            <nebula:NebulaSpinner Style="{StaticResource NebulaSpinner}"
+                                                                  Margin="0,0,18,0"/>
+                                            <nebula:NebulaSpinner Style="{StaticResource NebulaSpinner}"
+                                                                  Width="38"
+                                                                  Height="38"/>
                                         </StackPanel>
 
                                         <TextBlock Text="With label"
@@ -695,9 +695,9 @@
                                                    Margin="0,18,0,8"/>
                                         <StackPanel Orientation="Horizontal"
                                                     VerticalAlignment="Center">
-                                            <controls:NebulaSpinner Style="{StaticResource NebulaSpinner}"
-                                                                    Width="22"
-                                                                    Height="22"/>
+                                            <nebula:NebulaSpinner Style="{StaticResource NebulaSpinner}"
+                                                                  Width="22"
+                                                                  Height="22"/>
                                             <TextBlock Text="Loading components"
                                                        Foreground="{DynamicResource Brush.TextSecondary}"
                                                        Margin="10,0,0,0"
@@ -707,10 +707,10 @@
                                         <TextBlock Text="Disabled"
                                                    Style="{StaticResource GalleryLabelText}"
                                                    Margin="0,18,0,8"/>
-                                        <controls:NebulaSpinner Style="{StaticResource NebulaSpinner}"
-                                                                IsEnabled="False"
-                                                                Width="28"
-                                                                Height="28"/>
+                                        <nebula:NebulaSpinner Style="{StaticResource NebulaSpinner}"
+                                                              IsEnabled="False"
+                                                              Width="28"
+                                                              Height="28"/>
                                     </StackPanel>
                                 </Border>
 
@@ -722,28 +722,28 @@
                                         <TextBlock Text="Informational labels"
                                                    Style="{StaticResource GalleryLabelText}"/>
                                         <WrapPanel>
-                                            <controls:NebulaBadge Content="Default"
-                                                                  Style="{StaticResource NebulaBadge}"
-                                                                  Margin="0,0,8,8"/>
-                                            <controls:NebulaBadge Content="Beta"
-                                                                  Style="{StaticResource NebulaPurpleBadge}"
-                                                                  Margin="0,0,8,8"/>
-                                            <controls:NebulaBadge Content="3"
-                                                                  Style="{StaticResource NebulaBadge}"
-                                                                  MinWidth="28"
-                                                                  Margin="0,0,8,8"/>
-                                            <controls:NebulaBadge Content="Validated"
-                                                                  Style="{StaticResource NebulaSuccessBadge}"
-                                                                  Margin="0,0,8,8"/>
-                                            <controls:NebulaBadge Content="Warning"
-                                                                  Style="{StaticResource NebulaWarningBadge}"
-                                                                  Margin="0,0,8,8"/>
-                                            <controls:NebulaBadge Content="Danger"
-                                                                  Style="{StaticResource NebulaDangerBadge}"
-                                                                  Margin="0,0,8,8"/>
-                                            <controls:NebulaBadge Content="Info"
-                                                                  Style="{StaticResource NebulaInfoBadge}"
-                                                                  Margin="0,0,8,8"/>
+                                            <nebula:NebulaBadge Content="Default"
+                                                                Style="{StaticResource NebulaBadge}"
+                                                                Margin="0,0,8,8"/>
+                                            <nebula:NebulaBadge Content="Beta"
+                                                                Style="{StaticResource NebulaPurpleBadge}"
+                                                                Margin="0,0,8,8"/>
+                                            <nebula:NebulaBadge Content="3"
+                                                                Style="{StaticResource NebulaBadge}"
+                                                                MinWidth="28"
+                                                                Margin="0,0,8,8"/>
+                                            <nebula:NebulaBadge Content="Validated"
+                                                                Style="{StaticResource NebulaSuccessBadge}"
+                                                                Margin="0,0,8,8"/>
+                                            <nebula:NebulaBadge Content="Warning"
+                                                                Style="{StaticResource NebulaWarningBadge}"
+                                                                Margin="0,0,8,8"/>
+                                            <nebula:NebulaBadge Content="Danger"
+                                                                Style="{StaticResource NebulaDangerBadge}"
+                                                                Margin="0,0,8,8"/>
+                                            <nebula:NebulaBadge Content="Info"
+                                                                Style="{StaticResource NebulaInfoBadge}"
+                                                                Margin="0,0,8,8"/>
                                         </WrapPanel>
                                     </StackPanel>
                                 </Border>
@@ -765,13 +765,13 @@
                                         <TextBlock Text="TextBox with integrated label"
                                                    Style="{StaticResource GalleryLabelText}"
                                                    Margin="0,18,0,6"/>
-                                        <controls:NebulaTextBox Style="{StaticResource NebulaLabeledTextBox}"
+                                        <nebula:NebulaTextBox Style="{StaticResource NebulaLabeledTextBox}"
                                                                 Label="Username"
                                                                 Text="domin"
                                                                 Width="300"
                                                                 HorizontalAlignment="Left"/>
 
-                                        <controls:NebulaTextBox Style="{StaticResource NebulaLabeledTextBox}"
+                                        <nebula:NebulaTextBox Style="{StaticResource NebulaLabeledTextBox}"
                                                                 Label="Email"
                                                                 LabelPlacement="Left"
                                                                 Text="hello@nebula.ui"
@@ -779,7 +779,7 @@
                                                                 Margin="0,12,0,0"
                                                                 HorizontalAlignment="Left"/>
 
-                                        <controls:NebulaTextBox Style="{StaticResource NebulaLabeledTextBox}"
+                                        <nebula:NebulaTextBox Style="{StaticResource NebulaLabeledTextBox}"
                                                                 Label="Disabled TextBox"
                                                                 Text="NebulaLabeledTextBox"
                                                                 Width="300"
@@ -795,7 +795,7 @@
                                                      Width="300"
                                                      HorizontalAlignment="Left"/>
 
-                                        <controls:NebulaLabeledPasswordBox Style="{StaticResource NebulaLabeledPasswordBox}"
+                                        <nebula:NebulaLabeledPasswordBox Style="{StaticResource NebulaLabeledPasswordBox}"
                                                                            Label="Password"
                                                                            Password="nebula"
                                                                            Width="300"
@@ -811,7 +811,7 @@
 
                                         <TextBlock Text="ComboBox"
                                                    Style="{StaticResource GalleryLabelText}"/>
-                                        <controls:NebulaComboBox Style="{StaticResource NebulaComboBox}"
+                                        <nebula:NebulaComboBox Style="{StaticResource NebulaComboBox}"
                                                                  Width="300"
                                                                  IsEditable="False"
                                                                  SelectedIndex="0"
@@ -821,7 +821,7 @@
                                             <ComboBoxItem Content="Soft Violet"/>
                                             <ComboBoxItem Content="Disabled option"
                                                           IsEnabled="False"/>
-                                        </controls:NebulaComboBox>
+                                        </nebula:NebulaComboBox>
 
                                         <TextBlock Text="ToggleButton"
                                                    Style="{StaticResource GalleryLabelText}"
@@ -848,59 +848,59 @@
 
                                         <TextBlock Text="Horizontal"
                                                    Style="{StaticResource GalleryLabelText}"/>
-                                        <controls:NebulaSlider Style="{StaticResource NebulaSlider}"
-                                                               Width="300"
-                                                               Minimum="0"
-                                                               Maximum="100"
-                                                               Value="42"
-                                                               HorizontalAlignment="Left"/>
+                                        <nebula:NebulaSlider Style="{StaticResource NebulaSlider}"
+                                                             Width="300"
+                                                             Minimum="0"
+                                                             Maximum="100"
+                                                             Value="42"
+                                                             HorizontalAlignment="Left"/>
 
                                         <TextBlock Text="With ticks"
                                                    Style="{StaticResource GalleryLabelText}"
                                                    Margin="0,18,0,6"/>
-                                        <controls:NebulaSlider Style="{StaticResource NebulaSlider}"
-                                                               Width="300"
-                                                               Minimum="0"
-                                                               Maximum="10"
-                                                               Value="6"
-                                                               TickFrequency="1"
-                                                               TickPlacement="BottomRight"
-                                                               IsSnapToTickEnabled="True"
-                                                               HorizontalAlignment="Left"/>
+                                        <nebula:NebulaSlider Style="{StaticResource NebulaSlider}"
+                                                             Width="300"
+                                                             Minimum="0"
+                                                             Maximum="10"
+                                                             Value="6"
+                                                             TickFrequency="1"
+                                                             TickPlacement="BottomRight"
+                                                             IsSnapToTickEnabled="True"
+                                                             HorizontalAlignment="Left"/>
 
                                         <TextBlock Text="Vertical"
                                                    Style="{StaticResource GalleryLabelText}"
                                                    Margin="0,18,0,8"/>
                                         <StackPanel Orientation="Horizontal"
                                                     Height="150">
-                                            <controls:NebulaSlider Style="{StaticResource NebulaSlider}"
-                                                                   Height="140"
-                                                                   Minimum="0"
-                                                                   Maximum="100"
-                                                                   Value="62"
-                                                                   Orientation="Vertical"
-                                                                   Margin="0,0,28,0"/>
-                                            <controls:NebulaSlider Style="{StaticResource NebulaSlider}"
-                                                                   Height="140"
-                                                                   Minimum="0"
-                                                                   Maximum="10"
-                                                                   Value="4"
-                                                                   TickFrequency="1"
-                                                                   TickPlacement="Both"
-                                                                   IsSnapToTickEnabled="True"
-                                                                   Orientation="Vertical"/>
+                                            <nebula:NebulaSlider Style="{StaticResource NebulaSlider}"
+                                                                 Height="140"
+                                                                 Minimum="0"
+                                                                 Maximum="100"
+                                                                 Value="62"
+                                                                 Orientation="Vertical"
+                                                                 Margin="0,0,28,0"/>
+                                            <nebula:NebulaSlider Style="{StaticResource NebulaSlider}"
+                                                                 Height="140"
+                                                                 Minimum="0"
+                                                                 Maximum="10"
+                                                                 Value="4"
+                                                                 TickFrequency="1"
+                                                                 TickPlacement="Both"
+                                                                 IsSnapToTickEnabled="True"
+                                                                 Orientation="Vertical"/>
                                         </StackPanel>
 
                                         <TextBlock Text="Disabled"
                                                    Style="{StaticResource GalleryLabelText}"
                                                    Margin="0,18,0,6"/>
-                                        <controls:NebulaSlider Style="{StaticResource NebulaSlider}"
-                                                               Width="300"
-                                                               Minimum="0"
-                                                               Maximum="100"
-                                                               Value="54"
-                                                               IsEnabled="False"
-                                                               HorizontalAlignment="Left"/>
+                                        <nebula:NebulaSlider Style="{StaticResource NebulaSlider}"
+                                                             Width="300"
+                                                             Minimum="0"
+                                                             Maximum="100"
+                                                             Value="54"
+                                                             IsEnabled="False"
+                                                             HorizontalAlignment="Left"/>
                                     </StackPanel>
                                 </Border>
 
@@ -911,39 +911,39 @@
 
                                         <TextBlock Text="Determinate"
                                                    Style="{StaticResource GalleryLabelText}"/>
-                                        <controls:NebulaProgressBar Style="{StaticResource NebulaProgressBar}"
-                                                                    Width="300"
-                                                                    Height="16"
-                                                                    Value="38"
-                                                                    HorizontalAlignment="Left"/>
+                                        <nebula:NebulaProgressBar Style="{StaticResource NebulaProgressBar}"
+                                                                  Width="300"
+                                                                  Height="16"
+                                                                  Value="38"
+                                                                  HorizontalAlignment="Left"/>
 
                                         <TextBlock Text="Almost complete"
                                                    Style="{StaticResource GalleryLabelText}"
                                                    Margin="0,18,0,6"/>
-                                        <controls:NebulaProgressBar Style="{StaticResource NebulaProgressBar}"
-                                                                    Width="300"
-                                                                    Height="16"
-                                                                    Value="78"
-                                                                    HorizontalAlignment="Left"/>
+                                        <nebula:NebulaProgressBar Style="{StaticResource NebulaProgressBar}"
+                                                                  Width="300"
+                                                                  Height="16"
+                                                                  Value="78"
+                                                                  HorizontalAlignment="Left"/>
 
                                         <TextBlock Text="Indeterminate"
                                                    Style="{StaticResource GalleryLabelText}"
                                                    Margin="0,18,0,6"/>
-                                        <controls:NebulaProgressBar Style="{StaticResource NebulaProgressBar}"
-                                                                    Width="300"
-                                                                    Height="16"
-                                                                    IsIndeterminate="True"
-                                                                    HorizontalAlignment="Left"/>
+                                        <nebula:NebulaProgressBar Style="{StaticResource NebulaProgressBar}"
+                                                                  Width="300"
+                                                                  Height="16"
+                                                                  IsIndeterminate="True"
+                                                                  HorizontalAlignment="Left"/>
 
                                         <TextBlock Text="Disabled"
                                                    Style="{StaticResource GalleryLabelText}"
                                                    Margin="0,18,0,6"/>
-                                        <controls:NebulaProgressBar Style="{StaticResource NebulaProgressBar}"
-                                                                    Width="300"
-                                                                    Height="16"
-                                                                    Value="52"
-                                                                    IsEnabled="False"
-                                                                    HorizontalAlignment="Left"/>
+                                        <nebula:NebulaProgressBar Style="{StaticResource NebulaProgressBar}"
+                                                                  Width="300"
+                                                                  Height="16"
+                                                                  Value="52"
+                                                                  IsEnabled="False"
+                                                                  HorizontalAlignment="Left"/>
                                     </StackPanel>
                                 </Border>
 
@@ -952,24 +952,24 @@
                                         <TextBlock Text="Alert"
                                                    Style="{StaticResource GallerySectionTitleText}"/>
 
-                                        <controls:NebulaAlert Style="{StaticResource NebulaInfoAlert}"
-                                                              Margin="0,0,0,10">
+                                        <nebula:NebulaAlert Style="{StaticResource NebulaInfoAlert}"
+                                                            Margin="0,0,0,10">
                                             <TextBlock Text="Information message with a quiet surface and a colored rail."/>
-                                        </controls:NebulaAlert>
+                                        </nebula:NebulaAlert>
 
-                                        <controls:NebulaAlert Style="{StaticResource NebulaSuccessAlert}"
-                                                              Margin="0,0,0,10">
+                                        <nebula:NebulaAlert Style="{StaticResource NebulaSuccessAlert}"
+                                                            Margin="0,0,0,10">
                                             <TextBlock Text="The operation completed successfully."/>
-                                        </controls:NebulaAlert>
+                                        </nebula:NebulaAlert>
 
-                                        <controls:NebulaAlert Style="{StaticResource NebulaWarningAlert}"
-                                                              Margin="0,0,0,10">
+                                        <nebula:NebulaAlert Style="{StaticResource NebulaWarningAlert}"
+                                                            Margin="0,0,0,10">
                                             <TextBlock Text="Some settings may need attention before continuing."/>
-                                        </controls:NebulaAlert>
+                                        </nebula:NebulaAlert>
 
-                                        <controls:NebulaAlert Style="{StaticResource NebulaDangerAlert}">
+                                        <nebula:NebulaAlert Style="{StaticResource NebulaDangerAlert}">
                                             <TextBlock Text="This action cannot be undone."/>
-                                        </controls:NebulaAlert>
+                                        </nebula:NebulaAlert>
                                     </StackPanel>
                                 </Border>
 
@@ -978,10 +978,10 @@
                                         <TextBlock Text="Expander"
                                                    Style="{StaticResource GallerySectionTitleText}"/>
 
-                                        <controls:NebulaExpander Header="Advanced settings"
-                                                                 Style="{StaticResource NebulaExpander}"
-                                                                 Width="300"
-                                                                 HorizontalAlignment="Left">
+                                        <nebula:NebulaExpander Header="Advanced settings"
+                                                               Style="{StaticResource NebulaExpander}"
+                                                               Width="300"
+                                                               HorizontalAlignment="Left">
                                             <StackPanel>
                                                 <CheckBox Content="Enable diagnostic logs"
                                                           Style="{StaticResource NebulaCheckBox}"
@@ -989,28 +989,28 @@
                                                 <CheckBox Content="Show verbose output"
                                                           Style="{StaticResource NebulaCheckBox}"/>
                                             </StackPanel>
-                                        </controls:NebulaExpander>
+                                        </nebula:NebulaExpander>
 
-                                        <controls:NebulaExpander Header="Expanded details"
-                                                                 Style="{StaticResource NebulaExpander}"
-                                                                 Width="300"
-                                                                 Margin="0,12,0,0"
-                                                                 IsExpanded="True"
-                                                                 HorizontalAlignment="Left">
+                                        <nebula:NebulaExpander Header="Expanded details"
+                                                               Style="{StaticResource NebulaExpander}"
+                                                               Width="300"
+                                                               Margin="0,12,0,0"
+                                                               IsExpanded="True"
+                                                               HorizontalAlignment="Left">
                                             <TextBlock Text="Expanded content uses the same quiet surface language and a subtle divider."
                                                        Foreground="{DynamicResource Brush.TextSecondary}"
                                                        TextWrapping="Wrap"/>
-                                        </controls:NebulaExpander>
+                                        </nebula:NebulaExpander>
 
-                                        <controls:NebulaExpander Header="Disabled section"
-                                                                 Style="{StaticResource NebulaExpander}"
-                                                                 Width="300"
-                                                                 Margin="0,12,0,0"
-                                                                 IsEnabled="False"
-                                                                 HorizontalAlignment="Left">
+                                        <nebula:NebulaExpander Header="Disabled section"
+                                                               Style="{StaticResource NebulaExpander}"
+                                                               Width="300"
+                                                               Margin="0,12,0,0"
+                                                               IsEnabled="False"
+                                                               HorizontalAlignment="Left">
                                             <TextBlock Text="Unavailable content"
                                                        Foreground="{DynamicResource Brush.TextDisabled}"/>
-                                        </controls:NebulaExpander>
+                                        </nebula:NebulaExpander>
                                     </StackPanel>
                                 </Border>
 
@@ -1019,10 +1019,10 @@
                                         <TextBlock Text="GroupBox"
                                                    Style="{StaticResource GallerySectionTitleText}"/>
 
-                                        <controls:NebulaGroupBox Header="Display options"
-                                                                 Style="{StaticResource NebulaGroupBox}"
-                                                                 Width="300"
-                                                                 HorizontalAlignment="Left">
+                                        <nebula:NebulaGroupBox Header="Display options"
+                                                               Style="{StaticResource NebulaGroupBox}"
+                                                               Width="300"
+                                                               HorizontalAlignment="Left">
                                             <StackPanel>
                                                 <CheckBox Content="Show validation states"
                                                           Style="{StaticResource NebulaCheckBox}"
@@ -1031,23 +1031,23 @@
                                                 <CheckBox Content="Use compact spacing"
                                                           Style="{StaticResource NebulaCheckBox}"
                                                           Margin="0,0,0,10"/>
-                                                <controls:NebulaSlider Style="{StaticResource NebulaSlider}"
-                                                                       Minimum="0"
-                                                                       Maximum="100"
-                                                                       Value="58"/>
+                                                <nebula:NebulaSlider Style="{StaticResource NebulaSlider}"
+                                                                     Minimum="0"
+                                                                     Maximum="100"
+                                                                     Value="58"/>
                                             </StackPanel>
-                                        </controls:NebulaGroupBox>
+                                        </nebula:NebulaGroupBox>
 
-                                        <controls:NebulaGroupBox Header="Disabled group"
-                                                                 Style="{StaticResource NebulaGroupBox}"
-                                                                 Width="300"
-                                                                 Margin="0,12,0,0"
-                                                                 IsEnabled="False"
-                                                                 HorizontalAlignment="Left">
+                                        <nebula:NebulaGroupBox Header="Disabled group"
+                                                               Style="{StaticResource NebulaGroupBox}"
+                                                               Width="300"
+                                                               Margin="0,12,0,0"
+                                                               IsEnabled="False"
+                                                               HorizontalAlignment="Left">
                                             <TextBlock Text="Unavailable settings remain readable but subdued."
                                                        Foreground="{DynamicResource Brush.TextDisabled}"
                                                        TextWrapping="Wrap"/>
-                                        </controls:NebulaGroupBox>
+                                        </nebula:NebulaGroupBox>
                                     </StackPanel>
                                 </Border>
 
@@ -1104,7 +1104,7 @@
 
                                         <TextBlock Text="Hierarchy"
                                                    Style="{StaticResource GalleryLabelText}"/>
-                                        <controls:NebulaTreeView Style="{StaticResource NebulaTreeView}"
+                                        <nebula:NebulaTreeView Style="{StaticResource NebulaTreeView}"
                                                                  Width="300"
                                                                  Height="210"
                                                                  HorizontalAlignment="Left">
@@ -1139,7 +1139,7 @@
                                                 <TreeViewItem Header="Control states"
                                                               Style="{StaticResource NebulaTreeViewItem}"/>
                                             </TreeViewItem>
-                                        </controls:NebulaTreeView>
+                                        </nebula:NebulaTreeView>
                                     </StackPanel>
                                 </Border>
 
@@ -1166,7 +1166,7 @@
                                                 Height="40"
                                                 HorizontalAlignment="Left">
                                             <Button.ToolTip>
-                                                <controls:NebulaToolTip Style="{StaticResource NebulaToolTip}">
+                                                <nebula:NebulaToolTip Style="{StaticResource NebulaToolTip}">
                                                     <StackPanel>
                                                         <TextBlock Text="Nebula tooltip"
                                                                    Foreground="{DynamicResource Brush.TextPrimary}"
@@ -1176,7 +1176,7 @@
                                                                    TextWrapping="Wrap"
                                                                    Margin="0,5,0,0"/>
                                                     </StackPanel>
-                                                </controls:NebulaToolTip>
+                                                </nebula:NebulaToolTip>
                                             </Button.ToolTip>
                                         </Button>
                                     </StackPanel>

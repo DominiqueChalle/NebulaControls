@@ -1,0 +1,29 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaButtons.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaTextBox.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaPasswordBox.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaCheckBox.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaRadioButton.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaToggleButton.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaComboBox.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaScrollBar.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaListBox.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaProgressBar.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaSlider.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaTabControl.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaToolTip.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaContextMenu.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaMenu.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaTreeView.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaExpander.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaGroupBox.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaDataGrid.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaBadge.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaSpinner.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaAlert.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>

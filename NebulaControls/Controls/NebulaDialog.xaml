@@ -1,0 +1,195 @@
+<Window x:Class="NebulaControls.Controls.NebulaDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Nebula Dialog"
+        Width="460"
+        SizeToContent="Height"
+        MinHeight="220"
+        WindowStartupLocation="CenterOwner"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True"
+        ShowInTaskbar="False"
+        PreviewKeyDown="NebulaDialog_PreviewKeyDown">
+
+    <Border Background="{DynamicResource Brush.Border}"
+            CornerRadius="12"
+            SnapsToDevicePixels="True">
+        <Border Background="{DynamicResource Brush.Background}"
+                Margin="1"
+                CornerRadius="11"
+                SnapsToDevicePixels="True">
+            <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0"
+                    Background="{DynamicResource Brush.Surface}"
+                    CornerRadius="11,11,0,0">
+                <Grid x:Name="TitleBar"
+                      MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="{Binding Title, RelativeSource={RelativeSource AncestorType=Window}}"
+                               Foreground="{DynamicResource Brush.TextPrimary}"
+                               FontSize="15"
+                               FontWeight="SemiBold"
+                               VerticalAlignment="Center"
+                               Margin="18,0,0,0"/>
+
+                    <Button Grid.Column="1"
+                            Width="40"
+                            Height="32"
+                            Margin="0,0,10,0"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            Foreground="{DynamicResource Brush.TextSecondary}"
+                            Cursor="Hand"
+                            Click="CloseButton_Click">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="ButtonBorder"
+                                        Background="{TemplateBinding Background}"
+                                        CornerRadius="7">
+                                    <ContentPresenter HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="ButtonBorder"
+                                                Property="Background"
+                                                Value="{DynamicResource Brush.SurfaceHover}"/>
+                                        <Setter Property="Foreground"
+                                                Value="{DynamicResource Brush.TextPrimary}"/>
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="ButtonBorder"
+                                                Property="Background"
+                                                Value="{DynamicResource Brush.SurfaceActive}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+
+                        <Path Width="13"
+                              Height="13"
+                              Data="M 2 2 L 11 11 M 11 2 L 2 11"
+                              Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
+                              StrokeThickness="2"
+                              StrokeStartLineCap="Round"
+                              StrokeEndLineCap="Round"
+                              Stretch="Fill"/>
+                    </Button>
+                </Grid>
+            </Border>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border x:Name="VariantRail"
+                        Grid.Column="0"
+                        Background="{DynamicResource Brush.Info}"
+                        CornerRadius="0,0,0,11"/>
+
+                <Grid Grid.Column="1"
+                      Margin="22">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Width="38"
+                                Height="38"
+                                CornerRadius="19"
+                                BorderBrush="{DynamicResource Brush.Border}"
+                                BorderThickness="1"
+                                Background="{DynamicResource Brush.SurfaceReadOnly}"
+                                VerticalAlignment="Top">
+                            <Grid>
+                                <Ellipse x:Name="IconCircle"
+                                         Fill="Transparent"
+                                         Opacity="0.18"/>
+                                <Path x:Name="IconPath"
+                                      Width="18"
+                                      Height="18"
+                                      Stroke="{DynamicResource Brush.Info}"
+                                      StrokeThickness="2.2"
+                                      StrokeStartLineCap="Round"
+                                      StrokeEndLineCap="Round"
+                                      StrokeLineJoin="Round"
+                                      Stretch="Uniform"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                                <TextBlock x:Name="InfoIconText"
+                                           Text="i"
+                                           Foreground="{DynamicResource Brush.Info}"
+                                           FontSize="20"
+                                           FontWeight="SemiBold"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Visibility="Collapsed"/>
+                            </Grid>
+                        </Border>
+
+                        <StackPanel Grid.Column="1"
+                                    Margin="14,0,0,0">
+                            <TextBlock Text="{Binding DialogTitle, RelativeSource={RelativeSource AncestorType=Window}}"
+                                       Foreground="{DynamicResource Brush.TextPrimary}"
+                                       FontSize="18"
+                                       FontWeight="SemiBold"
+                                       TextWrapping="Wrap"/>
+                            <TextBlock Text="{Binding Message, RelativeSource={RelativeSource AncestorType=Window}}"
+                                       Foreground="{DynamicResource Brush.TextSecondary}"
+                                       FontSize="13"
+                                       LineHeight="20"
+                                       TextWrapping="Wrap"
+                                       Margin="0,8,0,0"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <StackPanel Grid.Row="1"
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Right"
+                                Margin="0,24,0,0">
+                        <Button x:Name="TertiaryButton"
+                                Content="{Binding TertiaryButtonText, RelativeSource={RelativeSource AncestorType=Window}}"
+                                Style="{StaticResource NebulaSecondaryButton}"
+                                MinWidth="104"
+                                Height="40"
+                                Click="TertiaryButton_Click"/>
+                        <Button x:Name="SecondaryButton"
+                                Content="{Binding SecondaryButtonText, RelativeSource={RelativeSource AncestorType=Window}}"
+                                Style="{StaticResource NebulaSecondaryButton}"
+                                MinWidth="104"
+                                Height="40"
+                                Margin="10,0,0,0"
+                                Click="SecondaryButton_Click"/>
+                        <Button x:Name="PrimaryButton"
+                                Content="{Binding PrimaryButtonText, RelativeSource={RelativeSource AncestorType=Window}}"
+                                Style="{StaticResource NebulaPrimaryButton}"
+                                MinWidth="104"
+                                Height="40"
+                                Margin="10,0,0,0"
+                                Click="PrimaryButton_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+            </Grid>
+        </Border>
+    </Border>
+</Window>

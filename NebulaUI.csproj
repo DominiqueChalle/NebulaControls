@@ -8,4 +8,15 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="NebulaControls\**" />
+    <EmbeddedResource Remove="NebulaControls\**" />
+    <None Remove="NebulaControls\**" />
+    <Page Remove="NebulaControls\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="NebulaControls\NebulaControls.csproj" />
+  </ItemGroup>
+
 </Project>
