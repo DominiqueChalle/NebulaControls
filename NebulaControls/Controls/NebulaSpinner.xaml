@@ -11,12 +11,25 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:NebulaSpinner">
-                    <Grid Width="{TemplateBinding Width}"
+                    <Grid x:Name="SpinnerRoot"
+                          Width="{TemplateBinding Width}"
                           Height="{TemplateBinding Height}"
                           RenderTransformOrigin="0.5,0.5">
                         <Grid.RenderTransform>
-                            <RotateTransform x:Name="SpinnerRotation"/>
+                            <RotateTransform/>
                         </Grid.RenderTransform>
+                        <Grid.Triggers>
+                            <EventTrigger RoutedEvent="Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard RepeatBehavior="Forever">
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
+                                                         From="0"
+                                                         To="360"
+                                                         Duration="0:0:0.9"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Grid.Triggers>
 
                         <Ellipse Stroke="{TemplateBinding Background}"
                                  StrokeThickness="3"
@@ -31,18 +44,6 @@
                     </Grid>
 
                     <ControlTemplate.Triggers>
-                        <EventTrigger RoutedEvent="Loaded">
-                            <BeginStoryboard>
-                                <Storyboard RepeatBehavior="Forever">
-                                    <DoubleAnimation Storyboard.TargetName="SpinnerRotation"
-                                                     Storyboard.TargetProperty="Angle"
-                                                     From="0"
-                                                     To="360"
-                                                     Duration="0:0:0.9"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Foreground"
                                     Value="{DynamicResource Brush.TextDisabled}"/>

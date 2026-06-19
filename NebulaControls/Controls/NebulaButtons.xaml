@@ -8,8 +8,12 @@
         <Setter Property="Padding" Value="18,10"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Margin" Value="10,0"/>
+        <Setter Property="MinWidth" Value="132"/>
+        <Setter Property="MinHeight" Value="44"/>
         <Setter Property="BorderThickness" Value="2"/>
         <Setter Property="Foreground" Value="{DynamicResource Brush.TextPrimary}"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
 
     </Style>
 
@@ -29,8 +33,9 @@
                             BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="8">
 
-                        <ContentPresenter HorizontalAlignment="Center"
-                                          VerticalAlignment="Center"
+                        <ContentPresenter Margin="{TemplateBinding Padding}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                           RecognizesAccessKey="True"/>
                     </Border>
 
@@ -77,8 +82,9 @@
                             CornerRadius="8">
 
                         <ContentPresenter
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
+                            Margin="{TemplateBinding Padding}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                             RecognizesAccessKey="True"/>
                     </Border>
 
