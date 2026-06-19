@@ -9,14 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="NebulaControls\**" />
-    <EmbeddedResource Remove="NebulaControls\**" />
-    <None Remove="NebulaControls\**" />
-    <Page Remove="NebulaControls\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="NebulaControls\NebulaControls.csproj" />
+    <ProjectReference Include="..\..\src\NebulaControls\NebulaControls.csproj" />
   </ItemGroup>
 
 </Project>

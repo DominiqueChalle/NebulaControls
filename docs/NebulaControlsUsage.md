@@ -4,13 +4,17 @@
 
 Add a reference to the `NebulaControls` assembly.
 
-During development inside this solution, `NebulaUI` uses a project reference:
+During development inside this repository, the public demo uses a project reference so control changes can be tested immediately:
 
 ```xml
-<ProjectReference Include="NebulaControls\NebulaControls.csproj" />
+<ProjectReference Include="..\..\src\NebulaControls\NebulaControls.csproj" />
 ```
 
-Later, an external application should reference the built DLL or NuGet package instead.
+External applications should reference the built DLL or NuGet package instead:
+
+```xml
+<PackageReference Include="NebulaControls" Version="0.2.0" />
+```
 
 ## App Resources
 
@@ -60,4 +64,9 @@ Native WPF controls use Nebula styles directly:
 NebulaThemeManager.ApplyTheme(NebulaTheme.NebulaDarkPurple);
 ```
 
-Only `NebulaDarkPurple` exists for now. Future themes should expose the same semantic resource keys before they are added to `NebulaTheme`.
+Available themes:
+
+- `NebulaDarkPurple`
+- `NebulaDarkBlue`
+
+Future themes should expose the same semantic resource keys before they are added to `NebulaTheme`.

@@ -2,24 +2,24 @@
 
 ## Goal
 
-NebulaControls should become an independent WPF control library that can be consumed without the NebulaUI source code.
+NebulaControls should be an independent WPF control library that can be consumed without the demo source code.
 
-The target is a reusable library that can later be distributed as a DLL or NuGet package. NebulaUI should become only a gallery/demo application that consumes NebulaControls.
+The target is a reusable library that can be distributed as a DLL or NuGet package. The demo application should remain a sample consumer of NebulaControls.
 
 ## Target Projects
 
 ```text
-NebulaControls
-  Independent WPF control library
-  Contains controls, styles, templates, themes, and theme infrastructure
+src/NebulaControls
+  Independent WPF control library.
+  Contains controls, styles, templates, themes, and theme infrastructure.
 
-NebulaUI
-  Demo/gallery application
-  References NebulaControls
-  Contains MainWindow, sample data, and gallery-only presentation
+samples/NebulaControls.Demo
+  Public demo/gallery application.
+  References src/NebulaControls during development.
+  Contains MainWindow, sample data, and demo-only presentation.
 ```
 
-NebulaControls must not depend on NebulaUI.
+NebulaControls must not depend on any demo application.
 
 ## Theme Strategy
 
@@ -34,8 +34,8 @@ NebulaDarkPurple
 Future themes:
 
 ```text
-NebulaLightPurple
 NebulaDarkBlue
+NebulaLightPurple
 ```
 
 Controls should use semantic resource keys, not theme-specific color names.
@@ -62,32 +62,38 @@ Each theme provides the same keys with different values.
 ## Proposed Library Structure
 
 ```text
-NebulaControls/
-  NebulaControls.csproj
-  Controls/
-    NebulaButton.xaml
-    NebulaTextBox.xaml
-    NebulaDialog.xaml
-    ...
-  Themes/
-    Common/
-      Typography.xaml
-      ControlResources.xaml
-    NebulaDarkPurple/
-      Colors.xaml
-      Brushes.xaml
-      Theme.xaml
-    NebulaLightPurple/
-      Colors.xaml
-      Brushes.xaml
-      Theme.xaml
-    NebulaDarkBlue/
-      Colors.xaml
-      Brushes.xaml
-      Theme.xaml
+src/
+  NebulaControls/
+    NebulaControls.csproj
+    Controls/
+      NebulaButtons.xaml
+      NebulaTextBox.xaml
+      NebulaDialog.xaml
+      ...
+    Themes/
+      Common/
+        Typography.xaml
+      NebulaDarkPurple/
+        Colors.xaml
+        Brushes.xaml
+        Theme.xaml
+      NebulaDarkBlue/
+        Colors.xaml
+        Brushes.xaml
+        Theme.xaml
+      NebulaLightPurple/
+        .gitkeep
+samples/
+  NebulaControls.Demo/
+    NebulaControls.Demo.csproj
+    App.xaml
+    MainWindow.xaml
+docs/
+artifacts/
+  packages/
 ```
 
-The first extraction can include only `NebulaDarkPurple`, while keeping the folder structure ready for future themes.
+The current implementation includes `NebulaDarkPurple` and `NebulaDarkBlue`, while keeping the folder structure ready for future themes.
 
 ## Theme Import
 
@@ -148,15 +154,14 @@ Controls/NebulaDialog.xaml
 Themes/NebulaDarkPurple/*
 ```
 
-## What Stays In NebulaUI
+## What Stays In The Demo
 
 - `MainWindow.xaml`
 - gallery layout
 - demo-only data
 - demo-only event handlers
-- `NebulaGalleryCard.xaml`
 
-NebulaUI should become a consumer of NebulaControls, not the owner of the controls.
+The demo should remain a consumer of NebulaControls, not the owner of the controls.
 
 ## Known Debts To Keep In Mind
 
@@ -169,20 +174,16 @@ NebulaUI should become a consumer of NebulaControls, not the owner of the contro
 
 ## Suggested Migration Steps
 
-1. Create the independent `NebulaControls` WPF library project.
-2. Add the target folder structure.
-3. Move theme resources into `Themes/NebulaDarkPurple`.
-4. Create `Themes/NebulaDarkPurple/Theme.xaml`.
-5. Move reusable controls into the library.
-6. Update namespaces from `NebulaUI.Controls` to the final library namespace.
-7. Reference NebulaControls from NebulaUI.
-8. Replace NebulaUI local resource dictionaries with pack URIs.
-9. Keep `NebulaGalleryCard` and demo-only resources in NebulaUI.
-10. Build and visually verify the gallery.
+1. Keep the independent `NebulaControls` WPF library under `src/NebulaControls`.
+2. Keep the public demo under `samples/NebulaControls.Demo`.
+3. Use a project reference from the demo during active development.
+4. Use package references in external applications.
+5. Build and visually verify the demo after control or theme changes.
 
 ## Current Decisions
 
 - Final namespace: `NebulaControls`.
-- Whether controls should use explicit styles only, implicit styles, or both.
+- The development demo uses a project reference.
+- External applications should use a DLL or NuGet package.
 - `NebulaDialog` currently lives under `Controls/`; a future `Dialogs/` folder can be considered during packaging cleanup.
-- Packaging strategy: DLL first, NuGet later.
+- Packaging strategy: NuGet package from `src/NebulaControls`.

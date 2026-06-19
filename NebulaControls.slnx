@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="src/NebulaControls/NebulaControls.csproj" />
+  <Project Path="samples/NebulaControls.Demo/NebulaControls.Demo.csproj" />
+</Solution>
