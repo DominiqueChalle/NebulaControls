@@ -94,8 +94,13 @@
                                  Grid.Row="0"
                                  Grid.ColumnSpan="3"
                                  Height="8"
-                                 Margin="10,0"
+                                 Margin="0"
                                  Fill="{DynamicResource Brush.BorderReadOnly}"
+                                 Minimum="{TemplateBinding Minimum}"
+                                 Maximum="{TemplateBinding Maximum}"
+                                 TickFrequency="{TemplateBinding TickFrequency}"
+                                 Ticks="{TemplateBinding Ticks}"
+                                 ReservedSpace="{Binding ActualWidth, ElementName=SliderThumb}"
                                  Placement="Top"
                                  Visibility="Collapsed"/>
 
@@ -125,8 +130,13 @@
                                  Grid.Row="2"
                                  Grid.ColumnSpan="3"
                                  Height="8"
-                                 Margin="10,0"
+                                 Margin="0"
                                  Fill="{DynamicResource Brush.BorderReadOnly}"
+                                 Minimum="{TemplateBinding Minimum}"
+                                 Maximum="{TemplateBinding Maximum}"
+                                 TickFrequency="{TemplateBinding TickFrequency}"
+                                 Ticks="{TemplateBinding Ticks}"
+                                 ReservedSpace="{Binding ActualWidth, ElementName=SliderThumb}"
                                  Placement="Bottom"
                                  Visibility="Collapsed"/>
                     </Grid>
@@ -141,12 +151,16 @@
                             <Setter TargetName="TopTick"
                                     Property="Visibility"
                                     Value="Visible"/>
+                            <Setter Property="IsSnapToTickEnabled"
+                                    Value="True"/>
                         </Trigger>
 
                         <Trigger Property="TickPlacement" Value="BottomRight">
                             <Setter TargetName="BottomTick"
                                     Property="Visibility"
                                     Value="Visible"/>
+                            <Setter Property="IsSnapToTickEnabled"
+                                    Value="True"/>
                         </Trigger>
 
                         <Trigger Property="TickPlacement" Value="Both">
@@ -156,6 +170,8 @@
                             <Setter TargetName="BottomTick"
                                     Property="Visibility"
                                     Value="Visible"/>
+                            <Setter Property="IsSnapToTickEnabled"
+                                    Value="True"/>
                         </Trigger>
 
                         <Trigger Property="Orientation" Value="Vertical">
@@ -225,7 +241,13 @@
                                     Value="Auto"/>
                             <Setter TargetName="TopTick"
                                     Property="Margin"
-                                    Value="0,9,1,9"/>
+                                    Value="0,0,1,0"/>
+                            <Setter TargetName="TopTick"
+                                    Property="ReservedSpace">
+                                <Setter.Value>
+                                    <Binding ElementName="SliderThumb" Path="ActualHeight"/>
+                                </Setter.Value>
+                            </Setter>
                             <Setter TargetName="BottomTick"
                                     Property="Grid.Row"
                                     Value="0"/>
@@ -249,7 +271,13 @@
                                     Value="Auto"/>
                             <Setter TargetName="BottomTick"
                                     Property="Margin"
-                                    Value="1,9,0,9"/>
+                                    Value="1,0,0,0"/>
+                            <Setter TargetName="BottomTick"
+                                    Property="ReservedSpace">
+                                <Setter.Value>
+                                    <Binding ElementName="SliderThumb" Path="ActualHeight"/>
+                                </Setter.Value>
+                            </Setter>
                         </Trigger>
 
                         <Trigger Property="IsEnabled" Value="False">

@@ -54,8 +54,8 @@
                             <Trigger.EnterActions>
                                 <BeginStoryboard x:Name="IndeterminateStoryboard">
                                     <Storyboard RepeatBehavior="Forever">
-                                        <DoubleAnimation Storyboard.TargetName="IndeterminateTransform"
-                                                         Storyboard.TargetProperty="X"
+                                        <DoubleAnimation Storyboard.TargetName="IndeterminateIndicator"
+                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
                                                          From="-96"
                                                          To="320"
                                                          Duration="0:0:1.35"/>
