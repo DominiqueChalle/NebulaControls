@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using NebulaControls.Controls;
+using NebulaControls.Theming;
 
 namespace NebulaUI
 {
@@ -29,6 +30,24 @@ namespace NebulaUI
         }
 
         public ObservableCollection<GalleryDataGridRow> GalleryRows { get; }
+
+        private void ApplyDarkPurpleThemeButton_Click(object sender, RoutedEventArgs e)
+        {
+            ApplyTheme(NebulaTheme.NebulaDarkPurple, "Dark Purple");
+        }
+
+        private void ApplyDarkBlueThemeButton_Click(object sender, RoutedEventArgs e)
+        {
+            ApplyTheme(NebulaTheme.NebulaDarkBlue, "Dark Blue");
+        }
+
+        private void ApplyTheme(NebulaTheme theme, string displayName)
+        {
+            NebulaThemeManager.ApplyTheme(theme);
+
+            ThemeStatusText.Text = $"{displayName} theme active";
+            ThemeNameText.Text = displayName;
+        }
 
         private void TitleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {

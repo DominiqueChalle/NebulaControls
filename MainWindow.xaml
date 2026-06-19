@@ -190,7 +190,8 @@
                                  Height="8"
                                  Fill="{DynamicResource Brush.Success}"
                                  Margin="0,0,8,0"/>
-                        <TextBlock Text="Dark Purple theme active"
+                        <TextBlock x:Name="ThemeStatusText"
+                                   Text="Dark Purple theme active"
                                    Foreground="{DynamicResource Brush.TextSecondary}"
                                    FontSize="12"/>
                     </StackPanel>
@@ -370,10 +371,20 @@
                             <StackPanel>
                                 <TextBlock Text="Theme"
                                            Style="{StaticResource GalleryMetricText}"/>
-                                <TextBlock Text="Dark Purple"
+                                <TextBlock x:Name="ThemeNameText"
+                                           Text="Dark Purple"
                                            Foreground="{DynamicResource Brush.TextPrimary}"
                                            FontWeight="SemiBold"
                                            Margin="0,4,0,10"/>
+                                <StackPanel Margin="0,0,0,10">
+                                    <Button Content="Dark Purple"
+                                            Style="{StaticResource NebulaSecondaryButton}"
+                                            Click="ApplyDarkPurpleThemeButton_Click"
+                                            Margin="0,0,0,8"/>
+                                    <Button Content="Dark Blue"
+                                            Style="{StaticResource NebulaSecondaryButton}"
+                                            Click="ApplyDarkBlueThemeButton_Click"/>
+                                </StackPanel>
                                 <TextBlock Text="23 controls · 4 state colors"
                                            Style="{StaticResource GalleryMetricText}"/>
                             </StackPanel>

@@ -14,6 +14,7 @@ public static class NebulaThemeManager
         var themeName = theme switch
         {
             NebulaTheme.NebulaDarkPurple => "NebulaDarkPurple",
+            NebulaTheme.NebulaDarkBlue => "NebulaDarkBlue",
             _ => throw new ArgumentOutOfRangeException(nameof(theme), theme, null)
         };
 
