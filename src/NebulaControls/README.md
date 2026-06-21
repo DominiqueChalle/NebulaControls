@@ -2,7 +2,17 @@
 
 NebulaControls is a WPF control library containing reusable Nebula-themed controls, styles, templates, and theme resources.
 
-The current default theme is `NebulaDarkPurple`.
+The current default theme is `NebulaDarkPurple`. `NebulaDarkBlue` and `NebulaLightPurple` are also available.
+
+## Local Package
+
+Build a local NuGet package from the repository root:
+
+```powershell
+dotnet pack src/NebulaControls/NebulaControls.csproj
+```
+
+The package is written to `artifacts/packages`.
 
 ## App Resources
 
@@ -48,4 +58,10 @@ The theme manager can replace the active Nebula theme dictionary at runtime:
 NebulaThemeManager.ApplyTheme(NebulaTheme.NebulaDarkPurple);
 ```
 
-Only `NebulaDarkPurple` exists for now. Future themes should expose the same semantic resource keys before they are added to `NebulaTheme`.
+Available themes:
+
+- `NebulaDarkPurple`
+- `NebulaDarkBlue`
+- `NebulaLightPurple`
+
+Future themes should expose the same semantic resource keys before they are added to `NebulaTheme`.

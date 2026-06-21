@@ -56,6 +56,57 @@ Native WPF controls use Nebula styles directly:
 <TextBox Style="{StaticResource NebulaTextBox}" />
 ```
 
+## Buttons
+
+Button V2 styles include action variants:
+
+```xml
+<Button Content="Primary" Style="{StaticResource NebulaPrimaryButton}" />
+<Button Content="Secondary" Style="{StaticResource NebulaSecondaryButton}" />
+<Button Content="Danger" Style="{StaticResource NebulaDangerButton}" />
+<Button Content="Warning" Style="{StaticResource NebulaWarningButton}" />
+<Button Content="Ghost" Style="{StaticResource NebulaGhostButton}" />
+<Button Content="Subtle" Style="{StaticResource NebulaSubtleButton}" />
+```
+
+Each variant also exposes small and large styles, for example:
+
+```xml
+<Button Content="Small" Style="{StaticResource NebulaPrimarySmallButton}" />
+<Button Content="Large" Style="{StaticResource NebulaPrimaryLargeButton}" />
+```
+
+## TextBox
+
+Use `NebulaTextBox` for labeled fields with placeholder, helper text, and error text:
+
+```xml
+<nebula:NebulaTextBox
+    Style="{StaticResource NebulaLabeledTextBox}"
+    Label="Username"
+    Placeholder="Enter username"
+    HelperText="Displayed in your profile." />
+```
+
+Validation feedback can be shown with `HasError` and `ErrorText`:
+
+```xml
+<nebula:NebulaTextBox
+    Style="{StaticResource NebulaLabeledTextBox}"
+    Label="Email"
+    Placeholder="name@example.com"
+    HasError="True"
+    ErrorText="Email is required." />
+```
+
+Native `TextBox` styles also expose small and large variants:
+
+```xml
+<TextBox Style="{StaticResource NebulaSmallTextBox}" />
+<TextBox Style="{StaticResource NebulaMediumTextBox}" />
+<TextBox Style="{StaticResource NebulaLargeTextBox}" />
+```
+
 ## Theme Switching
 
 `NebulaThemeManager` can replace the active Nebula theme dictionary at runtime:
@@ -68,5 +119,6 @@ Available themes:
 
 - `NebulaDarkPurple`
 - `NebulaDarkBlue`
+- `NebulaLightPurple`
 
 Future themes should expose the same semantic resource keys before they are added to `NebulaTheme`.

@@ -108,7 +108,8 @@
                             CornerRadius="6"
                             MinHeight="{TemplateBinding MinHeight}"
                             SnapsToDevicePixels="True">
-                        <ScrollViewer Focusable="False"
+                        <ScrollViewer x:Name="PART_ScrollViewer"
+                                      Focusable="False"
                                       Padding="{TemplateBinding Padding}">
                             <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
                         </ScrollViewer>

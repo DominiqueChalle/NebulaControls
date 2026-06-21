@@ -26,6 +26,7 @@
         <Setter Property="Padding" Value="10,7"/>
         <Setter Property="MinWidth" Value="178"/>
         <Setter Property="MinHeight" Value="34"/>
+        <Setter Property="ItemContainerStyle" Value="{DynamicResource NebulaContextMenuItem}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="MenuItem">

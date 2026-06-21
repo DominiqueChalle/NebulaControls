@@ -2,18 +2,17 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="clr-namespace:NebulaControls.Controls">
 
-    <Style x:Key="NebulaTextBox" BasedOn="{StaticResource Typography.Text.Primary}"
+    <Style x:Key="NebulaTextBoxBase"
+           BasedOn="{StaticResource Typography.Text.Primary}"
            TargetType="TextBox">
-
         <Setter Property="Background" Value="{DynamicResource Brush.Background}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource Brush.Border}"/>
-        <Setter Property="SelectionBrush" Value="{DynamicResource Brush.BrandHover}" />
-        <Setter Property="CaretBrush" Value="{DynamicResource Brush.Brand}" />
-        <Setter Property="SelectionOpacity" Value="0.5" />
+        <Setter Property="SelectionBrush" Value="{DynamicResource Brush.BrandHover}"/>
+        <Setter Property="CaretBrush" Value="{DynamicResource Brush.Brand}"/>
+        <Setter Property="SelectionOpacity" Value="0.5"/>
         <Setter Property="BorderThickness" Value="0,0,0,2"/>
-        <Setter Property="Padding" Value="3"/>
-        <Setter Property="MinHeight" Value="30"/>
-
+        <Setter Property="Padding" Value="8,0"/>
+        <Setter Property="MinHeight" Value="34"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
@@ -22,9 +21,11 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="6"
-                            MinHeight="{TemplateBinding MinHeight}">
+                            MinHeight="{TemplateBinding MinHeight}"
+                            SnapsToDevicePixels="True">
                         <ScrollViewer x:Name="PART_ContentHost"
-                                      Margin="{TemplateBinding Padding}"/>
+                                      Margin="{TemplateBinding Padding}"
+                                      VerticalAlignment="Center"/>
                     </Border>
 
                     <ControlTemplate.Triggers>
@@ -35,7 +36,18 @@
 
                         <Trigger Property="IsKeyboardFocused" Value="True">
                             <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Brush.BrandHover}"/>
-                            <Setter TargetName="Border" Property="BorderThickness" Value="0,0,0,2"/>
+                        </Trigger>
+
+                        <Trigger Property="IsReadOnly" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource Brush.BackgroundReadOnly}"/>
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Brush.BorderReadOnly}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource Brush.TextSecondary}"/>
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource Brush.BackgroundDisabled}"/>
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Brush.BorderDisabled}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource Brush.TextDisabled}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -43,31 +55,103 @@
         </Setter>
     </Style>
 
-    <Style x:Key="NebulaLabeledTextBox"
-           BasedOn="{StaticResource NebulaTextBox}"
-           TargetType="controls:NebulaTextBox">
+    <Style x:Key="NebulaSmallTextBox"
+           BasedOn="{StaticResource NebulaTextBoxBase}"
+           TargetType="TextBox">
+        <Setter Property="Padding" Value="6,0"/>
+        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="Height" Value="24"/>
+        <Setter Property="MinHeight" Value="24"/>
+    </Style>
 
+    <Style x:Key="NebulaMediumTextBox"
+           BasedOn="{StaticResource NebulaTextBoxBase}"
+           TargetType="TextBox">
+        <Setter Property="Padding" Value="8,0"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Height" Value="34"/>
+        <Setter Property="MinHeight" Value="34"/>
+    </Style>
+
+    <Style x:Key="NebulaTextBox"
+           BasedOn="{StaticResource NebulaMediumTextBox}"
+           TargetType="TextBox"/>
+
+    <Style x:Key="NebulaLargeTextBox"
+           BasedOn="{StaticResource NebulaTextBoxBase}"
+           TargetType="TextBox">
+        <Setter Property="Padding" Value="10,0"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="Height" Value="46"/>
+        <Setter Property="MinHeight" Value="46"/>
+    </Style>
+
+    <Style x:Key="NebulaLabeledTextBoxBase"
+           BasedOn="{StaticResource NebulaTextBoxBase}"
+           TargetType="controls:NebulaTextBox">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:NebulaTextBox">
-                    <DockPanel LastChildFill="True">
-                        <TextBlock x:Name="LabelText"
-                                   DockPanel.Dock="{TemplateBinding LabelPlacement}"
-                                   Text="{TemplateBinding Label}"
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <DockPanel LastChildFill="True">
+                            <TextBlock x:Name="LabelText"
+                                       DockPanel.Dock="{TemplateBinding LabelPlacement}"
+                                       Text="{TemplateBinding Label}"
+                                       Foreground="{DynamicResource Brush.TextMuted}"
+                                       FontSize="12"
+                                       Margin="0,0,0,6"/>
+
+                            <Border x:Name="Border"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="6"
+                                    MinHeight="{TemplateBinding MinHeight}"
+                                    SnapsToDevicePixels="True">
+                                <Grid>
+                                    <ScrollViewer x:Name="PART_ContentHost"
+                                                  Margin="{TemplateBinding Padding}"
+                                                  VerticalAlignment="Center"/>
+                                    <TextBlock x:Name="PlaceholderText"
+                                               Text="{TemplateBinding Placeholder}"
+                                               Foreground="{DynamicResource Brush.TextMuted}"
+                                               Margin="{TemplateBinding Padding}"
+                                               Padding="10,0,0,0"
+                                               VerticalAlignment="Center"
+                                               IsHitTestVisible="False"
+                                               Visibility="Collapsed"/>
+                                </Grid>
+                            </Border>
+                        </DockPanel>
+
+                        <TextBlock x:Name="HelperTextBlock"
+                                   Grid.Row="1"
+                                   Text="{TemplateBinding HelperText}"
                                    Foreground="{DynamicResource Brush.TextMuted}"
                                    FontSize="12"
-                                   Margin="0,0,0,6"/>
+                                   Margin="0,6,0,0"/>
 
-                        <Border x:Name="Border"
-                                Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="6"
-                                MinHeight="{TemplateBinding MinHeight}">
-                            <ScrollViewer x:Name="PART_ContentHost"
-                                          Margin="{TemplateBinding Padding}"/>
-                        </Border>
-                    </DockPanel>
+                        <TextBlock x:Name="ErrorTextBlock"
+                                   Grid.Row="1"
+                                   Text="{TemplateBinding ErrorText}"
+                                   Foreground="{DynamicResource Brush.Danger}"
+                                   FontSize="12"
+                                   Margin="0,6,0,0"
+                                   Visibility="Collapsed"/>
+
+                        <TextBlock x:Name="WarningTextBlock"
+                                   Grid.Row="1"
+                                   Text="{TemplateBinding WarningText}"
+                                   Foreground="{DynamicResource Brush.Warning}"
+                                   FontSize="12"
+                                   Margin="0,6,0,0"
+                                   Visibility="Collapsed"/>
+                    </Grid>
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="Label" Value="">
@@ -75,7 +159,7 @@
                         </Trigger>
 
                         <Trigger Property="LabelPlacement" Value="Left">
-                            <Setter TargetName="LabelText" Property="Margin" Value="0,0,5,0"/>
+                            <Setter TargetName="LabelText" Property="Margin" Value="0,0,8,0"/>
                             <Setter TargetName="LabelText" Property="VerticalAlignment" Value="Center"/>
                         </Trigger>
 
@@ -88,6 +172,22 @@
                             <Setter TargetName="LabelText" Property="Margin" Value="0,6,0,0"/>
                         </Trigger>
 
+                        <Trigger Property="Text" Value="">
+                            <Setter TargetName="PlaceholderText" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+
+                        <Trigger Property="Placeholder" Value="">
+                            <Setter TargetName="PlaceholderText" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+
+                        <Trigger Property="HelperText" Value="">
+                            <Setter TargetName="HelperTextBlock" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+
+                        <Trigger Property="WarningText" Value="">
+                            <Setter TargetName="WarningTextBlock" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="Border" Property="Background" Value="{DynamicResource Brush.SurfaceHover}"/>
                             <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Brush.Brand}"/>
@@ -98,16 +198,73 @@
                             <Setter TargetName="LabelText" Property="Foreground" Value="{DynamicResource Brush.BrandSoft}"/>
                         </Trigger>
 
+                        <Trigger Property="IsReadOnly" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource Brush.BackgroundReadOnly}"/>
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Brush.BorderReadOnly}"/>
+                            <Setter TargetName="LabelText" Property="Foreground" Value="{DynamicResource Brush.TextMuted}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource Brush.TextSecondary}"/>
+                        </Trigger>
+
+                        <Trigger Property="HasWarning" Value="True">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Brush.Warning}"/>
+                            <Setter TargetName="LabelText" Property="Foreground" Value="{DynamicResource Brush.Warning}"/>
+                            <Setter TargetName="HelperTextBlock" Property="Visibility" Value="Collapsed"/>
+                            <Setter TargetName="WarningTextBlock" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+
+                        <Trigger Property="HasError" Value="True">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Brush.Danger}"/>
+                            <Setter TargetName="LabelText" Property="Foreground" Value="{DynamicResource Brush.Danger}"/>
+                            <Setter TargetName="HelperTextBlock" Property="Visibility" Value="Collapsed"/>
+                            <Setter TargetName="WarningTextBlock" Property="Visibility" Value="Collapsed"/>
+                            <Setter TargetName="ErrorTextBlock" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+
+                        <Trigger Property="ErrorText" Value="">
+                            <Setter TargetName="ErrorTextBlock" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="Border" Property="Background" Value="{DynamicResource Brush.BackgroundDisabled}"/>
                             <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Brush.BorderDisabled}"/>
                             <Setter TargetName="LabelText" Property="Foreground" Value="{DynamicResource Brush.TextDisabled}"/>
+                            <Setter TargetName="HelperTextBlock" Property="Foreground" Value="{DynamicResource Brush.TextDisabled}"/>
+                            <Setter TargetName="PlaceholderText" Property="Foreground" Value="{DynamicResource Brush.TextDisabled}"/>
                             <Setter Property="Foreground" Value="{DynamicResource Brush.TextDisabled}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <Style x:Key="NebulaSmallLabeledTextBox"
+           BasedOn="{StaticResource NebulaLabeledTextBoxBase}"
+           TargetType="controls:NebulaTextBox">
+        <Setter Property="Padding" Value="6,0"/>
+        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="Height" Value="24"/>
+        <Setter Property="MinHeight" Value="24"/>
+    </Style>
+
+    <Style x:Key="NebulaMediumLabeledTextBox"
+           BasedOn="{StaticResource NebulaLabeledTextBoxBase}"
+           TargetType="controls:NebulaTextBox">
+        <Setter Property="Padding" Value="8,0"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="MinHeight" Value="34"/>
+    </Style>
+
+    <Style x:Key="NebulaLabeledTextBox"
+           BasedOn="{StaticResource NebulaMediumLabeledTextBox}"
+           TargetType="controls:NebulaTextBox"/>
+
+    <Style x:Key="NebulaLargeLabeledTextBox"
+           BasedOn="{StaticResource NebulaLabeledTextBoxBase}"
+           TargetType="controls:NebulaTextBox">
+        <Setter Property="Padding" Value="10,0"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="MinHeight" Value="46"/>
     </Style>
 
     <Style TargetType="{x:Type TextBlock}">

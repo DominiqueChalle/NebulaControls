@@ -1,0 +1,175 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- ===================================================== -->
+    <!-- Backgrounds Colors                                    -->
+    <!-- ===================================================== -->
+
+    <Color x:Key="Color.Background">
+        #F4F2F8
+    </Color>
+
+    <Color x:Key="Color.BackgroundDisabled">
+        #ECE8F2
+    </Color>
+
+    <Color x:Key="Color.BackgroundReadOnly">
+        #EFECF5
+    </Color>
+
+    <!-- ===================================================== -->
+    <!-- Surface Colors                                        -->
+    <!-- ===================================================== -->
+
+    <Color x:Key="Color.Surface">
+        #FFFFFF
+    </Color>
+
+    <Color x:Key="Color.SurfaceHover">
+        #F1ECFA
+    </Color>
+
+    <Color x:Key="Color.SurfaceActive">
+        #E7DDF7
+    </Color>
+
+    <Color x:Key="Color.SurfaceDisabled">
+        #E9E5EF
+    </Color>
+
+    <Color x:Key="Color.SurfaceReadOnly">
+        #F7F4FB
+    </Color>
+
+    <!-- ===================================================== -->
+    <!-- Accent Colors                                         -->
+    <!-- ===================================================== -->
+
+    <Color x:Key="Color.Accent">
+        #7C5FC4
+    </Color>
+
+    <Color x:Key="Color.AccentHover">
+        #8D73D0
+    </Color>
+
+    <Color x:Key="Color.AccentPressed">
+        #654AA8
+    </Color>
+
+    <Color x:Key="Color.AccentDisabled">
+        #C9BEDF
+    </Color>
+
+    <Color x:Key="Color.AccentBorder">
+        #765DB4
+    </Color>
+
+    <Color x:Key="Color.AccentBorderHover">
+        #604797
+    </Color>
+
+    <Color x:Key="Color.AccentBorderDisabled">
+        #B9AFCB
+    </Color>
+
+    <Color x:Key="Color.DataGridSelection">
+        #D8CCF0
+    </Color>
+
+    <!-- ........................................................... -->
+
+    <Color x:Key="Color.BrandLight">
+        #A58BE0
+    </Color>
+
+    <Color x:Key="Color.BrandSoft">
+        #6B4EB0
+    </Color>
+
+    <Color x:Key="Color.BrandHover">
+        #7A5FBE
+    </Color>
+
+    <Color x:Key="Color.Brand">
+        #6F52B5
+    </Color>
+
+    <Color x:Key="Color.BrandActive">
+        #61449F
+    </Color>
+
+    <Color x:Key="Color.BrandPressed">
+        #52368E
+    </Color>
+
+    <Color x:Key="Color.BrandStrong">
+        #432B78
+    </Color>
+
+    <!-- ===================================================== -->
+    <!-- Text Colors                                           -->
+    <!-- ===================================================== -->
+
+    <Color x:Key="Color.TextPrimary">
+        #17151D
+    </Color>
+
+    <Color x:Key="Color.TextSecondary">
+        #3F3A4A
+    </Color>
+
+    <Color x:Key="Color.TextMuted">
+        #746D82
+    </Color>
+
+    <Color x:Key="Color.TextDisabled">
+        #9E98AA
+    </Color>
+
+    <!-- ===================================================== -->
+    <!-- Borders Colors                                        -->
+    <!-- ===================================================== -->
+
+    <Color x:Key="Color.Border">
+        #D2CBDD
+    </Color>
+
+    <Color x:Key="Color.BorderHover">
+        #B6A9CA
+    </Color>
+
+    <Color x:Key="Color.BorderFocus">
+        #7C5FC4
+    </Color>
+
+    <Color x:Key="Color.BorderDisabled">
+        #DED9E8
+    </Color>
+
+    <Color x:Key="Color.BorderReadOnly">
+        #C7BED6
+    </Color>
+
+    <!-- ===================================================== -->
+    <!-- States Colors                                         -->
+    <!-- ===================================================== -->
+
+    <Color x:Key="Color.Success">
+        #148F4F
+    </Color>
+
+    <Color x:Key="Color.Warning">
+        #B36B00
+    </Color>
+
+    <Color x:Key="Color.Danger">
+        #C0392B
+    </Color>
+
+    <Color x:Key="Color.Info">
+        #2369B3
+    </Color>
+
+</ResourceDictionary>

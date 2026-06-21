@@ -1,0 +1,233 @@
+<UserControl x:Class="NebulaControls.Demo.Views.CollectionsDataView"
+             x:Name="Root"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:nebula="clr-namespace:NebulaControls.Controls;assembly=NebulaControls">
+    <ScrollViewer
+        VerticalScrollBarVisibility="Auto">
+        <UniformGrid Columns="2">
+            <Border Style="{StaticResource DemoCard}">
+                <StackPanel>
+                    <TextBlock Text="ListBox"
+                               Style="{StaticResource DemoSectionTitle}"/>
+                    <TextBlock Text="Selectable items"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,16,0,8"/>
+                    <nebula:NebulaListBox Style="{StaticResource NebulaListBox}"
+                                          SelectedIndex="1"
+                                          Width="320"
+                                          Height="150"
+                                          HorizontalAlignment="Left"
+                                          Margin="0,0,0,16">
+                        <ListBoxItem Content="Buttons"/>
+                        <ListBoxItem Content="Inputs"/>
+                        <ListBoxItem Content="Selection"/>
+                        <ListBoxItem Content="Data"/>
+                        <ListBoxItem Content="Navigation"/>
+                        <ListBoxItem Content="Disabled"
+                                     IsEnabled="False"/>
+                    </nebula:NebulaListBox>
+                    <TextBlock Text="Disabled ListBox"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,0,0,8"/>
+                    <nebula:NebulaListBox Style="{StaticResource NebulaListBox}"
+                                          SelectedIndex="0"
+                                          Width="320"
+                                          Height="112"
+                                          IsEnabled="False"
+                                          HorizontalAlignment="Left">
+                        <ListBoxItem Content="Read-only item"/>
+                        <ListBoxItem Content="Disabled container"/>
+                        <ListBoxItem Content="Unavailable selection"/>
+                    </nebula:NebulaListBox>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource DemoCard}">
+                <StackPanel>
+                    <TextBlock Text="TreeView"
+                               Style="{StaticResource DemoSectionTitle}"/>
+                    <TextBlock Text="Hierarchy"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,16,0,8"/>
+                    <nebula:NebulaTreeView Style="{StaticResource NebulaTreeView}"
+                                           Width="340"
+                                           Height="190"
+                                           HorizontalAlignment="Left"
+                                           Margin="0,0,0,16">
+                        <TreeViewItem Header="NebulaControls"
+                                      IsExpanded="True"
+                                      Style="{StaticResource NebulaTreeViewItem}">
+                            <TreeViewItem Header="Controls"
+                                          IsExpanded="True"
+                                          Style="{StaticResource NebulaTreeViewItem}">
+                                <TreeViewItem Header="Inputs"
+                                              IsSelected="True"
+                                              Style="{StaticResource NebulaTreeViewItem}"/>
+                                <TreeViewItem Header="Selection"
+                                              Style="{StaticResource NebulaTreeViewItem}"/>
+                                <TreeViewItem Header="Data"
+                                              Style="{StaticResource NebulaTreeViewItem}"/>
+                            </TreeViewItem>
+                            <TreeViewItem Header="Themes"
+                                          Style="{StaticResource NebulaTreeViewItem}">
+                                <TreeViewItem Header="NebulaDarkPurple"
+                                              Style="{StaticResource NebulaTreeViewItem}"/>
+                                <TreeViewItem Header="NebulaLightPurple"
+                                              Style="{StaticResource NebulaTreeViewItem}"/>
+                            </TreeViewItem>
+                            <TreeViewItem Header="Disabled branch"
+                                          IsEnabled="False"
+                                          Style="{StaticResource NebulaTreeViewItem}"/>
+                        </TreeViewItem>
+                    </nebula:NebulaTreeView>
+                    <TextBlock Text="Disabled TreeView"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,0,0,8"/>
+                    <nebula:NebulaTreeView Style="{StaticResource NebulaTreeView}"
+                                           Width="340"
+                                           Height="120"
+                                           IsEnabled="False"
+                                           HorizontalAlignment="Left">
+                        <TreeViewItem Header="Disabled root"
+                                      IsExpanded="True"
+                                      Style="{StaticResource NebulaTreeViewItem}">
+                            <TreeViewItem Header="Child item"
+                                          Style="{StaticResource NebulaTreeViewItem}"/>
+                        </TreeViewItem>
+                    </nebula:NebulaTreeView>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource DemoCard}">
+                <StackPanel>
+                    <TextBlock Text="DataGrid"
+                               Style="{StaticResource DemoSectionTitle}"/>
+                    <TextBlock Text="Read-only rows, selection, column resize and horizontal scroll"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,16,0,8"/>
+                    <nebula:NebulaDataGrid Style="{StaticResource NebulaDataGrid}"
+                                           ItemsSource="{Binding DataGridRows, ElementName=Root}"
+                                           SelectedIndex="3"
+                                           Width="560"
+                                           Height="250"
+                                           HorizontalAlignment="Left"
+                                           Margin="0,0,0,16">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Component"
+                                                Binding="{Binding Component}"
+                                                Width="180"/>
+                            <DataGridTextColumn Header="Version"
+                                                Binding="{Binding Version}"
+                                                Width="90"/>
+                            <DataGridTextColumn Header="Status"
+                                                Binding="{Binding Status}"
+                                                Width="130"/>
+                            <DataGridTextColumn Header="Area"
+                                                Binding="{Binding Area}"
+                                                Width="130"/>
+                            <DataGridTextColumn Header="Owner"
+                                                Binding="{Binding Owner}"
+                                                Width="150"/>
+                            <DataGridTextColumn Header="Priority"
+                                                Binding="{Binding Priority}"
+                                                Width="110"/>
+                            <DataGridTextColumn Header="Updated"
+                                                Binding="{Binding Updated}"
+                                                Width="130"/>
+                            <DataGridTextColumn Header="Notes"
+                                                Binding="{Binding Notes}"
+                                                Width="260"/>
+                        </DataGrid.Columns>
+                    </nebula:NebulaDataGrid>
+
+                    <TextBlock Text="Disabled DataGrid"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,0,0,8"/>
+                    <nebula:NebulaDataGrid Style="{StaticResource NebulaDataGrid}"
+                                           ItemsSource="{Binding DisabledDataGridRows, ElementName=Root}"
+                                           SelectedIndex="0"
+                                           Width="430"
+                                           Height="112"
+                                           IsEnabled="False"
+                                           HorizontalAlignment="Left">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Component"
+                                                Binding="{Binding Component}"
+                                                Width="*"/>
+                            <DataGridTextColumn Header="Status"
+                                                Binding="{Binding Status}"
+                                                Width="130"/>
+                        </DataGrid.Columns>
+                    </nebula:NebulaDataGrid>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource DemoCard}">
+                <StackPanel>
+                    <TextBlock Text="ContextMenu + ToolTip"
+                               Style="{StaticResource DemoSectionTitle}"/>
+                    <TextBlock Text="ToolTip"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,16,0,8"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Simple tooltip"
+                                Style="{StaticResource NebulaSecondaryButton}"
+                                HorizontalAlignment="Left">
+                            <Button.ToolTip>
+                                <nebula:NebulaToolTip Style="{StaticResource NebulaToolTip}">
+                                    <TextBlock Text="Nebula tooltip from package."/>
+                                </nebula:NebulaToolTip>
+                            </Button.ToolTip>
+                        </Button>
+                        <Button Content="Rich tooltip"
+                                Style="{StaticResource NebulaSecondaryButton}"
+                                Margin="12,0,0,0"
+                                HorizontalAlignment="Left">
+                            <Button.ToolTip>
+                                <nebula:NebulaToolTip Style="{StaticResource NebulaToolTip}">
+                                    <StackPanel>
+                                        <TextBlock Text="Helpful detail"
+                                                   FontWeight="SemiBold"/>
+                                        <TextBlock Text="Tooltips can wrap longer explanatory content."
+                                                   Margin="0,4,0,0"/>
+                                    </StackPanel>
+                                </nebula:NebulaToolTip>
+                            </Button.ToolTip>
+                        </Button>
+                    </StackPanel>
+
+                    <TextBlock Text="ContextMenu"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,20,0,8"/>
+                    <Button Content="Right click me"
+                            Style="{StaticResource NebulaSecondaryButton}"
+                            HorizontalAlignment="Left">
+                        <Button.ToolTip>
+                            <nebula:NebulaToolTip Style="{StaticResource NebulaToolTip}">
+                                <TextBlock Text="Right click to open a Nebula context menu."/>
+                            </nebula:NebulaToolTip>
+                        </Button.ToolTip>
+                        <Button.ContextMenu>
+                            <ContextMenu Style="{StaticResource NebulaContextMenu}">
+                                <MenuItem Header="Inspect"
+                                          InputGestureText="Ctrl+I"/>
+                                <MenuItem Header="Refresh"
+                                          InputGestureText="F5"/>
+                                <MenuItem Header="Disabled action"
+                                          IsEnabled="False"/>
+                                <Separator Style="{StaticResource NebulaContextMenuSeparator}"/>
+                                <MenuItem Header="More">
+                                    <MenuItem Header="Diagnostics"/>
+                                    <MenuItem Header="Status"/>
+                                    <MenuItem Header="Advanced"
+                                              IsEnabled="False"/>
+                                </MenuItem>
+                            </ContextMenu>
+                        </Button.ContextMenu>
+                    </Button>
+                </StackPanel>
+            </Border>
+        </UniformGrid>
+    </ScrollViewer>
+</UserControl>

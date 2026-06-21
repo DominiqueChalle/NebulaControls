@@ -1,9 +1,9 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Style x:Key="NebulaBaseButton" BasedOn="{StaticResource Typography.Button.Primary}"
+    <Style x:Key="NebulaBaseButton"
+           BasedOn="{StaticResource Typography.Button.Primary}"
            TargetType="Button">
-
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="Padding" Value="18,10"/>
         <Setter Property="Cursor" Value="Hand"/>
@@ -14,25 +14,69 @@
         <Setter Property="Foreground" Value="{DynamicResource Brush.TextPrimary}"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
-
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
     </Style>
 
-    <Style x:Key="NebulaPrimaryButton" BasedOn="{StaticResource NebulaBaseButton}"
+    <Style x:Key="NebulaSmallButton"
+           BasedOn="{StaticResource NebulaBaseButton}"
            TargetType="Button">
+        <Setter Property="Padding" Value="12,6"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="MinWidth" Value="96"/>
+        <Setter Property="MinHeight" Value="34"/>
+    </Style>
 
+    <Style x:Key="NebulaLargeButton"
+           BasedOn="{StaticResource NebulaBaseButton}"
+           TargetType="Button">
+        <Setter Property="Padding" Value="22,13"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="MinWidth" Value="156"/>
+        <Setter Property="MinHeight" Value="52"/>
+    </Style>
+
+    <ControlTemplate x:Key="NebulaButtonTemplate"
+                     TargetType="Button">
+        <Border x:Name="Border"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="8"
+                SnapsToDevicePixels="True">
+            <ContentPresenter Margin="{TemplateBinding Padding}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              RecognizesAccessKey="True"/>
+        </Border>
+
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsKeyboardFocused" Value="True">
+                <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Brush.BorderFocus}"/>
+            </Trigger>
+
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="Border" Property="Background" Value="{DynamicResource Brush.SurfaceDisabled}"/>
+                <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Brush.BorderDisabled}"/>
+                <Setter Property="Foreground" Value="{DynamicResource Brush.TextDisabled}"/>
+                <Setter Property="Cursor" Value="Arrow"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style x:Key="NebulaPrimaryButton"
+           BasedOn="{StaticResource NebulaBaseButton}"
+           TargetType="Button">
         <Setter Property="Background" Value="{DynamicResource Brush.Brand}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource Brush.BrandSoft}"/>
-
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-
                     <Border x:Name="Border"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="8">
-
+                            CornerRadius="8"
+                            SnapsToDevicePixels="True">
                         <ContentPresenter Margin="{TemplateBinding Padding}"
                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -40,7 +84,6 @@
                     </Border>
 
                     <ControlTemplate.Triggers>
-
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="Border" Property="Background" Value="{DynamicResource Brush.BrandHover}"/>
                             <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Brush.BrandLight}"/>
@@ -51,45 +94,43 @@
                             <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Brush.Brand}"/>
                         </Trigger>
 
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Brush.BorderFocus}"/>
+                        </Trigger>
+
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="Border" Property="Background" Value="{DynamicResource Brush.SurfaceDisabled}"/>
                             <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Brush.BorderDisabled}"/>
-                            <Setter TargetName="Border" Property="BorderThickness" Value="2"/>
                             <Setter Property="Foreground" Value="{DynamicResource Brush.TextDisabled}"/>
                             <Setter Property="Cursor" Value="Arrow"/>
                         </Trigger>
-
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
 
-    <Style x:Key="NebulaSecondaryButton" BasedOn="{StaticResource NebulaBaseButton}"
+    <Style x:Key="NebulaSecondaryButton"
+           BasedOn="{StaticResource NebulaBaseButton}"
            TargetType="Button">
-
         <Setter Property="Background" Value="{DynamicResource Brush.Surface}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource Brush.ButtonSecondaryBorder}"/>
-
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-
                     <Border x:Name="Border"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="8">
-
-                        <ContentPresenter
-                            Margin="{TemplateBinding Padding}"
-                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                            RecognizesAccessKey="True"/>
+                            CornerRadius="8"
+                            SnapsToDevicePixels="True">
+                        <ContentPresenter Margin="{TemplateBinding Padding}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          RecognizesAccessKey="True"/>
                     </Border>
 
                     <ControlTemplate.Triggers>
-
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="Border" Property="Background" Value="{DynamicResource Brush.SurfaceHover}"/>
                             <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Brush.ButtonSecondaryBorderHover}"/>
@@ -100,18 +141,182 @@
                             <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Brush.ButtonSecondaryBorderPressed}"/>
                         </Trigger>
 
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Brush.BorderFocus}"/>
+                        </Trigger>
+
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="Border" Property="Background" Value="{DynamicResource Brush.SurfaceDisabled}"/>
                             <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Brush.BorderDisabled}"/>
-                            <Setter TargetName="Border" Property="BorderThickness" Value="2"/>
                             <Setter Property="Foreground" Value="{DynamicResource Brush.TextDisabled}"/>
                             <Setter Property="Cursor" Value="Arrow"/>
                         </Trigger>
-
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <Style x:Key="NebulaDangerButton"
+           BasedOn="{StaticResource NebulaBaseButton}"
+           TargetType="Button">
+        <Setter Property="Background" Value="{DynamicResource Brush.Danger}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource Brush.Danger}"/>
+        <Setter Property="Template" Value="{StaticResource NebulaButtonTemplate}"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Brush.SurfaceHover}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource Brush.Danger}"/>
+            </Trigger>
+
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Brush.Background}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="NebulaWarningButton"
+           BasedOn="{StaticResource NebulaBaseButton}"
+           TargetType="Button">
+        <Setter Property="Background" Value="{DynamicResource Brush.Warning}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource Brush.Warning}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Brush.Background}"/>
+        <Setter Property="Template" Value="{StaticResource NebulaButtonTemplate}"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Brush.SurfaceHover}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource Brush.Warning}"/>
+                <Setter Property="Foreground" Value="{DynamicResource Brush.Warning}"/>
+            </Trigger>
+
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Brush.Background}"/>
+                <Setter Property="Foreground" Value="{DynamicResource Brush.Warning}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="NebulaGhostButton"
+           BasedOn="{StaticResource NebulaBaseButton}"
+           TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{DynamicResource Brush.BrandSoft}"/>
+        <Setter Property="Template" Value="{StaticResource NebulaButtonTemplate}"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Brush.SurfaceHover}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource Brush.Border}"/>
+            </Trigger>
+
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Brush.SurfaceActive}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource Brush.BorderHover}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="NebulaSubtleButton"
+           BasedOn="{StaticResource NebulaBaseButton}"
+           TargetType="Button">
+        <Setter Property="Background" Value="{DynamicResource Brush.SurfaceActive}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource Brush.Border}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Brush.TextSecondary}"/>
+        <Setter Property="Template" Value="{StaticResource NebulaButtonTemplate}"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Brush.SurfaceHover}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource Brush.BorderHover}"/>
+            </Trigger>
+
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Brush.Background}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="NebulaPrimarySmallButton" BasedOn="{StaticResource NebulaPrimaryButton}" TargetType="Button">
+        <Setter Property="Padding" Value="12,6"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="MinWidth" Value="96"/>
+        <Setter Property="MinHeight" Value="34"/>
+    </Style>
+
+    <Style x:Key="NebulaSecondarySmallButton" BasedOn="{StaticResource NebulaSecondaryButton}" TargetType="Button">
+        <Setter Property="Padding" Value="12,6"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="MinWidth" Value="96"/>
+        <Setter Property="MinHeight" Value="34"/>
+    </Style>
+
+    <Style x:Key="NebulaDangerSmallButton" BasedOn="{StaticResource NebulaDangerButton}" TargetType="Button">
+        <Setter Property="Padding" Value="12,6"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="MinWidth" Value="96"/>
+        <Setter Property="MinHeight" Value="34"/>
+    </Style>
+
+    <Style x:Key="NebulaWarningSmallButton" BasedOn="{StaticResource NebulaWarningButton}" TargetType="Button">
+        <Setter Property="Padding" Value="12,6"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="MinWidth" Value="96"/>
+        <Setter Property="MinHeight" Value="34"/>
+    </Style>
+
+    <Style x:Key="NebulaGhostSmallButton" BasedOn="{StaticResource NebulaGhostButton}" TargetType="Button">
+        <Setter Property="Padding" Value="12,6"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="MinWidth" Value="96"/>
+        <Setter Property="MinHeight" Value="34"/>
+    </Style>
+
+    <Style x:Key="NebulaSubtleSmallButton" BasedOn="{StaticResource NebulaSubtleButton}" TargetType="Button">
+        <Setter Property="Padding" Value="12,6"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="MinWidth" Value="96"/>
+        <Setter Property="MinHeight" Value="34"/>
+    </Style>
+
+    <Style x:Key="NebulaPrimaryLargeButton" BasedOn="{StaticResource NebulaPrimaryButton}" TargetType="Button">
+        <Setter Property="Padding" Value="22,13"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="MinWidth" Value="156"/>
+        <Setter Property="MinHeight" Value="52"/>
+    </Style>
+
+    <Style x:Key="NebulaSecondaryLargeButton" BasedOn="{StaticResource NebulaSecondaryButton}" TargetType="Button">
+        <Setter Property="Padding" Value="22,13"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="MinWidth" Value="156"/>
+        <Setter Property="MinHeight" Value="52"/>
+    </Style>
+
+    <Style x:Key="NebulaDangerLargeButton" BasedOn="{StaticResource NebulaDangerButton}" TargetType="Button">
+        <Setter Property="Padding" Value="22,13"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="MinWidth" Value="156"/>
+        <Setter Property="MinHeight" Value="52"/>
+    </Style>
+
+    <Style x:Key="NebulaWarningLargeButton" BasedOn="{StaticResource NebulaWarningButton}" TargetType="Button">
+        <Setter Property="Padding" Value="22,13"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="MinWidth" Value="156"/>
+        <Setter Property="MinHeight" Value="52"/>
+    </Style>
+
+    <Style x:Key="NebulaGhostLargeButton" BasedOn="{StaticResource NebulaGhostButton}" TargetType="Button">
+        <Setter Property="Padding" Value="22,13"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="MinWidth" Value="156"/>
+        <Setter Property="MinHeight" Value="52"/>
+    </Style>
+
+    <Style x:Key="NebulaSubtleLargeButton" BasedOn="{StaticResource NebulaSubtleButton}" TargetType="Button">
+        <Setter Property="Padding" Value="22,13"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="MinWidth" Value="156"/>
+        <Setter Property="MinHeight" Value="52"/>
     </Style>
 
 </ResourceDictionary>

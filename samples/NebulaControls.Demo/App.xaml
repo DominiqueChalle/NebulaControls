@@ -9,6 +9,21 @@
                 <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Themes/NebulaDarkPurple/Theme.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaControls.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <Style x:Key="DemoCard" TargetType="Border">
+                <Setter Property="Background" Value="{DynamicResource Brush.Surface}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource Brush.Border}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="CornerRadius" Value="8"/>
+                <Setter Property="Padding" Value="18"/>
+                <Setter Property="Margin" Value="0,0,14,14"/>
+            </Style>
+
+            <Style x:Key="DemoSectionTitle" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="{DynamicResource Brush.TextPrimary}"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

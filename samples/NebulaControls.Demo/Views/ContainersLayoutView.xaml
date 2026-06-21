@@ -1,0 +1,139 @@
+<UserControl x:Class="NebulaControls.Demo.Views.ContainersLayoutView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:nebula="clr-namespace:NebulaControls.Controls;assembly=NebulaControls">
+    <ScrollViewer
+        VerticalScrollBarVisibility="Auto">
+        <UniformGrid Columns="2">
+            <Border Style="{StaticResource DemoCard}">
+                <StackPanel>
+                    <TextBlock Text="Expander"
+                               Style="{StaticResource DemoSectionTitle}"/>
+                    <TextBlock Text="Expanded"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,16,0,8"/>
+                    <nebula:NebulaExpander Style="{StaticResource NebulaExpander}"
+                                           Header="Advanced options"
+                                           IsExpanded="True"
+                                           Margin="0,0,0,12">
+                        <StackPanel>
+                            <TextBlock Text="Expanded content surface"
+                                       Foreground="{DynamicResource Brush.TextSecondary}"/>
+                            <CheckBox Content="Enable diagnostics"
+                                      Style="{StaticResource NebulaCheckBox}"
+                                      IsChecked="True"
+                                      Margin="0,12,0,0"/>
+                        </StackPanel>
+                    </nebula:NebulaExpander>
+                    <TextBlock Text="Collapsed"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,0,0,8"/>
+                    <nebula:NebulaExpander Style="{StaticResource NebulaExpander}"
+                                           Header="Collapsed options"
+                                           Margin="0,0,0,12">
+                        <TextBlock Text="Hidden until expanded"
+                                   Foreground="{DynamicResource Brush.TextSecondary}"/>
+                    </nebula:NebulaExpander>
+                    <TextBlock Text="Disabled"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,0,0,8"/>
+                    <nebula:NebulaExpander Style="{StaticResource NebulaExpander}"
+                                           Header="Disabled options"
+                                           IsExpanded="True"
+                                           IsEnabled="False">
+                        <TextBlock Text="Disabled content"
+                                   Foreground="{DynamicResource Brush.TextSecondary}"/>
+                    </nebula:NebulaExpander>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource DemoCard}">
+                <StackPanel>
+                    <TextBlock Text="GroupBox"
+                               Style="{StaticResource DemoSectionTitle}"/>
+                    <TextBlock Text="With header"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,16,0,8"/>
+                    <nebula:NebulaGroupBox Style="{StaticResource NebulaGroupBox}"
+                                           Header="Settings"
+                                           Margin="0,0,0,12">
+                        <StackPanel>
+                            <TextBlock Text="Grouped content"
+                                       Foreground="{DynamicResource Brush.TextSecondary}"/>
+                            <ToggleButton Content="Active"
+                                          Style="{StaticResource NebulaToggleButton}"
+                                          IsChecked="True"
+                                          Margin="0,14,0,0"/>
+                        </StackPanel>
+                    </nebula:NebulaGroupBox>
+                    <TextBlock Text="Without header"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,0,0,8"/>
+                    <nebula:NebulaGroupBox Style="{StaticResource NebulaGroupBox}"
+                                           Margin="0,0,0,12">
+                        <TextBlock Text="Content can be grouped without a visible header."
+                                   Foreground="{DynamicResource Brush.TextSecondary}"/>
+                    </nebula:NebulaGroupBox>
+                    <TextBlock Text="Disabled"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,0,0,8"/>
+                    <nebula:NebulaGroupBox Style="{StaticResource NebulaGroupBox}"
+                                           Header="Disabled settings"
+                                           IsEnabled="False">
+                        <ToggleButton Content="Unavailable"
+                                      Style="{StaticResource NebulaToggleButton}"
+                                      IsChecked="True"/>
+                    </nebula:NebulaGroupBox>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource DemoCard}">
+                <StackPanel>
+                    <TextBlock Text="Top TabControl"
+                               Style="{StaticResource DemoSectionTitle}"/>
+                    <nebula:NebulaTabControl Style="{StaticResource NebulaTabControl}"
+                                             Margin="0,16,0,0">
+                        <nebula:NebulaTabItem Header="Overview">
+                            <TextBlock Text="Top tab content"
+                                       Foreground="{DynamicResource Brush.TextSecondary}"/>
+                        </nebula:NebulaTabItem>
+                        <nebula:NebulaTabItem Header="Details">
+                            <TextBlock Text="Details content"
+                                       Foreground="{DynamicResource Brush.TextSecondary}"/>
+                        </nebula:NebulaTabItem>
+                        <nebula:NebulaTabItem Header="Disabled"
+                                              IsEnabled="False">
+                            <TextBlock Text="Disabled tab content"
+                                       Foreground="{DynamicResource Brush.TextSecondary}"/>
+                        </nebula:NebulaTabItem>
+                    </nebula:NebulaTabControl>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource DemoCard}">
+                <StackPanel>
+                    <TextBlock Text="Left TabControl"
+                               Style="{StaticResource DemoSectionTitle}"/>
+                    <nebula:NebulaTabControl Style="{StaticResource NebulaTabControl}"
+                                             TabStripPlacement="Left"
+                                             Height="180"
+                                             Margin="0,16,0,0">
+                        <nebula:NebulaTabItem Header="General">
+                            <TextBlock Text="General content"
+                                       Foreground="{DynamicResource Brush.TextSecondary}"/>
+                        </nebula:NebulaTabItem>
+                        <nebula:NebulaTabItem Header="Advanced">
+                            <TextBlock Text="Advanced content"
+                                       Foreground="{DynamicResource Brush.TextSecondary}"/>
+                        </nebula:NebulaTabItem>
+                        <nebula:NebulaTabItem Header="Disabled"
+                                              IsEnabled="False">
+                            <TextBlock Text="Disabled content"
+                                       Foreground="{DynamicResource Brush.TextSecondary}"/>
+                        </nebula:NebulaTabItem>
+                    </nebula:NebulaTabControl>
+                </StackPanel>
+            </Border>
+        </UniformGrid>
+    </ScrollViewer>
+</UserControl>
