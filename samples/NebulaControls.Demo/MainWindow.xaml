@@ -238,6 +238,10 @@
                                 Content="Collections + Data"
                                 Style="{StaticResource DemoSidebarButton}"
                                 Click="CollectionsNavButton_Click"/>
+                        <Button x:Name="PickerLabNavButton"
+                                Content="Picker Lab"
+                                Style="{StaticResource DemoSidebarButton}"
+                                Click="PickerLabNavButton_Click"/>
                         <Button x:Name="ContainersNavButton"
                                 Content="Containers + Layout"
                                 Style="{StaticResource DemoSidebarButton}"

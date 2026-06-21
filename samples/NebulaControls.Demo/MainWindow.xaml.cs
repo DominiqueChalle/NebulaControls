@@ -16,6 +16,7 @@ public partial class MainWindow : Window
     private readonly ButtonsFeedbackView buttonsFeedbackView = new();
     private readonly InputsProgressView inputsProgressView = new();
     private readonly CollectionsDataView collectionsDataView = new();
+    private readonly PickerLabView pickerLabView = new();
     private readonly ContainersLayoutView containersLayoutView = new();
 
     public MainWindow()
@@ -166,6 +167,11 @@ public partial class MainWindow : Window
         ShowDemoView(collectionsDataView, CollectionsNavButton);
     }
 
+    private void PickerLabNavButton_Click(object sender, RoutedEventArgs e)
+    {
+        ShowDemoView(pickerLabView, PickerLabNavButton);
+    }
+
     private void ContainersNavButton_Click(object sender, RoutedEventArgs e)
     {
         ShowDemoView(containersLayoutView, ContainersNavButton);
@@ -184,6 +190,7 @@ public partial class MainWindow : Window
             ActionsNavButton,
             InputsNavButton,
             CollectionsNavButton,
+            PickerLabNavButton,
             ContainersNavButton
         ];
 
@@ -219,6 +226,7 @@ public partial class MainWindow : Window
         UpdateSidebarButton(ActionsNavButton, "Buttons + Feedback", "\uE8FD");
         UpdateSidebarButton(InputsNavButton, "Inputs + Progress", "\uE70F");
         UpdateSidebarButton(CollectionsNavButton, "Collections + Data", "\uE8A5");
+        UpdateSidebarButton(PickerLabNavButton, "Picker Lab", "\uE787");
         UpdateSidebarButton(ContainersNavButton, "Containers + Layout", "\uE8A9");
     }
 

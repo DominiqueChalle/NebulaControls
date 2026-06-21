@@ -139,6 +139,106 @@
 
             <Border Style="{StaticResource DemoCard}">
                 <StackPanel>
+                    <TextBlock Text="DatePicker"
+                               Style="{StaticResource DemoSectionTitle}"/>
+                    <TextBlock Text="Standard DatePicker"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,16,0,8"/>
+                    <nebula:NebulaDatePicker Style="{StaticResource NebulaDatePicker}"
+                                             SelectedDate="2026-06-21"
+                                             Width="300"
+                                             HorizontalAlignment="Left"
+                                             Margin="0,0,0,16"/>
+
+                    <TextBlock Text="Limited range"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,0,0,8"/>
+                    <nebula:NebulaDatePicker Style="{StaticResource NebulaDatePicker}"
+                                             SelectedDate="2026-06-21"
+                                             DisplayDateStart="2026-06-01"
+                                             DisplayDateEnd="2026-06-30"
+                                             Width="300"
+                                             HorizontalAlignment="Left"
+                                             Margin="0,0,0,16"/>
+
+                    <TextBlock Text="Disabled DatePicker"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,0,0,8"/>
+                    <nebula:NebulaDatePicker Style="{StaticResource NebulaDatePicker}"
+                                             SelectedDate="2026-06-21"
+                                             IsEnabled="False"
+                                             Width="300"
+                                             HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource DemoCard}">
+                <StackPanel>
+                    <TextBlock Text="TimePicker"
+                               Style="{StaticResource DemoSectionTitle}"/>
+                    <TextBlock Text="Standard TimePicker"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,16,0,8"/>
+                    <nebula:NebulaTimePicker Style="{StaticResource NebulaTimePicker}"
+                                             SelectedTime="14:30"
+                                             Width="180"
+                                             HorizontalAlignment="Left"
+                                             Margin="0,0,0,16"/>
+
+                    <TextBlock Text="Manual entry accepts HH:mm"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,0,0,8"/>
+                    <nebula:NebulaTimePicker Style="{StaticResource NebulaTimePicker}"
+                                             SelectedTime="08:05"
+                                             Width="180"
+                                             HorizontalAlignment="Left"
+                                             Margin="0,0,0,16"/>
+
+                    <TextBlock Text="Disabled TimePicker"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,0,0,8"/>
+                    <nebula:NebulaTimePicker Style="{StaticResource NebulaTimePicker}"
+                                             SelectedTime="18:00"
+                                             IsEnabled="False"
+                                             Width="180"
+                                             HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource DemoCard}">
+                <StackPanel>
+                    <TextBlock Text="DateTimePicker"
+                               Style="{StaticResource DemoSectionTitle}"/>
+                    <TextBlock Text="Date and time composition"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,16,0,8"/>
+                    <nebula:NebulaDateTimePicker Style="{DynamicResource NebulaDateTimePicker}"
+                                                 SelectedDateTime="2026-06-21 14:30"
+                                                 HorizontalAlignment="Left"
+                                                 Margin="0,0,0,16"/>
+
+                    <TextBlock Text="Limited date range"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,0,0,8"/>
+                    <nebula:NebulaDateTimePicker Style="{DynamicResource NebulaDateTimePicker}"
+                                                 SelectedDateTime="2026-06-21 08:05"
+                                                 DisplayDateStart="2026-06-01"
+                                                 DisplayDateEnd="2026-06-30"
+                                                 HorizontalAlignment="Left"
+                                                 Margin="0,0,0,16"/>
+
+                    <TextBlock Text="Disabled DateTimePicker"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,0,0,8"/>
+                    <nebula:NebulaDateTimePicker Style="{DynamicResource NebulaDateTimePicker}"
+                                                 SelectedDateTime="2026-06-21 18:00"
+                                                 IsEnabled="False"
+                                                 HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource DemoCard}">
+                <StackPanel>
                     <TextBlock Text="Choices"
                                Style="{StaticResource DemoSectionTitle}"/>
                     <TextBlock Text="CheckBox"
