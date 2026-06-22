@@ -154,6 +154,117 @@
 
             <Border Style="{StaticResource DemoCard}">
                 <StackPanel>
+                    <TextBlock Text="Chips"
+                               Style="{StaticResource DemoSectionTitle}"/>
+                    <TextBlock Text="Filter control catalog"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,16,0,8"/>
+                    <WrapPanel x:Name="ActiveFiltersPanel"
+                               Margin="0,0,0,12">
+                        <nebula:NebulaChip x:Name="InputFilterChip"
+                                           Content="Inputs"
+                                           Style="{StaticResource NebulaBrandChip}"
+                                           IsSelected="True"
+                                           IsCloseVisible="True"
+                                           CloseClicked="FilterChip_CloseClicked"
+                                           MouseLeftButtonUp="FilterChip_MouseLeftButtonUp"
+                                           Margin="0,0,10,10"/>
+                        <nebula:NebulaChip x:Name="FeedbackFilterChip"
+                                           Content="Feedback"
+                                           Style="{StaticResource NebulaSuccessChip}"
+                                           IsSelected="True"
+                                           IsCloseVisible="True"
+                                           CloseClicked="FilterChip_CloseClicked"
+                                           MouseLeftButtonUp="FilterChip_MouseLeftButtonUp"
+                                           Margin="0,0,10,10"/>
+                        <nebula:NebulaChip x:Name="NewFilterChip"
+                                           Content="New controls"
+                                           Style="{StaticResource NebulaWarningChip}"
+                                           IsSelected="True"
+                                           Visibility="Collapsed"
+                                           IsCloseVisible="True"
+                                           CloseClicked="FilterChip_CloseClicked"
+                                           MouseLeftButtonUp="FilterChip_MouseLeftButtonUp"
+                                           Margin="0,0,10,10"/>
+                    </WrapPanel>
+
+                    <TextBlock Text="Available filters"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,0,0,8"/>
+                    <WrapPanel Margin="0,0,0,12">
+                        <nebula:NebulaChip Content="Inputs"
+                                           Tag="Inputs"
+                                           Style="{StaticResource NebulaBrandChip}"
+                                           MouseLeftButtonUp="AddFilterChip_MouseLeftButtonUp"
+                                           Margin="0,0,10,10"/>
+                        <nebula:NebulaChip Content="Feedback"
+                                           Tag="Feedback"
+                                           Style="{StaticResource NebulaSuccessChip}"
+                                           MouseLeftButtonUp="AddFilterChip_MouseLeftButtonUp"
+                                           Margin="0,0,10,10"/>
+                        <nebula:NebulaChip Content="New controls"
+                                           Tag="New controls"
+                                           Style="{StaticResource NebulaWarningChip}"
+                                           MouseLeftButtonUp="AddFilterChip_MouseLeftButtonUp"
+                                           Margin="0,0,10,10"/>
+                    </WrapPanel>
+
+                    <TextBlock x:Name="FilterStatusText"
+                               Text="Showing filtered controls."
+                               Foreground="{DynamicResource Brush.TextMuted}"
+                               FontSize="12"
+                               Margin="0,0,0,10"/>
+
+                    <nebula:NebulaListBox x:Name="ChipFilteredControlsListBox"
+                                           Style="{StaticResource NebulaListBox}"
+                                           Width="360"
+                                           Height="142"
+                                           HorizontalAlignment="Left"
+                                           Margin="0,0,0,18">
+                        <nebula:NebulaListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Name}"
+                                               Foreground="{DynamicResource Brush.TextPrimary}"
+                                               FontWeight="SemiBold"/>
+                                    <TextBlock Text="{Binding Category}"
+                                               Foreground="{DynamicResource Brush.BrandSoft}"
+                                               FontSize="12"
+                                               Margin="0,3,0,0"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </nebula:NebulaListBox.ItemTemplate>
+                    </nebula:NebulaListBox>
+
+                    <TextBlock Text="Variants"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,0,0,8"/>
+                    <WrapPanel>
+                        <nebula:NebulaChip Content="Default"
+                                           Style="{StaticResource NebulaChip}"
+                                           Margin="0,0,10,10"/>
+                        <nebula:NebulaChip Content="Brand"
+                                           Style="{StaticResource NebulaBrandChip}"
+                                           Margin="0,0,10,10"/>
+                        <nebula:NebulaChip Content="Success"
+                                           Style="{StaticResource NebulaSuccessChip}"
+                                           Margin="0,0,10,10"/>
+                        <nebula:NebulaChip Content="Warning"
+                                           Style="{StaticResource NebulaWarningChip}"
+                                           Margin="0,0,10,10"/>
+                        <nebula:NebulaChip Content="Danger"
+                                           Style="{StaticResource NebulaDangerChip}"
+                                           Margin="0,0,10,10"/>
+                        <nebula:NebulaChip Content="Disabled"
+                                           Style="{StaticResource NebulaChip}"
+                                           IsEnabled="False"
+                                           Margin="0,0,10,10"/>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource DemoCard}">
+                <StackPanel>
                     <TextBlock Text="Alerts"
                                Style="{StaticResource DemoSectionTitle}"/>
                     <WrapPanel Margin="0,16,0,12">
@@ -186,6 +297,76 @@
                                        Margin="0,4,0,0"/>
                         </StackPanel>
                     </nebula:NebulaAlert>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource DemoCard}">
+                <StackPanel>
+                    <TextBlock Text="Toast"
+                               Style="{StaticResource DemoSectionTitle}"/>
+                    <TextBlock Text="Temporary in-app notification"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,16,0,8"/>
+                    <WrapPanel Margin="0,0,0,16">
+                        <Button Content="Info"
+                                Style="{StaticResource NebulaSecondarySmallButton}"
+                                Click="ShowInfoToastButton_Click"
+                                Margin="0,0,10,10"/>
+                        <Button Content="Saved"
+                                Style="{StaticResource NebulaPrimarySmallButton}"
+                                Click="ShowSuccessToastButton_Click"
+                                Margin="0,0,10,10"/>
+                        <Button Content="Warning"
+                                Style="{StaticResource NebulaWarningSmallButton}"
+                                Click="ShowWarningToastButton_Click"
+                                Margin="0,0,10,10"/>
+                        <Button Content="Danger"
+                                Style="{StaticResource NebulaDangerSmallButton}"
+                                Click="ShowDangerToastButton_Click"
+                                Margin="0,0,10,10"/>
+                    </WrapPanel>
+                    <TextBlock Text="Toast appears at the bottom-right of the demo window for 5 seconds."
+                               Foreground="{DynamicResource Brush.TextMuted}"
+                               FontSize="12"
+                               TextWrapping="Wrap"/>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource DemoCard}">
+                <StackPanel>
+                    <TextBlock Text="Rating"
+                               Style="{StaticResource DemoSectionTitle}"/>
+                    <TextBlock Text="Feedback score"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,16,0,8"/>
+                    <nebula:NebulaRating x:Name="FeedbackRating"
+                                         Style="{StaticResource NebulaRating}"
+                                         Value="4"
+                                         ValueChanged="FeedbackRating_ValueChanged"
+                                         HorizontalAlignment="Left"
+                                         Margin="0,0,0,8"/>
+                    <TextBlock x:Name="FeedbackRatingText"
+                               Text="4 / 5 - Very useful"
+                               Foreground="{DynamicResource Brush.TextMuted}"
+                               FontSize="12"
+                               Margin="0,0,0,18"/>
+
+                    <TextBlock Text="Read-only"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,0,0,8"/>
+                    <nebula:NebulaRating Style="{StaticResource NebulaRating}"
+                                         Value="3"
+                                         IsReadOnly="True"
+                                         HorizontalAlignment="Left"
+                                         Margin="0,0,0,18"/>
+
+                    <TextBlock Text="Disabled"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,0,0,8"/>
+                    <nebula:NebulaRating Style="{StaticResource NebulaRating}"
+                                         Value="2"
+                                         IsEnabled="False"
+                                         HorizontalAlignment="Left"/>
                 </StackPanel>
             </Border>
 

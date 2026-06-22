@@ -3,6 +3,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Threading;
+using NebulaControls.Controls;
 using NebulaControls.Demo.Views;
 using NebulaControls.Theming;
 
@@ -13,6 +16,7 @@ public partial class MainWindow : Window
     private Rect restoreBoundsBeforeMaximize;
     private bool isCustomMaximized;
     private bool isSidebarCollapsed;
+    private readonly DispatcherTimer toastTimer;
     private readonly ButtonsFeedbackView buttonsFeedbackView = new();
     private readonly InputsProgressView inputsProgressView = new();
     private readonly CollectionsDataView collectionsDataView = new();
@@ -31,6 +35,12 @@ public partial class MainWindow : Window
         };
 
         InitializeComponent();
+        toastTimer = new DispatcherTimer
+        {
+            Interval = TimeSpan.FromSeconds(5)
+        };
+        toastTimer.Tick += ToastTimer_Tick;
+        buttonsFeedbackView.ToastRequested += ButtonsFeedbackView_ToastRequested;
         DataContext = this;
         ApplyInitialWindowSize();
         UpdateSidebarLayout();
@@ -291,6 +301,73 @@ public partial class MainWindow : Window
             ActiveThemeStatusText.Text = $"{themeName} theme active";
         }
 
+    }
+
+    private void ButtonsFeedbackView_ToastRequested(object? sender, ToastRequestedEventArgs e)
+    {
+        ShowGlobalToast(e.StyleKey, e.Title, e.Message);
+    }
+
+    private void GlobalToast_CloseClicked(object sender, EventArgs e)
+    {
+        HideGlobalToast();
+    }
+
+    private void ToastTimer_Tick(object? sender, EventArgs e)
+    {
+        HideGlobalToast();
+    }
+
+    private void ShowGlobalToast(string styleKey, string title, string message)
+    {
+        toastTimer.Stop();
+
+        GlobalToast.Style = (Style)FindResource(styleKey);
+        GlobalToast.Title = title;
+        GlobalToast.Message = message;
+        GlobalToast.Visibility = Visibility.Visible;
+
+        AnimateGlobalToast(0, 1, null);
+        toastTimer.Start();
+    }
+
+    private void HideGlobalToast()
+    {
+        toastTimer.Stop();
+        AnimateGlobalToast(34, 0, (_, _) => GlobalToast.Visibility = Visibility.Collapsed);
+    }
+
+    private void AnimateGlobalToast(double offsetY, double opacity, EventHandler? completed)
+    {
+        if (GlobalToast.RenderTransform is not TranslateTransform transform)
+        {
+            return;
+        }
+
+        var easing = new CubicEase { EasingMode = EasingMode.EaseOut };
+        var duration = TimeSpan.FromMilliseconds(220);
+
+        var yAnimation = new DoubleAnimation
+        {
+            To = offsetY,
+            Duration = duration,
+            EasingFunction = easing
+        };
+
+        var opacityAnimation = new DoubleAnimation
+        {
+            To = opacity,
+            Duration = duration,
+            EasingFunction = easing
+        };
+
+        if (completed is not null)
+        {
+            opacityAnimation.Completed += completed;
+        }
+
+        transform.BeginAnimation(TranslateTransform.YProperty, yAnimation);
+        GlobalToast.BeginAnimation(OpacityProperty, opacityAnimation);
     }
 }
 

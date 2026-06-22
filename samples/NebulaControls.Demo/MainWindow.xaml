@@ -74,11 +74,12 @@
 
     </Window.Resources>
 
-    <Border x:Name="DemoWindowFrame"
-            Background="{DynamicResource Brush.Background}"
-            BorderBrush="{DynamicResource Brush.Border}"
-            BorderThickness="1"
-            CornerRadius="10">
+    <Grid>
+        <Border x:Name="DemoWindowFrame"
+                Background="{DynamicResource Brush.Background}"
+                BorderBrush="{DynamicResource Brush.Border}"
+                BorderThickness="1"
+                CornerRadius="10">
         <DockPanel>
             <Grid DockPanel.Dock="Top"
                   Height="44"
@@ -289,7 +290,21 @@
                                     Margin="0,28,0,0"/>
                 </Grid>
             </Grid>
-        </DockPanel>
-    </Border>
+            </DockPanel>
+        </Border>
+
+        <nebula:NebulaToast x:Name="GlobalToast"
+                            Style="{StaticResource NebulaInfoToast}"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Margin="0,0,28,28"
+                            Opacity="0"
+                            Visibility="Collapsed"
+                            CloseClicked="GlobalToast_CloseClicked">
+            <nebula:NebulaToast.RenderTransform>
+                <TranslateTransform Y="34"/>
+            </nebula:NebulaToast.RenderTransform>
+        </nebula:NebulaToast>
+    </Grid>
 </Window>
 

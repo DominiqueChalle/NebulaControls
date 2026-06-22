@@ -1,4 +1,5 @@
 <UserControl x:Class="NebulaControls.Demo.Views.InputsProgressView"
+             x:Name="InputsProgressRoot"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:nebula="clr-namespace:NebulaControls.Controls;assembly=NebulaControls">
@@ -234,6 +235,120 @@
                                                  SelectedDateTime="2026-06-21 18:00"
                                                  IsEnabled="False"
                                                  HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource DemoCard}">
+                <StackPanel>
+                    <TextBlock Text="NumericUpDown"
+                               Style="{StaticResource DemoSectionTitle}"/>
+                    <TextBlock Text="Standard"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,16,0,8"/>
+                    <nebula:NebulaNumericUpDown Style="{StaticResource NebulaNumericUpDown}"
+                                                Value="12"
+                                                Width="180"
+                                                HorizontalAlignment="Left"
+                                                Margin="0,0,0,16"/>
+
+                    <TextBlock Text="Limited range"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,0,0,8"/>
+                    <nebula:NebulaNumericUpDown Style="{StaticResource NebulaNumericUpDown}"
+                                                Value="5"
+                                                Minimum="0"
+                                                Maximum="10"
+                                                Step="1"
+                                                Width="180"
+                                                HorizontalAlignment="Left"
+                                                Margin="0,0,0,16"/>
+
+                    <TextBlock Text="Decimal step"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,0,0,8"/>
+                    <nebula:NebulaNumericUpDown Style="{StaticResource NebulaNumericUpDown}"
+                                                Value="2.5"
+                                                Minimum="0"
+                                                Maximum="5"
+                                                Step="0.5"
+                                                Width="180"
+                                                HorizontalAlignment="Left"
+                                                Margin="0,0,0,16"/>
+
+                    <TextBlock Text="Read-only"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,0,0,8"/>
+                    <nebula:NebulaNumericUpDown Style="{StaticResource NebulaNumericUpDown}"
+                                                Value="42"
+                                                IsReadOnly="True"
+                                                Width="180"
+                                                HorizontalAlignment="Left"
+                                                Margin="0,0,0,16"/>
+
+                    <TextBlock Text="Disabled"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,0,0,8"/>
+                    <nebula:NebulaNumericUpDown Style="{StaticResource NebulaNumericUpDown}"
+                                                Value="64"
+                                                IsEnabled="False"
+                                                Width="180"
+                                                HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource DemoCard}">
+                <StackPanel>
+                    <TextBlock Text="SearchBox"
+                               Style="{StaticResource DemoSectionTitle}"/>
+                    <TextBlock Text="Filter a realistic control list"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,16,0,8"/>
+                    <nebula:NebulaSearchBox Style="{StaticResource NebulaSearchBox}"
+                                            Placeholder="Rechercher nom, catégorie, description..."
+                                            SearchTextChanged="ControlSearchBox_SearchTextChanged"
+                                            SearchSubmitted="ControlSearchBox_SearchSubmitted"
+                                            Width="360"
+                                            HorizontalAlignment="Left"
+                                            Margin="0,0,0,14"/>
+
+                    <TextBlock x:Name="SearchStatusText"
+                               Text="Tapez pour filtrer la liste."
+                               Foreground="{DynamicResource Brush.TextMuted}"
+                               FontSize="12"
+                               Margin="0,0,0,10"/>
+
+                    <nebula:NebulaListBox Style="{StaticResource NebulaListBox}"
+                                          ItemsSource="{Binding FilteredSearchItems, ElementName=InputsProgressRoot}"
+                                          Width="360"
+                                          Height="230"
+                                          HorizontalAlignment="Left">
+                        <nebula:NebulaListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Text="{Binding Name}"
+                                               Foreground="{DynamicResource Brush.TextPrimary}"
+                                               FontWeight="SemiBold"/>
+                                    <TextBlock Grid.Row="1"
+                                               Text="{Binding Category}"
+                                               Foreground="{DynamicResource Brush.BrandSoft}"
+                                               FontSize="12"
+                                               Margin="0,3,0,0"/>
+                                    <TextBlock Grid.Row="2"
+                                               Text="{Binding Description}"
+                                               Foreground="{DynamicResource Brush.TextMuted}"
+                                               FontSize="12"
+                                               TextWrapping="Wrap"
+                                               Margin="0,3,0,0"/>
+                                </Grid>
+                            </DataTemplate>
+                        </nebula:NebulaListBox.ItemTemplate>
+                    </nebula:NebulaListBox>
                 </StackPanel>
             </Border>
 

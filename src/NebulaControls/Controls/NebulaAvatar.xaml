@@ -1,0 +1,161 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:NebulaControls.Controls">
+
+    <Style x:Key="NebulaAvatar"
+           TargetType="controls:NebulaAvatar">
+        <Setter Property="Width" Value="56"/>
+        <Setter Property="Height" Value="56"/>
+        <Setter Property="Background" Value="{DynamicResource Brush.SurfaceActive}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource Brush.Border}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:NebulaAvatar">
+                    <Grid Width="{TemplateBinding Width}"
+                          Height="{TemplateBinding Height}">
+                        <Ellipse x:Name="AvatarBackground"
+                                 Fill="{TemplateBinding Background}"
+                                 Stroke="{TemplateBinding BorderBrush}"
+                                 StrokeThickness="{TemplateBinding BorderThickness}"/>
+
+                        <Ellipse x:Name="ImageEllipse"
+                                 Stroke="{TemplateBinding BorderBrush}"
+                                 StrokeThickness="{TemplateBinding BorderThickness}">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="{Binding ImageSource, RelativeSource={RelativeSource TemplatedParent}}"
+                                            Stretch="UniformToFill"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+
+                        <TextBlock x:Name="UserFallback"
+                                   Text="&#xE77B;"
+                                   FontFamily="Segoe MDL2 Assets"
+                                   FontSize="28"
+                                   Foreground="{DynamicResource Brush.BrandSoft}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Visibility="Collapsed"/>
+
+                        <Grid x:Name="MaleFallback"
+                              Visibility="Collapsed">
+                            <TextBlock Text="&#xE77B;"
+                                       FontFamily="Segoe MDL2 Assets"
+                                       FontSize="28"
+                                       Foreground="{DynamicResource Brush.BrandSoft}"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+                            <Border Width="20"
+                                    Height="20"
+                                    Background="{DynamicResource Brush.Surface}"
+                                    BorderBrush="{DynamicResource Brush.Border}"
+                                    BorderThickness="1"
+                                    CornerRadius="10"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Bottom"
+                                    Margin="0,0,2,2">
+                                <TextBlock Text="♂"
+                                           FontFamily="Segoe UI Symbol"
+                                           FontSize="13"
+                                           FontWeight="SemiBold"
+                                           Foreground="{DynamicResource Brush.BrandSoft}"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"/>
+                            </Border>
+                        </Grid>
+
+                        <Grid x:Name="FemaleFallback"
+                              Visibility="Collapsed">
+                            <TextBlock Text="&#xE77B;"
+                                       FontFamily="Segoe MDL2 Assets"
+                                       FontSize="28"
+                                       Foreground="{DynamicResource Brush.BrandSoft}"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+                            <Border Width="20"
+                                    Height="20"
+                                    Background="{DynamicResource Brush.Surface}"
+                                    BorderBrush="{DynamicResource Brush.Border}"
+                                    BorderThickness="1"
+                                    CornerRadius="10"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Bottom"
+                                    Margin="0,0,2,2">
+                                <TextBlock Text="♀"
+                                           FontFamily="Segoe UI Symbol"
+                                           FontSize="13"
+                                           FontWeight="SemiBold"
+                                           Foreground="{DynamicResource Brush.BrandSoft}"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"/>
+                            </Border>
+                        </Grid>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="ImageSource" Value="{x:Null}">
+                            <Setter TargetName="ImageEllipse"
+                                    Property="Visibility"
+                                    Value="Collapsed"/>
+                            <Setter TargetName="UserFallback"
+                                    Property="Visibility"
+                                    Value="Visible"/>
+                        </Trigger>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="ImageSource" Value="{x:Null}"/>
+                                <Condition Property="AvatarKind" Value="Male"/>
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="UserFallback"
+                                    Property="Visibility"
+                                    Value="Collapsed"/>
+                            <Setter TargetName="MaleFallback"
+                                    Property="Visibility"
+                                    Value="Visible"/>
+                        </MultiTrigger>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="ImageSource" Value="{x:Null}"/>
+                                <Condition Property="AvatarKind" Value="Female"/>
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="UserFallback"
+                                    Property="Visibility"
+                                    Value="Collapsed"/>
+                            <Setter TargetName="FemaleFallback"
+                                    Property="Visibility"
+                                    Value="Visible"/>
+                        </MultiTrigger>
+
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="AvatarBackground"
+                                    Property="Fill"
+                                    Value="{DynamicResource Brush.BackgroundDisabled}"/>
+                            <Setter Property="Opacity"
+                                    Value="0.62"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="NebulaSmallAvatar"
+           BasedOn="{StaticResource NebulaAvatar}"
+           TargetType="controls:NebulaAvatar">
+        <Setter Property="Width" Value="36"/>
+        <Setter Property="Height" Value="36"/>
+    </Style>
+
+    <Style x:Key="NebulaLargeAvatar"
+           BasedOn="{StaticResource NebulaAvatar}"
+           TargetType="controls:NebulaAvatar">
+        <Setter Property="Width" Value="76"/>
+        <Setter Property="Height" Value="76"/>
+    </Style>
+
+    <Style BasedOn="{StaticResource NebulaAvatar}"
+           TargetType="controls:NebulaAvatar"/>
+
+</ResourceDictionary>

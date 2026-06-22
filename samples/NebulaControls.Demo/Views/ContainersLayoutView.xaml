@@ -112,6 +112,71 @@
 
             <Border Style="{StaticResource DemoCard}">
                 <StackPanel>
+                    <TextBlock Text="Avatar"
+                               Style="{StaticResource DemoSectionTitle}"/>
+                    <TextBlock Text="Built-in fallbacks"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,16,0,8"/>
+                    <StackPanel Orientation="Horizontal"
+                                Margin="0,0,0,18">
+                        <StackPanel Margin="0,0,22,0">
+                            <nebula:NebulaAvatar Style="{StaticResource NebulaAvatar}"
+                                                 AvatarKind="User"
+                                                 HorizontalAlignment="Center"/>
+                            <TextBlock Text="User"
+                                       Foreground="{DynamicResource Brush.TextMuted}"
+                                       FontSize="12"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,8,0,0"/>
+                        </StackPanel>
+                        <StackPanel Margin="0,0,22,0">
+                            <nebula:NebulaAvatar Style="{StaticResource NebulaAvatar}"
+                                                 AvatarKind="Male"
+                                                 HorizontalAlignment="Center"/>
+                            <TextBlock Text="Male"
+                                       Foreground="{DynamicResource Brush.TextMuted}"
+                                       FontSize="12"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,8,0,0"/>
+                        </StackPanel>
+                        <StackPanel>
+                            <nebula:NebulaAvatar Style="{StaticResource NebulaAvatar}"
+                                                 AvatarKind="Female"
+                                                 HorizontalAlignment="Center"/>
+                            <TextBlock Text="Female"
+                                       Foreground="{DynamicResource Brush.TextMuted}"
+                                       FontSize="12"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,8,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <TextBlock Text="Load custom image"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,0,0,8"/>
+                    <StackPanel Orientation="Horizontal">
+                        <nebula:NebulaAvatar x:Name="LoadedAvatar"
+                                             Style="{StaticResource NebulaLargeAvatar}"
+                                             AvatarKind="User"/>
+                        <StackPanel Margin="18,0,0,0"
+                                    VerticalAlignment="Center">
+                            <Button Content="Load avatar"
+                                    Style="{StaticResource NebulaSecondaryButton}"
+                                    Click="LoadAvatarButton_Click"
+                                    Margin="0,0,0,8"/>
+                            <TextBlock x:Name="LoadedAvatarStatusText"
+                                       Text="No custom image loaded."
+                                       Foreground="{DynamicResource Brush.TextMuted}"
+                                       FontSize="12"
+                                       TextWrapping="Wrap"
+                                       Width="240"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource DemoCard}">
+                <StackPanel>
                     <TextBlock Text="Left TabControl"
                                Style="{StaticResource DemoSectionTitle}"/>
                     <nebula:NebulaTabControl Style="{StaticResource NebulaTabControl}"

@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using NebulaControls.Controls;
 
@@ -5,9 +6,72 @@ namespace NebulaControls.Demo.Views;
 
 public partial class InputsProgressView : UserControl
 {
+    private readonly SearchDemoItem[] searchableControls =
+    [
+        new("NebulaTextBox", "Inputs", "Champ texte avec placeholder, états read-only, disabled et validation."),
+        new("NebulaLabeledTextBox", "Inputs", "Champ texte avec label, aide, warning et error."),
+        new("NebulaPasswordBox", "Inputs", "Saisie de mot de passe alignée sur les tailles de TextBox."),
+        new("NebulaLabeledPasswordBox", "Inputs", "Mot de passe avec label, aide et validation côté application."),
+        new("NebulaDatePicker", "Pickers", "Sélection d'une date avec calendrier Nebula custom."),
+        new("NebulaTimePicker", "Pickers", "Sélection d'une heure en format 24h avec saisie manuelle."),
+        new("NebulaDateTimePicker", "Pickers", "Sélection combinée date et heure avec popup unique."),
+        new("NebulaNumericUpDown", "Inputs", "Valeur numérique bornée avec boutons plus et moins."),
+        new("NebulaSearchBox", "Inputs", "Recherche avec icône, placeholder, clear et validation Entrée."),
+        new("NebulaComboBox", "Selection", "Liste déroulante standard, editable ou avec item désactivé."),
+        new("NebulaSlider", "Inputs", "Sélection de valeur continue horizontale ou verticale."),
+        new("NebulaProgressBar", "Progress", "Progression déterminée ou indéterminée."),
+        new("NebulaSpinner", "Progress", "Indicateur d'activité compact.")
+    ];
+
     public InputsProgressView()
     {
         InitializeComponent();
+        ApplySearchFilter(string.Empty);
+    }
+
+    public ObservableCollection<SearchDemoItem> FilteredSearchItems { get; } = [];
+
+    private void ControlSearchBox_SearchTextChanged(object sender, System.EventArgs e)
+    {
+        if (sender is not NebulaSearchBox searchBox)
+        {
+            return;
+        }
+
+        ApplySearchFilter(searchBox.SearchText);
+    }
+
+    private void ControlSearchBox_SearchSubmitted(object sender, System.EventArgs e)
+    {
+        if (sender is not NebulaSearchBox searchBox)
+        {
+            return;
+        }
+
+        SearchStatusText.Text = string.IsNullOrWhiteSpace(searchBox.SearchText)
+            ? "Recherche réinitialisée."
+            : $"Recherche validée : {searchBox.SearchText}";
+    }
+
+    private void ApplySearchFilter(string searchText)
+    {
+        FilteredSearchItems.Clear();
+
+        var matches = string.IsNullOrWhiteSpace(searchText)
+            ? searchableControls
+            : searchableControls.Where(control =>
+                control.Name.Contains(searchText, System.StringComparison.CurrentCultureIgnoreCase)
+                || control.Category.Contains(searchText, System.StringComparison.CurrentCultureIgnoreCase)
+                || control.Description.Contains(searchText, System.StringComparison.CurrentCultureIgnoreCase));
+
+        foreach (var control in matches)
+        {
+            FilteredSearchItems.Add(control);
+        }
+
+        SearchStatusText.Text = FilteredSearchItems.Count == 0
+            ? "Aucun contrôle trouvé."
+            : $"{FilteredSearchItems.Count} contrôle(s) affiché(s).";
     }
 
     private void EmailTextBox_LostFocus(object sender, System.Windows.RoutedEventArgs e)
@@ -89,4 +153,6 @@ public partial class InputsProgressView : UserControl
         return password.Length >= 8
             && password.Any(character => !char.IsLetterOrDigit(character));
     }
+
+    public sealed record SearchDemoItem(string Name, string Category, string Description);
 }
