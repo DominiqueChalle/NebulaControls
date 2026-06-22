@@ -28,17 +28,59 @@ public partial class ButtonsFeedbackView : UserControl
 
     private void ShowInfoDialogButton_Click(object sender, RoutedEventArgs e)
     {
-        ShowDialog("Information", "NebulaDialog is loaded from the external package.", NebulaDialogVariant.Info);
+        var result = NebulaDialog.ShowModal(
+            Window.GetWindow(this),
+            "Information",
+            "NebulaDialog can show a simple modal message with one action.",
+            NebulaDialogVariant.Info,
+            "OK",
+            null,
+            windowTitle: "NebulaDialog Info");
+
+        UpdateDialogResult("Information", result);
     }
 
-    private void ShowWarningDialogButton_Click(object sender, RoutedEventArgs e)
+    private void ShowSaveDialogButton_Click(object sender, RoutedEventArgs e)
     {
-        ShowDialog("Warning", "This is the warning variant with the same classic dialog behavior.", NebulaDialogVariant.Warning);
+        var result = NebulaDialog.ShowModal(
+            Window.GetWindow(this),
+            "Save changes?",
+            "The current profile has local changes. Save them before continuing?",
+            NebulaDialogVariant.Success,
+            "Save",
+            "Cancel",
+            windowTitle: "NebulaDialog Save");
+
+        UpdateDialogResult("Save", result);
     }
 
-    private void ShowDangerDialogButton_Click(object sender, RoutedEventArgs e)
+    private void ShowDeleteDialogButton_Click(object sender, RoutedEventArgs e)
     {
-        ShowDialog("Danger", "This is the danger variant. The rail and icon should reflect the severity.", NebulaDialogVariant.Danger);
+        var result = NebulaDialog.ShowModal(
+            Window.GetWindow(this),
+            "Delete selected item?",
+            "This action removes the selected item from the local demo list.",
+            NebulaDialogVariant.Danger,
+            "Delete",
+            "Cancel",
+            windowTitle: "NebulaDialog Delete");
+
+        UpdateDialogResult("Delete", result);
+    }
+
+    private void ShowUnsavedDialogButton_Click(object sender, RoutedEventArgs e)
+    {
+        var result = NebulaDialog.ShowModal(
+            Window.GetWindow(this),
+            "Unsaved changes",
+            "You can save your changes, discard them, or return to the demo without closing anything.",
+            NebulaDialogVariant.Warning,
+            "Save",
+            "Cancel",
+            "Discard",
+            "NebulaDialog Unsaved");
+
+        UpdateDialogResult("Unsaved", result);
     }
 
     private void ShowInfoAlertButton_Click(object sender, RoutedEventArgs e)
@@ -183,20 +225,9 @@ public partial class ButtonsFeedbackView : UserControl
         ToastRequested?.Invoke(this, new ToastRequestedEventArgs(styleKey, title, message));
     }
 
-    private void ShowDialog(string title, string message, NebulaDialogVariant variant)
+    private void UpdateDialogResult(string scenario, NebulaDialogResult result)
     {
-        var dialog = new NebulaDialog
-        {
-            Owner = Window.GetWindow(this),
-            Title = $"NebulaDialog {variant}",
-            DialogTitle = title,
-            Message = message,
-            Variant = variant,
-            PrimaryButtonText = "OK",
-            SecondaryButtonText = "Cancel"
-        };
-
-        dialog.ShowDialog();
+        DialogResultText.Text = $"{scenario} dialog result: {result}";
     }
 
     private sealed record ChipDemoItem(string Name, string Category);

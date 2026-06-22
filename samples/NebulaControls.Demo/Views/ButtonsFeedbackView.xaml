@@ -374,17 +374,32 @@
                 <StackPanel>
                     <TextBlock Text="Dialog"
                                Style="{StaticResource DemoSectionTitle}"/>
-                    <WrapPanel Margin="0,16,0,0">
-                        <Button Content="Info"
+                    <TextBlock Text="Modal feedback and confirmations"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,16,0,8"/>
+                    <WrapPanel Margin="0,0,0,12">
+                        <Button Content="Information"
                                 Style="{StaticResource NebulaSecondaryButton}"
-                                Click="ShowInfoDialogButton_Click"/>
-                        <Button Content="Warning"
+                                Click="ShowInfoDialogButton_Click"
+                                Margin="0,0,10,10"/>
+                        <Button Content="Save"
+                                Style="{StaticResource NebulaPrimaryButton}"
+                                Click="ShowSaveDialogButton_Click"
+                                Margin="0,0,10,10"/>
+                        <Button Content="Delete"
+                                Style="{StaticResource NebulaDangerButton}"
+                                Click="ShowDeleteDialogButton_Click"
+                                Margin="0,0,10,10"/>
+                        <Button Content="Unsaved"
                                 Style="{StaticResource NebulaSecondaryButton}"
-                                Click="ShowWarningDialogButton_Click"/>
-                        <Button Content="Danger"
-                                Style="{StaticResource NebulaSecondaryButton}"
-                                Click="ShowDangerDialogButton_Click"/>
+                                Click="ShowUnsavedDialogButton_Click"
+                                Margin="0,0,10,10"/>
                     </WrapPanel>
+                    <TextBlock x:Name="DialogResultText"
+                               Text="Choose a dialog scenario."
+                               Foreground="{DynamicResource Brush.TextMuted}"
+                               FontSize="12"
+                               TextWrapping="Wrap"/>
                 </StackPanel>
             </Border>
         </UniformGrid>

@@ -96,6 +96,32 @@ public partial class NebulaDialog : Window
 
     public NebulaDialogResult Result { get; private set; } = NebulaDialogResult.None;
 
+    public static NebulaDialogResult ShowModal(
+        Window? owner,
+        string title,
+        string message,
+        NebulaDialogVariant variant = NebulaDialogVariant.Info,
+        string primaryButtonText = "OK",
+        string? secondaryButtonText = "Cancel",
+        string? tertiaryButtonText = null,
+        string windowTitle = "Nebula Dialog")
+    {
+        var dialog = new NebulaDialog
+        {
+            Owner = owner,
+            Title = windowTitle,
+            DialogTitle = title,
+            Message = message,
+            Variant = variant,
+            PrimaryButtonText = primaryButtonText,
+            SecondaryButtonText = secondaryButtonText ?? string.Empty,
+            TertiaryButtonText = tertiaryButtonText
+        };
+
+        dialog.ShowDialog();
+        return dialog.Result;
+    }
+
     private static void OnButtonTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         if (d is NebulaDialog dialog && dialog.IsLoaded)
