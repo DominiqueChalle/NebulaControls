@@ -2,6 +2,8 @@
 
 NebulaControls is a WPF control library containing reusable Nebula-themed controls, styles, templates, and theme resources.
 
+Current distributable version: `1.0.0-beta`.
+
 ## Repository Layout
 
 - `src/NebulaControls`: packable WPF control library
@@ -30,10 +32,16 @@ dotnet build NebulaControls.slnx
 ## Local Package
 
 ```powershell
-dotnet pack src/NebulaControls/NebulaControls.csproj
+dotnet pack src/NebulaControls/NebulaControls.csproj -c Release
 ```
 
 The package is written to `artifacts/packages`.
+
+Install the local package in another WPF project by adding `artifacts/packages` as a NuGet source, then reference:
+
+```xml
+<PackageReference Include="NebulaControls" Version="1.0.0-beta" />
+```
 
 ## Documentation
 

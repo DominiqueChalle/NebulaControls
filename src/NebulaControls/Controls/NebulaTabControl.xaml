@@ -1,3 +1,8 @@
+<!--
+  Nom: NebulaTabControl
+  Version: V1.02
+  Description: Top-only tab control for switching between related content pages.
+-->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="clr-namespace:NebulaControls.Controls">
@@ -6,25 +11,29 @@
            BasedOn="{StaticResource Typography.Text.Primary}"
            TargetType="controls:NebulaTabItem">
         <Setter Property="Foreground" Value="{DynamicResource Brush.TextSecondary}"/>
-        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Background" Value="{DynamicResource Brush.Surface}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource Brush.Border}"/>
-        <Setter Property="BorderThickness" Value="2"/>
-        <Setter Property="Padding" Value="13,9"/>
-        <Setter Property="Margin" Value="0,0,0,0"/>
-        <Setter Property="MinHeight" Value="36"/>
-        <Setter Property="MinWidth" Value="78"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="17,7,16,7"/>
+        <Setter Property="Margin" Value="0,0,-5,0"/>
+        <Setter Property="MinHeight" Value="32"/>
+        <Setter Property="MinWidth" Value="92"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Panel.ZIndex" Value="0"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:NebulaTabItem">
-                    <Grid SnapsToDevicePixels="True">
-                        <Border x:Name="TabBorder"
+                    <Grid SnapsToDevicePixels="True"
+                          MinHeight="{TemplateBinding MinHeight}"
+                          MinWidth="{TemplateBinding MinWidth}">
+                        <Border x:Name="TabShape"
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="7"
-                                Padding="{TemplateBinding Padding}">
+                                CornerRadius="6,6,0,0"
+                                Margin="0"/>
+                        <Border Padding="{TemplateBinding Padding}">
                             <ContentPresenter ContentSource="Header"
                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -34,57 +43,40 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="TabBorder"
+                            <Setter TargetName="TabShape"
                                     Property="Background"
                                     Value="{DynamicResource Brush.SurfaceHover}"/>
+                            <Setter TargetName="TabShape"
+                                    Property="BorderBrush"
+                                    Value="{DynamicResource Brush.BorderHover}"/>
+                            <Setter Property="Panel.ZIndex"
+                                    Value="5"/>
                             <Setter Property="Foreground"
                                     Value="{DynamicResource Brush.TextPrimary}"/>
                         </Trigger>
 
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="TabBorder"
+                            <Setter TargetName="TabShape"
                                     Property="Background"
-                                    Value="{DynamicResource Brush.SurfaceActive}"/>
-                            <Setter TargetName="TabBorder"
+                                    Value="{DynamicResource Brush.Surface}"/>
+                            <Setter TargetName="TabShape"
                                     Property="BorderBrush"
                                     Value="{DynamicResource Brush.BrandSoft}"/>
-                            <Setter TargetName="TabBorder"
-                                    Property="CornerRadius"
-                                    Value="7"/>
+                            <Setter Property="Panel.ZIndex"
+                                    Value="10"/>
+                            <Setter Property="Margin"
+                                    Value="0,0,-5,-2"/>
                             <Setter Property="Foreground"
                                     Value="{DynamicResource Brush.TextPrimary}"/>
                         </Trigger>
 
-                        <Trigger Property="TabStripPlacement" Value="Left">
-                            <Setter Property="Margin"
-                                    Value="0,0,0,0"/>
-                            <Setter Property="MinWidth"
-                                    Value="88"/>
-                            <Setter Property="HorizontalContentAlignment"
-                                    Value="Left"/>
-                            <Setter Property="Padding"
-                                    Value="11,10"/>
-                        </Trigger>
-
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="TabStripPlacement" Value="Left"/>
-                                <Condition Property="IsSelected" Value="True"/>
-                            </MultiTrigger.Conditions>
-                            <Setter TargetName="TabBorder"
-                                    Property="CornerRadius"
-                                    Value="7"/>
-                            <Setter Property="Margin"
-                                    Value="0,0,0,0"/>
-                        </MultiTrigger>
-
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Foreground"
                                     Value="{DynamicResource Brush.TextDisabled}"/>
-                            <Setter TargetName="TabBorder"
+                            <Setter TargetName="TabShape"
                                     Property="Background"
-                                    Value="Transparent"/>
-                            <Setter TargetName="TabBorder"
+                                    Value="{DynamicResource Brush.SurfaceDisabled}"/>
+                            <Setter TargetName="TabShape"
                                     Property="BorderBrush"
                                     Value="{DynamicResource Brush.BorderDisabled}"/>
                         </Trigger>
@@ -110,12 +102,16 @@
                     <Grid x:Name="Root"
                           SnapsToDevicePixels="True">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition x:Name="FirstRow"
+                                           Height="Auto"/>
+                            <RowDefinition x:Name="SecondRow"
+                                           Height="*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition x:Name="FirstColumn"
+                                              Width="Auto"/>
+                            <ColumnDefinition x:Name="SecondColumn"
+                                              Width="*"/>
                         </Grid.ColumnDefinitions>
 
                         <TabPanel x:Name="HeaderPanel"
@@ -142,24 +138,6 @@
                     </Grid>
 
                     <ControlTemplate.Triggers>
-                        <Trigger Property="TabStripPlacement" Value="Left">
-                            <Setter TargetName="HeaderPanel"
-                                    Property="Grid.Row"
-                                    Value="1"/>
-                            <Setter TargetName="HeaderPanel"
-                                    Property="Grid.Column"
-                                    Value="0"/>
-                            <Setter TargetName="HeaderPanel"
-                                    Property="Margin"
-                                    Value="0"/>
-                            <Setter TargetName="ContentBorder"
-                                    Property="Grid.Row"
-                                    Value="1"/>
-                            <Setter TargetName="ContentBorder"
-                                    Property="Grid.Column"
-                                    Value="1"/>
-                        </Trigger>
-
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Foreground"
                                     Value="{DynamicResource Brush.TextDisabled}"/>

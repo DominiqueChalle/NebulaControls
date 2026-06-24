@@ -1,3 +1,8 @@
+<!--
+  Nom: NebulaMenu
+  Version: V1.02
+  Description: Defines Nebula menu and menu item styles for application menus.
+-->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 

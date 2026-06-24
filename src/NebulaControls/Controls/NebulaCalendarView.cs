@@ -1,3 +1,7 @@
+// Nom: NebulaCalendarView
+// Version: V1.02
+// Description: Calendar selection view used by date and datetime picker controls.
+
 using System;
 using System.Collections.ObjectModel;
 using System.Globalization;

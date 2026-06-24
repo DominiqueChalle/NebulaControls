@@ -1,3 +1,7 @@
+// Nom: NebulaChip
+// Version: V1.02
+// Description: Chip control exposing text, selection and remove command behavior.
+
 using System;
 using System.Windows;
 using System.Windows.Controls;

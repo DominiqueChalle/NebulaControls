@@ -1,3 +1,7 @@
+// Nom: NebulaSearchBox
+// Version: V1.02
+// Description: SearchBox control exposing search text and clear command behavior.
+
 using System;
 using System.Windows;
 using System.Windows.Controls;

@@ -47,13 +47,16 @@
                 <StackPanel>
                     <TextBlock Text="TreeView"
                                Style="{StaticResource DemoSectionTitle}"/>
-                    <TextBlock Text="Hierarchy"
+                    <TextBlock Text="Hierarchy, selection, expand/collapse and disabled branch"
                                Foreground="{DynamicResource Brush.TextSecondary}"
                                Margin="0,16,0,8"/>
                     <nebula:NebulaTreeView Style="{StaticResource NebulaTreeView}"
+                                           x:Name="DemoTreeView"
                                            Width="340"
-                                           Height="190"
+                                           Height="230"
                                            HorizontalAlignment="Left"
+                                           PreviewMouseLeftButtonDown="DemoTreeView_PreviewMouseLeftButtonDown"
+                                           SelectedItemChanged="DemoTreeView_SelectedItemChanged"
                                            Margin="0,0,0,16">
                         <TreeViewItem Header="NebulaControls"
                                       IsExpanded="True"
@@ -61,17 +64,42 @@
                             <TreeViewItem Header="Controls"
                                           IsExpanded="True"
                                           Style="{StaticResource NebulaTreeViewItem}">
-                                <TreeViewItem Header="Inputs"
+                                <TreeViewItem Header="Inputs + Progress"
+                                              IsExpanded="True"
+                                              Style="{StaticResource NebulaTreeViewItem}">
+                                    <TreeViewItem Header="NebulaTextBox"
+                                                  Style="{StaticResource NebulaTreeViewItem}"/>
+                                    <TreeViewItem Header="NebulaPasswordBox"
+                                                  Style="{StaticResource NebulaTreeViewItem}"/>
+                                    <TreeViewItem Header="NebulaDatePicker"
+                                                  Style="{StaticResource NebulaTreeViewItem}"/>
+                                    <TreeViewItem Header="NebulaTimePicker"
+                                                  Style="{StaticResource NebulaTreeViewItem}"/>
+                                </TreeViewItem>
+                                <TreeViewItem Header="Collections + Data"
+                                              IsExpanded="True"
+                                              Style="{StaticResource NebulaTreeViewItem}">
+                                    <TreeViewItem Header="NebulaListBox"
+                                                  Style="{StaticResource NebulaTreeViewItem}"/>
+                                    <TreeViewItem Header="NebulaTreeView"
                                               IsSelected="True"
                                               Style="{StaticResource NebulaTreeViewItem}"/>
-                                <TreeViewItem Header="Selection"
-                                              Style="{StaticResource NebulaTreeViewItem}"/>
-                                <TreeViewItem Header="Data"
-                                              Style="{StaticResource NebulaTreeViewItem}"/>
+                                    <TreeViewItem Header="NebulaDataGrid"
+                                                  Style="{StaticResource NebulaTreeViewItem}"/>
+                                </TreeViewItem>
+                                <TreeViewItem Header="Feedback"
+                                              Style="{StaticResource NebulaTreeViewItem}">
+                                    <TreeViewItem Header="NebulaAlert"
+                                                  Style="{StaticResource NebulaTreeViewItem}"/>
+                                    <TreeViewItem Header="NebulaToast"
+                                                  Style="{StaticResource NebulaTreeViewItem}"/>
+                                </TreeViewItem>
                             </TreeViewItem>
                             <TreeViewItem Header="Themes"
                                           Style="{StaticResource NebulaTreeViewItem}">
                                 <TreeViewItem Header="NebulaDarkPurple"
+                                              Style="{StaticResource NebulaTreeViewItem}"/>
+                                <TreeViewItem Header="NebulaDarkBlue"
                                               Style="{StaticResource NebulaTreeViewItem}"/>
                                 <TreeViewItem Header="NebulaLightPurple"
                                               Style="{StaticResource NebulaTreeViewItem}"/>
@@ -81,6 +109,9 @@
                                           Style="{StaticResource NebulaTreeViewItem}"/>
                         </TreeViewItem>
                     </nebula:NebulaTreeView>
+                    <TextBlock x:Name="TreeViewSelectionText"
+                               Foreground="{DynamicResource Brush.BrandSoft}"
+                               Margin="0,0,0,16"/>
                     <TextBlock Text="Disabled TreeView"
                                Foreground="{DynamicResource Brush.TextSecondary}"
                                Margin="0,0,0,8"/>
@@ -103,43 +134,81 @@
                 <StackPanel>
                     <TextBlock Text="DataGrid"
                                Style="{StaticResource DemoSectionTitle}"/>
-                    <TextBlock Text="Read-only rows, selection, column resize and horizontal scroll"
+                    <TextBlock Text="Editable rows, add row, selection, column resize and horizontal scroll"
                                Foreground="{DynamicResource Brush.TextSecondary}"
                                Margin="0,16,0,8"/>
+                    <TextBlock Text="Double click a cell to edit. Use the bottom row to add a new item."
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,0,0,8"/>
                     <nebula:NebulaDataGrid Style="{StaticResource NebulaDataGrid}"
+                                           x:Name="EditableDataGrid"
                                            ItemsSource="{Binding DataGridRows, ElementName=Root}"
+                                           CanUserAddRows="True"
+                                           KeyboardNavigation.TabNavigation="Contained"
+                                           PreviewKeyDown="EditableDataGrid_PreviewKeyDown"
+                                           RowEditEnding="EditableDataGrid_RowEditEnding"
                                            SelectedIndex="3"
                                            Width="560"
                                            Height="250"
                                            HorizontalAlignment="Left"
-                                           Margin="0,0,0,16">
+                                           Margin="0,0,0,8">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Component"
-                                                Binding="{Binding Component}"
+                                                Binding="{Binding Component, UpdateSourceTrigger=PropertyChanged}"
+                                                ElementStyle="{StaticResource NebulaDataGridTextBlock}"
+                                                EditingElementStyle="{StaticResource NebulaDataGridEditingTextBox}"
                                                 Width="180"/>
                             <DataGridTextColumn Header="Version"
-                                                Binding="{Binding Version}"
+                                                Binding="{Binding Version, UpdateSourceTrigger=PropertyChanged}"
+                                                ElementStyle="{StaticResource NebulaDataGridTextBlock}"
+                                                EditingElementStyle="{StaticResource NebulaDataGridEditingTextBox}"
                                                 Width="90"/>
                             <DataGridTextColumn Header="Status"
-                                                Binding="{Binding Status}"
+                                                Binding="{Binding Status, UpdateSourceTrigger=PropertyChanged}"
+                                                ElementStyle="{StaticResource NebulaDataGridTextBlock}"
+                                                EditingElementStyle="{StaticResource NebulaDataGridEditingTextBox}"
                                                 Width="130"/>
                             <DataGridTextColumn Header="Area"
-                                                Binding="{Binding Area}"
+                                                Binding="{Binding Area, UpdateSourceTrigger=PropertyChanged}"
+                                                ElementStyle="{StaticResource NebulaDataGridTextBlock}"
+                                                EditingElementStyle="{StaticResource NebulaDataGridEditingTextBox}"
                                                 Width="130"/>
                             <DataGridTextColumn Header="Owner"
-                                                Binding="{Binding Owner}"
+                                                Binding="{Binding Owner, UpdateSourceTrigger=PropertyChanged}"
+                                                ElementStyle="{StaticResource NebulaDataGridTextBlock}"
+                                                EditingElementStyle="{StaticResource NebulaDataGridEditingTextBox}"
                                                 Width="150"/>
                             <DataGridTextColumn Header="Priority"
-                                                Binding="{Binding Priority}"
+                                                Binding="{Binding Priority, UpdateSourceTrigger=PropertyChanged}"
+                                                ElementStyle="{StaticResource NebulaDataGridTextBlock}"
+                                                EditingElementStyle="{StaticResource NebulaDataGridEditingTextBox}"
                                                 Width="110"/>
                             <DataGridTextColumn Header="Updated"
-                                                Binding="{Binding Updated}"
+                                                Binding="{Binding Updated, UpdateSourceTrigger=PropertyChanged}"
+                                                ElementStyle="{StaticResource NebulaDataGridTextBlock}"
+                                                EditingElementStyle="{StaticResource NebulaDataGridEditingTextBox}"
                                                 Width="130"/>
                             <DataGridTextColumn Header="Notes"
-                                                Binding="{Binding Notes}"
+                                                Binding="{Binding Notes, UpdateSourceTrigger=PropertyChanged}"
+                                                ElementStyle="{StaticResource NebulaDataGridTextBlock}"
+                                                EditingElementStyle="{StaticResource NebulaDataGridEditingTextBox}"
                                                 Width="260"/>
                         </DataGrid.Columns>
                     </nebula:NebulaDataGrid>
+                    <StackPanel Orientation="Horizontal"
+                                Margin="0,0,0,16">
+                        <TextBlock x:Name="DataGridRowCountText"
+                                   Foreground="{DynamicResource Brush.TextSecondary}"/>
+                        <TextBlock Text=" - "
+                                   Foreground="{DynamicResource Brush.TextSecondary}"/>
+                        <TextBlock x:Name="DataGridAddStatusText"
+                                   Foreground="{DynamicResource Brush.BrandSoft}"/>
+                        <Button x:Name="SaveDataGridChangesButton"
+                                Content="Save changes"
+                                Style="{StaticResource NebulaPrimarySmallButton}"
+                                Click="SaveDataGridChangesButton_Click"
+                                Margin="16,0,0,0"/>
+                    </StackPanel>
 
                     <TextBlock Text="Disabled DataGrid"
                                Foreground="{DynamicResource Brush.TextSecondary}"

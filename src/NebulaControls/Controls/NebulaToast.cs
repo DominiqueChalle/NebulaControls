@@ -1,3 +1,7 @@
+// Nom: NebulaToast
+// Version: V1.02
+// Description: Toast control exposing message, variant and close behavior.
+
 using System;
 using System.Windows;
 using System.Windows.Controls;

@@ -1,3 +1,8 @@
+<!--
+  Nom: NebulaDatePicker
+  Version: V1.02
+  Description: Custom Nebula date picker with editable field and calendar popup.
+-->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="clr-namespace:NebulaControls.Controls">

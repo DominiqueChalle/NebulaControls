@@ -1,3 +1,7 @@
+// Nom: NebulaTimePicker
+// Version: V1.02
+// Description: Time picker control exposing selected time and manual input behavior.
+
 using System;
 using System.Collections.ObjectModel;
 using System.Globalization;

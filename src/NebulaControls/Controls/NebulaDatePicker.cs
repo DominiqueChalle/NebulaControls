@@ -1,3 +1,7 @@
+// Nom: NebulaDatePicker
+// Version: V1.02
+// Description: Date picker control exposing selected date, display text and date range behavior.
+
 using System;
 using System.Globalization;
 using System.Windows;

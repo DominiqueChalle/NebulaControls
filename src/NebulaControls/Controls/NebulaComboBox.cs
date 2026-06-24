@@ -1,3 +1,7 @@
+// Nom: NebulaComboBox
+// Version: V1.02
+// Description: ComboBox base control used by Nebula selection inputs.
+
 using System;
 using System.Windows;
 using System.Windows.Controls;

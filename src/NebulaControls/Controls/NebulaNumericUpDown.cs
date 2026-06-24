@@ -1,3 +1,7 @@
+// Nom: NebulaNumericUpDown
+// Version: V1.02
+// Description: NumericUpDown control exposing value, minimum, maximum and increment properties.
+
 using System;
 using System.Globalization;
 using System.Windows;

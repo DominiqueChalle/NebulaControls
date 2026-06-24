@@ -1,3 +1,7 @@
+// Nom: NebulaRating
+// Version: V1.02
+// Description: Rating control exposing value, maximum and change notification behavior.
+
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;

@@ -1,3 +1,7 @@
+// Nom: NebulaLabeledPasswordBox
+// Version: V1.02
+// Description: Labeled password input control with helper text and validation state support.
+
 using System.Windows;
 using System.Windows.Controls;
 

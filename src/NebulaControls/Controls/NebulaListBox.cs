@@ -1,3 +1,7 @@
+// Nom: NebulaListBox
+// Version: V1.02
+// Description: ListBox base control for Nebula collection selection.
+
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;

@@ -1,3 +1,7 @@
+// Nom: NebulaDialog
+// Version: V1.02
+// Description: Dialog window logic exposing variant, buttons and modal result behavior.
+
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;

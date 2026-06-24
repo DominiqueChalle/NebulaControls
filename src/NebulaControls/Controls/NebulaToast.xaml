@@ -1,3 +1,8 @@
+<!--
+  Nom: NebulaToast
+  Version: V1.02
+  Description: Toast notification control for temporary application feedback.
+-->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="clr-namespace:NebulaControls.Controls">

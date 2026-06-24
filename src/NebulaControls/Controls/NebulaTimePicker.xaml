@@ -1,3 +1,8 @@
+<!--
+  Nom: NebulaTimePicker
+  Version: V1.02
+  Description: Custom Nebula time picker with editable field and time selection popup.
+-->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="clr-namespace:NebulaControls.Controls">

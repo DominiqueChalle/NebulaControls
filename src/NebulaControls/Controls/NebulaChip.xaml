@@ -1,3 +1,8 @@
+<!--
+  Nom: NebulaChip
+  Version: V1.02
+  Description: Displays removable or selectable compact filter tokens.
+-->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="clr-namespace:NebulaControls.Controls">

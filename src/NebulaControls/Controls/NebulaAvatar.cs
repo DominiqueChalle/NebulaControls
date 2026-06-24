@@ -1,3 +1,7 @@
+// Nom: NebulaAvatar
+// Version: V1.02
+// Description: Avatar control exposing image and fallback kind properties.
+
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;

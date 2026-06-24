@@ -1,3 +1,7 @@
+// Nom: NebulaDateTimePicker
+// Version: V1.02
+// Description: DateTime picker control exposing selected date-time and popup composition behavior.
+
 using System;
 using System.Collections.ObjectModel;
 using System.Globalization;

@@ -9,12 +9,19 @@
                 <StackPanel>
                     <TextBlock Text="Expander"
                                Style="{StaticResource DemoSectionTitle}"/>
-                    <TextBlock Text="Expanded"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                    <TextBlock x:Name="ExpanderStatusText"
+                               Text="Advanced options are open"
+                               Foreground="{DynamicResource Brush.BrandSoft}"
                                Margin="0,16,0,8"/>
+                    <TextBlock Text="Interactive settings panel"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,0,0,8"/>
                     <nebula:NebulaExpander Style="{StaticResource NebulaExpander}"
+                                           x:Name="AdvancedOptionsExpander"
                                            Header="Advanced options"
                                            IsExpanded="True"
+                                           Expanded="AdvancedOptionsExpander_Expanded"
+                                           Collapsed="AdvancedOptionsExpander_Collapsed"
                                            Margin="0,0,0,12">
                         <StackPanel>
                             <TextBlock Text="Expanded content surface"
@@ -23,6 +30,11 @@
                                       Style="{StaticResource NebulaCheckBox}"
                                       IsChecked="True"
                                       Margin="0,12,0,0"/>
+                            <Button Content="Apply advanced options"
+                                    Style="{StaticResource NebulaSecondarySmallButton}"
+                                    HorizontalAlignment="Left"
+                                    Click="ApplyAdvancedOptionsButton_Click"
+                                    Margin="0,12,0,0"/>
                         </StackPanel>
                     </nebula:NebulaExpander>
                     <TextBlock Text="Collapsed"
@@ -51,19 +63,38 @@
                 <StackPanel>
                     <TextBlock Text="GroupBox"
                                Style="{StaticResource DemoSectionTitle}"/>
-                    <TextBlock Text="With header"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                    <TextBlock x:Name="GroupBoxStatusText"
+                               Text="Settings ready"
+                               Foreground="{DynamicResource Brush.BrandSoft}"
                                Margin="0,16,0,8"/>
+                    <TextBlock Text="Grouped settings"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,0,0,8"/>
                     <nebula:NebulaGroupBox Style="{StaticResource NebulaGroupBox}"
                                            Header="Settings"
                                            Margin="0,0,0,12">
                         <StackPanel>
-                            <TextBlock Text="Grouped content"
+                            <TextBlock Text="These controls belong to the same settings section."
                                        Foreground="{DynamicResource Brush.TextSecondary}"/>
-                            <ToggleButton Content="Active"
+                            <ToggleButton x:Name="GroupBoxFeatureToggle"
+                                          Content="Enable feature"
                                           Style="{StaticResource NebulaToggleButton}"
                                           IsChecked="True"
+                                          Checked="GroupBoxSetting_Changed"
+                                          Unchecked="GroupBoxSetting_Changed"
                                           Margin="0,14,0,0"/>
+                            <CheckBox x:Name="GroupBoxNotificationCheckBox"
+                                      Content="Send notifications"
+                                      Style="{StaticResource NebulaCheckBox}"
+                                      IsChecked="True"
+                                      Checked="GroupBoxSetting_Changed"
+                                      Unchecked="GroupBoxSetting_Changed"
+                                      Margin="0,12,0,0"/>
+                            <Button Content="Apply settings"
+                                    Style="{StaticResource NebulaSecondarySmallButton}"
+                                    HorizontalAlignment="Left"
+                                    Click="ApplyGroupBoxSettingsButton_Click"
+                                    Margin="0,12,0,0"/>
                         </StackPanel>
                     </nebula:NebulaGroupBox>
                     <TextBlock Text="Without header"
@@ -91,15 +122,30 @@
                 <StackPanel>
                     <TextBlock Text="Top TabControl"
                                Style="{StaticResource DemoSectionTitle}"/>
+                    <TextBlock x:Name="TopTabStatusText"
+                               Text="Selected tab: Overview"
+                               Foreground="{DynamicResource Brush.BrandSoft}"
+                               Margin="0,16,0,8"/>
                     <nebula:NebulaTabControl Style="{StaticResource NebulaTabControl}"
-                                             Margin="0,16,0,0">
+                                             SelectionChanged="TopTabControl_SelectionChanged">
                         <nebula:NebulaTabItem Header="Overview">
-                            <TextBlock Text="Top tab content"
-                                       Foreground="{DynamicResource Brush.TextSecondary}"/>
+                            <StackPanel>
+                                <TextBlock Text="Overview content"
+                                           Foreground="{DynamicResource Brush.TextSecondary}"/>
+                                <TextBlock Text="Use this tab as a dashboard or summary surface."
+                                           Foreground="{DynamicResource Brush.TextMuted}"
+                                           Margin="0,8,0,0"/>
+                            </StackPanel>
                         </nebula:NebulaTabItem>
                         <nebula:NebulaTabItem Header="Details">
-                            <TextBlock Text="Details content"
-                                       Foreground="{DynamicResource Brush.TextSecondary}"/>
+                            <StackPanel>
+                                <TextBlock Text="Details content"
+                                           Foreground="{DynamicResource Brush.TextSecondary}"/>
+                                <Button Content="Run details action"
+                                        Style="{StaticResource NebulaSecondarySmallButton}"
+                                        HorizontalAlignment="Left"
+                                        Margin="0,12,0,0"/>
+                            </StackPanel>
                         </nebula:NebulaTabItem>
                         <nebula:NebulaTabItem Header="Disabled"
                                               IsEnabled="False">
@@ -175,30 +221,6 @@
                 </StackPanel>
             </Border>
 
-            <Border Style="{StaticResource DemoCard}">
-                <StackPanel>
-                    <TextBlock Text="Left TabControl"
-                               Style="{StaticResource DemoSectionTitle}"/>
-                    <nebula:NebulaTabControl Style="{StaticResource NebulaTabControl}"
-                                             TabStripPlacement="Left"
-                                             Height="180"
-                                             Margin="0,16,0,0">
-                        <nebula:NebulaTabItem Header="General">
-                            <TextBlock Text="General content"
-                                       Foreground="{DynamicResource Brush.TextSecondary}"/>
-                        </nebula:NebulaTabItem>
-                        <nebula:NebulaTabItem Header="Advanced">
-                            <TextBlock Text="Advanced content"
-                                       Foreground="{DynamicResource Brush.TextSecondary}"/>
-                        </nebula:NebulaTabItem>
-                        <nebula:NebulaTabItem Header="Disabled"
-                                              IsEnabled="False">
-                            <TextBlock Text="Disabled content"
-                                       Foreground="{DynamicResource Brush.TextSecondary}"/>
-                        </nebula:NebulaTabItem>
-                    </nebula:NebulaTabControl>
-                </StackPanel>
-            </Border>
         </UniformGrid>
     </ScrollViewer>
 </UserControl>
