@@ -1,10 +1,12 @@
-# NebulaControls Extraction Plan
+# NebulaControls Extraction Plan Archive
+
+> Historical note: this document records the original extraction plan used to split NebulaControls into a reusable WPF library and a public demo application. It is kept as project history, not as the current feature status. For current usage, see `README.md` and `docs/NebulaControlsUsage.md`.
 
 ## Goal
 
-NebulaControls should be an independent WPF control library that can be consumed without the demo source code.
+NebulaControls is now an independent WPF control library that can be consumed without the demo source code.
 
-The target is a reusable library that can be distributed as a DLL or NuGet package. The demo application should remain a sample consumer of NebulaControls.
+The target was a reusable library that can be distributed as a DLL or NuGet package. The demo application remains a sample consumer of NebulaControls.
 
 ## Target Projects
 
@@ -23,17 +25,12 @@ NebulaControls must not depend on any demo application.
 
 ## Theme Strategy
 
-NebulaControls should be designed for multiple themes, even if only one theme exists at first.
+NebulaControls is designed for multiple themes.
 
-Initial theme:
+Current themes:
 
 ```text
 NebulaDarkPurple
-```
-
-Future themes:
-
-```text
 NebulaDarkBlue
 NebulaLightPurple
 ```
@@ -82,7 +79,9 @@ src/
         Brushes.xaml
         Theme.xaml
       NebulaLightPurple/
-        .gitkeep
+        Colors.xaml
+        Brushes.xaml
+        Theme.xaml
 samples/
   NebulaControls.Demo/
     NebulaControls.Demo.csproj
@@ -93,7 +92,7 @@ artifacts/
   packages/
 ```
 
-The current implementation includes `NebulaDarkPurple` and `NebulaDarkBlue`, while keeping the folder structure ready for future themes.
+The current implementation includes `NebulaDarkPurple`, `NebulaDarkBlue`, and `NebulaLightPurple`.
 
 ## Theme Import
 
@@ -119,7 +118,7 @@ This keeps consumer setup simple while keeping theme resources separate from con
 
 ## Dynamic Theme Switching
 
-Dynamic theme switching should be possible later by replacing the loaded theme dictionary at runtime.
+Dynamic theme switching is available by replacing the loaded theme dictionary at runtime.
 
 Requirements:
 
@@ -163,11 +162,11 @@ Themes/NebulaDarkPurple/*
 
 The demo should remain a consumer of NebulaControls, not the owner of the controls.
 
-## Known Debts To Keep In Mind
+## Remaining Follow-Up Ideas
 
 - custom window corners remain a separate topic for a future `NebulaWindow`
-- `NebulaTreeView` needs a full version later
-- `NebulaDataGrid` needs editing and advanced scenarios later
+- `NebulaDataGrid` is validated locally, but still needs a real database-oriented scenario before being considered fully final
+- `NebulaTabControl` is validated for V2 with a simple top-only style; an old-school overlapping tab style remains a dedicated future exploration
 - `NebulaSlider` disabled state is accepted but may need a better semantic disabled active brush
 - `Accent*` resources still exist for validated controls and should not be removed blindly
 - `NebulaPurpleBadge` and `NebulaPurpleAlert` may eventually be renamed to `NebulaBrandBadge` and `NebulaBrandAlert`
@@ -187,3 +186,4 @@ The demo should remain a consumer of NebulaControls, not the owner of the contro
 - External applications should use a DLL or NuGet package.
 - `NebulaDialog` currently lives under `Controls/`; a future `Dialogs/` folder can be considered during packaging cleanup.
 - Packaging strategy: NuGet package from `src/NebulaControls`.
+- First public release: `v1.0.0-beta`.

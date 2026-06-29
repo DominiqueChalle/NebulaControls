@@ -29,7 +29,7 @@ public partial class CollectionsDataView : UserControl
             new("NebulaDataGrid", "V2", "Reviewing", "Data", "Dominique", "High", "Today", "Horizontal scroll and column resize"),
             new("NebulaListBox", "V2", "Validated", "Collections", "Dominique", "Medium", "Yesterday", "Smooth item-by-item scrolling"),
             new("NebulaComboBox", "V2", "Validated", "Selection", "Dominique", "Medium", "Yesterday", "Standard, editable and disabled states"),
-            new("NebulaTreeView", "V2", "Reviewing", "Collections", "Dominique", "Medium", "This week", "Hierarchy and disabled branch"),
+            new("NebulaTreeView", "V2", "Validated", "Collections", "Dominique", "Medium", "This week", "Hierarchy and disabled branch"),
             new("NebulaTabControl", "V2", "Validated", "Layout", "Dominique", "Low", "This week", "Accepted for V2, visual refinement later"),
             new("NebulaAlert", "V2", "Validated", "Feedback", "Dominique", "High", "This week", "Interactive inline feedback"),
             new("NebulaDialog", "V2", "Validated", "Feedback", "Dominique", "Medium", "This week", "Info, warning and danger dialogs"),
