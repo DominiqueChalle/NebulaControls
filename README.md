@@ -185,7 +185,7 @@ The demo is the best way to inspect the current control surface, validate theme 
 ## Known Beta Notes
 
 - The package is ready for early testing, but the visual language may still evolve.
-- `NebulaDataGrid` is validated locally; real database integration scenarios still need external testing.
+- `NebulaDataGrid` is validated with an editable SQLite demo scenario; sorting and filtering are planned for a later version.
 - `NebulaTabControl` is currently top-only. A dedicated old-school overlapping tab style may be explored later.
 - Additional controls and refinements are planned after public feedback.
 

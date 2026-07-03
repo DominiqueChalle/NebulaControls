@@ -4,6 +4,15 @@
 * text=auto
 
 ###############################################################################
+# Keep Windows/WPF source files stable in CRLF to avoid Visual Studio prompts.
+###############################################################################
+*.cs text eol=crlf
+*.xaml text eol=crlf
+*.csproj text eol=crlf
+*.slnx text eol=crlf
+*.md text eol=crlf
+
+###############################################################################
 # Set default behavior for command prompt diff.
 #
 # This is need for earlier builds of msysgit that does not have it on by

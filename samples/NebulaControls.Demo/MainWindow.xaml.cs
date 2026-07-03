@@ -30,7 +30,7 @@ public partial class MainWindow : Window
             new("NebulaButtons", "Validated", "Actions"),
             new("NebulaTextBox", "Validated", "Inputs"),
             new("NebulaListBox", "Validated", "Selection"),
-            new("NebulaDataGrid", "Reviewing", "Data"),
+            new("NebulaDataGrid", "Validated", "Data"),
             new("NebulaDialog", "Validated", "Feedback")
         };
 

@@ -105,12 +105,29 @@
                     </Border>
 
                     <ControlTemplate.Triggers>
+                        <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                            <Setter Property="Foreground"
+                                    Value="{DynamicResource Brush.TextPrimary}"/>
+                            <Setter TargetName="CellBorder"
+                                    Property="Background"
+                                    Value="{DynamicResource Brush.SurfaceActive}"/>
+                            <Setter TargetName="CellBorder"
+                                    Property="BorderBrush"
+                                    Value="{DynamicResource Brush.Brand}"/>
+                            <Setter TargetName="CellBorder"
+                                    Property="BorderThickness"
+                                    Value="1"/>
+                        </Trigger>
+
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="Foreground"
                                     Value="{DynamicResource Brush.BrandSoft}"/>
                             <Setter TargetName="CellBorder"
                                     Property="Background"
                                     Value="{DynamicResource Brush.SurfaceActive}"/>
+                            <Setter TargetName="CellBorder"
+                                    Property="BorderBrush"
+                                    Value="{DynamicResource Brush.BorderHover}"/>
                         </Trigger>
 
                         <Trigger Property="IsEnabled" Value="False">
@@ -214,7 +231,7 @@
         <Setter Property="BorderThickness" Value="0,0,0,2"/>
         <Setter Property="CaretBrush" Value="{DynamicResource Brush.Brand}"/>
         <Setter Property="Foreground" Value="{DynamicResource Brush.TextPrimary}"/>
-        <Setter Property="Padding" Value="8,0"/>
+        <Setter Property="Padding" Value="0,0"/>
         <Setter Property="SelectionBrush" Value="{DynamicResource Brush.BrandHover}"/>
         <Setter Property="SelectionOpacity" Value="0.5"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>

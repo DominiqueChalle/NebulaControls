@@ -165,7 +165,7 @@ The demo should remain a consumer of NebulaControls, not the owner of the contro
 ## Remaining Follow-Up Ideas
 
 - custom window corners remain a separate topic for a future `NebulaWindow`
-- `NebulaDataGrid` is validated locally, but still needs a real database-oriented scenario before being considered fully final
+- `NebulaDataGrid` is validated with an editable SQLite demo scenario; sorting and filtering remain future refinements
 - `NebulaTabControl` is validated for V2 with a simple top-only style; an old-school overlapping tab style remains a dedicated future exploration
 - `NebulaSlider` disabled state is accepted but may need a better semantic disabled active brush
 - `Accent*` resources still exist for validated controls and should not be removed blindly

@@ -3,6 +3,112 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:nebula="clr-namespace:NebulaControls.Controls;assembly=NebulaControls">
+    <UserControl.Resources>
+        <Style x:Key="RequiredComponentDataGridTextBlock"
+               BasedOn="{StaticResource NebulaDataGridTextBlock}"
+               TargetType="TextBlock">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding HasComponentError}"
+                             Value="True">
+                    <Setter Property="Foreground"
+                            Value="{DynamicResource Brush.Danger}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="RequiredVersionDataGridTextBlock"
+               BasedOn="{StaticResource NebulaDataGridTextBlock}"
+               TargetType="TextBlock">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding HasVersionError}"
+                             Value="True">
+                    <Setter Property="Foreground"
+                            Value="{DynamicResource Brush.Danger}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="RequiredStatusDataGridTextBlock"
+               BasedOn="{StaticResource NebulaDataGridTextBlock}"
+               TargetType="TextBlock">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding HasStatusError}"
+                             Value="True">
+                    <Setter Property="Foreground"
+                            Value="{DynamicResource Brush.Danger}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="RequiredAreaDataGridTextBlock"
+               BasedOn="{StaticResource NebulaDataGridTextBlock}"
+               TargetType="TextBlock">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding HasAreaError}"
+                             Value="True">
+                    <Setter Property="Foreground"
+                            Value="{DynamicResource Brush.Danger}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="RequiredComponentDataGridEditingTextBox"
+               BasedOn="{StaticResource NebulaDataGridEditingTextBox}"
+               TargetType="TextBox">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding HasComponentError}"
+                             Value="True">
+                    <Setter Property="BorderBrush"
+                            Value="{DynamicResource Brush.Danger}"/>
+                    <Setter Property="CaretBrush"
+                            Value="{DynamicResource Brush.Danger}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="RequiredVersionDataGridEditingTextBox"
+               BasedOn="{StaticResource NebulaDataGridEditingTextBox}"
+               TargetType="TextBox">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding HasVersionError}"
+                             Value="True">
+                    <Setter Property="BorderBrush"
+                            Value="{DynamicResource Brush.Danger}"/>
+                    <Setter Property="CaretBrush"
+                            Value="{DynamicResource Brush.Danger}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="RequiredStatusDataGridEditingTextBox"
+               BasedOn="{StaticResource NebulaDataGridEditingTextBox}"
+               TargetType="TextBox">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding HasStatusError}"
+                             Value="True">
+                    <Setter Property="BorderBrush"
+                            Value="{DynamicResource Brush.Danger}"/>
+                    <Setter Property="CaretBrush"
+                            Value="{DynamicResource Brush.Danger}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="RequiredAreaDataGridEditingTextBox"
+               BasedOn="{StaticResource NebulaDataGridEditingTextBox}"
+               TargetType="TextBox">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding HasAreaError}"
+                             Value="True">
+                    <Setter Property="BorderBrush"
+                            Value="{DynamicResource Brush.Danger}"/>
+                    <Setter Property="CaretBrush"
+                            Value="{DynamicResource Brush.Danger}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
     <ScrollViewer
         VerticalScrollBarVisibility="Auto">
         <UniformGrid Columns="2">
@@ -137,7 +243,7 @@
                     <TextBlock Text="Editable rows, add row, selection, column resize and horizontal scroll"
                                Foreground="{DynamicResource Brush.TextSecondary}"
                                Margin="0,16,0,8"/>
-                    <TextBlock Text="Double click a cell to edit. Use the bottom row to add a new item."
+                    <TextBlock Text="Demo source: SQLite database with persisted IDs, pending changes and reload."
                                Foreground="{DynamicResource Brush.TextSecondary}"
                                Margin="0,0,0,8"/>
                     <nebula:NebulaDataGrid Style="{StaticResource NebulaDataGrid}"
@@ -145,6 +251,7 @@
                                            ItemsSource="{Binding DataGridRows, ElementName=Root}"
                                            CanUserAddRows="True"
                                            KeyboardNavigation.TabNavigation="Contained"
+                                           PreviewMouseDoubleClick="EditableDataGrid_PreviewMouseDoubleClick"
                                            PreviewKeyDown="EditableDataGrid_PreviewKeyDown"
                                            RowEditEnding="EditableDataGrid_RowEditEnding"
                                            SelectedIndex="3"
@@ -153,25 +260,30 @@
                                            HorizontalAlignment="Left"
                                            Margin="0,0,0,8">
                         <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id"
+                                                Binding="{Binding Id}"
+                                                ElementStyle="{StaticResource NebulaDataGridTextBlock}"
+                                                IsReadOnly="True"
+                                                Width="70"/>
                             <DataGridTextColumn Header="Component"
                                                 Binding="{Binding Component, UpdateSourceTrigger=PropertyChanged}"
-                                                ElementStyle="{StaticResource NebulaDataGridTextBlock}"
-                                                EditingElementStyle="{StaticResource NebulaDataGridEditingTextBox}"
+                                                ElementStyle="{StaticResource RequiredComponentDataGridTextBlock}"
+                                                EditingElementStyle="{StaticResource RequiredComponentDataGridEditingTextBox}"
                                                 Width="180"/>
                             <DataGridTextColumn Header="Version"
                                                 Binding="{Binding Version, UpdateSourceTrigger=PropertyChanged}"
-                                                ElementStyle="{StaticResource NebulaDataGridTextBlock}"
-                                                EditingElementStyle="{StaticResource NebulaDataGridEditingTextBox}"
+                                                ElementStyle="{StaticResource RequiredVersionDataGridTextBlock}"
+                                                EditingElementStyle="{StaticResource RequiredVersionDataGridEditingTextBox}"
                                                 Width="90"/>
                             <DataGridTextColumn Header="Status"
                                                 Binding="{Binding Status, UpdateSourceTrigger=PropertyChanged}"
-                                                ElementStyle="{StaticResource NebulaDataGridTextBlock}"
-                                                EditingElementStyle="{StaticResource NebulaDataGridEditingTextBox}"
+                                                ElementStyle="{StaticResource RequiredStatusDataGridTextBlock}"
+                                                EditingElementStyle="{StaticResource RequiredStatusDataGridEditingTextBox}"
                                                 Width="130"/>
                             <DataGridTextColumn Header="Area"
                                                 Binding="{Binding Area, UpdateSourceTrigger=PropertyChanged}"
-                                                ElementStyle="{StaticResource NebulaDataGridTextBlock}"
-                                                EditingElementStyle="{StaticResource NebulaDataGridEditingTextBox}"
+                                                ElementStyle="{StaticResource RequiredAreaDataGridTextBlock}"
+                                                EditingElementStyle="{StaticResource RequiredAreaDataGridEditingTextBox}"
                                                 Width="130"/>
                             <DataGridTextColumn Header="Owner"
                                                 Binding="{Binding Owner, UpdateSourceTrigger=PropertyChanged}"
@@ -187,6 +299,7 @@
                                                 Binding="{Binding Updated, UpdateSourceTrigger=PropertyChanged}"
                                                 ElementStyle="{StaticResource NebulaDataGridTextBlock}"
                                                 EditingElementStyle="{StaticResource NebulaDataGridEditingTextBox}"
+                                                IsReadOnly="True"
                                                 Width="130"/>
                             <DataGridTextColumn Header="Notes"
                                                 Binding="{Binding Notes, UpdateSourceTrigger=PropertyChanged}"
@@ -208,7 +321,14 @@
                                 Style="{StaticResource NebulaPrimarySmallButton}"
                                 Click="SaveDataGridChangesButton_Click"
                                 Margin="16,0,0,0"/>
+                        <Button Content="Reload source"
+                                Style="{StaticResource NebulaSecondarySmallButton}"
+                                Click="ReloadDataGridSourceButton_Click"
+                                Margin="8,0,0,0"/>
                     </StackPanel>
+                    <TextBlock x:Name="DataGridSourceStatusText"
+                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Margin="0,0,0,16"/>
 
                     <TextBlock Text="Disabled DataGrid"
                                Foreground="{DynamicResource Brush.TextSecondary}"
