@@ -2,7 +2,7 @@
 
 NebulaControls is a WPF control library for building desktop applications with a polished Nebula visual style, reusable controls, theme resources, and runtime theme switching.
 
-Current release: `1.0.0-beta`
+Current release: `1.0.1-beta`
 
 > Beta status: NebulaControls is usable and packaged, but some controls will continue to evolve based on real-world feedback.
 
@@ -107,7 +107,7 @@ More screenshots:
 Add the package reference:
 
 ```xml
-<PackageReference Include="NebulaControls" Version="1.0.0-beta" />
+<PackageReference Include="NebulaControls" Version="1.0.1-beta" />
 ```
 
 Load one theme dictionary and the global controls dictionary in `App.xaml`:
@@ -163,7 +163,7 @@ artifacts/packages
 For the current beta, the generated package is:
 
 ```text
-NebulaControls.1.0.0-beta.nupkg
+NebulaControls.1.0.1-beta.nupkg
 ```
 
 ## Demo

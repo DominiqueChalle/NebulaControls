@@ -7,7 +7,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <IsPackable>true</IsPackable>
     <PackageId>NebulaControls</PackageId>
-    <Version>1.0.0-beta</Version>
+    <Version>1.0.1-beta</Version>
     <Authors>Dominique Challe</Authors>
     <Company>Dominique Challe</Company>
     <Description>A polished WPF control library with Nebula-themed controls, styles, templates, and runtime theme switching.</Description>
@@ -16,7 +16,7 @@
     <RepositoryUrl>https://github.com/DominiqueChalle/NebulaControls</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageReleaseNotes>NebulaControls V1.0.0 beta: first distributable package with core WPF controls, three themes, runtime theme switching, and the validated demo surface.</PackageReleaseNotes>
+    <PackageReleaseNotes>NebulaControls V1.0.1 beta: adds NebulaWindow, improved NebulaToast notifications, Typography consolidation, NebulaDataGrid SQLite demo validation, and light theme visual refinements.</PackageReleaseNotes>
     <PackageOutputPath>..\..\artifacts\packages</PackageOutputPath>
   </PropertyGroup>
 
