@@ -1,6 +1,6 @@
 <!--
   Nom: NebulaButtons
-  Version: V1.02
+  Version: V1.03
   Description: Defines Nebula button styles, variants and sizes for action controls.
 -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -73,6 +73,7 @@
            TargetType="Button">
         <Setter Property="Background" Value="{DynamicResource Brush.Brand}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource Brush.BrandSoft}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Brush.TextOnAccent}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -167,15 +168,18 @@
            TargetType="Button">
         <Setter Property="Background" Value="{DynamicResource Brush.Danger}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource Brush.Danger}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Brush.TextOnAccent}"/>
         <Setter Property="Template" Value="{StaticResource NebulaButtonTemplate}"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource Brush.SurfaceHover}"/>
+                <Setter Property="Background" Value="{DynamicResource Brush.Danger}"/>
                 <Setter Property="BorderBrush" Value="{DynamicResource Brush.Danger}"/>
+                <Setter Property="Foreground" Value="{DynamicResource Brush.TextOnAccent}"/>
             </Trigger>
 
             <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="{DynamicResource Brush.Background}"/>
+                <Setter Property="Background" Value="{DynamicResource Brush.Danger}"/>
+                <Setter Property="Foreground" Value="{DynamicResource Brush.TextOnAccent}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -185,18 +189,18 @@
            TargetType="Button">
         <Setter Property="Background" Value="{DynamicResource Brush.Warning}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource Brush.Warning}"/>
-        <Setter Property="Foreground" Value="{DynamicResource Brush.Background}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Brush.TextOnAccent}"/>
         <Setter Property="Template" Value="{StaticResource NebulaButtonTemplate}"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource Brush.SurfaceHover}"/>
+                <Setter Property="Background" Value="{DynamicResource Brush.Warning}"/>
                 <Setter Property="BorderBrush" Value="{DynamicResource Brush.Warning}"/>
-                <Setter Property="Foreground" Value="{DynamicResource Brush.Warning}"/>
+                <Setter Property="Foreground" Value="{DynamicResource Brush.TextOnAccent}"/>
             </Trigger>
 
             <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="{DynamicResource Brush.Background}"/>
-                <Setter Property="Foreground" Value="{DynamicResource Brush.Warning}"/>
+                <Setter Property="Background" Value="{DynamicResource Brush.Warning}"/>
+                <Setter Property="Foreground" Value="{DynamicResource Brush.TextOnAccent}"/>
             </Trigger>
         </Style.Triggers>
     </Style>

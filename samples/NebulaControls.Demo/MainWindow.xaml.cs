@@ -2,7 +2,6 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using NebulaControls.Controls;
 using NebulaControls.Demo.Views;
@@ -13,7 +12,6 @@ namespace NebulaControls.Demo;
 public partial class MainWindow : NebulaWindow
 {
     private bool isSidebarCollapsed;
-    private readonly DispatcherTimer toastTimer;
     private readonly ButtonsFeedbackView buttonsFeedbackView = new();
     private readonly InputsProgressView inputsProgressView = new();
     private readonly CollectionsDataView collectionsDataView = new();
@@ -32,11 +30,6 @@ public partial class MainWindow : NebulaWindow
         };
 
         InitializeComponent();
-        toastTimer = new DispatcherTimer
-        {
-            Interval = TimeSpan.FromSeconds(5)
-        };
-        toastTimer.Tick += ToastTimer_Tick;
         buttonsFeedbackView.ToastRequested += ButtonsFeedbackView_ToastRequested;
         DataContext = this;
         ApplyInitialWindowSize();
@@ -46,6 +39,8 @@ public partial class MainWindow : NebulaWindow
     }
 
     public ObservableCollection<ComponentRow> Components { get; }
+
+    public ObservableCollection<ToastNotification> Toasts { get; } = [];
 
     private void ApplyInitialWindowSize()
     {
@@ -220,70 +215,40 @@ public partial class MainWindow : NebulaWindow
 
     private void ButtonsFeedbackView_ToastRequested(object? sender, ToastRequestedEventArgs e)
     {
-        ShowGlobalToast(e.StyleKey, e.Title, e.Message);
+        ShowToast(e.StyleKey, e.Title, e.Message);
     }
 
-    private void GlobalToast_CloseClicked(object sender, EventArgs e)
+    private void Toast_CloseClicked(object sender, EventArgs e)
     {
-        HideGlobalToast();
-    }
-
-    private void ToastTimer_Tick(object? sender, EventArgs e)
-    {
-        HideGlobalToast();
-    }
-
-    private void ShowGlobalToast(string styleKey, string title, string message)
-    {
-        toastTimer.Stop();
-
-        GlobalToast.Style = (Style)FindResource(styleKey);
-        GlobalToast.Title = title;
-        GlobalToast.Message = message;
-        GlobalToast.Visibility = Visibility.Visible;
-
-        AnimateGlobalToast(0, 1, null);
-        toastTimer.Start();
-    }
-
-    private void HideGlobalToast()
-    {
-        toastTimer.Stop();
-        AnimateGlobalToast(34, 0, (_, _) => GlobalToast.Visibility = Visibility.Collapsed);
-    }
-
-    private void AnimateGlobalToast(double offsetY, double opacity, EventHandler? completed)
-    {
-        if (GlobalToast.RenderTransform is not TranslateTransform transform)
+        if (sender is NebulaToast { DataContext: ToastNotification toast })
         {
-            return;
+            Toasts.Remove(toast);
+        }
+    }
+
+    private void ShowToast(string styleKey, string title, string message)
+    {
+        var toast = new ToastNotification((Style)FindResource(styleKey), title, message);
+        Toasts.Add(toast);
+
+        while (Toasts.Count > 4)
+        {
+            Toasts.RemoveAt(0);
         }
 
-        var easing = new CubicEase { EasingMode = EasingMode.EaseOut };
-        var duration = TimeSpan.FromMilliseconds(220);
-
-        var yAnimation = new DoubleAnimation
+        var timer = new DispatcherTimer
         {
-            To = offsetY,
-            Duration = duration,
-            EasingFunction = easing
+            Interval = TimeSpan.FromSeconds(5)
         };
-
-        var opacityAnimation = new DoubleAnimation
+        timer.Tick += (_, _) =>
         {
-            To = opacity,
-            Duration = duration,
-            EasingFunction = easing
+            timer.Stop();
+            Toasts.Remove(toast);
         };
-
-        if (completed is not null)
-        {
-            opacityAnimation.Completed += completed;
-        }
-
-        transform.BeginAnimation(TranslateTransform.YProperty, yAnimation);
-        GlobalToast.BeginAnimation(OpacityProperty, opacityAnimation);
+        timer.Start();
     }
 }
 
 public sealed record ComponentRow(string Component, string Status, string Category);
+
+public sealed record ToastNotification(Style Style, string Title, string Message);

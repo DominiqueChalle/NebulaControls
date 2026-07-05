@@ -1,6 +1,6 @@
 <!--
   Nom: NebulaMenu
-  Version: V1.02
+  Version: V1.03
   Description: Defines Nebula menu and menu item styles for application menus.
 -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -82,22 +82,17 @@
                                IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}"
                                Placement="Bottom"
                                PopupAnimation="Fade">
-                            <Border Background="{DynamicResource Brush.Surface}"
-                                    BorderBrush="{DynamicResource Brush.Border}"
-                                    BorderThickness="1"
+                            <Border Background="{DynamicResource Brush.Border}"
                                     CornerRadius="8"
-                                    Padding="5"
+                                    Padding="1"
                                     SnapsToDevicePixels="True">
-                                <Border.Effect>
-                                    <DropShadowEffect BlurRadius="18"
-                                                      Direction="270"
-                                                      Opacity="0.28"
-                                                      ShadowDepth="6"
-                                                      Color="#000000"/>
-                                </Border.Effect>
-
-                                <StackPanel IsItemsHost="True"
-                                            KeyboardNavigation.DirectionalNavigation="Cycle"/>
+                                <Border Background="{DynamicResource Brush.Surface}"
+                                        CornerRadius="7"
+                                        Padding="5"
+                                        SnapsToDevicePixels="True">
+                                    <StackPanel IsItemsHost="True"
+                                                KeyboardNavigation.DirectionalNavigation="Cycle"/>
+                                </Border>
                             </Border>
                         </Popup>
                     </Grid>

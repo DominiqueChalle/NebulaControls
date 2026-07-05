@@ -1,6 +1,6 @@
 <!--
   Nom: NebulaChip
-  Version: V1.02
+  Version: V1.03
   Description: Displays removable or selectable compact filter tokens.
 -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -108,7 +108,7 @@
                                     Property="BorderBrush"
                                     Value="{DynamicResource Brush.Brand}"/>
                             <Setter Property="Foreground"
-                                    Value="{DynamicResource Brush.BrandSoft}"/>
+                                    Value="{DynamicResource Brush.TextOnAccent}"/>
                         </Trigger>
 
                         <Trigger Property="IsEnabled" Value="False">

@@ -1,5 +1,5 @@
 // Nom: NebulaToast
-// Version: V1.02
+// Version: V1.03
 // Description: Toast control exposing message, variant and close behavior.
 
 using System;
@@ -51,6 +51,19 @@ public class NebulaToast : ContentControl
     {
         get => (string)GetValue(MessageProperty);
         set => SetValue(MessageProperty, value);
+    }
+
+    public static readonly DependencyProperty IconProperty =
+        DependencyProperty.Register(
+            nameof(Icon),
+            typeof(string),
+            typeof(NebulaToast),
+            new PropertyMetadata("\uE946"));
+
+    public string Icon
+    {
+        get => (string)GetValue(IconProperty);
+        set => SetValue(IconProperty, value);
     }
 
     public ICommand CloseCommand => closeCommand;

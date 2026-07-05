@@ -156,6 +156,10 @@
         x:Key="Brush.TextDisabled"
         Color="{StaticResource Color.TextDisabled}" />
 
+    <SolidColorBrush
+        x:Key="Brush.TextOnAccent"
+        Color="#FFFFFF" />
+
     <!-- ===================================================== -->
     <!-- Border Brushes                                        -->
     <!-- ===================================================== -->

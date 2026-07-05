@@ -180,18 +180,53 @@
             </Grid>
             </DockPanel>
 
-        <nebula:NebulaToast x:Name="GlobalToast"
-                            Style="{StaticResource NebulaInfoToast}"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Bottom"
-                            Margin="0,0,28,28"
-                            Opacity="0"
-                            Visibility="Collapsed"
-                            CloseClicked="GlobalToast_CloseClicked">
-            <nebula:NebulaToast.RenderTransform>
-                <TranslateTransform Y="34"/>
-            </nebula:NebulaToast.RenderTransform>
-        </nebula:NebulaToast>
+        <ItemsControl ItemsSource="{Binding Toasts}"
+                      HorizontalAlignment="Right"
+                      VerticalAlignment="Bottom"
+                      Margin="0,0,28,28">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <nebula:NebulaToast x:Name="ToastControl"
+                                        Style="{Binding Style}"
+                                        Title="{Binding Title}"
+                                        Message="{Binding Message}"
+                                        Margin="0,0,0,10"
+                                        Opacity="0"
+                                        CloseClicked="Toast_CloseClicked">
+                        <nebula:NebulaToast.RenderTransform>
+                            <TranslateTransform x:Name="ToastTransform" Y="24"/>
+                        </nebula:NebulaToast.RenderTransform>
+                    </nebula:NebulaToast>
+
+                    <DataTemplate.Triggers>
+                        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="ToastTransform"
+                                                     Storyboard.TargetProperty="Y"
+                                                     To="0"
+                                                     Duration="0:0:0.22">
+                                        <DoubleAnimation.EasingFunction>
+                                            <CubicEase EasingMode="EaseOut"/>
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                    <DoubleAnimation Storyboard.TargetName="ToastControl"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="1"
+                                                     Duration="0:0:0.22"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </nebula:NebulaWindow>
 

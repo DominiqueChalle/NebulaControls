@@ -1,6 +1,6 @@
 <!--
   Nom: NebulaToggleButton
-  Version: V1.02
+  Version: V1.03
   Description: Defines Nebula toggle button styling for on/off state actions.
 -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -54,13 +54,13 @@
                         <Trigger Property="IsChecked" Value="True">
                             <Setter TargetName="Track"
                                     Property="Background"
-                                    Value="{DynamicResource Brush.BrandStrong}"/>
+                                    Value="{DynamicResource Brush.Brand}"/>
                             <Setter TargetName="Track"
                                     Property="BorderBrush"
-                                    Value="{DynamicResource Brush.Border}"/>
+                                    Value="{DynamicResource Brush.BrandHover}"/>
                             <Setter TargetName="Thumb"
                                     Property="Fill"
-                                    Value="{DynamicResource Brush.BrandSoft}"/>
+                                    Value="{DynamicResource Brush.TextOnAccent}"/>
                             <Setter TargetName="Thumb"
                                     Property="HorizontalAlignment"
                                     Value="Right"/>
