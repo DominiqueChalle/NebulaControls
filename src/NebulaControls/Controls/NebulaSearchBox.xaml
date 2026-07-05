@@ -102,9 +102,7 @@
 
                             <TextBlock Grid.Column="0"
                                        Text="&#xE721;"
-                                       FontFamily="Segoe MDL2 Assets"
-                                       FontSize="14"
-                                       Foreground="{DynamicResource Brush.TextMuted}"
+                                       Style="{StaticResource Typography.TextBlock.Icon}"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"/>
 
@@ -116,7 +114,7 @@
 
                                 <TextBlock x:Name="PlaceholderText"
                                            Text="{TemplateBinding Placeholder}"
-                                           Foreground="{DynamicResource Brush.TextMuted}"
+                                           Style="{StaticResource Typography.TextBlock.Muted}"
                                            VerticalAlignment="Center"
                                            IsHitTestVisible="False"
                                            Visibility="Collapsed"/>
@@ -128,8 +126,8 @@
                                     Style="{StaticResource NebulaSearchBoxIconButton}"
                                     Visibility="Collapsed">
                                 <TextBlock Text="&#xE711;"
-                                           FontFamily="Segoe MDL2 Assets"
-                                           FontSize="10"/>
+                                           FontFamily="{StaticResource Font.Icon}"
+                                           FontSize="{StaticResource FontSize.IconSmall}"/>
                             </Button>
                         </Grid>
                     </Border>

@@ -35,9 +35,7 @@
 
                         <TextBlock x:Name="UserFallback"
                                    Text="&#xE77B;"
-                                   FontFamily="Segoe MDL2 Assets"
-                                   FontSize="28"
-                                   Foreground="{DynamicResource Brush.BrandSoft}"
+                                   Style="{StaticResource Typography.TextBlock.AvatarIcon}"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    Visibility="Collapsed"/>
@@ -45,9 +43,7 @@
                         <Grid x:Name="MaleFallback"
                               Visibility="Collapsed">
                             <TextBlock Text="&#xE77B;"
-                                       FontFamily="Segoe MDL2 Assets"
-                                       FontSize="28"
-                                       Foreground="{DynamicResource Brush.BrandSoft}"
+                                       Style="{StaticResource Typography.TextBlock.AvatarIcon}"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"/>
                             <Border Width="20"
@@ -60,10 +56,7 @@
                                     VerticalAlignment="Bottom"
                                     Margin="0,0,2,2">
                                 <TextBlock Text="♂"
-                                           FontFamily="Segoe UI Symbol"
-                                           FontSize="13"
-                                           FontWeight="SemiBold"
-                                           Foreground="{DynamicResource Brush.BrandSoft}"
+                                           Style="{StaticResource Typography.TextBlock.AvatarBadge}"
                                            HorizontalAlignment="Center"
                                            VerticalAlignment="Center"/>
                             </Border>
@@ -72,9 +65,7 @@
                         <Grid x:Name="FemaleFallback"
                               Visibility="Collapsed">
                             <TextBlock Text="&#xE77B;"
-                                       FontFamily="Segoe MDL2 Assets"
-                                       FontSize="28"
-                                       Foreground="{DynamicResource Brush.BrandSoft}"
+                                       Style="{StaticResource Typography.TextBlock.AvatarIcon}"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"/>
                             <Border Width="20"
@@ -87,10 +78,7 @@
                                     VerticalAlignment="Bottom"
                                     Margin="0,0,2,2">
                                 <TextBlock Text="♀"
-                                           FontFamily="Segoe UI Symbol"
-                                           FontSize="13"
-                                           FontWeight="SemiBold"
-                                           Foreground="{DynamicResource Brush.BrandSoft}"
+                                           Style="{StaticResource Typography.TextBlock.AvatarBadge}"
                                            HorizontalAlignment="Center"
                                            VerticalAlignment="Center"/>
                             </Border>

@@ -97,6 +97,7 @@ More screenshots:
 - `NebulaTabControl`
 - `NebulaExpander`
 - `NebulaGroupBox`
+- `NebulaWindow`
 - `NebulaAvatar`
 - `NebulaToolTip`
 - Nebula menu and context menu styles
@@ -194,10 +195,12 @@ The demo is the best way to inspect the current control surface, validate theme 
 - Improve public documentation and screenshots
 - Add more real-world demo scenarios
 - Continue finalizing controls based on feedback
-- Explore dedicated `NebulaWindow`
+- Refine `NebulaWindow` with future shell features
 - Revisit old-school `NebulaTabControl` styling in a focused phase
 - Prepare a stable `1.0.0` after beta feedback
 
 ## Documentation
 
 See [docs/NebulaControlsUsage.md](docs/NebulaControlsUsage.md) for setup and usage examples.
+
+See [docs/ThemesAndTheming.md](docs/ThemesAndTheming.md) for the difference between visual theme resources and runtime theme switching code.

@@ -8,12 +8,12 @@
                     <TextBlock Text="Native WPF DatePicker"
                                Style="{StaticResource DemoSectionTitle}"/>
                     <TextBlock Text="Reference control for popup behavior, keyboard input, selected date and disabled state."
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                TextWrapping="Wrap"
                                Margin="0,16,0,14"/>
 
                     <TextBlock Text="Standard"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <DatePicker SelectedDate="2026-06-21"
                                 Width="260"
@@ -21,7 +21,7 @@
                                 Margin="0,0,0,16"/>
 
                     <TextBlock Text="Limited range"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <DatePicker SelectedDate="2026-06-21"
                                 DisplayDateStart="2026-06-01"
@@ -31,7 +31,7 @@
                                 Margin="0,0,0,16"/>
 
                     <TextBlock Text="Disabled"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <DatePicker SelectedDate="2026-06-21"
                                 IsEnabled="False"
@@ -45,7 +45,7 @@
                     <TextBlock Text="Native WPF Calendar"
                                Style="{StaticResource DemoSectionTitle}"/>
                     <TextBlock Text="Useful to observe month, year and decade navigation before designing NebulaCalendarView."
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                TextWrapping="Wrap"
                                Margin="0,16,0,14"/>
 
@@ -60,12 +60,12 @@
                     <TextBlock Text="TimePicker Behavior Draft"
                                Style="{StaticResource DemoSectionTitle}"/>
                     <TextBlock Text="WPF has no native TimePicker. This is only a neutral behavior mock for the future NebulaTimePicker."
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                TextWrapping="Wrap"
                                Margin="0,16,0,14"/>
 
                     <TextBlock Text="Text entry"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <TextBox Text="14:30"
                              Width="160"
@@ -73,7 +73,7 @@
                              Margin="0,0,0,16"/>
 
                     <TextBlock Text="Preset selection"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <ComboBox SelectedIndex="2"
                               Width="160"
@@ -91,12 +91,12 @@
                     <TextBlock Text="DateTimePicker Behavior Draft"
                                Style="{StaticResource DemoSectionTitle}"/>
                     <TextBlock Text="WPF has no native DateTimePicker. This composition helps define the future NebulaDateTimePicker experience."
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                TextWrapping="Wrap"
                                Margin="0,16,0,14"/>
 
                     <TextBlock Text="Date + time composition"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <StackPanel Orientation="Horizontal">
                         <DatePicker SelectedDate="2026-06-21"
@@ -107,7 +107,7 @@
                     </StackPanel>
 
                     <TextBlock Text="Things to decide later: popup layout, keyboard behavior, min/max date-time, clear button and validation."
-                               Foreground="{DynamicResource Brush.TextMuted}"
+                               Style="{StaticResource Typography.TextBlock.Muted}"
                                TextWrapping="Wrap"
                                Margin="0,18,0,0"/>
                 </StackPanel>

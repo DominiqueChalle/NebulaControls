@@ -12,7 +12,7 @@
                                Style="{StaticResource DemoSectionTitle}"/>
 
                     <TextBlock Text="Standard TextBox"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,16,0,8"/>
                     <TextBox Text="Nebula text value"
                              Style="{StaticResource NebulaTextBox}"
@@ -38,7 +38,7 @@
                              Margin="0,0,0,16"/>
 
                     <TextBlock Text="Labeled TextBox"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <nebula:NebulaTextBox Style="{StaticResource NebulaLabeledTextBox}"
                                           Label="Username"
@@ -48,7 +48,7 @@
                                           HorizontalAlignment="Left"
                                           Margin="0,0,0,10"/>
                     <TextBlock Text="Extended Labeled TextBox"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <nebula:NebulaTextBox Style="{StaticResource NebulaLabeledTextBox}"
                                           Label="Profile name"
@@ -60,7 +60,7 @@
                                           Margin="0,0,0,16"/>
 
                     <TextBlock Text="Validation"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <nebula:NebulaTextBox x:Name="EmailTextBox"
                                           Style="{StaticResource NebulaLabeledTextBox}"
@@ -73,7 +73,7 @@
                                           Margin="0,0,0,16"/>
 
                     <TextBlock Text="Sizes"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <StackPanel Orientation="Horizontal"
                                 Margin="0,0,0,16">
@@ -100,8 +100,7 @@
                     <TextBlock Text="Password"
                                Style="{StaticResource DemoSectionTitle}"/>
                     <TextBlock Text="Standard PasswordBox"
-                               Foreground="{DynamicResource Brush.TextMuted}"
-                               FontSize="12"
+                               Style="{StaticResource Typography.TextBlock.Muted}"
                                Margin="0,16,0,6"/>
                     <PasswordBox Style="{StaticResource NebulaPasswordBox}"
                                  Password="nebula"
@@ -109,8 +108,7 @@
                                  HorizontalAlignment="Left"
                                  Margin="0,0,0,10"/>
                     <TextBlock Text="Labeled PasswordBox"
-                               Foreground="{DynamicResource Brush.TextMuted}"
-                               FontSize="12"
+                               Style="{StaticResource Typography.TextBlock.Muted}"
                                Margin="0,0,0,6"/>
                     <nebula:NebulaLabeledPasswordBox Style="{StaticResource NebulaLabeledPasswordBox}"
                                                      Label="Password"
@@ -119,8 +117,7 @@
                                                      HorizontalAlignment="Left"
                                                      Margin="0,0,0,10"/>
                     <TextBlock Text="Extended Labeled PasswordBox"
-                               Foreground="{DynamicResource Brush.TextMuted}"
-                               FontSize="12"
+                               Style="{StaticResource Typography.TextBlock.Muted}"
                                Margin="0,0,0,6"/>
                     <nebula:NebulaLabeledPasswordBox x:Name="PasswordValidationBox"
                                                      Style="{StaticResource NebulaLabeledPasswordBox}"
@@ -132,8 +129,7 @@
                                                      LostFocus="PasswordValidationBox_LostFocus"
                                                      Margin="0,0,0,16"/>
                     <TextBlock Text="Sizes follow the same Small / Medium / Large scale as TextBox."
-                               Foreground="{DynamicResource Brush.TextMuted}"
-                               FontSize="12"
+                               Style="{StaticResource Typography.TextBlock.Muted}"
                                Margin="0,0,0,0"/>
                 </StackPanel>
             </Border>
@@ -143,7 +139,7 @@
                     <TextBlock Text="DatePicker"
                                Style="{StaticResource DemoSectionTitle}"/>
                     <TextBlock Text="Standard DatePicker"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,16,0,8"/>
                     <nebula:NebulaDatePicker Style="{StaticResource NebulaDatePicker}"
                                              SelectedDate="2026-06-21"
@@ -152,7 +148,7 @@
                                              Margin="0,0,0,16"/>
 
                     <TextBlock Text="Limited range"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <nebula:NebulaDatePicker Style="{StaticResource NebulaDatePicker}"
                                              SelectedDate="2026-06-21"
@@ -163,7 +159,7 @@
                                              Margin="0,0,0,16"/>
 
                     <TextBlock Text="Disabled DatePicker"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <nebula:NebulaDatePicker Style="{StaticResource NebulaDatePicker}"
                                              SelectedDate="2026-06-21"
@@ -178,7 +174,7 @@
                     <TextBlock Text="TimePicker"
                                Style="{StaticResource DemoSectionTitle}"/>
                     <TextBlock Text="Standard TimePicker"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,16,0,8"/>
                     <nebula:NebulaTimePicker Style="{StaticResource NebulaTimePicker}"
                                              SelectedTime="14:30"
@@ -187,7 +183,7 @@
                                              Margin="0,0,0,16"/>
 
                     <TextBlock Text="Manual entry accepts HH:mm"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <nebula:NebulaTimePicker Style="{StaticResource NebulaTimePicker}"
                                              SelectedTime="08:05"
@@ -196,7 +192,7 @@
                                              Margin="0,0,0,16"/>
 
                     <TextBlock Text="Disabled TimePicker"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <nebula:NebulaTimePicker Style="{StaticResource NebulaTimePicker}"
                                              SelectedTime="18:00"
@@ -211,7 +207,7 @@
                     <TextBlock Text="DateTimePicker"
                                Style="{StaticResource DemoSectionTitle}"/>
                     <TextBlock Text="Date and time composition"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,16,0,8"/>
                     <nebula:NebulaDateTimePicker Style="{DynamicResource NebulaDateTimePicker}"
                                                  SelectedDateTime="2026-06-21 14:30"
@@ -219,7 +215,7 @@
                                                  Margin="0,0,0,16"/>
 
                     <TextBlock Text="Limited date range"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <nebula:NebulaDateTimePicker Style="{DynamicResource NebulaDateTimePicker}"
                                                  SelectedDateTime="2026-06-21 08:05"
@@ -229,7 +225,7 @@
                                                  Margin="0,0,0,16"/>
 
                     <TextBlock Text="Disabled DateTimePicker"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <nebula:NebulaDateTimePicker Style="{DynamicResource NebulaDateTimePicker}"
                                                  SelectedDateTime="2026-06-21 18:00"
@@ -243,7 +239,7 @@
                     <TextBlock Text="NumericUpDown"
                                Style="{StaticResource DemoSectionTitle}"/>
                     <TextBlock Text="Standard"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,16,0,8"/>
                     <nebula:NebulaNumericUpDown Style="{StaticResource NebulaNumericUpDown}"
                                                 Value="12"
@@ -252,7 +248,7 @@
                                                 Margin="0,0,0,16"/>
 
                     <TextBlock Text="Limited range"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <nebula:NebulaNumericUpDown Style="{StaticResource NebulaNumericUpDown}"
                                                 Value="5"
@@ -264,7 +260,7 @@
                                                 Margin="0,0,0,16"/>
 
                     <TextBlock Text="Decimal step"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <nebula:NebulaNumericUpDown Style="{StaticResource NebulaNumericUpDown}"
                                                 Value="2.5"
@@ -276,7 +272,7 @@
                                                 Margin="0,0,0,16"/>
 
                     <TextBlock Text="Read-only"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <nebula:NebulaNumericUpDown Style="{StaticResource NebulaNumericUpDown}"
                                                 Value="42"
@@ -286,7 +282,7 @@
                                                 Margin="0,0,0,16"/>
 
                     <TextBlock Text="Disabled"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <nebula:NebulaNumericUpDown Style="{StaticResource NebulaNumericUpDown}"
                                                 Value="64"
@@ -301,7 +297,7 @@
                     <TextBlock Text="SearchBox"
                                Style="{StaticResource DemoSectionTitle}"/>
                     <TextBlock Text="Filter a realistic control list"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,16,0,8"/>
                     <nebula:NebulaSearchBox Style="{StaticResource NebulaSearchBox}"
                                             Placeholder="Rechercher nom, catégorie, description..."
@@ -313,8 +309,7 @@
 
                     <TextBlock x:Name="SearchStatusText"
                                Text="Tapez pour filtrer la liste."
-                               Foreground="{DynamicResource Brush.TextMuted}"
-                               FontSize="12"
+                               Style="{StaticResource Typography.TextBlock.Muted}"
                                Margin="0,0,0,10"/>
 
                     <nebula:NebulaListBox Style="{StaticResource NebulaListBox}"
@@ -332,17 +327,14 @@
                                     </Grid.RowDefinitions>
 
                                     <TextBlock Text="{Binding Name}"
-                                               Foreground="{DynamicResource Brush.TextPrimary}"
-                                               FontWeight="SemiBold"/>
+                                               Style="{StaticResource Typography.TextBlock.Strong}"/>
                                     <TextBlock Grid.Row="1"
                                                Text="{Binding Category}"
-                                               Foreground="{DynamicResource Brush.BrandSoft}"
-                                               FontSize="12"
+                                               Style="{StaticResource Typography.TextBlock.Brand}"
                                                Margin="0,3,0,0"/>
                                     <TextBlock Grid.Row="2"
                                                Text="{Binding Description}"
-                                               Foreground="{DynamicResource Brush.TextMuted}"
-                                               FontSize="12"
+                                               Style="{StaticResource Typography.TextBlock.Muted}"
                                                TextWrapping="Wrap"
                                                Margin="0,3,0,0"/>
                                 </Grid>
@@ -357,7 +349,7 @@
                     <TextBlock Text="Choices"
                                Style="{StaticResource DemoSectionTitle}"/>
                     <TextBlock Text="CheckBox"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,16,0,8"/>
                     <CheckBox Content="Unchecked option"
                               Style="{StaticResource NebulaCheckBox}"
@@ -377,7 +369,7 @@
                               Margin="0,0,0,16"/>
 
                     <TextBlock Text="RadioButton"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <RadioButton Content="First choice"
                                  GroupName="Choices"
@@ -395,7 +387,7 @@
                                  Margin="0,0,0,16"/>
 
                     <TextBlock Text="ToggleButton"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <ToggleButton Content="Inactive setting"
                                   Style="{StaticResource NebulaToggleButton}"
@@ -415,7 +407,7 @@
                     <TextBlock Text="ComboBox"
                                Style="{StaticResource DemoSectionTitle}"/>
                     <TextBlock Text="Standard ComboBox"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,16,0,8"/>
                     <nebula:NebulaComboBox Style="{StaticResource NebulaComboBox}"
                                            Width="300"
@@ -428,7 +420,7 @@
                     </nebula:NebulaComboBox>
 
                     <TextBlock Text="With disabled item"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <nebula:NebulaComboBox Style="{StaticResource NebulaComboBox}"
                                            Width="300"
@@ -442,7 +434,7 @@
                     </nebula:NebulaComboBox>
 
                     <TextBlock Text="Editable ComboBox"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <nebula:NebulaComboBox Style="{StaticResource NebulaComboBox}"
                                            Width="300"
@@ -456,7 +448,7 @@
                     </nebula:NebulaComboBox>
 
                     <TextBlock Text="Disabled ComboBox"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <nebula:NebulaComboBox Style="{StaticResource NebulaComboBox}"
                                            Width="300"
@@ -473,7 +465,7 @@
                     <TextBlock Text="Slider"
                                Style="{StaticResource DemoSectionTitle}"/>
                     <TextBlock Text="Standard"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,16,0,8"/>
                     <nebula:NebulaSlider Style="{StaticResource NebulaSlider}"
                                          Width="320"
@@ -481,7 +473,7 @@
                                          HorizontalAlignment="Left"
                                          Margin="0,0,0,16"/>
                     <TextBlock Text="With tick frequency"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <nebula:NebulaSlider Style="{StaticResource NebulaSlider}"
                                          Width="320"
@@ -491,7 +483,7 @@
                                          HorizontalAlignment="Left"
                                          Margin="0,0,0,16"/>
                     <TextBlock Text="With custom ticks"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <nebula:NebulaSlider Style="{StaticResource NebulaSlider}"
                                          Width="320"
@@ -503,7 +495,7 @@
                                          HorizontalAlignment="Left"
                                          Margin="0,0,0,16"/>
                     <TextBlock Text="Disabled"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <nebula:NebulaSlider Style="{StaticResource NebulaSlider}"
                                          Width="320"
@@ -512,7 +504,7 @@
                                          HorizontalAlignment="Left"
                                          Margin="0,0,0,16"/>
                     <TextBlock Text="Vertical"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <StackPanel Orientation="Horizontal"
                                 Margin="0,0,0,0">
@@ -536,7 +528,7 @@
                     <TextBlock Text="Progress"
                                Style="{StaticResource DemoSectionTitle}"/>
                     <TextBlock Text="Determinate"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,16,0,8"/>
                     <nebula:NebulaProgressBar Style="{StaticResource NebulaProgressBar}"
                                               Width="320"
@@ -544,7 +536,7 @@
                                               HorizontalAlignment="Left"
                                               Margin="0,0,0,16"/>
                     <TextBlock Text="Indeterminate"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <nebula:NebulaProgressBar Style="{StaticResource NebulaProgressBar}"
                                               Width="320"
@@ -552,7 +544,7 @@
                                               HorizontalAlignment="Left"
                                               Margin="0,0,0,16"/>
                     <TextBlock Text="Disabled"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <nebula:NebulaProgressBar Style="{StaticResource NebulaProgressBar}"
                                               Width="320"
@@ -561,7 +553,7 @@
                                               HorizontalAlignment="Left"
                                               Margin="0,0,0,16"/>
                     <TextBlock Text="Spinner"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <StackPanel Orientation="Horizontal">
                         <nebula:NebulaSpinner Style="{StaticResource NebulaSpinner}"

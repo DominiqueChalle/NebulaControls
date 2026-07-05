@@ -68,9 +68,7 @@
                                             <Border Background="{TemplateBinding Background}">
                                                 <TextBlock x:Name="CalendarIcon"
                                                            Text="&#xE787;"
-                                                           FontFamily="Segoe MDL2 Assets"
-                                                           Foreground="{DynamicResource Brush.TextMuted}"
-                                                           FontSize="14"
+                                                           Style="{StaticResource Typography.TextBlock.Icon}"
                                                            HorizontalAlignment="Center"
                                                            VerticalAlignment="Center"/>
                                             </Border>

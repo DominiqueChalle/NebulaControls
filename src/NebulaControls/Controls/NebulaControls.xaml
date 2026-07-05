@@ -19,6 +19,7 @@
         <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaAvatar.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaChip.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaToast.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaWindow.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaScrollBar.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaListBox.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaProgressBar.xaml"/>

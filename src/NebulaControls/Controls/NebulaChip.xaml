@@ -25,8 +25,8 @@
                             Background="{TemplateBinding Background}"
                             CornerRadius="10">
                         <TextBlock Text="&#xE711;"
-                                   FontFamily="Segoe MDL2 Assets"
-                                   FontSize="8"
+                                   FontFamily="{StaticResource Font.Icon}"
+                                   FontSize="{StaticResource FontSize.IconSmall}"
                                    Foreground="{TemplateBinding Foreground}"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"/>

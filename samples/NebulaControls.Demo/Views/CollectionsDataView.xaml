@@ -117,7 +117,7 @@
                     <TextBlock Text="ListBox"
                                Style="{StaticResource DemoSectionTitle}"/>
                     <TextBlock Text="Selectable items"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,16,0,8"/>
                     <nebula:NebulaListBox Style="{StaticResource NebulaListBox}"
                                           SelectedIndex="1"
@@ -134,7 +134,7 @@
                                      IsEnabled="False"/>
                     </nebula:NebulaListBox>
                     <TextBlock Text="Disabled ListBox"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <nebula:NebulaListBox Style="{StaticResource NebulaListBox}"
                                           SelectedIndex="0"
@@ -154,7 +154,7 @@
                     <TextBlock Text="TreeView"
                                Style="{StaticResource DemoSectionTitle}"/>
                     <TextBlock Text="Hierarchy, selection, expand/collapse and disabled branch"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,16,0,8"/>
                     <nebula:NebulaTreeView Style="{StaticResource NebulaTreeView}"
                                            x:Name="DemoTreeView"
@@ -216,10 +216,10 @@
                         </TreeViewItem>
                     </nebula:NebulaTreeView>
                     <TextBlock x:Name="TreeViewSelectionText"
-                               Foreground="{DynamicResource Brush.BrandSoft}"
+                               Style="{StaticResource Typography.TextBlock.Brand}"
                                Margin="0,0,0,16"/>
                     <TextBlock Text="Disabled TreeView"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <nebula:NebulaTreeView Style="{StaticResource NebulaTreeView}"
                                            Width="340"
@@ -241,10 +241,10 @@
                     <TextBlock Text="DataGrid"
                                Style="{StaticResource DemoSectionTitle}"/>
                     <TextBlock Text="Editable rows, add row, selection, column resize and horizontal scroll"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,16,0,8"/>
                     <TextBlock Text="Demo source: SQLite database with persisted IDs, pending changes and reload."
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <nebula:NebulaDataGrid Style="{StaticResource NebulaDataGrid}"
                                            x:Name="EditableDataGrid"
@@ -311,11 +311,11 @@
                     <StackPanel Orientation="Horizontal"
                                 Margin="0,0,0,16">
                         <TextBlock x:Name="DataGridRowCountText"
-                                   Foreground="{DynamicResource Brush.TextSecondary}"/>
+                                   Style="{StaticResource Typography.TextBlock.Secondary}"/>
                         <TextBlock Text=" - "
-                                   Foreground="{DynamicResource Brush.TextSecondary}"/>
+                                   Style="{StaticResource Typography.TextBlock.Secondary}"/>
                         <TextBlock x:Name="DataGridAddStatusText"
-                                   Foreground="{DynamicResource Brush.BrandSoft}"/>
+                                   Style="{StaticResource Typography.TextBlock.Brand}"/>
                         <Button x:Name="SaveDataGridChangesButton"
                                 Content="Save changes"
                                 Style="{StaticResource NebulaPrimarySmallButton}"
@@ -327,11 +327,11 @@
                                 Margin="8,0,0,0"/>
                     </StackPanel>
                     <TextBlock x:Name="DataGridSourceStatusText"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,16"/>
 
                     <TextBlock Text="Disabled DataGrid"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <nebula:NebulaDataGrid Style="{StaticResource NebulaDataGrid}"
                                            ItemsSource="{Binding DisabledDataGridRows, ElementName=Root}"
@@ -357,7 +357,7 @@
                     <TextBlock Text="ContextMenu + ToolTip"
                                Style="{StaticResource DemoSectionTitle}"/>
                     <TextBlock Text="ToolTip"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,16,0,8"/>
                     <StackPanel Orientation="Horizontal">
                         <Button Content="Simple tooltip"
@@ -377,7 +377,7 @@
                                 <nebula:NebulaToolTip Style="{StaticResource NebulaToolTip}">
                                     <StackPanel>
                                         <TextBlock Text="Helpful detail"
-                                                   FontWeight="SemiBold"/>
+                                                   Style="{StaticResource Typography.TextBlock.Strong}"/>
                                         <TextBlock Text="Tooltips can wrap longer explanatory content."
                                                    Margin="0,4,0,0"/>
                                     </StackPanel>
@@ -387,7 +387,7 @@
                     </StackPanel>
 
                     <TextBlock Text="ContextMenu"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,20,0,8"/>
                     <Button Content="Right click me"
                             Style="{StaticResource NebulaSecondaryButton}"

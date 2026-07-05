@@ -1,0 +1,191 @@
+<!--
+  Nom: NebulaWindow
+  Version: V1.01
+  Description: Custom Nebula application window shell with title bar, window commands and themed content surface.
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:NebulaControls.Controls">
+
+    <Style x:Key="NebulaWindowButton"
+           TargetType="Button">
+        <Setter Property="Width" Value="42"/>
+        <Setter Property="Height" Value="32"/>
+        <Setter Property="Margin" Value="4,0,0,0"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="FontFamily" Value="{StaticResource Font.Icon}"/>
+        <Setter Property="FontSize" Value="{StaticResource FontSize.IconSmall}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Brush.TextSecondary}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="ButtonBorder"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="6">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          RecognizesAccessKey="True"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ButtonBorder"
+                                    Property="Background"
+                                    Value="{DynamicResource Brush.SurfaceHover}"/>
+                            <Setter TargetName="ButtonBorder"
+                                    Property="BorderBrush"
+                                    Value="{DynamicResource Brush.Border}"/>
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="ButtonBorder"
+                                    Property="Background"
+                                    Value="{DynamicResource Brush.SurfaceActive}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="NebulaWindowCloseButton"
+           BasedOn="{StaticResource NebulaWindowButton}"
+           TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="ButtonBorder"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="6">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          RecognizesAccessKey="True"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ButtonBorder"
+                                    Property="Background"
+                                    Value="{DynamicResource Brush.Danger}"/>
+                            <Setter TargetName="ButtonBorder"
+                                    Property="BorderBrush"
+                                    Value="{DynamicResource Brush.Danger}"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="ButtonBorder"
+                                    Property="Background"
+                                    Value="{DynamicResource Brush.Danger}"/>
+                            <Setter TargetName="ButtonBorder"
+                                    Property="Opacity"
+                                    Value="0.85"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="NebulaWindow"
+           TargetType="controls:NebulaWindow">
+        <Setter Property="Background" Value="{DynamicResource Brush.Background}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Brush.TextPrimary}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:NebulaWindow">
+                    <Border x:Name="PART_WindowFrame"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{DynamicResource Brush.Border}"
+                            BorderThickness="1"
+                            CornerRadius="10"
+                            SnapsToDevicePixels="True">
+                        <DockPanel>
+                            <Grid x:Name="PART_TitleBar"
+                                  DockPanel.Dock="Top"
+                                  Height="44"
+                                  Background="{DynamicResource Brush.Surface}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Orientation="Horizontal"
+                                            VerticalAlignment="Center"
+                                            Margin="18,0,0,0">
+                                    <Border Width="30"
+                                            Height="30"
+                                            Background="{DynamicResource Brush.SurfaceActive}"
+                                            BorderBrush="{DynamicResource Brush.BrandSoft}"
+                                            BorderThickness="1"
+                                            CornerRadius="7"
+                                            Margin="0,0,12,0">
+                                        <ContentPresenter Content="{TemplateBinding IconContent}"
+                                                          HorizontalAlignment="Center"
+                                                          VerticalAlignment="Center">
+                                            <ContentPresenter.Resources>
+                                                <Style TargetType="TextBlock"
+                                                       BasedOn="{StaticResource Typography.TextBlock.BrandStrong}">
+                                                    <Setter Property="FontSize" Value="{StaticResource FontSize.Title}"/>
+                                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                                </Style>
+                                            </ContentPresenter.Resources>
+                                        </ContentPresenter>
+                                    </Border>
+
+                                    <StackPanel VerticalAlignment="Center">
+                                        <TextBlock Text="{TemplateBinding Title}"
+                                                   Style="{StaticResource Typography.TextBlock.WindowTitle}"
+                                                   VerticalAlignment="Center"/>
+                                        <TextBlock Text="{TemplateBinding Subtitle}"
+                                                   Style="{StaticResource Typography.TextBlock.Muted}"
+                                                   Margin="0,1,0,0"/>
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <ContentPresenter Grid.Column="1"
+                                                  Content="{TemplateBinding TitleBarContent}"
+                                                  HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"/>
+
+                                <StackPanel Grid.Column="2"
+                                            Orientation="Horizontal"
+                                            VerticalAlignment="Center"
+                                            Margin="0,0,10,0">
+                                    <Button x:Name="PART_MinimizeButton"
+                                            Content="&#xE921;"
+                                            Style="{StaticResource NebulaWindowButton}"/>
+                                    <Button x:Name="PART_MaximizeButton"
+                                            Content="&#xE922;"
+                                            Style="{StaticResource NebulaWindowButton}"/>
+                                    <Button x:Name="PART_CloseButton"
+                                            Content="&#xE8BB;"
+                                            Style="{StaticResource NebulaWindowCloseButton}"/>
+                                </StackPanel>
+                            </Grid>
+
+                            <ContentPresenter Content="{TemplateBinding Content}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                                              ContentStringFormat="{TemplateBinding ContentStringFormat}"/>
+                        </DockPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource NebulaWindow}"
+           TargetType="controls:NebulaWindow"/>
+
+</ResourceDictionary>

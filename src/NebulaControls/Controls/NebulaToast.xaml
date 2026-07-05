@@ -24,8 +24,8 @@
                             Background="{TemplateBinding Background}"
                             CornerRadius="6">
                         <TextBlock Text="&#xE711;"
-                                   FontFamily="Segoe MDL2 Assets"
-                                   FontSize="10"
+                                   FontFamily="{StaticResource Font.Icon}"
+                                   FontSize="{StaticResource FontSize.IconSmall}"
                                    Foreground="{TemplateBinding Foreground}"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"/>
@@ -83,8 +83,7 @@
                             <StackPanel Grid.Column="1"
                                         Margin="{TemplateBinding Padding}">
                                 <TextBlock Text="{TemplateBinding Title}"
-                                           Foreground="{DynamicResource Brush.TextPrimary}"
-                                           FontWeight="SemiBold"/>
+                                           Style="{StaticResource Typography.TextBlock.Strong}"/>
                                 <TextBlock Text="{TemplateBinding Message}"
                                            Foreground="{TemplateBinding Foreground}"
                                            TextWrapping="Wrap"

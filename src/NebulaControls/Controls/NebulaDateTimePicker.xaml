@@ -110,9 +110,7 @@
                                             <Border Background="{TemplateBinding Background}">
                                                 <TextBlock x:Name="DateTimeIcon"
                                                            Text="&#xE787;"
-                                                           FontFamily="Segoe MDL2 Assets"
-                                                           Foreground="{DynamicResource Brush.TextMuted}"
-                                                           FontSize="14"
+                                                           Style="{StaticResource Typography.TextBlock.Icon}"
                                                            HorizontalAlignment="Center"
                                                            VerticalAlignment="Center"/>
                                             </Border>
@@ -179,9 +177,7 @@
                                         </Grid.RowDefinitions>
 
                                         <TextBlock Text="Heure"
-                                                   Foreground="{DynamicResource Brush.TextPrimary}"
-                                                   FontSize="14"
-                                                   FontWeight="SemiBold"
+                                                   Style="{StaticResource Typography.TextBlock.Strong}"
                                                    Margin="0,4,0,12"/>
 
                                         <Grid Grid.Row="1">
@@ -196,16 +192,12 @@
                                             </Grid.RowDefinitions>
 
                                             <TextBlock Text="Heures"
-                                                       Foreground="{DynamicResource Brush.TextSecondary}"
-                                                       FontSize="12"
-                                                       FontWeight="SemiBold"
+                                                       Style="{StaticResource Typography.TextBlock.Label}"
                                                        HorizontalAlignment="Center"
                                                        Margin="0,0,0,8"/>
                                             <TextBlock Grid.Column="2"
                                                        Text="Minutes"
-                                                       Foreground="{DynamicResource Brush.TextSecondary}"
-                                                       FontSize="12"
-                                                       FontWeight="SemiBold"
+                                                       Style="{StaticResource Typography.TextBlock.Label}"
                                                        HorizontalAlignment="Center"
                                                        Margin="0,0,0,8"/>
 

@@ -1,0 +1,70 @@
+<nebula:NebulaWindow x:Class="NebulaControls.Demo.Views.NebulaWindowPreview"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:nebula="clr-namespace:NebulaControls.Controls;assembly=NebulaControls"
+                     Title="NebulaWindow"
+                     Subtitle="Reusable themed window shell"
+                     IconContent="N"
+                     Style="{StaticResource NebulaWindow}"
+                     Width="760"
+                     Height="460"
+                     MinWidth="560"
+                     MinHeight="360"
+                     WindowStartupLocation="CenterOwner">
+
+    <nebula:NebulaWindow.TitleBarContent>
+        <Border Background="{DynamicResource Brush.Background}"
+                BorderBrush="{DynamicResource Brush.Border}"
+                BorderThickness="1"
+                CornerRadius="6"
+                Padding="12,6">
+            <StackPanel Orientation="Horizontal">
+                <Ellipse Width="8"
+                         Height="8"
+                         Fill="{DynamicResource Brush.Success}"
+                         Margin="0,0,8,0"
+                         VerticalAlignment="Center"/>
+                <TextBlock Text="NebulaWindow preview"
+                           Style="{StaticResource Typography.TextBlock.Caption}"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
+        </Border>
+    </nebula:NebulaWindow.TitleBarContent>
+
+    <Grid Background="{DynamicResource Brush.Background}"
+          Margin="24">
+        <Border Style="{StaticResource DemoCard}">
+            <StackPanel>
+                <TextBlock Text="NebulaWindow"
+                           Style="{StaticResource DemoSectionTitle}"/>
+                <TextBlock Text="This preview window is intentionally separate from the main demo shell."
+                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                           TextWrapping="Wrap"
+                           Margin="0,14,0,18"/>
+
+                <TextBlock Text="Test checklist"
+                           Style="{StaticResource Typography.TextBlock.Strong}"
+                           Margin="0,0,0,10"/>
+                <TextBlock Text="Move the window by dragging the title bar."
+                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                           Margin="0,0,0,6"/>
+                <TextBlock Text="Resize by the borders."
+                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                           Margin="0,0,0,6"/>
+                <TextBlock Text="Double-click the title bar to maximize or restore."
+                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                           Margin="0,0,0,6"/>
+                <TextBlock Text="On Windows 11, NebulaWindow requests native rounded corners through DWM."
+                           Style="{StaticResource Typography.TextBlock.Warning}"
+                           TextWrapping="Wrap"
+                           Margin="0,0,0,20"/>
+
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Close preview"
+                            Style="{StaticResource NebulaSecondaryButton}"
+                            Click="ClosePreviewButton_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</nebula:NebulaWindow>

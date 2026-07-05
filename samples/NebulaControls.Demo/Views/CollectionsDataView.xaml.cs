@@ -911,7 +911,7 @@ public sealed class DemoDataGridRepository
             new(1001, "NebulaButton", "V2", "Validated", "Actions", "Dominique", "High", "2026-06-24", "Primary, secondary and ghost variants"),
             new(1002, "NebulaTextBox", "V2", "Validated", "Inputs", "Dominique", "High", "2026-06-24", "Placeholder, helper text and validation states"),
             new(1003, "NebulaPasswordBox", "V2", "Validated", "Inputs", "Dominique", "High", "2026-06-24", "Password reveal and validation sample"),
-            new(1004, "NebulaDataGrid", "V2", "Reviewing", "Data", "Dominique", "High", "2026-07-03", "Editing, add-row and SQLite source scenario"),
+            new(1004, "NebulaDataGrid", "V2", "Validated", "Data", "Dominique", "High", "2026-07-03", "Editing, add-row and SQLite source scenario"),
             new(1005, "NebulaListBox", "V2", "Validated", "Collections", "Dominique", "Medium", "2026-06-25", "Smooth item-by-item scrolling"),
             new(1006, "NebulaComboBox", "V2", "Validated", "Selection", "Dominique", "Medium", "2026-06-25", "Standard, editable and disabled states"),
             new(1007, "NebulaTreeView", "V2", "Validated", "Collections", "Dominique", "Medium", "2026-06-29", "Hierarchy and disabled branch"),
@@ -919,7 +919,7 @@ public sealed class DemoDataGridRepository
             new(1009, "NebulaAlert", "V2", "Validated", "Feedback", "Dominique", "High", "2026-06-26", "Interactive inline feedback"),
             new(1010, "NebulaDialog", "V2", "Validated", "Feedback", "Dominique", "Medium", "2026-06-26", "Info, warning and danger dialogs"),
             new(1011, "NebulaMenu", "V2", "Validated", "Navigation", "Dominique", "Medium", "2026-06-26", "Menu and context menu hover states"),
-            new(1012, "NebulaWindow", "V3", "Planned", "Shell", "Dominique", "Low", "Later", "Dedicated custom window control")
+            new(1012, "NebulaWindow", "V1", "Validated", "Shell", "Dominique", "High", "2026-07-05", "Custom Windows 11 shell with DWM rounded corners")
         ]);
     }
 

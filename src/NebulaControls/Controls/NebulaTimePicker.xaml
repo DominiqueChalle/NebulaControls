@@ -110,9 +110,7 @@
                                             <Border Background="{TemplateBinding Background}">
                                                 <TextBlock x:Name="ClockIcon"
                                                            Text="&#xE121;"
-                                                           FontFamily="Segoe MDL2 Assets"
-                                                           Foreground="{DynamicResource Brush.TextMuted}"
-                                                           FontSize="14"
+                                                           Style="{StaticResource Typography.TextBlock.Icon}"
                                                            HorizontalAlignment="Center"
                                                            VerticalAlignment="Center"/>
                                             </Border>
@@ -168,16 +166,12 @@
                                     </Grid.RowDefinitions>
 
                                     <TextBlock Text="Heures"
-                                               Foreground="{DynamicResource Brush.TextSecondary}"
-                                               FontSize="12"
-                                               FontWeight="SemiBold"
+                                               Style="{StaticResource Typography.TextBlock.Label}"
                                                HorizontalAlignment="Center"
                                                Margin="0,0,0,8"/>
                                     <TextBlock Grid.Column="2"
                                                Text="Minutes"
-                                               Foreground="{DynamicResource Brush.TextSecondary}"
-                                               FontSize="12"
-                                               FontWeight="SemiBold"
+                                               Style="{StaticResource Typography.TextBlock.Label}"
                                                HorizontalAlignment="Center"
                                                Margin="0,0,0,8"/>
 

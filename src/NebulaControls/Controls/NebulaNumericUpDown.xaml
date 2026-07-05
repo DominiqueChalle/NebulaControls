@@ -36,7 +36,7 @@
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Padding" Value="0"/>
-        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontSize" Value="{StaticResource FontSize.Caption}"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="Template">
@@ -108,7 +108,7 @@
 
                                 <TextBlock x:Name="PlaceholderText"
                                            Text="{TemplateBinding Placeholder}"
-                                           Foreground="{DynamicResource Brush.TextMuted}"
+                                           Style="{StaticResource Typography.TextBlock.Muted}"
                                            Margin="20,0,0,0"
                                            VerticalAlignment="Center"
                                            IsHitTestVisible="False"

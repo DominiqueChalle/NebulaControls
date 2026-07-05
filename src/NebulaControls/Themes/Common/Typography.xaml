@@ -1,37 +1,155 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
     <!-- ===================================================== -->
-    <!-- Text Typography Styles                                -->
+    <!-- Font Resources                                        -->
+    <!-- ===================================================== -->
+
+    <FontFamily x:Key="Font.Primary">Segoe UI</FontFamily>
+    <FontFamily x:Key="Font.Icon">Segoe MDL2 Assets</FontFamily>
+    <FontFamily x:Key="Font.Symbol">Segoe UI Symbol</FontFamily>
+
+    <sys:Double x:Key="FontSize.Caption">12</sys:Double>
+    <sys:Double x:Key="FontSize.Small">13</sys:Double>
+    <sys:Double x:Key="FontSize.Text">14</sys:Double>
+    <sys:Double x:Key="FontSize.Title">18</sys:Double>
+    <sys:Double x:Key="FontSize.WindowTitle">14</sys:Double>
+    <sys:Double x:Key="FontSize.PageTitle">26</sys:Double>
+    <sys:Double x:Key="FontSize.IconSmall">10</sys:Double>
+    <sys:Double x:Key="FontSize.Icon">14</sys:Double>
+    <sys:Double x:Key="FontSize.AvatarIcon">28</sys:Double>
+    <sys:Double x:Key="FontSize.AvatarBadge">13</sys:Double>
+
+    <!-- ===================================================== -->
+    <!-- Control Typography                                    -->
     <!-- ===================================================== -->
 
     <Style x:Key="Typography.Text.Primary"
            TargetType="Control">
+        <Setter Property="FontFamily" Value="{StaticResource Font.Primary}"/>
+        <Setter Property="FontSize" Value="{StaticResource FontSize.Text}"/>
+        <Setter Property="FontWeight" Value="Regular"/>
+        <Setter Property="Foreground" Value="{DynamicResource Brush.TextPrimary}"/>
+    </Style>
 
-        <Setter Property="FontFamily"
-                Value="Segoe UI"/>
-
-        <Setter Property="FontSize"
-                Value="14"/>
-
-        <Setter Property="FontWeight"
-                Value="Regular"/>
-
-        <Setter Property="Foreground"
-                Value="{DynamicResource Brush.TextPrimary}"/>
-
+    <Style x:Key="Typography.Button.Primary"
+           BasedOn="{StaticResource Typography.Text.Primary}"
+           TargetType="Button">
+        <Setter Property="FontWeight" Value="SemiBold"/>
     </Style>
 
     <!-- ===================================================== -->
-    <!-- Button Typography Styles                              -->
+    <!-- TextBlock Typography                                  -->
     <!-- ===================================================== -->
 
-    <Style x:Key="Typography.Button.Primary" BasedOn="{StaticResource Typography.Text.Primary}"
-           TargetType="Button">
+    <Style x:Key="Typography.TextBlock.Body"
+           TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource Font.Primary}"/>
+        <Setter Property="FontSize" Value="{StaticResource FontSize.Text}"/>
+        <Setter Property="FontWeight" Value="Regular"/>
+        <Setter Property="Foreground" Value="{DynamicResource Brush.TextPrimary}"/>
+    </Style>
 
-        <Setter Property="FontWeight"
-                Value="SemiBold"/>
+    <Style x:Key="Typography.TextBlock.Secondary"
+           BasedOn="{StaticResource Typography.TextBlock.Body}"
+           TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource Brush.TextSecondary}"/>
+    </Style>
 
+    <Style x:Key="Typography.TextBlock.Muted"
+           BasedOn="{StaticResource Typography.TextBlock.Body}"
+           TargetType="TextBlock">
+        <Setter Property="FontSize" Value="{StaticResource FontSize.Caption}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Brush.TextMuted}"/>
+    </Style>
+
+    <Style x:Key="Typography.TextBlock.Caption"
+           BasedOn="{StaticResource Typography.TextBlock.Muted}"
+           TargetType="TextBlock"/>
+
+    <Style x:Key="Typography.TextBlock.Label"
+           BasedOn="{StaticResource Typography.TextBlock.Secondary}"
+           TargetType="TextBlock">
+        <Setter Property="FontSize" Value="{StaticResource FontSize.Caption}"/>
+    </Style>
+
+    <Style x:Key="Typography.TextBlock.SectionTitle"
+           BasedOn="{StaticResource Typography.TextBlock.Body}"
+           TargetType="TextBlock">
+        <Setter Property="FontSize" Value="{StaticResource FontSize.Title}"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+    </Style>
+
+    <Style x:Key="Typography.TextBlock.PageTitle"
+           BasedOn="{StaticResource Typography.TextBlock.Body}"
+           TargetType="TextBlock">
+        <Setter Property="FontSize" Value="{StaticResource FontSize.PageTitle}"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+    </Style>
+
+    <Style x:Key="Typography.TextBlock.WindowTitle"
+           BasedOn="{StaticResource Typography.TextBlock.Body}"
+           TargetType="TextBlock">
+        <Setter Property="FontSize" Value="{StaticResource FontSize.WindowTitle}"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+    </Style>
+
+    <Style x:Key="Typography.TextBlock.Strong"
+           BasedOn="{StaticResource Typography.TextBlock.Body}"
+           TargetType="TextBlock">
+        <Setter Property="FontWeight" Value="SemiBold"/>
+    </Style>
+
+    <Style x:Key="Typography.TextBlock.Brand"
+           BasedOn="{StaticResource Typography.TextBlock.Body}"
+           TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource Brush.BrandSoft}"/>
+    </Style>
+
+    <Style x:Key="Typography.TextBlock.BrandStrong"
+           BasedOn="{StaticResource Typography.TextBlock.Brand}"
+           TargetType="TextBlock">
+        <Setter Property="FontWeight" Value="SemiBold"/>
+    </Style>
+
+    <Style x:Key="Typography.TextBlock.Danger"
+           BasedOn="{StaticResource Typography.TextBlock.Body}"
+           TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource Brush.Danger}"/>
+    </Style>
+
+    <Style x:Key="Typography.TextBlock.Warning"
+           BasedOn="{StaticResource Typography.TextBlock.Body}"
+           TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource Brush.Warning}"/>
+    </Style>
+
+    <Style x:Key="Typography.TextBlock.Icon"
+           BasedOn="{StaticResource Typography.TextBlock.Muted}"
+           TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource Font.Icon}"/>
+        <Setter Property="FontSize" Value="{StaticResource FontSize.Icon}"/>
+    </Style>
+
+    <Style x:Key="Typography.TextBlock.IconSmall"
+           BasedOn="{StaticResource Typography.TextBlock.Icon}"
+           TargetType="TextBlock">
+        <Setter Property="FontSize" Value="{StaticResource FontSize.IconSmall}"/>
+    </Style>
+
+    <Style x:Key="Typography.TextBlock.AvatarIcon"
+           BasedOn="{StaticResource Typography.TextBlock.Icon}"
+           TargetType="TextBlock">
+        <Setter Property="FontSize" Value="{StaticResource FontSize.AvatarIcon}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Brush.BrandSoft}"/>
+    </Style>
+
+    <Style x:Key="Typography.TextBlock.AvatarBadge"
+           BasedOn="{StaticResource Typography.TextBlock.BrandStrong}"
+           TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource Font.Symbol}"/>
+        <Setter Property="FontSize" Value="{StaticResource FontSize.AvatarBadge}"/>
     </Style>
 
 </ResourceDictionary>

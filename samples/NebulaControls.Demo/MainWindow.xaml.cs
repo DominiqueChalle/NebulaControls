@@ -1,7 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
@@ -11,10 +10,8 @@ using NebulaControls.Theming;
 
 namespace NebulaControls.Demo;
 
-public partial class MainWindow : Window
+public partial class MainWindow : NebulaWindow
 {
-    private Rect restoreBoundsBeforeMaximize;
-    private bool isCustomMaximized;
     private bool isSidebarCollapsed;
     private readonly DispatcherTimer toastTimer;
     private readonly ButtonsFeedbackView buttonsFeedbackView = new();
@@ -58,88 +55,6 @@ public partial class MainWindow : Window
         Height = Math.Max(MinHeight, workArea.Height * 0.8);
         Left = workArea.Left + (workArea.Width - Width) / 2;
         Top = workArea.Top + (workArea.Height - Height) / 2;
-    }
-
-    private void TitleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-    {
-        if (e.ClickCount == 2)
-        {
-            ToggleWindowState();
-            return;
-        }
-
-        if (isCustomMaximized)
-        {
-            RestoreCustomMaximizedWindow();
-        }
-
-        DragMove();
-    }
-
-    private void MinimizeWindowButton_Click(object sender, RoutedEventArgs e)
-    {
-        WindowState = WindowState.Minimized;
-    }
-
-    private void MaximizeWindowButton_Click(object sender, RoutedEventArgs e)
-    {
-        ToggleWindowState();
-    }
-
-    private void CloseWindowButton_Click(object sender, RoutedEventArgs e)
-    {
-        Close();
-    }
-
-    private void ToggleWindowState()
-    {
-        if (isCustomMaximized)
-        {
-            RestoreCustomMaximizedWindow();
-            return;
-        }
-
-        MaximizeToWorkArea();
-    }
-
-    private void MaximizeToWorkArea()
-    {
-        restoreBoundsBeforeMaximize = new Rect(Left, Top, Width, Height);
-
-        var workArea = SystemParameters.WorkArea;
-
-        WindowState = WindowState.Normal;
-        Left = workArea.Left;
-        Top = workArea.Top;
-        Width = workArea.Width;
-        Height = workArea.Height;
-
-        isCustomMaximized = true;
-
-        if (DemoWindowFrame is not null)
-        {
-            DemoWindowFrame.Margin = new Thickness(0);
-            DemoWindowFrame.CornerRadius = new CornerRadius(0);
-        }
-    }
-
-    private void RestoreCustomMaximizedWindow()
-    {
-        if (restoreBoundsBeforeMaximize.Width > 0 && restoreBoundsBeforeMaximize.Height > 0)
-        {
-            Left = restoreBoundsBeforeMaximize.Left;
-            Top = restoreBoundsBeforeMaximize.Top;
-            Width = restoreBoundsBeforeMaximize.Width;
-            Height = restoreBoundsBeforeMaximize.Height;
-        }
-
-        isCustomMaximized = false;
-
-        if (DemoWindowFrame is not null)
-        {
-            DemoWindowFrame.Margin = new Thickness(0);
-            DemoWindowFrame.CornerRadius = new CornerRadius(10);
-        }
     }
 
     private void ExitMenuItem_Click(object sender, RoutedEventArgs e)

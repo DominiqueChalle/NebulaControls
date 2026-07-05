@@ -107,8 +107,7 @@
                             <TextBlock x:Name="LabelText"
                                        DockPanel.Dock="{TemplateBinding LabelPlacement}"
                                        Text="{TemplateBinding Label}"
-                                       Foreground="{DynamicResource Brush.TextMuted}"
-                                       FontSize="12"
+                                       Style="{StaticResource Typography.TextBlock.Caption}"
                                        Margin="0,0,0,6"/>
 
                             <Border x:Name="Border"
@@ -124,7 +123,7 @@
                                                   VerticalAlignment="Center"/>
                                     <TextBlock x:Name="PlaceholderText"
                                                Text="{TemplateBinding Placeholder}"
-                                               Foreground="{DynamicResource Brush.TextMuted}"
+                                               Style="{StaticResource Typography.TextBlock.Muted}"
                                                Margin="{TemplateBinding Padding}"
                                                Padding="10,0,0,0"
                                                VerticalAlignment="Center"
@@ -137,23 +136,20 @@
                         <TextBlock x:Name="HelperTextBlock"
                                    Grid.Row="1"
                                    Text="{TemplateBinding HelperText}"
-                                   Foreground="{DynamicResource Brush.TextMuted}"
-                                   FontSize="12"
+                                   Style="{StaticResource Typography.TextBlock.Caption}"
                                    Margin="0,6,0,0"/>
 
                         <TextBlock x:Name="ErrorTextBlock"
                                    Grid.Row="1"
                                    Text="{TemplateBinding ErrorText}"
-                                   Foreground="{DynamicResource Brush.Danger}"
-                                   FontSize="12"
+                                   Style="{StaticResource Typography.TextBlock.Danger}"
                                    Margin="0,6,0,0"
                                    Visibility="Collapsed"/>
 
                         <TextBlock x:Name="WarningTextBlock"
                                    Grid.Row="1"
                                    Text="{TemplateBinding WarningText}"
-                                   Foreground="{DynamicResource Brush.Warning}"
-                                   FontSize="12"
+                                   Style="{StaticResource Typography.TextBlock.Warning}"
                                    Margin="0,6,0,0"
                                    Visibility="Collapsed"/>
                     </Grid>

@@ -48,6 +48,16 @@ public partial class ContainersLayoutView : UserControl
         GroupBoxStatusText.Text = $"Settings applied: feature {featureState}, {notificationState}";
     }
 
+    private void OpenNebulaWindowButton_Click(object sender, System.Windows.RoutedEventArgs e)
+    {
+        var preview = new NebulaWindowPreview
+        {
+            Owner = System.Windows.Window.GetWindow(this)
+        };
+
+        preview.Show();
+    }
+
     private void LoadAvatarButton_Click(object sender, System.Windows.RoutedEventArgs e)
     {
         var dialog = new OpenFileDialog

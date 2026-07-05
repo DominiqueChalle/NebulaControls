@@ -10,11 +10,10 @@
                     <TextBlock Text="Buttons"
                                Style="{StaticResource DemoSectionTitle}"/>
                     <TextBlock Text="Small buttons"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,16,0,8"/>
                     <TextBlock Text="Active"
-                               Foreground="{DynamicResource Brush.TextMuted}"
-                               FontSize="12"
+                               Style="{StaticResource Typography.TextBlock.Muted}"
                                Margin="0,0,0,6"/>
                     <WrapPanel>
                         <Button Content="Primary"
@@ -28,8 +27,7 @@
                                 Margin="0,0,10,8"/>
                     </WrapPanel>
                     <TextBlock Text="Inactive"
-                               Foreground="{DynamicResource Brush.TextMuted}"
-                               FontSize="12"
+                               Style="{StaticResource Typography.TextBlock.Muted}"
                                Margin="0,0,0,6"/>
                     <WrapPanel>
                         <Button Content="Primary"
@@ -47,11 +45,10 @@
                     </WrapPanel>
 
                     <TextBlock Text="Normal buttons"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,2,0,8"/>
                     <TextBlock Text="Active"
-                               Foreground="{DynamicResource Brush.TextMuted}"
-                               FontSize="12"
+                               Style="{StaticResource Typography.TextBlock.Muted}"
                                Margin="0,0,0,6"/>
                     <WrapPanel>
                         <Button Content="Primary"
@@ -65,8 +62,7 @@
                                 Margin="0,0,10,8"/>
                     </WrapPanel>
                     <TextBlock Text="Inactive"
-                               Foreground="{DynamicResource Brush.TextMuted}"
-                               FontSize="12"
+                               Style="{StaticResource Typography.TextBlock.Muted}"
                                Margin="0,0,0,6"/>
                     <WrapPanel>
                         <Button Content="Primary"
@@ -84,11 +80,10 @@
                     </WrapPanel>
 
                     <TextBlock Text="Large buttons"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,2,0,8"/>
                     <TextBlock Text="Active"
-                               Foreground="{DynamicResource Brush.TextMuted}"
-                               FontSize="12"
+                               Style="{StaticResource Typography.TextBlock.Muted}"
                                Margin="0,0,0,6"/>
                     <WrapPanel>
                         <Button Content="Primary"
@@ -102,8 +97,7 @@
                                 Margin="0,0,10,8"/>
                     </WrapPanel>
                     <TextBlock Text="Inactive"
-                               Foreground="{DynamicResource Brush.TextMuted}"
-                               FontSize="12"
+                               Style="{StaticResource Typography.TextBlock.Muted}"
                                Margin="0,0,0,6"/>
                     <WrapPanel>
                         <Button Content="Primary"
@@ -127,7 +121,7 @@
                     <TextBlock Text="Badges"
                                Style="{StaticResource DemoSectionTitle}"/>
                     <TextBlock Text="Variants"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,16,0,8"/>
                     <WrapPanel>
                         <nebula:NebulaBadge Content="Default"
@@ -157,7 +151,7 @@
                     <TextBlock Text="Chips"
                                Style="{StaticResource DemoSectionTitle}"/>
                     <TextBlock Text="Filter control catalog"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,16,0,8"/>
                     <WrapPanel x:Name="ActiveFiltersPanel"
                                Margin="0,0,0,12">
@@ -189,7 +183,7 @@
                     </WrapPanel>
 
                     <TextBlock Text="Available filters"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <WrapPanel Margin="0,0,0,12">
                         <nebula:NebulaChip Content="Inputs"
@@ -211,8 +205,7 @@
 
                     <TextBlock x:Name="FilterStatusText"
                                Text="Showing filtered controls."
-                               Foreground="{DynamicResource Brush.TextMuted}"
-                               FontSize="12"
+                               Style="{StaticResource Typography.TextBlock.Muted}"
                                Margin="0,0,0,10"/>
 
                     <nebula:NebulaListBox x:Name="ChipFilteredControlsListBox"
@@ -225,11 +218,9 @@
                             <DataTemplate>
                                 <StackPanel>
                                     <TextBlock Text="{Binding Name}"
-                                               Foreground="{DynamicResource Brush.TextPrimary}"
-                                               FontWeight="SemiBold"/>
+                                               Style="{StaticResource Typography.TextBlock.Strong}"/>
                                     <TextBlock Text="{Binding Category}"
-                                               Foreground="{DynamicResource Brush.BrandSoft}"
-                                               FontSize="12"
+                                               Style="{StaticResource Typography.TextBlock.Brand}"
                                                Margin="0,3,0,0"/>
                                 </StackPanel>
                             </DataTemplate>
@@ -237,7 +228,7 @@
                     </nebula:NebulaListBox>
 
                     <TextBlock Text="Variants"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <WrapPanel>
                         <nebula:NebulaChip Content="Default"
@@ -291,7 +282,7 @@
                         <StackPanel>
                             <TextBlock x:Name="InteractiveAlertTitle"
                                        Text="Information"
-                                       FontWeight="SemiBold"/>
+                                       Style="{StaticResource Typography.TextBlock.Strong}"/>
                             <TextBlock x:Name="InteractiveAlertMessage"
                                        Text="Use inline alerts to explain a state without interrupting the user."
                                        Margin="0,4,0,0"/>
@@ -305,7 +296,7 @@
                     <TextBlock Text="Toast"
                                Style="{StaticResource DemoSectionTitle}"/>
                     <TextBlock Text="Temporary in-app notification"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,16,0,8"/>
                     <WrapPanel Margin="0,0,0,16">
                         <Button Content="Info"
@@ -326,8 +317,7 @@
                                 Margin="0,0,10,10"/>
                     </WrapPanel>
                     <TextBlock Text="Toast appears at the bottom-right of the demo window for 5 seconds."
-                               Foreground="{DynamicResource Brush.TextMuted}"
-                               FontSize="12"
+                               Style="{StaticResource Typography.TextBlock.Muted}"
                                TextWrapping="Wrap"/>
                 </StackPanel>
             </Border>
@@ -337,7 +327,7 @@
                     <TextBlock Text="Rating"
                                Style="{StaticResource DemoSectionTitle}"/>
                     <TextBlock Text="Feedback score"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,16,0,8"/>
                     <nebula:NebulaRating x:Name="FeedbackRating"
                                          Style="{StaticResource NebulaRating}"
@@ -347,12 +337,11 @@
                                          Margin="0,0,0,8"/>
                     <TextBlock x:Name="FeedbackRatingText"
                                Text="4 / 5 - Very useful"
-                               Foreground="{DynamicResource Brush.TextMuted}"
-                               FontSize="12"
+                               Style="{StaticResource Typography.TextBlock.Muted}"
                                Margin="0,0,0,18"/>
 
                     <TextBlock Text="Read-only"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <nebula:NebulaRating Style="{StaticResource NebulaRating}"
                                          Value="3"
@@ -361,7 +350,7 @@
                                          Margin="0,0,0,18"/>
 
                     <TextBlock Text="Disabled"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <nebula:NebulaRating Style="{StaticResource NebulaRating}"
                                          Value="2"
@@ -375,7 +364,7 @@
                     <TextBlock Text="Dialog"
                                Style="{StaticResource DemoSectionTitle}"/>
                     <TextBlock Text="Modal feedback and confirmations"
-                               Foreground="{DynamicResource Brush.TextSecondary}"
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,16,0,8"/>
                     <WrapPanel Margin="0,0,0,12">
                         <Button Content="Information"
@@ -397,8 +386,7 @@
                     </WrapPanel>
                     <TextBlock x:Name="DialogResultText"
                                Text="Choose a dialog scenario."
-                               Foreground="{DynamicResource Brush.TextMuted}"
-                               FontSize="12"
+                               Style="{StaticResource Typography.TextBlock.Muted}"
                                TextWrapping="Wrap"/>
                 </StackPanel>
             </Border>
