@@ -34,19 +34,6 @@
         </Border>
     </nebula:NebulaWindow.TitleBarContent>
 
-    <nebula:NebulaWindow.Resources>
-        <Style x:Key="DemoSidebarButton"
-               BasedOn="{StaticResource NebulaGhostButton}"
-               TargetType="Button">
-            <Setter Property="HorizontalContentAlignment" Value="Left"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="MinWidth" Value="0"/>
-            <Setter Property="Margin" Value="0,0,0,8"/>
-            <Setter Property="Padding" Value="14,9"/>
-        </Style>
-
-    </nebula:NebulaWindow.Resources>
-
     <Grid>
         <DockPanel>
             <Menu DockPanel.Dock="Top"
@@ -88,57 +75,33 @@
 
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition x:Name="SidebarColumn" Width="244"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Border x:Name="SidebarPanel"
-                        Background="{DynamicResource Brush.Surface}"
-                        BorderBrush="{DynamicResource Brush.Border}"
-                        BorderThickness="0,0,1,0"
-                        Padding="24,20,18,24">
-                    <StackPanel>
-                        <Grid>
-                            <TextBlock x:Name="SidebarTitleText"
-                                       Text="Gallery"
-                                       Style="{StaticResource DemoSectionTitle}"
-                                       VerticalAlignment="Center"/>
-                            <Button x:Name="SidebarToggleButton"
-                                    Content="&lt;"
-                                    Style="{StaticResource NebulaWindowButton}"
-                                    Width="34"
-                                    Height="30"
-                                    Padding="0"
-                                    HorizontalAlignment="Right"
-                                    Click="SidebarToggleButton_Click"/>
-                        </Grid>
-                        <TextBlock x:Name="SidebarDescriptionText"
-                                   Text="Browse the current NebulaControls surface and component states."
-                                   Style="{StaticResource Typography.TextBlock.Secondary}"
-                                   TextWrapping="Wrap"
-                                   Margin="0,6,0,24"/>
-                        <Button x:Name="ActionsNavButton"
-                                Content="Buttons + Feedback"
-                                Style="{StaticResource DemoSidebarButton}"
-                                Click="ActionsNavButton_Click"/>
-                        <Button x:Name="InputsNavButton"
-                                Content="Inputs + Progress"
-                                Style="{StaticResource DemoSidebarButton}"
-                                Click="InputsNavButton_Click"/>
-                        <Button x:Name="CollectionsNavButton"
-                                Content="Collections + Data"
-                                Style="{StaticResource DemoSidebarButton}"
-                                Click="CollectionsNavButton_Click"/>
-                        <Button x:Name="PickerLabNavButton"
-                                Content="Picker Lab"
-                                Style="{StaticResource DemoSidebarButton}"
-                                Click="PickerLabNavButton_Click"/>
-                        <Button x:Name="ContainersNavButton"
-                                Content="Containers + Layout"
-                                Style="{StaticResource DemoSidebarButton}"
-                                Click="ContainersNavButton_Click"/>
-                    </StackPanel>
-                </Border>
+                <nebula:NebulaSidebar x:Name="DemoSidebar"
+                                      Title="Gallery"
+                                      Description="Browse the current NebulaControls surface and component states."
+                                      SelectionChanged="DemoSidebar_SelectionChanged">
+                    <nebula:NebulaSidebarItem Content="Buttons + Feedback"
+                                               Icon="&#xE8FD;"
+                                               Tag="Actions"/>
+                    <nebula:NebulaSidebarItem Content="Inputs + Progress"
+                                               Icon="&#xE70F;"
+                                               Tag="Inputs"/>
+                    <nebula:NebulaSidebarItem Content="Collections + Data"
+                                               Icon="&#xE8A5;"
+                                               Tag="Collections"/>
+                    <nebula:NebulaSidebarItem Content="Control Inventory"
+                                               Icon="&#xE8EC;"
+                                               Tag="Inventory"/>
+                    <nebula:NebulaSidebarItem Content="Picker Lab"
+                                               Icon="&#xE787;"
+                                               Tag="PickerLab"/>
+                    <nebula:NebulaSidebarItem Content="Containers + Layout"
+                                               Icon="&#xE8A9;"
+                                               Tag="Containers"/>
+                </nebula:NebulaSidebar>
 
                 <Grid Grid.Column="1"
                       Margin="28,22,26,26">
@@ -180,53 +143,7 @@
             </Grid>
             </DockPanel>
 
-        <ItemsControl ItemsSource="{Binding Toasts}"
-                      HorizontalAlignment="Right"
-                      VerticalAlignment="Bottom"
-                      Margin="0,0,28,28">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <nebula:NebulaToast x:Name="ToastControl"
-                                        Style="{Binding Style}"
-                                        Title="{Binding Title}"
-                                        Message="{Binding Message}"
-                                        Margin="0,0,0,10"
-                                        Opacity="0"
-                                        CloseClicked="Toast_CloseClicked">
-                        <nebula:NebulaToast.RenderTransform>
-                            <TranslateTransform x:Name="ToastTransform" Y="24"/>
-                        </nebula:NebulaToast.RenderTransform>
-                    </nebula:NebulaToast>
-
-                    <DataTemplate.Triggers>
-                        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <DoubleAnimation Storyboard.TargetName="ToastTransform"
-                                                     Storyboard.TargetProperty="Y"
-                                                     To="0"
-                                                     Duration="0:0:0.22">
-                                        <DoubleAnimation.EasingFunction>
-                                            <CubicEase EasingMode="EaseOut"/>
-                                        </DoubleAnimation.EasingFunction>
-                                    </DoubleAnimation>
-                                    <DoubleAnimation Storyboard.TargetName="ToastControl"
-                                                     Storyboard.TargetProperty="Opacity"
-                                                     To="1"
-                                                     Duration="0:0:0.22"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                    </DataTemplate.Triggers>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        <nebula:NebulaToastHost x:Name="ToastHost"/>
     </Grid>
 </nebula:NebulaWindow>
 

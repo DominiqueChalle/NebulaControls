@@ -1,5 +1,5 @@
 // Nom: NebulaChip
-// Version: V1.02
+// Version: V1.03
 // Description: Chip control exposing text, selection and remove command behavior.
 
 using System;

@@ -243,16 +243,19 @@
                     <TextBlock Text="Editable rows, add row, selection, column resize and horizontal scroll"
                                Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,16,0,8"/>
-                    <TextBlock Text="Demo source: SQLite database with persisted IDs, pending changes and reload."
+                    <TextBlock Text="Demo source: separate SQLite sandbox table with add, edit, delete, pending changes and reload."
                                Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
                     <nebula:NebulaDataGrid Style="{StaticResource NebulaDataGrid}"
                                            x:Name="EditableDataGrid"
                                            ItemsSource="{Binding DataGridRows, ElementName=Root}"
                                            CanUserAddRows="True"
+                                           KeepTabInsideGrid="True"
+                                           DiscardEmptyNewRows="True"
+                                           ValidateRequiredColumns="True"
+                                           ContinueEditingNewRows="True"
                                            KeyboardNavigation.TabNavigation="Contained"
                                            PreviewMouseDoubleClick="EditableDataGrid_PreviewMouseDoubleClick"
-                                           PreviewKeyDown="EditableDataGrid_PreviewKeyDown"
                                            RowEditEnding="EditableDataGrid_RowEditEnding"
                                            SelectedIndex="3"
                                            Width="560"
@@ -266,21 +269,25 @@
                                                 IsReadOnly="True"
                                                 Width="70"/>
                             <DataGridTextColumn Header="Component"
+                                                nebula:NebulaDataGrid.IsRequired="True"
                                                 Binding="{Binding Component, UpdateSourceTrigger=PropertyChanged}"
                                                 ElementStyle="{StaticResource RequiredComponentDataGridTextBlock}"
                                                 EditingElementStyle="{StaticResource RequiredComponentDataGridEditingTextBox}"
                                                 Width="180"/>
                             <DataGridTextColumn Header="Version"
+                                                nebula:NebulaDataGrid.IsRequired="True"
                                                 Binding="{Binding Version, UpdateSourceTrigger=PropertyChanged}"
                                                 ElementStyle="{StaticResource RequiredVersionDataGridTextBlock}"
                                                 EditingElementStyle="{StaticResource RequiredVersionDataGridEditingTextBox}"
                                                 Width="90"/>
                             <DataGridTextColumn Header="Status"
+                                                nebula:NebulaDataGrid.IsRequired="True"
                                                 Binding="{Binding Status, UpdateSourceTrigger=PropertyChanged}"
                                                 ElementStyle="{StaticResource RequiredStatusDataGridTextBlock}"
                                                 EditingElementStyle="{StaticResource RequiredStatusDataGridEditingTextBox}"
                                                 Width="130"/>
                             <DataGridTextColumn Header="Area"
+                                                nebula:NebulaDataGrid.IsRequired="True"
                                                 Binding="{Binding Area, UpdateSourceTrigger=PropertyChanged}"
                                                 ElementStyle="{StaticResource RequiredAreaDataGridTextBlock}"
                                                 EditingElementStyle="{StaticResource RequiredAreaDataGridEditingTextBox}"
@@ -308,24 +315,31 @@
                                                 Width="260"/>
                         </DataGrid.Columns>
                     </nebula:NebulaDataGrid>
-                    <StackPanel Orientation="Horizontal"
-                                Margin="0,0,0,16">
+                    <WrapPanel Margin="0,0,0,16">
                         <TextBlock x:Name="DataGridRowCountText"
-                                   Style="{StaticResource Typography.TextBlock.Secondary}"/>
+                                   Style="{StaticResource Typography.TextBlock.Secondary}"
+                                   VerticalAlignment="Center"/>
                         <TextBlock Text=" - "
-                                   Style="{StaticResource Typography.TextBlock.Secondary}"/>
+                                   Style="{StaticResource Typography.TextBlock.Secondary}"
+                                   VerticalAlignment="Center"/>
                         <TextBlock x:Name="DataGridAddStatusText"
-                                   Style="{StaticResource Typography.TextBlock.Brand}"/>
+                                   Style="{StaticResource Typography.TextBlock.Brand}"
+                                   VerticalAlignment="Center"
+                                   Margin="0,0,16,8"/>
                         <Button x:Name="SaveDataGridChangesButton"
                                 Content="Save changes"
                                 Style="{StaticResource NebulaPrimarySmallButton}"
                                 Click="SaveDataGridChangesButton_Click"
-                                Margin="16,0,0,0"/>
+                                Margin="0,0,8,8"/>
                         <Button Content="Reload source"
                                 Style="{StaticResource NebulaSecondarySmallButton}"
                                 Click="ReloadDataGridSourceButton_Click"
-                                Margin="8,0,0,0"/>
-                    </StackPanel>
+                                Margin="0,0,8,8"/>
+                        <Button Content="Delete selected"
+                                Style="{StaticResource NebulaDangerSmallButton}"
+                                Click="DeleteDataGridRowButton_Click"
+                                Margin="0,0,8,8"/>
+                    </WrapPanel>
                     <TextBlock x:Name="DataGridSourceStatusText"
                                Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,16"/>

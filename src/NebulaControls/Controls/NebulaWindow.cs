@@ -1,3 +1,7 @@
+// Nom: NebulaWindow
+// Version: V1.01
+// Description: Custom Nebula application window shell with title bar, window commands and themed content surface.
+
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -137,16 +141,19 @@ public class NebulaWindow : Window
         if (minimizeButton is not null)
         {
             minimizeButton.Click += MinimizeButton_Click;
+            minimizeButton.PreviewMouseLeftButtonDown += MinimizeButton_PreviewMouseLeftButtonDown;
         }
 
         if (maximizeButton is not null)
         {
             maximizeButton.Click += MaximizeButton_Click;
+            maximizeButton.PreviewMouseLeftButtonDown += MaximizeButton_PreviewMouseLeftButtonDown;
         }
 
         if (closeButton is not null)
         {
             closeButton.Click += CloseButton_Click;
+            closeButton.PreviewMouseLeftButtonDown += CloseButton_PreviewMouseLeftButtonDown;
         }
     }
 
@@ -160,16 +167,19 @@ public class NebulaWindow : Window
         if (minimizeButton is not null)
         {
             minimizeButton.Click -= MinimizeButton_Click;
+            minimizeButton.PreviewMouseLeftButtonDown -= MinimizeButton_PreviewMouseLeftButtonDown;
         }
 
         if (maximizeButton is not null)
         {
             maximizeButton.Click -= MaximizeButton_Click;
+            maximizeButton.PreviewMouseLeftButtonDown -= MaximizeButton_PreviewMouseLeftButtonDown;
         }
 
         if (closeButton is not null)
         {
             closeButton.Click -= CloseButton_Click;
+            closeButton.PreviewMouseLeftButtonDown -= CloseButton_PreviewMouseLeftButtonDown;
         }
     }
 
@@ -214,13 +224,31 @@ public class NebulaWindow : Window
         WindowState = WindowState.Minimized;
     }
 
+    private void MinimizeButton_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        e.Handled = true;
+        WindowState = WindowState.Minimized;
+    }
+
     private void MaximizeButton_Click(object sender, RoutedEventArgs e)
     {
         ToggleWindowState();
     }
 
+    private void MaximizeButton_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        e.Handled = true;
+        ToggleWindowState();
+    }
+
     private void CloseButton_Click(object sender, RoutedEventArgs e)
     {
+        Close();
+    }
+
+    private void CloseButton_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        e.Handled = true;
         Close();
     }
 

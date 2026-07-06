@@ -1,6 +1,6 @@
 // Nom: NebulaToast
-// Version: V1.03
-// Description: Toast control exposing message, variant and close behavior.
+// Version: V1.04
+// Description: Toast control exposing message, variant, command and close behavior.
 
 using System;
 using System.Windows;
@@ -24,7 +24,7 @@ public class NebulaToast : ContentControl
 
     public NebulaToast()
     {
-        closeCommand = new NebulaRelayCommand(_ => CloseClicked?.Invoke(this, EventArgs.Empty));
+        closeCommand = new NebulaRelayCommand(_ => Close());
     }
 
     public static readonly DependencyProperty TitleProperty =
@@ -66,5 +66,43 @@ public class NebulaToast : ContentControl
         set => SetValue(IconProperty, value);
     }
 
+    public static readonly DependencyProperty CloseRequestedCommandProperty =
+        DependencyProperty.Register(
+            nameof(CloseRequestedCommand),
+            typeof(ICommand),
+            typeof(NebulaToast),
+            new PropertyMetadata(null));
+
+    public ICommand? CloseRequestedCommand
+    {
+        get => (ICommand?)GetValue(CloseRequestedCommandProperty);
+        set => SetValue(CloseRequestedCommandProperty, value);
+    }
+
+    public static readonly DependencyProperty CloseRequestedCommandParameterProperty =
+        DependencyProperty.Register(
+            nameof(CloseRequestedCommandParameter),
+            typeof(object),
+            typeof(NebulaToast),
+            new PropertyMetadata(null));
+
+    public object? CloseRequestedCommandParameter
+    {
+        get => GetValue(CloseRequestedCommandParameterProperty);
+        set => SetValue(CloseRequestedCommandParameterProperty, value);
+    }
+
     public ICommand CloseCommand => closeCommand;
+
+    private void Close()
+    {
+        var parameter = CloseRequestedCommandParameter ?? this;
+
+        if (CloseRequestedCommand?.CanExecute(parameter) == true)
+        {
+            CloseRequestedCommand.Execute(parameter);
+        }
+
+        CloseClicked?.Invoke(this, EventArgs.Empty);
+    }
 }

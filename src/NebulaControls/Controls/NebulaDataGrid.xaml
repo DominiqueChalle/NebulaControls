@@ -1,6 +1,6 @@
 <!--
   Nom: NebulaDataGrid
-  Version: V1.03
+  Version: V1.04
   Description: Data grid control styled for Nebula with selection, resize, editing and add-row support.
 -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -128,6 +128,20 @@
                             <Setter TargetName="CellBorder"
                                     Property="BorderBrush"
                                     Value="{DynamicResource Brush.BorderHover}"/>
+                        </Trigger>
+
+                        <Trigger Property="controls:NebulaDataGrid.HasRequiredError" Value="True">
+                            <Setter Property="Foreground"
+                                    Value="{DynamicResource Brush.Danger}"/>
+                            <Setter TargetName="CellBorder"
+                                    Property="Background"
+                                    Value="{DynamicResource Brush.SurfaceActive}"/>
+                            <Setter TargetName="CellBorder"
+                                    Property="BorderBrush"
+                                    Value="{DynamicResource Brush.Danger}"/>
+                            <Setter TargetName="CellBorder"
+                                    Property="BorderThickness"
+                                    Value="1"/>
                         </Trigger>
 
                         <Trigger Property="IsEnabled" Value="False">

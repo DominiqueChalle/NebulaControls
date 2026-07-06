@@ -1,6 +1,6 @@
 <!--
 Nom: NebulaToast
-Version: V1.03
+Version: V1.04
 Description: Toast notification control for temporary application feedback.
 -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -152,5 +152,72 @@ Description: Toast notification control for temporary application feedback.
 
     <Style BasedOn="{StaticResource NebulaToast}"
            TargetType="controls:NebulaToast"/>
+
+    <Style x:Key="NebulaToastHost"
+           TargetType="controls:NebulaToastHost">
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+        <Setter Property="Margin" Value="0,0,28,28"/>
+        <Setter Property="MaxToasts" Value="4"/>
+        <Setter Property="ToastDuration" Value="0:0:5"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:NebulaToastHost">
+                    <Border Background="Transparent">
+                        <ItemsPresenter/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <StackPanel/>
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <controls:NebulaToast x:Name="ToastControl"
+                                          Style="{Binding Style}"
+                                          Title="{Binding Title}"
+                                          Message="{Binding Message}"
+                                          Margin="0,0,0,10"
+                                          Opacity="0"
+                                          CloseRequestedCommand="{Binding CloseToastCommand, RelativeSource={RelativeSource AncestorType=controls:NebulaToastHost}}"
+                                          CloseRequestedCommandParameter="{Binding}">
+                        <controls:NebulaToast.RenderTransform>
+                            <TranslateTransform x:Name="ToastTransform" Y="24"/>
+                        </controls:NebulaToast.RenderTransform>
+                    </controls:NebulaToast>
+
+                    <DataTemplate.Triggers>
+                        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="ToastTransform"
+                                                     Storyboard.TargetProperty="Y"
+                                                     To="0"
+                                                     Duration="0:0:0.22">
+                                        <DoubleAnimation.EasingFunction>
+                                            <CubicEase EasingMode="EaseOut"/>
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                    <DoubleAnimation Storyboard.TargetName="ToastControl"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="1"
+                                                     Duration="0:0:0.22"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource NebulaToastHost}"
+           TargetType="controls:NebulaToastHost"/>
 
 </ResourceDictionary>

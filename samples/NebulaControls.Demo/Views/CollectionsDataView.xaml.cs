@@ -12,12 +12,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
 using Microsoft.Data.Sqlite;
+using NebulaControls.Controls;
 
 namespace NebulaControls.Demo.Views;
 
 public partial class CollectionsDataView : UserControl
 {
-    private readonly DemoDataGridRepository dataGridRepository = new();
+    private readonly DemoDataGridRepository dataGridRepository = DemoDataGridRepository.CreateDataGridSandbox();
+    private int deletedSandboxRowCount;
     private string selectedTreeViewItemText = "NebulaTreeView";
     private bool treeViewClickStartedOnExpander;
 
@@ -191,136 +193,16 @@ public partial class CollectionsDataView : UserControl
             DispatcherPriority.Input);
     }
 
-    private void EditableDataGrid_PreviewKeyDown(object sender, KeyEventArgs e)
-    {
-        if (e.Key != Key.Tab)
-        {
-            return;
-        }
-
-        if (sender is not DataGrid dataGrid || dataGrid.CurrentColumn is null)
-        {
-            return;
-        }
-
-        var currentIndex = dataGrid.Items.IndexOf(dataGrid.CurrentItem);
-        var currentDisplayIndex = dataGrid.CurrentColumn.DisplayIndex;
-        var movesBackward = Keyboard.Modifiers.HasFlag(ModifierKeys.Shift);
-        var leavesCurrentRow = movesBackward
-            ? !HasPreviousEditableColumn(dataGrid, currentDisplayIndex)
-            : !HasNextEditableColumn(dataGrid, currentDisplayIndex);
-
-        if (leavesCurrentRow
-            && dataGrid.CurrentItem is DemoDataGridRow currentRow
-            && !CanLeaveDataGridRow(currentRow))
-        {
-            currentRow.ShowRequiredFieldErrors = true;
-            DataGridSourceStatusText.Text = $"Complete {GetMissingRequiredFieldsText(currentRow)} before leaving the new row.";
-            e.Handled = true;
-            MoveToFirstMissingRequiredCell(dataGrid, currentIndex, currentRow);
-            return;
-        }
-
-        if (leavesCurrentRow
-            && dataGrid.CurrentItem is DemoDataGridRow completedNewRow
-            && completedNewRow.IsNew
-            && CanSaveDataGridRow(completedNewRow))
-        {
-            dataGridRepository.AssignId(completedNewRow);
-        }
-
-        dataGrid.CommitEdit(DataGridEditingUnit.Cell, true);
-        dataGrid.CommitEdit(DataGridEditingUnit.Row, true);
-
-        e.Handled = true;
-
-        Dispatcher.BeginInvoke(
-            () =>
-            {
-                MoveToEditableDataGridCell(dataGrid, currentIndex, currentDisplayIndex, movesBackward);
-                UpdateDataGridStatus();
-            },
-            DispatcherPriority.Background);
-    }
-
-    private static bool HasNextEditableColumn(DataGrid dataGrid, int currentDisplayIndex)
-    {
-        return dataGrid.Columns.Any(column => !column.IsReadOnly && column.DisplayIndex > currentDisplayIndex);
-    }
-
-    private static bool HasPreviousEditableColumn(DataGrid dataGrid, int currentDisplayIndex)
-    {
-        return dataGrid.Columns.Any(column => !column.IsReadOnly && column.DisplayIndex < currentDisplayIndex);
-    }
-
-    private static void MoveToEditableDataGridCell(DataGrid dataGrid, int currentIndex, int currentDisplayIndex, bool movesBackward)
-    {
-        if (dataGrid.Columns.Count == 0 || dataGrid.Items.Count == 0)
-        {
-            return;
-        }
-
-        var editableColumns = dataGrid.Columns
-            .Where(column => !column.IsReadOnly)
-            .OrderBy(column => column.DisplayIndex)
-            .ToArray();
-
-        if (editableColumns.Length == 0)
-        {
-            return;
-        }
-
-        var nextColumn = movesBackward
-            ? editableColumns.LastOrDefault(column => column.DisplayIndex < currentDisplayIndex)
-            : editableColumns.FirstOrDefault(column => column.DisplayIndex > currentDisplayIndex);
-        var nextIndex = currentIndex;
-
-        if (nextColumn is null)
-        {
-            nextColumn = movesBackward ? editableColumns[^1] : editableColumns[0];
-            nextIndex += movesBackward ? -1 : 1;
-        }
-
-        if (nextIndex >= dataGrid.Items.Count)
-        {
-            nextIndex = dataGrid.Items.Count - 1;
-        }
-
-        if (nextIndex < 0)
-        {
-            nextIndex = 0;
-        }
-
-        var nextItem = dataGrid.Items[nextIndex];
-        if (nextItem == CollectionView.NewItemPlaceholder && !dataGrid.CanUserAddRows)
-        {
-            return;
-        }
-
-        dataGrid.Focus();
-        dataGrid.SelectedItem = nextItem;
-        dataGrid.CurrentCell = new DataGridCellInfo(nextItem, nextColumn);
-        dataGrid.ScrollIntoView(nextItem, nextColumn);
-
-        dataGrid.Dispatcher.BeginInvoke(
-            () =>
-            {
-                dataGrid.Focus();
-                dataGrid.CurrentCell = new DataGridCellInfo(nextItem, nextColumn);
-                dataGrid.BeginEdit();
-            },
-            DispatcherPriority.Input);
-    }
-
     private void UpdateDataGridStatus()
     {
         var activeRows = DataGridRows.Where(row => !IsEmptyNewDataGridRow(row)).ToArray();
         var addedRows = activeRows.Count(row => row.IsNew);
-        var pendingRows = activeRows.Count(row => row.IsDirty || row.IsNew);
+        var changedRows = activeRows.Count(row => row.IsDirty || row.IsNew);
+        var pendingRows = changedRows + deletedSandboxRowCount;
         DataGridRowCountText.Text = $"{DataGridRows.Count} row(s), {dataGridRepository.Count} persisted";
         DataGridAddStatusText.Text = pendingRows == 0
             ? "No pending record"
-            : $"{pendingRows} pending record(s), {addedRows} new";
+            : $"{pendingRows} pending record(s), {addedRows} new, {deletedSandboxRowCount} deleted";
         SaveDataGridChangesButton.IsEnabled = pendingRows > 0;
     }
 
@@ -328,40 +210,39 @@ public partial class CollectionsDataView : UserControl
     {
         EditableDataGrid.CommitEdit(DataGridEditingUnit.Cell, true);
         EditableDataGrid.CommitEdit(DataGridEditingUnit.Row, true);
+        if (CollectionViewSource.GetDefaultView(DataGridRows) is IEditableCollectionView editableView)
+        {
+            if (editableView.IsEditingItem)
+            {
+                editableView.CommitEdit();
+            }
+
+            if (editableView.IsAddingNew)
+            {
+                editableView.CommitNew();
+            }
+        }
         RemoveEmptyNewDataGridRows();
 
         var activeRows = DataGridRows
             .Where(row => !IsEmptyNewDataGridRow(row))
             .ToArray();
-        var invalidRows = activeRows
-            .Where(row => !CanSaveDataGridRow(row))
-            .ToArray();
-        var invalidExistingRows = invalidRows
-            .Where(row => !row.IsNew)
-            .ToArray();
-
-        if (invalidExistingRows.Length > 0)
+        if (!EditableDataGrid.ValidateRequiredCellsForItems(activeRows))
         {
-            invalidExistingRows[0].ShowRequiredFieldErrors = true;
-            DataGridSourceStatusText.Text = $"Save blocked: complete {GetMissingRequiredFieldsText(invalidExistingRows[0])}.";
-            MoveToFirstMissingRequiredCell(EditableDataGrid, DataGridRows.IndexOf(invalidExistingRows[0]), invalidExistingRows[0]);
+            var invalidRow = activeRows.First(row => !CanSaveDataGridRow(row));
+            invalidRow.ShowRequiredFieldErrors = true;
+            ShowSaveBlockedDialog(invalidRow);
+            UpdateDataGridStatus();
             return;
-        }
-
-        var invalidNewRows = invalidRows
-            .Where(row => row.IsNew)
-            .ToArray();
-
-        foreach (var row in invalidNewRows)
-        {
-            DataGridRows.Remove(row);
         }
 
         var validRows = activeRows
             .Where(CanSaveDataGridRow)
             .ToArray();
         var savedRows = validRows.Count(row => row.IsDirty || row.IsNew);
+        var deletedRows = deletedSandboxRowCount;
         dataGridRepository.Save(validRows);
+        deletedSandboxRowCount = 0;
 
         foreach (var row in validRows)
         {
@@ -369,9 +250,9 @@ public partial class CollectionsDataView : UserControl
         }
 
         UpdateDataGridStatus();
-        DataGridSourceStatusText.Text = invalidNewRows.Length == 0
+        DataGridSourceStatusText.Text = deletedRows == 0
             ? $"{savedRows} record(s) saved to SQLite."
-            : $"{savedRows} record(s) saved to SQLite. {invalidNewRows.Length} incomplete new row(s) discarded.";
+            : $"{savedRows} record(s) saved to SQLite. {deletedRows} deleted.";
     }
 
     private void ReloadDataGridSourceButton_Click(object sender, RoutedEventArgs e)
@@ -379,8 +260,58 @@ public partial class CollectionsDataView : UserControl
         LoadDataGridRowsFromSource("Reloaded from SQLite demo database.");
     }
 
+    private void DeleteDataGridRowButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (EditableDataGrid.SelectedItem is not DemoDataGridRow row)
+        {
+            DataGridSourceStatusText.Text = "Select a sandbox row to delete.";
+            return;
+        }
+
+        if (EditableDataGrid.HasMissingRequiredCells(row))
+        {
+            row.ShowRequiredFieldErrors = true;
+            EditableDataGrid.ValidateRequiredCellsForItem(row);
+
+            var result = NebulaDialog.ShowModal(
+                Window.GetWindow(this),
+                "Incomplete row",
+                $"This row is missing {GetMissingRequiredFieldsText(row)}. Do you really want to delete it?",
+                NebulaDialogVariant.Warning,
+                "Delete",
+                "Modify",
+                null,
+                "DataGrid validation");
+
+            if (result != NebulaDialogResult.Primary)
+            {
+                DataGridSourceStatusText.Text = $"Delete cancelled: complete {GetMissingRequiredFieldsText(row)} or choose another row.";
+                return;
+            }
+        }
+
+        if (row.Id != 0)
+        {
+            deletedSandboxRowCount++;
+        }
+
+        EditableDataGrid.CancelEdit(DataGridEditingUnit.Cell);
+        EditableDataGrid.CancelEdit(DataGridEditingUnit.Row);
+        EditableDataGrid.ClearRequiredErrorsForItem(row);
+        EditableDataGrid.CurrentCell = default;
+        EditableDataGrid.SelectedItem = null;
+
+        DataGridRows.Remove(row);
+        UpdateDataGridStatus();
+        DataGridSourceStatusText.Text = row.Id == 0
+            ? "Unsaved sandbox row removed."
+            : $"Sandbox row {row.Id} marked for deletion. Save changes to persist.";
+    }
+
     private void LoadDataGridRowsFromSource(string statusText)
     {
+        deletedSandboxRowCount = 0;
+
         foreach (var row in DataGridRows)
         {
             row.PropertyChanged -= DataGridRow_PropertyChanged;
@@ -397,73 +328,20 @@ public partial class CollectionsDataView : UserControl
         DataGridSourceStatusText.Text = statusText;
     }
 
-    private static bool CanLeaveDataGridRow(DemoDataGridRow row)
+    private void ShowSaveBlockedDialog(DemoDataGridRow row)
     {
-        return !row.IsNew || IsEmptyNewDataGridRow(row) || CanSaveDataGridRow(row);
-    }
+        var missingFields = GetMissingRequiredFieldsText(row);
+        DataGridSourceStatusText.Text = $"Save blocked: complete {missingFields}.";
 
-    private static void MoveToFirstMissingRequiredCell(DataGrid dataGrid, int rowIndex, DemoDataGridRow row)
-    {
-        var targetColumn = GetFirstMissingRequiredColumn(dataGrid, row);
-        if (targetColumn is null || rowIndex < 0)
-        {
-            dataGrid.BeginEdit();
-            return;
-        }
-
-        var targetItem = dataGrid.Items[rowIndex];
-        dataGrid.SelectedItem = targetItem;
-        dataGrid.CurrentCell = new DataGridCellInfo(targetItem, targetColumn);
-        dataGrid.ScrollIntoView(targetItem, targetColumn);
-
-        dataGrid.Dispatcher.BeginInvoke(
-            () =>
-            {
-                dataGrid.Focus();
-                dataGrid.CurrentCell = new DataGridCellInfo(targetItem, targetColumn);
-                dataGrid.BeginEdit();
-            },
-            DispatcherPriority.Input);
-    }
-
-    private static DataGridColumn? GetFirstMissingRequiredColumn(DataGrid dataGrid, DemoDataGridRow row)
-    {
-        var missingProperty = GetFirstMissingRequiredProperty(row);
-        if (missingProperty is null)
-        {
-            return null;
-        }
-
-        return dataGrid.Columns
-            .OfType<DataGridBoundColumn>()
-            .FirstOrDefault(column =>
-                column.Binding is Binding binding
-                && binding.Path?.Path == missingProperty);
-    }
-
-    private static string? GetFirstMissingRequiredProperty(DemoDataGridRow row)
-    {
-        if (string.IsNullOrWhiteSpace(row.Component))
-        {
-            return nameof(DemoDataGridRow.Component);
-        }
-
-        if (string.IsNullOrWhiteSpace(row.Version))
-        {
-            return nameof(DemoDataGridRow.Version);
-        }
-
-        if (string.IsNullOrWhiteSpace(row.Status))
-        {
-            return nameof(DemoDataGridRow.Status);
-        }
-
-        if (string.IsNullOrWhiteSpace(row.Area))
-        {
-            return nameof(DemoDataGridRow.Area);
-        }
-
-        return null;
+        NebulaDialog.ShowModal(
+            Window.GetWindow(this),
+            "Incomplete row",
+            $"Complete {missingFields} before saving the DataGrid changes.",
+            NebulaDialogVariant.Warning,
+            "Modify",
+            "Cancel",
+            null,
+            "DataGrid validation");
     }
 
     private void RemoveEmptyNewDataGridRows()
@@ -765,11 +643,17 @@ public sealed class DemoDataGridRow : INotifyPropertyChanged
 
 public sealed class DemoDataGridRepository
 {
+    private const string InventoryTableName = "ControlRecords";
+    private const string SandboxTableName = "DataGridSandboxRecords";
+
     private readonly string databasePath;
+    private readonly string tableName;
     private int nextId;
 
-    public DemoDataGridRepository()
+    private DemoDataGridRepository(string tableName)
     {
+        this.tableName = tableName;
+
         var dataFolder = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
             "NebulaControls",
@@ -783,13 +667,23 @@ public sealed class DemoDataGridRepository
         nextId = GetNextId();
     }
 
+    public static DemoDataGridRepository CreateControlInventory()
+    {
+        return new DemoDataGridRepository(InventoryTableName);
+    }
+
+    public static DemoDataGridRepository CreateDataGridSandbox()
+    {
+        return new DemoDataGridRepository(SandboxTableName);
+    }
+
     public int Count
     {
         get
         {
             using var connection = OpenConnection();
             using var command = connection.CreateCommand();
-            command.CommandText = "SELECT COUNT(*) FROM ControlRecords;";
+            command.CommandText = $"SELECT COUNT(*) FROM {tableName};";
             return Convert.ToInt32(command.ExecuteScalar());
         }
     }
@@ -798,9 +692,9 @@ public sealed class DemoDataGridRepository
     {
         using var connection = OpenConnection();
         using var command = connection.CreateCommand();
-        command.CommandText = """
+        command.CommandText = $"""
             SELECT Id, Component, Version, Status, Area, Owner, Priority, Updated, Notes
-            FROM ControlRecords
+            FROM {tableName}
             ORDER BY Id;
             """;
 
@@ -835,7 +729,7 @@ public sealed class DemoDataGridRepository
 
         using var deleteCommand = connection.CreateCommand();
         deleteCommand.Transaction = transaction;
-        deleteCommand.CommandText = "DELETE FROM ControlRecords;";
+        deleteCommand.CommandText = $"DELETE FROM {tableName};";
         deleteCommand.ExecuteNonQuery();
 
         foreach (var row in rows)
@@ -849,8 +743,8 @@ public sealed class DemoDataGridRepository
 
             using var insertCommand = connection.CreateCommand();
             insertCommand.Transaction = transaction;
-            insertCommand.CommandText = """
-                INSERT INTO ControlRecords
+            insertCommand.CommandText = $"""
+                INSERT INTO {tableName}
                     (Id, Component, Version, Status, Area, Owner, Priority, Updated, Notes)
                 VALUES
                     ($id, $component, $version, $status, $area, $owner, $priority, $updated, $notes);
@@ -882,8 +776,8 @@ public sealed class DemoDataGridRepository
     {
         using var connection = OpenConnection();
         using var command = connection.CreateCommand();
-        command.CommandText = """
-            CREATE TABLE IF NOT EXISTS ControlRecords
+        command.CommandText = $"""
+            CREATE TABLE IF NOT EXISTS {tableName}
             (
                 Id INTEGER PRIMARY KEY,
                 Component TEXT NOT NULL,
@@ -906,29 +800,78 @@ public sealed class DemoDataGridRepository
 
     private void SeedDatabase()
     {
-        Save(
+        var seedRows = tableName == InventoryTableName
+            ? GetValidatedControlCatalog()
+            : GetSandboxRows();
+
+        Save(seedRows.Select(row => row.Clone()).ToArray());
+    }
+
+    public void EnsureControlCatalog()
+    {
+        if (tableName != InventoryTableName)
+        {
+            return;
+        }
+
+        Save(GetValidatedControlCatalog().Select(row => row.Clone()).ToArray());
+    }
+
+    private static DemoDataGridRow[] GetValidatedControlCatalog()
+    {
+        return
         [
-            new(1001, "NebulaButton", "V2", "Validated", "Actions", "Dominique", "High", "2026-06-24", "Primary, secondary and ghost variants"),
+            new(1001, "NebulaButton", "V2", "Validated", "Actions", "Dominique", "High", "2026-06-24", "Primary, secondary, ghost and warning variants"),
             new(1002, "NebulaTextBox", "V2", "Validated", "Inputs", "Dominique", "High", "2026-06-24", "Placeholder, helper text and validation states"),
             new(1003, "NebulaPasswordBox", "V2", "Validated", "Inputs", "Dominique", "High", "2026-06-24", "Password reveal and validation sample"),
             new(1004, "NebulaDataGrid", "V2", "Validated", "Data", "Dominique", "High", "2026-07-03", "Editing, add-row and SQLite source scenario"),
             new(1005, "NebulaListBox", "V2", "Validated", "Collections", "Dominique", "Medium", "2026-06-25", "Smooth item-by-item scrolling"),
             new(1006, "NebulaComboBox", "V2", "Validated", "Selection", "Dominique", "Medium", "2026-06-25", "Standard, editable and disabled states"),
-            new(1007, "NebulaTreeView", "V2", "Validated", "Collections", "Dominique", "Medium", "2026-06-29", "Hierarchy and disabled branch"),
-            new(1008, "NebulaTabControl", "V2", "Validated", "Layout", "Dominique", "Low", "2026-06-29", "Accepted for V2, visual refinement later"),
+            new(1007, "NebulaTreeView", "V2", "Validated", "Collections", "Dominique", "Medium", "2026-06-29", "Hierarchy and applicative selection behavior"),
+            new(1008, "NebulaTabControl", "V2", "Validated", "Layout", "Dominique", "Low", "2026-06-29", "Accepted top-only style, old-school tabs later"),
             new(1009, "NebulaAlert", "V2", "Validated", "Feedback", "Dominique", "High", "2026-06-26", "Interactive inline feedback"),
-            new(1010, "NebulaDialog", "V2", "Validated", "Feedback", "Dominique", "Medium", "2026-06-26", "Info, warning and danger dialogs"),
+            new(1010, "NebulaDialog", "V2", "Validated", "Feedback", "Dominique", "Medium", "2026-06-26", "Info, warning, danger and confirmation dialogs"),
             new(1011, "NebulaMenu", "V2", "Validated", "Navigation", "Dominique", "Medium", "2026-06-26", "Menu and context menu hover states"),
-            new(1012, "NebulaWindow", "V1", "Validated", "Shell", "Dominique", "High", "2026-07-05", "Custom Windows 11 shell with DWM rounded corners")
-        ]);
+            new(1012, "NebulaWindow", "V1", "Validated", "Shell", "Dominique", "High", "2026-07-05", "Custom Windows 11 shell with DWM rounded corners"),
+            new(1013, "NebulaBadge", "V2", "Validated", "Feedback", "Dominique", "Medium", "2026-06-25", "Compact status labels and variants"),
+            new(1014, "NebulaChip", "V2", "Validated", "Feedback", "Dominique", "Medium", "2026-07-05", "Selectable and removable filter tokens"),
+            new(1015, "NebulaToast", "V2", "Validated", "Feedback", "Dominique", "High", "2026-07-05", "Stacked temporary notifications with individual timers"),
+            new(1016, "NebulaRating", "V2", "Validated", "Feedback", "Dominique", "Medium", "2026-06-27", "Interactive star rating with read-only and disabled states"),
+            new(1017, "NebulaCheckBox", "Final", "Validated", "Selection", "Dominique", "Medium", "2026-06-25", "Checked, unchecked, indeterminate and disabled states"),
+            new(1018, "NebulaRadioButton", "Final", "Validated", "Selection", "Dominique", "Medium", "2026-06-25", "Choice selection states"),
+            new(1019, "NebulaToggleButton", "Final", "Validated", "Selection", "Dominique", "Medium", "2026-07-05", "Switch-style binary setting"),
+            new(1020, "NebulaSlider", "V2", "Validated", "Inputs", "Dominique", "Medium", "2026-06-26", "Range input with Nebula track and thumb"),
+            new(1021, "NebulaProgressBar", "V2", "Validated", "Feedback", "Dominique", "Medium", "2026-06-26", "Determinate progress indicator"),
+            new(1022, "NebulaSpinner", "V2", "Validated", "Feedback", "Dominique", "Low", "2026-06-26", "Indeterminate loading indicator"),
+            new(1023, "NebulaSearchBox", "V2", "Validated", "Inputs", "Dominique", "High", "2026-06-27", "Search input with clear action and realistic filter demo"),
+            new(1024, "NebulaNumericUpDown", "V2", "Validated", "Inputs", "Dominique", "High", "2026-07-02", "Numeric input with buttons, manual entry and range limits"),
+            new(1025, "NebulaDatePicker", "V2", "Validated", "Pickers", "Dominique", "High", "2026-07-01", "Custom date picker with calendar popup"),
+            new(1026, "NebulaTimePicker", "V2", "Validated", "Pickers", "Dominique", "High", "2026-07-01", "Custom time picker with manual entry and popup selection"),
+            new(1027, "NebulaDateTimePicker", "V2", "Validated", "Pickers", "Dominique", "High", "2026-07-01", "Combined date and time picker"),
+            new(1028, "NebulaAvatar", "V2", "Validated", "Identity", "Dominique", "Medium", "2026-06-28", "Image avatar with default neutral, male and female fallbacks"),
+            new(1029, "NebulaExpander", "V2", "Validated", "Layout", "Dominique", "Medium", "2026-06-29", "Expandable content container"),
+            new(1030, "NebulaGroupBox", "V2", "Validated", "Layout", "Dominique", "Medium", "2026-06-29", "Themed grouping container"),
+            new(1031, "NebulaToolTip", "V2", "Validated", "Feedback", "Dominique", "Medium", "2026-06-26", "Simple and rich tooltip styling"),
+            new(1032, "NebulaScrollBar", "V2", "Validated", "Navigation", "Dominique", "Medium", "2026-06-26", "Nebula scrollbar styling and item-by-item ListBox scroll")
+        ];
+    }
+
+    private static DemoDataGridRow[] GetSandboxRows()
+    {
+        return
+        [
+            new(2001, "Customer profile", "V1", "Draft", "CRM", "Dominique", "High", "2026-07-06", "Editable sandbox row"),
+            new(2002, "Invoice export", "V2", "Ready", "Billing", "Dominique", "Medium", "2026-07-06", "Try editing this row"),
+            new(2003, "Notification rules", "V1", "Review", "Settings", "Dominique", "Low", "2026-07-06", "Try deleting this row")
+        ];
     }
 
     private void RemoveInvalidRecords()
     {
         using var connection = OpenConnection();
         using var command = connection.CreateCommand();
-        command.CommandText = """
-            DELETE FROM ControlRecords
+        command.CommandText = $"""
+            DELETE FROM {tableName}
             WHERE TRIM(Component) = ''
                OR TRIM(Version) = ''
                OR TRIM(Status) = ''
@@ -941,7 +884,7 @@ public sealed class DemoDataGridRepository
     {
         using var connection = OpenConnection();
         using var command = connection.CreateCommand();
-        command.CommandText = "SELECT COALESCE(MAX(Id), 1000) + 1 FROM ControlRecords;";
+        command.CommandText = $"SELECT COALESCE(MAX(Id), 1000) + 1 FROM {tableName};";
         return Convert.ToInt32(command.ExecuteScalar());
     }
 }
