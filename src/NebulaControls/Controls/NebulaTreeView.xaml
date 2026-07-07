@@ -1,7 +1,7 @@
-<!--
+﻿<!--
   Nom: NebulaTreeView
-  Version: V1.02
-  Description: Hierarchical selection control with Nebula expand, selection and disabled states.
+  Version: V1.03
+  Description: Hierarchical selection control with Nebula expand, selection, committed selection and disabled states.
 -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"

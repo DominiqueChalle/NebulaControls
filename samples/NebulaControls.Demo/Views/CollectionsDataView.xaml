@@ -1,4 +1,4 @@
-<UserControl x:Class="NebulaControls.Demo.Views.CollectionsDataView"
+﻿<UserControl x:Class="NebulaControls.Demo.Views.CollectionsDataView"
              x:Name="Root"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -161,8 +161,7 @@
                                            Width="340"
                                            Height="230"
                                            HorizontalAlignment="Left"
-                                           PreviewMouseLeftButtonDown="DemoTreeView_PreviewMouseLeftButtonDown"
-                                           SelectedItemChanged="DemoTreeView_SelectedItemChanged"
+                                           SelectionCommitted="DemoTreeView_SelectionCommitted"
                                            Margin="0,0,0,16">
                         <TreeViewItem Header="NebulaControls"
                                       IsExpanded="True"

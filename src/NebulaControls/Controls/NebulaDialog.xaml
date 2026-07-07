@@ -1,6 +1,6 @@
-<!--
+﻿<!--
   Nom: NebulaDialog
-  Version: V1.02
+  Version: V1.04
   Description: Modal Nebula dialog window for info, warning, danger and custom action scenarios.
 -->
 <Window x:Class="NebulaControls.Controls.NebulaDialog"
@@ -152,14 +152,20 @@
 
                         <StackPanel Grid.Column="1"
                                     Margin="14,0,0,0">
-                            <TextBlock Text="{Binding DialogTitle, RelativeSource={RelativeSource AncestorType=Window}}"
+                            <TextBlock x:Name="DialogTitleText"
+                                       Text="{Binding DialogTitle, RelativeSource={RelativeSource AncestorType=Window}}"
                                        Style="{StaticResource Typography.TextBlock.SectionTitle}"
                                        TextWrapping="Wrap"/>
-                            <TextBlock Text="{Binding Message, RelativeSource={RelativeSource AncestorType=Window}}"
+                            <TextBlock x:Name="MessageText"
+                                       Text="{Binding Message, RelativeSource={RelativeSource AncestorType=Window}}"
                                        Style="{StaticResource Typography.TextBlock.Secondary}"
                                        LineHeight="20"
                                        TextWrapping="Wrap"
                                        Margin="0,8,0,0"/>
+                            <ContentPresenter x:Name="DialogContentPresenter"
+                                              Content="{Binding DialogContent, RelativeSource={RelativeSource AncestorType=Window}}"
+                                              Margin="0,12,0,0"
+                                              Visibility="Collapsed"/>
                         </StackPanel>
                     </Grid>
 

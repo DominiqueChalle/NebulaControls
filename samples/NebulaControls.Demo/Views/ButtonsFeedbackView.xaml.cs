@@ -1,4 +1,4 @@
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using NebulaControls.Controls;
 
@@ -28,59 +28,103 @@ public partial class ButtonsFeedbackView : UserControl
 
     private void ShowInfoDialogButton_Click(object sender, RoutedEventArgs e)
     {
-        var result = NebulaDialog.ShowModal(
+        var result = NebulaDialog.ShowInfo(
             Window.GetWindow(this),
             "Information",
             "NebulaDialog can show a simple modal message with one action.",
-            NebulaDialogVariant.Info,
             "OK",
-            null,
-            windowTitle: "NebulaDialog Info");
+            "NebulaDialog Info");
 
         UpdateDialogResult("Information", result);
     }
 
     private void ShowSaveDialogButton_Click(object sender, RoutedEventArgs e)
     {
-        var result = NebulaDialog.ShowModal(
+        var result = NebulaDialog.ShowSuccess(
             Window.GetWindow(this),
             "Save changes?",
             "The current profile has local changes. Save them before continuing?",
-            NebulaDialogVariant.Success,
             "Save",
             "Cancel",
-            windowTitle: "NebulaDialog Save");
+            "NebulaDialog Save");
 
         UpdateDialogResult("Save", result);
     }
 
     private void ShowDeleteDialogButton_Click(object sender, RoutedEventArgs e)
     {
-        var result = NebulaDialog.ShowModal(
+        var result = NebulaDialog.ShowDanger(
             Window.GetWindow(this),
             "Delete selected item?",
             "This action removes the selected item from the local demo list.",
-            NebulaDialogVariant.Danger,
             "Delete",
             "Cancel",
-            windowTitle: "NebulaDialog Delete");
+            "NebulaDialog Delete");
 
         UpdateDialogResult("Delete", result);
     }
 
     private void ShowUnsavedDialogButton_Click(object sender, RoutedEventArgs e)
     {
-        var result = NebulaDialog.ShowModal(
+        var result = NebulaDialog.ShowWarning(
             Window.GetWindow(this),
             "Unsaved changes",
             "You can save your changes, discard them, or return to the demo without closing anything.",
-            NebulaDialogVariant.Warning,
             "Save",
             "Cancel",
             "Discard",
             "NebulaDialog Unsaved");
 
         UpdateDialogResult("Unsaved", result);
+    }
+
+    private void ShowCustomDialogButton_Click(object sender, RoutedEventArgs e)
+    {
+        var rememberCheckBox = new CheckBox
+        {
+            Content = "Remember this choice",
+            Style = (Style)FindResource("NebulaCheckBox"),
+            Margin = new Thickness(0, 14, 0, 0)
+        };
+        var noteTextBox = new NebulaTextBox
+        {
+            Text = "Editable note",
+            Style = (Style)FindResource("NebulaTextBox"),
+            Margin = new Thickness(0, 12, 0, 0)
+        };
+        var content = new StackPanel
+        {
+            Children =
+            {
+                new TextBlock
+                {
+                    Text = "Dialog content can host regular WPF controls.",
+                    Style = (Style)FindResource("Typography.TextBlock.Secondary"),
+                    TextWrapping = TextWrapping.Wrap
+                },
+                rememberCheckBox,
+                noteTextBox
+            }
+        };
+
+        var result = NebulaDialog.ShowContent(
+            Window.GetWindow(this),
+            "Custom content",
+            content,
+            NebulaDialogVariant.Info,
+            "Apply",
+            "Cancel",
+            windowTitle: "NebulaDialog Custom",
+            width: 540);
+
+        if (result != NebulaDialogResult.Primary)
+        {
+            DialogResultText.Text = $"Custom closed with {result}. Changes ignored.";
+            return;
+        }
+
+        var rememberState = rememberCheckBox.IsChecked == true ? "checked" : "unchecked";
+        DialogResultText.Text = $"Custom closed with {result}. Checkbox is {rememberState}. Note: \"{noteTextBox.Text}\".";
     }
 
     private void ShowInfoAlertButton_Click(object sender, RoutedEventArgs e)
@@ -227,7 +271,7 @@ public partial class ButtonsFeedbackView : UserControl
 
     private void UpdateDialogResult(string scenario, NebulaDialogResult result)
     {
-        DialogResultText.Text = $"{scenario} dialog result: {result}";
+        DialogResultText.Text = $"{scenario} closed with {result}.";
     }
 
     private sealed record ChipDemoItem(string Name, string Category);

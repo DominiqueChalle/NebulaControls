@@ -1,4 +1,4 @@
-<UserControl x:Class="NebulaControls.Demo.Views.ButtonsFeedbackView"
+﻿<UserControl x:Class="NebulaControls.Demo.Views.ButtonsFeedbackView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:nebula="clr-namespace:NebulaControls.Controls;assembly=NebulaControls">
@@ -366,28 +366,48 @@
                     <TextBlock Text="Modal feedback and confirmations"
                                Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,16,0,8"/>
+                    <TextBlock Text="Convenience APIs: ShowInfo, ShowSuccess, ShowWarning, ShowDanger."
+                               Style="{StaticResource Typography.TextBlock.Muted}"
+                               TextWrapping="Wrap"
+                               Margin="0,0,0,12"/>
                     <WrapPanel Margin="0,0,0,12">
-                        <Button Content="Information"
-                                Style="{StaticResource NebulaSecondaryButton}"
+                        <Button Content="Info"
+                                Style="{StaticResource NebulaSecondarySmallButton}"
                                 Click="ShowInfoDialogButton_Click"
                                 Margin="0,0,10,10"/>
-                        <Button Content="Save"
-                                Style="{StaticResource NebulaPrimaryButton}"
+                        <Button Content="Success"
+                                Style="{StaticResource NebulaSuccessSmallButton}"
                                 Click="ShowSaveDialogButton_Click"
                                 Margin="0,0,10,10"/>
-                        <Button Content="Delete"
-                                Style="{StaticResource NebulaDangerButton}"
-                                Click="ShowDeleteDialogButton_Click"
-                                Margin="0,0,10,10"/>
-                        <Button Content="Unsaved"
-                                Style="{StaticResource NebulaSecondaryButton}"
+                        <Button Content="Warning"
+                                Style="{StaticResource NebulaWarningSmallButton}"
                                 Click="ShowUnsavedDialogButton_Click"
                                 Margin="0,0,10,10"/>
+                        <Button Content="Danger"
+                                Style="{StaticResource NebulaDangerSmallButton}"
+                                Click="ShowDeleteDialogButton_Click"
+                                Margin="0,0,10,10"/>
+                        <Button Content="Custom"
+                                Style="{StaticResource NebulaSecondarySmallButton}"
+                                Click="ShowCustomDialogButton_Click"
+                                Margin="0,0,10,10"/>
                     </WrapPanel>
-                    <TextBlock x:Name="DialogResultText"
-                               Text="Choose a dialog scenario."
-                               Style="{StaticResource Typography.TextBlock.Muted}"
-                               TextWrapping="Wrap"/>
+                    <Border Background="{DynamicResource Brush.SurfaceActive}"
+                            BorderBrush="{DynamicResource Brush.Border}"
+                            BorderThickness="1"
+                            CornerRadius="6"
+                            Padding="12,10"
+                            Margin="0,4,0,0">
+                        <StackPanel>
+                            <TextBlock Text="Last dialog result"
+                                       Style="{StaticResource Typography.TextBlock.Label}"/>
+                            <TextBlock x:Name="DialogResultText"
+                                       Text="Choose a dialog scenario."
+                                       Style="{StaticResource Typography.TextBlock.Brand}"
+                                       TextWrapping="Wrap"
+                                       Margin="0,4,0,0"/>
+                        </StackPanel>
+                    </Border>
                 </StackPanel>
             </Border>
         </UniformGrid>

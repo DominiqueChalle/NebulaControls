@@ -1,6 +1,6 @@
-// Nom: NebulaDialog
-// Version: V1.02
-// Description: Dialog window logic exposing variant, buttons and modal result behavior.
+﻿// Nom: NebulaDialog
+// Version: V1.04
+// Description: Dialog window logic exposing variants, content, convenience APIs, buttons and modal result behavior.
 
 using System.Windows;
 using System.Windows.Input;
@@ -23,6 +23,13 @@ public partial class NebulaDialog : Window
             typeof(string),
             typeof(NebulaDialog),
             new PropertyMetadata(string.Empty));
+
+    public static readonly DependencyProperty DialogContentProperty =
+        DependencyProperty.Register(
+            nameof(DialogContent),
+            typeof(object),
+            typeof(NebulaDialog),
+            new PropertyMetadata(null, OnDialogContentChanged));
 
     public static readonly DependencyProperty PrimaryButtonTextProperty =
         DependencyProperty.Register(
@@ -58,7 +65,9 @@ public partial class NebulaDialog : Window
         Loaded += (_, _) =>
         {
             UpdateButtonVisibility();
+            UpdateDialogContentVisibility();
             UpdateVariant();
+            PrimaryButton.Focus();
         };
     }
 
@@ -72,6 +81,12 @@ public partial class NebulaDialog : Window
     {
         get => (string)GetValue(MessageProperty);
         set => SetValue(MessageProperty, value);
+    }
+
+    public object? DialogContent
+    {
+        get => GetValue(DialogContentProperty);
+        set => SetValue(DialogContentProperty, value);
     }
 
     public string PrimaryButtonText
@@ -108,14 +123,18 @@ public partial class NebulaDialog : Window
         string primaryButtonText = "OK",
         string? secondaryButtonText = "Cancel",
         string? tertiaryButtonText = null,
-        string windowTitle = "Nebula Dialog")
+        string windowTitle = "Nebula Dialog",
+        double width = 460,
+        object? content = null)
     {
         var dialog = new NebulaDialog
         {
             Owner = owner,
             Title = windowTitle,
+            Width = width,
             DialogTitle = title,
             Message = message,
+            DialogContent = content,
             Variant = variant,
             PrimaryButtonText = primaryButtonText,
             SecondaryButtonText = secondaryButtonText ?? string.Empty,
@@ -124,6 +143,126 @@ public partial class NebulaDialog : Window
 
         dialog.ShowDialog();
         return dialog.Result;
+    }
+
+    public static NebulaDialogResult ShowInfo(
+        Window? owner,
+        string title,
+        string message,
+        string primaryButtonText = "OK",
+        string windowTitle = "NebulaDialog Info")
+    {
+        return ShowModal(
+            owner,
+            title,
+            message,
+            NebulaDialogVariant.Info,
+            primaryButtonText,
+            null,
+            null,
+            windowTitle);
+    }
+
+    public static NebulaDialogResult ShowSuccess(
+        Window? owner,
+        string title,
+        string message,
+        string primaryButtonText = "OK",
+        string? secondaryButtonText = null,
+        string windowTitle = "NebulaDialog Success")
+    {
+        return ShowModal(
+            owner,
+            title,
+            message,
+            NebulaDialogVariant.Success,
+            primaryButtonText,
+            secondaryButtonText,
+            null,
+            windowTitle);
+    }
+
+    public static NebulaDialogResult ShowWarning(
+        Window? owner,
+        string title,
+        string message,
+        string primaryButtonText = "OK",
+        string? secondaryButtonText = "Cancel",
+        string? tertiaryButtonText = null,
+        string windowTitle = "NebulaDialog Warning")
+    {
+        return ShowModal(
+            owner,
+            title,
+            message,
+            NebulaDialogVariant.Warning,
+            primaryButtonText,
+            secondaryButtonText,
+            tertiaryButtonText,
+            windowTitle);
+    }
+
+    public static NebulaDialogResult ShowDanger(
+        Window? owner,
+        string title,
+        string message,
+        string primaryButtonText = "Delete",
+        string? secondaryButtonText = "Cancel",
+        string windowTitle = "NebulaDialog Danger")
+    {
+        return ShowModal(
+            owner,
+            title,
+            message,
+            NebulaDialogVariant.Danger,
+            primaryButtonText,
+            secondaryButtonText,
+            null,
+            windowTitle);
+    }
+
+    public static bool Confirm(
+        Window? owner,
+        string title,
+        string message,
+        NebulaDialogVariant variant = NebulaDialogVariant.Warning,
+        string primaryButtonText = "OK",
+        string secondaryButtonText = "Cancel",
+        string windowTitle = "NebulaDialog Confirm")
+    {
+        return ShowModal(
+            owner,
+            title,
+            message,
+            variant,
+            primaryButtonText,
+            secondaryButtonText,
+            null,
+            windowTitle) == NebulaDialogResult.Primary;
+    }
+
+    public static NebulaDialogResult ShowContent(
+        Window? owner,
+        string title,
+        object content,
+        NebulaDialogVariant variant = NebulaDialogVariant.Info,
+        string primaryButtonText = "OK",
+        string? secondaryButtonText = "Cancel",
+        string? tertiaryButtonText = null,
+        string windowTitle = "NebulaDialog",
+        double width = 520)
+    {
+        return ShowModal(
+            owner,
+            title,
+            string.Empty,
+            variant,
+            primaryButtonText,
+            secondaryButtonText,
+            tertiaryButtonText,
+            windowTitle,
+            width,
+            content);
     }
 
     private static void OnButtonTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -142,6 +281,14 @@ public partial class NebulaDialog : Window
         }
     }
 
+    private static void OnDialogContentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        if (d is NebulaDialog dialog && dialog.IsLoaded)
+        {
+            dialog.UpdateDialogContentVisibility();
+        }
+    }
+
     private void UpdateButtonVisibility()
     {
         PrimaryButton.Visibility = string.IsNullOrWhiteSpace(PrimaryButtonText)
@@ -151,6 +298,15 @@ public partial class NebulaDialog : Window
             ? Visibility.Collapsed
             : Visibility.Visible;
         TertiaryButton.Visibility = string.IsNullOrWhiteSpace(TertiaryButtonText)
+            ? Visibility.Collapsed
+            : Visibility.Visible;
+    }
+
+    private void UpdateDialogContentVisibility()
+    {
+        var hasContent = DialogContent is not null;
+        DialogContentPresenter.Visibility = hasContent ? Visibility.Visible : Visibility.Collapsed;
+        MessageText.Visibility = string.IsNullOrWhiteSpace(Message) && hasContent
             ? Visibility.Collapsed
             : Visibility.Visible;
     }
@@ -170,6 +326,8 @@ public partial class NebulaDialog : Window
         IconCircle.Fill = brush;
         IconPath.Stroke = brush;
         InfoIconText.Foreground = brush;
+        DialogTitleText.Foreground = brush;
+        PrimaryButton.Style = (Style)FindResource(GetPrimaryButtonStyleKey());
 
         InfoIconText.Visibility = Visibility.Collapsed;
         IconPath.Visibility = Visibility.Visible;
@@ -189,6 +347,17 @@ public partial class NebulaDialog : Window
         }
     }
 
+    private string GetPrimaryButtonStyleKey()
+    {
+        return Variant switch
+        {
+            NebulaDialogVariant.Success => "NebulaSuccessButton",
+            NebulaDialogVariant.Warning => "NebulaWarningButton",
+            NebulaDialogVariant.Danger => "NebulaDangerButton",
+            _ => "NebulaPrimaryButton"
+        };
+    }
+
     private void TitleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
     {
         DragMove();
@@ -199,6 +368,13 @@ public partial class NebulaDialog : Window
         if (e.Key == Key.Escape)
         {
             CloseWithResult(NebulaDialogResult.Close, false);
+            e.Handled = true;
+            return;
+        }
+
+        if (e.Key == Key.Enter && PrimaryButton.Visibility == Visibility.Visible)
+        {
+            CloseWithResult(NebulaDialogResult.Primary, true);
             e.Handled = true;
         }
     }

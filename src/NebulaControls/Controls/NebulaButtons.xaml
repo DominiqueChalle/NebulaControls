@@ -1,6 +1,6 @@
-<!--
+﻿<!--
   Nom: NebulaButtons
-  Version: V1.03
+  Version: V1.04
   Description: Defines Nebula button styles, variants and sizes for action controls.
 -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -184,6 +184,27 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="NebulaSuccessButton"
+           BasedOn="{StaticResource NebulaBaseButton}"
+           TargetType="Button">
+        <Setter Property="Background" Value="{DynamicResource Brush.Success}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource Brush.Success}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Brush.TextOnAccent}"/>
+        <Setter Property="Template" Value="{StaticResource NebulaButtonTemplate}"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Brush.Success}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource Brush.Success}"/>
+                <Setter Property="Foreground" Value="{DynamicResource Brush.TextOnAccent}"/>
+            </Trigger>
+
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Brush.Success}"/>
+                <Setter Property="Foreground" Value="{DynamicResource Brush.TextOnAccent}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <Style x:Key="NebulaWarningButton"
            BasedOn="{StaticResource NebulaBaseButton}"
            TargetType="Button">
@@ -265,6 +286,13 @@
         <Setter Property="MinHeight" Value="34"/>
     </Style>
 
+    <Style x:Key="NebulaSuccessSmallButton" BasedOn="{StaticResource NebulaSuccessButton}" TargetType="Button">
+        <Setter Property="Padding" Value="12,6"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="MinWidth" Value="96"/>
+        <Setter Property="MinHeight" Value="34"/>
+    </Style>
+
     <Style x:Key="NebulaWarningSmallButton" BasedOn="{StaticResource NebulaWarningButton}" TargetType="Button">
         <Setter Property="Padding" Value="12,6"/>
         <Setter Property="FontSize" Value="12"/>
@@ -301,6 +329,13 @@
     </Style>
 
     <Style x:Key="NebulaDangerLargeButton" BasedOn="{StaticResource NebulaDangerButton}" TargetType="Button">
+        <Setter Property="Padding" Value="22,13"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="MinWidth" Value="156"/>
+        <Setter Property="MinHeight" Value="52"/>
+    </Style>
+
+    <Style x:Key="NebulaSuccessLargeButton" BasedOn="{StaticResource NebulaSuccessButton}" TargetType="Button">
         <Setter Property="Padding" Value="22,13"/>
         <Setter Property="FontSize" Value="15"/>
         <Setter Property="MinWidth" Value="156"/>

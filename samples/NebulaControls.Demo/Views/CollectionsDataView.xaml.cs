@@ -1,4 +1,4 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
@@ -6,7 +6,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -21,7 +20,6 @@ public partial class CollectionsDataView : UserControl
     private readonly DemoDataGridRepository dataGridRepository = DemoDataGridRepository.CreateDataGridSandbox();
     private int deletedSandboxRowCount;
     private string selectedTreeViewItemText = "NebulaTreeView";
-    private bool treeViewClickStartedOnExpander;
 
     public CollectionsDataView()
     {
@@ -45,12 +43,7 @@ public partial class CollectionsDataView : UserControl
 
     public ObservableCollection<DemoDataGridRow> DisabledDataGridRows { get; }
 
-    private void DemoTreeView_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-    {
-        treeViewClickStartedOnExpander = IsInsideTreeViewExpander(e.OriginalSource as DependencyObject);
-    }
-
-    private void DemoTreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+    private void DemoTreeView_SelectionCommitted(object sender, RoutedPropertyChangedEventArgs<object> e)
     {
         if (TreeViewSelectionText is null)
         {
@@ -67,36 +60,15 @@ public partial class CollectionsDataView : UserControl
         selectedTreeViewItemText = selectedText;
         TreeViewSelectionText.Text = $"Selected: {selectedText}";
 
-        if (!treeViewClickStartedOnExpander)
-        {
-            MessageBox.Show(
-                $"Selected item: {selectedTreeViewItemText}",
-                "TreeView selection",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information);
-        }
-
-        treeViewClickStartedOnExpander = false;
+        NebulaDialog.ShowInfo(
+            Window.GetWindow(this),
+            "TreeView selection",
+            $"Selected item: {selectedTreeViewItemText}");
     }
 
     private static string GetTreeViewHeaderText(TreeViewItem item)
     {
         return item.Header?.ToString() ?? "Tree item";
-    }
-
-    private static bool IsInsideTreeViewExpander(DependencyObject? source)
-    {
-        while (source is not null)
-        {
-            if (source is ToggleButton toggleButton && toggleButton.Name == "Expander")
-            {
-                return true;
-            }
-
-            source = VisualTreeHelper.GetParent(source);
-        }
-
-        return false;
     }
 
     private static T? FindVisualParent<T>(DependencyObject? source)
