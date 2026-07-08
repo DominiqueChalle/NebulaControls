@@ -120,7 +120,7 @@
 
             <Border Style="{StaticResource DemoCard}">
                 <StackPanel>
-                    <TextBlock Text="Top TabControl"
+                    <TextBlock Text="TabControl"
                                Style="{StaticResource DemoSectionTitle}"/>
                     <TextBlock x:Name="TopTabStatusText"
                                Text="Selected tab: Overview"
@@ -145,6 +145,24 @@
                                         Style="{StaticResource NebulaSecondarySmallButton}"
                                         HorizontalAlignment="Left"
                                         Margin="0,12,0,0"/>
+                            </StackPanel>
+                        </nebula:NebulaTabItem>
+                        <nebula:NebulaTabItem Header="Settings">
+                            <StackPanel>
+                                <TextBlock Text="Settings content"
+                                           Style="{StaticResource Typography.TextBlock.Secondary}"/>
+                                <CheckBox Content="Enable compact mode"
+                                          Style="{StaticResource NebulaCheckBox}"
+                                          Margin="0,12,0,0"/>
+                            </StackPanel>
+                        </nebula:NebulaTabItem>
+                        <nebula:NebulaTabItem Header="Logs">
+                            <StackPanel>
+                                <TextBlock Text="Logs content"
+                                           Style="{StaticResource Typography.TextBlock.Secondary}"/>
+                                <TextBlock Text="Recent activity and diagnostic output."
+                                           Style="{StaticResource Typography.TextBlock.Muted}"
+                                           Margin="0,8,0,0"/>
                             </StackPanel>
                         </nebula:NebulaTabItem>
                         <nebula:NebulaTabItem Header="Disabled"
