@@ -51,6 +51,10 @@
         <Setter Property="Foreground" Value="{DynamicResource Brush.TextPrimary}"/>
     </Style>
 
+    <Style x:Key="Typography.TextBlock.Primary"
+           BasedOn="{StaticResource Typography.TextBlock.Body}"
+           TargetType="TextBlock"/>
+
     <Style x:Key="Typography.TextBlock.Secondary"
            BasedOn="{StaticResource Typography.TextBlock.Body}"
            TargetType="TextBlock">

@@ -1,7 +1,7 @@
 <!--
   Nom: NebulaDatePicker
-  Version: V1.02
-  Description: Custom Nebula date picker with editable field and calendar popup.
+  Version: V1.03
+  Description: Custom Nebula date picker with editable field, placeholder and calendar popup.
 -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -35,6 +35,7 @@
         <Setter Property="BorderBrush" Value="{DynamicResource Brush.Border}"/>
         <Setter Property="BorderThickness" Value="0,0,0,2"/>
         <Setter Property="Foreground" Value="{DynamicResource Brush.TextPrimary}"/>
+        <Setter Property="Focusable" Value="True"/>
         <Setter Property="MinHeight" Value="34"/>
         <Setter Property="Width" Value="300"/>
         <Setter Property="Template">
@@ -57,6 +58,16 @@
                                          Style="{StaticResource NebulaDatePickerTextBox}"
                                          Foreground="{TemplateBinding Foreground}"
                                          VerticalContentAlignment="Center"/>
+
+                                <TextBlock x:Name="PlaceholderText"
+                                           Text="{TemplateBinding Placeholder}"
+                                           Grid.Column="0"
+                                           Margin="10,0"
+                                           Foreground="{DynamicResource Brush.TextMuted}"
+                                           Style="{StaticResource Typography.TextBlock.Primary}"
+                                           VerticalAlignment="Center"
+                                           IsHitTestVisible="False"
+                                           Visibility="Collapsed"/>
 
                                 <ToggleButton x:Name="PART_Button"
                                               Grid.Column="1"
@@ -135,6 +146,18 @@
                                     Value="{DynamicResource Brush.BrandHover}"/>
                         </Trigger>
 
+                        <Trigger Property="SelectedDate" Value="{x:Null}">
+                            <Setter TargetName="PlaceholderText"
+                                    Property="Visibility"
+                                    Value="Visible"/>
+                        </Trigger>
+
+                        <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                            <Setter TargetName="PlaceholderText"
+                                    Property="Visibility"
+                                    Value="Collapsed"/>
+                        </Trigger>
+
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Foreground"
                                     Value="{DynamicResource Brush.TextDisabled}"/>
@@ -144,6 +167,9 @@
                             <Setter TargetName="Border"
                                     Property="BorderBrush"
                                     Value="{DynamicResource Brush.BorderDisabled}"/>
+                            <Setter TargetName="PlaceholderText"
+                                    Property="Foreground"
+                                    Value="{DynamicResource Brush.TextDisabled}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
