@@ -14,7 +14,6 @@ public partial class InputsProgressView : UserControl
         new("NebulaLabeledPasswordBox", "Inputs", "Mot de passe avec label, aide et validation côté application."),
         new("NebulaDatePicker", "Pickers", "Sélection d'une date avec calendrier Nebula custom."),
         new("NebulaTimePicker", "Pickers", "Sélection d'une heure en format 24h avec saisie manuelle."),
-        new("NebulaDateTimePicker", "Pickers", "Sélection combinée date et heure avec popup unique."),
         new("NebulaNumericUpDown", "Inputs", "Valeur numérique bornée avec boutons plus et moins."),
         new("NebulaSearchBox", "Inputs", "Recherche avec icône, placeholder, clear et validation Entrée."),
         new("NebulaComboBox", "Selection", "Liste déroulante standard, editable ou avec item désactivé."),

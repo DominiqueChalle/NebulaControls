@@ -13,7 +13,7 @@ During development inside this repository, the public demo uses a project refere
 External applications should reference the built DLL or NuGet package instead:
 
 ```xml
-<PackageReference Include="NebulaControls" Version="1.0.1-beta" />
+<PackageReference Include="NebulaControls" Version="1.0.2-beta" />
 ```
 
 ## App Resources

@@ -12,7 +12,6 @@
         <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaCalendarView.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaDatePicker.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaTimePicker.xaml"/>
-        <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaDateTimePicker.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaNumericUpDown.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaSearchBox.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/NebulaControls;component/Controls/NebulaRating.xaml"/>

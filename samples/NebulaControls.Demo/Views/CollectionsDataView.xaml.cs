@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
@@ -819,12 +819,11 @@ public sealed class DemoDataGridRepository
             new(1024, "NebulaNumericUpDown", "V2", "Validated", "Inputs", "Dominique", "High", "2026-07-02", "Numeric input with buttons, manual entry and range limits"),
             new(1025, "NebulaDatePicker", "V2", "Validated", "Pickers", "Dominique", "High", "2026-07-01", "Custom date picker with calendar popup"),
             new(1026, "NebulaTimePicker", "V2", "Validated", "Pickers", "Dominique", "High", "2026-07-01", "Custom time picker with manual entry and popup selection"),
-            new(1027, "NebulaDateTimePicker", "V2", "Validated", "Pickers", "Dominique", "High", "2026-07-01", "Combined date and time picker"),
-            new(1028, "NebulaAvatar", "V2", "Validated", "Identity", "Dominique", "Medium", "2026-06-28", "Image avatar with default neutral, male and female fallbacks"),
-            new(1029, "NebulaExpander", "V2", "Validated", "Layout", "Dominique", "Medium", "2026-06-29", "Expandable content container"),
-            new(1030, "NebulaGroupBox", "V2", "Validated", "Layout", "Dominique", "Medium", "2026-06-29", "Themed grouping container"),
-            new(1031, "NebulaToolTip", "V2", "Validated", "Feedback", "Dominique", "Medium", "2026-06-26", "Simple and rich tooltip styling"),
-            new(1032, "NebulaScrollBar", "V2", "Validated", "Navigation", "Dominique", "Medium", "2026-06-26", "Nebula scrollbar styling and item-by-item ListBox scroll")
+            new(1027, "NebulaAvatar", "V2", "Validated", "Identity", "Dominique", "Medium", "2026-06-28", "Image avatar with default neutral, male and female fallbacks"),
+            new(1028, "NebulaExpander", "V2", "Validated", "Layout", "Dominique", "Medium", "2026-06-29", "Expandable content container"),
+            new(1029, "NebulaGroupBox", "V2", "Validated", "Layout", "Dominique", "Medium", "2026-06-29", "Themed grouping container"),
+            new(1030, "NebulaToolTip", "V2", "Validated", "Feedback", "Dominique", "Medium", "2026-06-26", "Simple and rich tooltip styling"),
+            new(1031, "NebulaScrollBar", "V2", "Validated", "Navigation", "Dominique", "Medium", "2026-06-26", "Nebula scrollbar styling and item-by-item ListBox scroll")
         ];
     }
 

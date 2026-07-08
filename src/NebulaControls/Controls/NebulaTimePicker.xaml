@@ -1,7 +1,7 @@
 <!--
   Nom: NebulaTimePicker
-  Version: V1.02
-  Description: Custom Nebula time picker with editable field and time selection popup.
+  Version: V1.03
+  Description: Custom Nebula time picker with editable field and clock selection popup.
 -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -46,6 +46,94 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="6">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ButtonBorder"
+                                    Property="Background"
+                                    Value="{DynamicResource Brush.SurfaceHover}"/>
+                            <Setter TargetName="ButtonBorder"
+                                    Property="BorderBrush"
+                                    Value="{DynamicResource Brush.BorderHover}"/>
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="ButtonBorder"
+                                    Property="Background"
+                                    Value="{DynamicResource Brush.SurfaceActive}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="NebulaTimePickerClockButton"
+           TargetType="Button">
+        <Setter Property="Width" Value="34"/>
+        <Setter Property="Height" Value="34"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Foreground" Value="{DynamicResource Brush.TextPrimary}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="ButtonBorder"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="17">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ButtonBorder"
+                                    Property="Background"
+                                    Value="{DynamicResource Brush.SurfaceHover}"/>
+                            <Setter TargetName="ButtonBorder"
+                                    Property="BorderBrush"
+                                    Value="{DynamicResource Brush.BorderHover}"/>
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="ButtonBorder"
+                                    Property="Background"
+                                    Value="{DynamicResource Brush.SurfaceActive}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="NebulaTimePickerModeButton"
+           BasedOn="{StaticResource Typography.Button.Primary}"
+           TargetType="Button">
+        <Setter Property="Height" Value="32"/>
+        <Setter Property="MinWidth" Value="82"/>
+        <Setter Property="Padding" Value="12,0"/>
+        <Setter Property="Foreground" Value="{DynamicResource Brush.TextPrimary}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource Brush.Border}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="ButtonBorder"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="6"
+                            Padding="{TemplateBinding Padding}">
                         <ContentPresenter HorizontalAlignment="Center"
                                           VerticalAlignment="Center"/>
                     </Border>
@@ -151,43 +239,88 @@
                                     BorderBrush="{DynamicResource Brush.Brand}"
                                     BorderThickness="2"
                                     CornerRadius="8"
-                                    Padding="10"
-                                    Width="220"
-                                    Height="254">
+                                    Padding="12"
+                                    Width="276"
+                                    Height="326">
                                 <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="10"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
 
-                                    <TextBlock Text="Heures"
-                                               Style="{StaticResource Typography.TextBlock.Label}"
-                                               HorizontalAlignment="Center"
-                                               Margin="0,0,0,8"/>
-                                    <TextBlock Grid.Column="2"
-                                               Text="Minutes"
-                                               Style="{StaticResource Typography.TextBlock.Label}"
+                                    <TextBlock Text="{Binding SelectedTime, RelativeSource={RelativeSource TemplatedParent}, StringFormat={}{0:hh\\:mm}}"
+                                               Style="{StaticResource Typography.TextBlock.PageTitle}"
                                                HorizontalAlignment="Center"
                                                Margin="0,0,0,8"/>
 
-                                    <ScrollViewer Grid.Row="1"
-                                                  VerticalScrollBarVisibility="Auto">
-                                        <ItemsControl ItemsSource="{Binding HourItems, RelativeSource={RelativeSource TemplatedParent}}"
-                                                      Tag="{Binding SelectHourCommand, RelativeSource={RelativeSource TemplatedParent}}">
+                                    <StackPanel Grid.Row="1"
+                                                Orientation="Horizontal"
+                                                HorizontalAlignment="Center"
+                                                Margin="0,0,0,10">
+                                        <Button Content="Heures"
+                                                Command="{Binding ShowHourModeCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                                Style="{StaticResource NebulaTimePickerModeButton}"
+                                                Margin="0,0,8,0"/>
+                                        <Button Content="Minutes"
+                                                Command="{Binding ShowMinuteModeCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                                Style="{StaticResource NebulaTimePickerModeButton}"/>
+                                    </StackPanel>
+
+                                    <Grid x:Name="PART_ClockFace"
+                                          Grid.Row="2"
+                                          Width="220"
+                                          Height="220"
+                                          HorizontalAlignment="Center"
+                                          Background="Transparent"
+                                          Cursor="Hand">
+                                        <Ellipse Fill="{DynamicResource Brush.Background}"
+                                                 Stroke="{DynamicResource Brush.Border}"
+                                                 StrokeThickness="1"/>
+                                        <Line X1="110"
+                                              Y1="110"
+                                              X2="{Binding ClockHandX, RelativeSource={RelativeSource TemplatedParent}}"
+                                              Y2="{Binding ClockHandY, RelativeSource={RelativeSource TemplatedParent}}"
+                                              Stroke="{DynamicResource Brush.Brand}"
+                                              StrokeThickness="2"
+                                              StrokeStartLineCap="Round"
+                                              StrokeEndLineCap="Round"
+                                              IsHitTestVisible="False"/>
+                                        <Ellipse Width="8"
+                                                 Height="8"
+                                                 Fill="{DynamicResource Brush.Brand}"
+                                                 HorizontalAlignment="Center"
+                                                 VerticalAlignment="Center"/>
+
+                                        <ItemsControl ItemsSource="{Binding ClockItems, RelativeSource={RelativeSource TemplatedParent}}"
+                                                      Tag="{Binding SelectClockItemCommand, RelativeSource={RelativeSource TemplatedParent}}">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <Canvas Width="220"
+                                                            Height="220"/>
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemContainerStyle>
+                                                <Style TargetType="ContentPresenter">
+                                                    <Setter Property="Canvas.Left" Value="{Binding X}"/>
+                                                    <Setter Property="Canvas.Top" Value="{Binding Y}"/>
+                                                </Style>
+                                            </ItemsControl.ItemContainerStyle>
                                             <ItemsControl.ItemTemplate>
-                                                <DataTemplate DataType="{x:Type controls:NebulaTimePickerItem}">
+                                                <DataTemplate DataType="{x:Type controls:NebulaTimeClockItem}">
                                                     <Button Content="{Binding Label}"
                                                             Command="{Binding Tag, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                                             CommandParameter="{Binding}">
                                                         <Button.Style>
-                                                            <Style BasedOn="{StaticResource NebulaTimePickerItemButton}"
+                                                            <Style BasedOn="{StaticResource NebulaTimePickerClockButton}"
                                                                    TargetType="Button">
                                                                 <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding IsInner}" Value="True">
+                                                                        <Setter Property="FontSize"
+                                                                                Value="{StaticResource FontSize.Caption}"/>
+                                                                        <Setter Property="Foreground"
+                                                                                Value="{DynamicResource Brush.TextSecondary}"/>
+                                                                    </DataTrigger>
                                                                     <DataTrigger Binding="{Binding IsSelected}" Value="True">
                                                                         <Setter Property="Background"
                                                                                 Value="{DynamicResource Brush.Brand}"/>
@@ -203,44 +336,7 @@
                                                 </DataTemplate>
                                             </ItemsControl.ItemTemplate>
                                         </ItemsControl>
-                                    </ScrollViewer>
-
-                                    <Border Grid.Row="1"
-                                            Grid.Column="1"
-                                            Width="1"
-                                            Background="{DynamicResource Brush.Border}"
-                                            Margin="4,0"/>
-
-                                    <ScrollViewer Grid.Row="1"
-                                                  Grid.Column="2"
-                                                  VerticalScrollBarVisibility="Auto">
-                                        <ItemsControl ItemsSource="{Binding MinuteItems, RelativeSource={RelativeSource TemplatedParent}}"
-                                                      Tag="{Binding SelectMinuteCommand, RelativeSource={RelativeSource TemplatedParent}}">
-                                            <ItemsControl.ItemTemplate>
-                                                <DataTemplate DataType="{x:Type controls:NebulaTimePickerItem}">
-                                                    <Button Content="{Binding Label}"
-                                                            Command="{Binding Tag, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                                            CommandParameter="{Binding}">
-                                                        <Button.Style>
-                                                            <Style BasedOn="{StaticResource NebulaTimePickerItemButton}"
-                                                                   TargetType="Button">
-                                                                <Style.Triggers>
-                                                                    <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                                                                        <Setter Property="Background"
-                                                                                Value="{DynamicResource Brush.Brand}"/>
-                                                                        <Setter Property="Foreground"
-                                                                                Value="White"/>
-                                                                        <Setter Property="BorderBrush"
-                                                                                Value="{DynamicResource Brush.Brand}"/>
-                                                                    </DataTrigger>
-                                                                </Style.Triggers>
-                                                            </Style>
-                                                        </Button.Style>
-                                                    </Button>
-                                                </DataTemplate>
-                                            </ItemsControl.ItemTemplate>
-                                        </ItemsControl>
-                                    </ScrollViewer>
+                                    </Grid>
                                 </Grid>
                             </Border>
                         </Popup>

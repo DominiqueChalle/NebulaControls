@@ -13,7 +13,6 @@ public partial class MainWindow : NebulaWindow
     private readonly InputsProgressView inputsProgressView = new();
     private readonly CollectionsDataView collectionsDataView = new();
     private readonly ControlInventoryView controlInventoryView = new();
-    private readonly PickerLabView pickerLabView = new();
     private readonly ContainersLayoutView containersLayoutView = new();
 
     public MainWindow()
@@ -85,7 +84,6 @@ public partial class MainWindow : NebulaWindow
             "Inputs" => inputsProgressView,
             "Collections" => collectionsDataView,
             "Inventory" => controlInventoryView,
-            "PickerLab" => pickerLabView,
             "Containers" => containersLayoutView,
             _ => buttonsFeedbackView
         };

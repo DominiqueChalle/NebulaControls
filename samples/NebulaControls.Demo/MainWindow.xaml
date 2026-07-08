@@ -95,9 +95,6 @@
                     <nebula:NebulaSidebarItem Content="Control Inventory"
                                                Icon="&#xE8EC;"
                                                Tag="Inventory"/>
-                    <nebula:NebulaSidebarItem Content="Picker Lab"
-                                               Icon="&#xE787;"
-                                               Tag="PickerLab"/>
                     <nebula:NebulaSidebarItem Content="Containers + Layout"
                                                Icon="&#xE8A9;"
                                                Tag="Containers"/>
