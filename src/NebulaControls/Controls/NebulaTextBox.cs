@@ -1,5 +1,5 @@
 // Nom: NebulaTextBox
-// Version: V1.02
+// Version: V1.03
 // Description: TextBox and labeled text input controls with helper text and validation state support.
 
 using System.Windows;

@@ -1,6 +1,6 @@
 <!--
   Nom: NebulaTabControl
-  Version: V1.04
+  Version: V1.05
   Description: Top-only tab control for switching between related content pages with binder-style depth.
 -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -70,6 +70,19 @@
                                     Value="{DynamicResource Brush.TextPrimary}"/>
                         </Trigger>
 
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter TargetName="TabShape"
+                                    Property="Background"
+                                    Value="{DynamicResource Brush.SurfaceHover}"/>
+                            <Setter TargetName="TabShape"
+                                    Property="BorderBrush"
+                                    Value="{DynamicResource Brush.Brand}"/>
+                            <Setter Property="Foreground"
+                                    Value="{DynamicResource Brush.TextPrimary}"/>
+                            <Setter Property="Panel.ZIndex"
+                                    Value="12"/>
+                        </Trigger>
+
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Foreground"
                                     Value="{DynamicResource Brush.TextDisabled}"/>
@@ -95,6 +108,10 @@
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Padding" Value="4"/>
         <Setter Property="SelectedIndex" Value="0"/>
+        <Setter Property="Focusable" Value="True"/>
+        <Setter Property="KeyboardNavigation.TabNavigation" Value="Once"/>
+        <Setter Property="KeyboardNavigation.ControlTabNavigation" Value="Once"/>
+        <Setter Property="KeyboardNavigation.DirectionalNavigation" Value="Contained"/>
         <Setter Property="ItemContainerStyle" Value="{StaticResource NebulaTabItem}"/>
         <Setter Property="Template">
             <Setter.Value>

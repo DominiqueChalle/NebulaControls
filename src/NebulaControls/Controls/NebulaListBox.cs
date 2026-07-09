@@ -1,5 +1,5 @@
 // Nom: NebulaListBox
-// Version: V1.02
+// Version: V1.03
 // Description: ListBox base control for Nebula collection selection.
 
 using System.Windows;
@@ -36,5 +36,25 @@ public class NebulaListBox : ListBox
         }
 
         e.Handled = true;
+    }
+
+    protected override void OnKeyDown(KeyEventArgs e)
+    {
+        base.OnKeyDown(e);
+
+        if (IsNavigationKey(e.Key))
+        {
+            e.Handled = true;
+        }
+    }
+
+    private static bool IsNavigationKey(Key key)
+    {
+        return key is Key.Up
+            or Key.Down
+            or Key.PageUp
+            or Key.PageDown
+            or Key.Home
+            or Key.End;
     }
 }

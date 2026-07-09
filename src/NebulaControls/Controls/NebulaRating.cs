@@ -1,5 +1,5 @@
 // Nom: NebulaRating
-// Version: V1.02
+// Version: V1.03
 // Description: Rating control exposing value, maximum and change notification behavior.
 
 using System;
@@ -93,6 +93,41 @@ public class NebulaRating : Control
     public ICommand PreviewRatingCommand => previewRatingCommand;
 
     public ICommand ClearPreviewCommand => clearPreviewCommand;
+
+    protected override void OnPreviewKeyDown(KeyEventArgs e)
+    {
+        base.OnPreviewKeyDown(e);
+
+        if (!IsEnabled || IsReadOnly)
+        {
+            return;
+        }
+
+        switch (e.Key)
+        {
+            case Key.Left:
+            case Key.Down:
+                Value = Math.Max(0, Value - 1);
+                e.Handled = true;
+                break;
+
+            case Key.Right:
+            case Key.Up:
+                Value = Math.Min(Maximum, Value + 1);
+                e.Handled = true;
+                break;
+
+            case Key.Home:
+                Value = 0;
+                e.Handled = true;
+                break;
+
+            case Key.End:
+                Value = Maximum;
+                e.Handled = true;
+                break;
+        }
+    }
 
     private static void OnRatingStateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {

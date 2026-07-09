@@ -185,6 +185,14 @@ public class NebulaDatePicker : Control
 
         if (e.Key == Key.Enter)
         {
+            if (!IsDropDownOpen)
+            {
+                CommitText();
+                IsDropDownOpen = true;
+                e.Handled = true;
+                return;
+            }
+
             CommitText();
             IsDropDownOpen = false;
             e.Handled = true;
@@ -200,6 +208,12 @@ public class NebulaDatePicker : Control
 
         if (!IsDropDownOpen)
         {
+            return;
+        }
+
+        if (e.Key == Key.Tab)
+        {
+            e.Handled = true;
             return;
         }
 

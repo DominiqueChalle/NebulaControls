@@ -1,6 +1,6 @@
 <!--
   Nom: NebulaComboBox
-  Version: V1.02
+  Version: V1.03
   Description: Defines Nebula combo box styling for selection and editable input scenarios.
 -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -59,6 +59,7 @@
         <Setter Property="BorderThickness" Value="0,0,0,2"/>
         <Setter Property="Padding" Value="10,6"/>
         <Setter Property="MinHeight" Value="34"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="IsTextSearchEnabled" Value="True"/>
         <Setter Property="IsTextSearchCaseSensitive" Value="False"/>
         <Setter Property="StaysOpenOnEdit" Value="True"/>
@@ -133,15 +134,19 @@
                                PopupAnimation="Fade">
                             <Grid MinWidth="{Binding ActualWidth, RelativeSource={RelativeSource TemplatedParent}}"
                                   MaxHeight="{TemplateBinding MaxDropDownHeight}">
-                                <Border Background="{DynamicResource Brush.Surface}"
-                                        BorderBrush="{DynamicResource Brush.Brand}"
-                                        BorderThickness="2"
+                                <Border Background="{DynamicResource Brush.BorderReadOnly}"
                                         CornerRadius="6"
                                         Margin="0,4,0,0"
-                                        Padding="4">
-                                    <ScrollViewer>
-                                        <ItemsPresenter/>
-                                    </ScrollViewer>
+                                        Padding="1"
+                                        SnapsToDevicePixels="True">
+                                    <Border Background="{DynamicResource Brush.Surface}"
+                                            CornerRadius="5"
+                                            Padding="4"
+                                            SnapsToDevicePixels="True">
+                                        <ScrollViewer>
+                                            <ItemsPresenter/>
+                                        </ScrollViewer>
+                                    </Border>
                                 </Border>
                             </Grid>
                         </Popup>
@@ -188,6 +193,15 @@
                             <Setter TargetName="Border"
                                     Property="BorderBrush"
                                     Value="{DynamicResource Brush.BrandHover}"/>
+                            <Setter TargetName="Arrow"
+                                    Property="Fill"
+                                    Value="{DynamicResource Brush.BrandSoft}"/>
+                        </Trigger>
+
+                        <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                            <Setter TargetName="Border"
+                                    Property="BorderBrush"
+                                    Value="{DynamicResource Brush.BorderFocus}"/>
                             <Setter TargetName="Arrow"
                                     Property="Fill"
                                     Value="{DynamicResource Brush.BrandSoft}"/>

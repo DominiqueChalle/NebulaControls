@@ -1,5 +1,5 @@
-﻿// Nom: NebulaTreeView
-// Version: V1.03
+// Nom: NebulaTreeView
+// Version: V1.05
 // Description: TreeView base control for hierarchical Nebula navigation or selection with committed selection events.
 
 using System.Windows;
@@ -21,6 +21,20 @@ public class NebulaTreeView : TreeView
             typeof(NebulaTreeView));
 
     private bool selectionStartedOnExpander;
+    private bool commitSelectionOnNextChange;
+
+    public static readonly DependencyProperty CommitBranchItemsProperty =
+        DependencyProperty.Register(
+            nameof(CommitBranchItems),
+            typeof(bool),
+            typeof(NebulaTreeView),
+            new PropertyMetadata(true));
+
+    public bool CommitBranchItems
+    {
+        get => (bool)GetValue(CommitBranchItemsProperty);
+        set => SetValue(CommitBranchItemsProperty, value);
+    }
 
     public event RoutedPropertyChangedEventHandler<object> SelectionCommitted
     {
@@ -38,8 +52,40 @@ public class NebulaTreeView : TreeView
                 () => selectionStartedOnExpander = false,
                 DispatcherPriority.Input);
         }
+        else
+        {
+            commitSelectionOnNextChange = IsInsideTreeViewItem(e.OriginalSource as DependencyObject);
+        }
 
         base.OnPreviewMouseLeftButtonDown(e);
+    }
+
+    protected override void OnPreviewKeyDown(KeyEventArgs e)
+    {
+        base.OnPreviewKeyDown(e);
+
+        if (e.Key == Key.Enter && SelectedItem is not null)
+        {
+            var selectedItem = SelectedItem;
+            if (CanCommitItem(selectedItem))
+            {
+                RaiseSelectionCommitted(selectedItem, selectedItem);
+            }
+
+            e.Handled = true;
+            return;
+        }
+
+    }
+
+    protected override void OnKeyDown(KeyEventArgs e)
+    {
+        base.OnKeyDown(e);
+
+        if (IsNavigationKey(e.Key))
+        {
+            e.Handled = true;
+        }
     }
 
     protected override void OnSelectedItemChanged(RoutedPropertyChangedEventArgs<object> e)
@@ -51,10 +97,37 @@ public class NebulaTreeView : TreeView
             return;
         }
 
+        if (commitSelectionOnNextChange)
+        {
+            if (e.NewValue is not null && CanCommitItem(e.NewValue))
+            {
+                RaiseSelectionCommitted(e.OldValue ?? e.NewValue, e.NewValue);
+            }
+
+            commitSelectionOnNextChange = false;
+        }
+    }
+
+    private void RaiseSelectionCommitted(object oldValue, object newValue)
+    {
         RaiseEvent(new RoutedPropertyChangedEventArgs<object>(
-            e.OldValue,
-            e.NewValue,
+            oldValue,
+            newValue,
             SelectionCommittedEvent));
+    }
+
+    private bool CanCommitItem(object item)
+    {
+        if (CommitBranchItems)
+        {
+            return true;
+        }
+
+        var treeViewItem = item as TreeViewItem
+            ?? ItemContainerGenerator.ContainerFromItem(item) as TreeViewItem;
+
+        return treeViewItem is null
+            || !treeViewItem.HasItems;
     }
 
     private static bool IsInsideExpander(DependencyObject? source)
@@ -70,5 +143,32 @@ public class NebulaTreeView : TreeView
         }
 
         return false;
+    }
+
+    private static bool IsInsideTreeViewItem(DependencyObject? source)
+    {
+        while (source is not null)
+        {
+            if (source is TreeViewItem)
+            {
+                return true;
+            }
+
+            source = VisualTreeHelper.GetParent(source);
+        }
+
+        return false;
+    }
+
+    private static bool IsNavigationKey(Key key)
+    {
+        return key is Key.Up
+            or Key.Down
+            or Key.Left
+            or Key.Right
+            or Key.PageUp
+            or Key.PageDown
+            or Key.Home
+            or Key.End;
     }
 }

@@ -153,5 +153,22 @@ public partial class InputsProgressView : UserControl
             && password.Any(character => !char.IsLetterOrDigit(character));
     }
 
+    private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (ComboBoxSelectionText is null || sender is not ComboBox comboBox)
+        {
+            return;
+        }
+
+        ComboBoxSelectionText.Text = $"Selected ComboBox value: {GetComboBoxSelectionText(comboBox)}";
+    }
+
+    private static string GetComboBoxSelectionText(ComboBox comboBox)
+    {
+        return comboBox.SelectedItem is ComboBoxItem item
+            ? item.Content?.ToString() ?? "none"
+            : comboBox.SelectedItem?.ToString() ?? "none";
+    }
+
     public sealed record SearchDemoItem(string Name, string Category, string Description);
 }

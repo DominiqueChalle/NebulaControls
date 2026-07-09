@@ -1,5 +1,5 @@
 // Nom: NebulaComboBox
-// Version: V1.02
+// Version: V1.03
 // Description: ComboBox base control used by Nebula selection inputs.
 
 using System;
@@ -30,8 +30,32 @@ public class NebulaComboBox : ComboBox
 
         if (e.Key == Key.Enter)
         {
+            if (!IsEditable)
+            {
+                CommitHighlightedItem();
+                IsDropDownOpen = false;
+                e.Handled = true;
+                return;
+            }
+
             ValidateEditableText();
+            IsDropDownOpen = false;
+            e.Handled = true;
+            return;
         }
+
+        if (e.Key == Key.Escape && IsEditable)
+        {
+            RestoreSelectedText();
+            IsDropDownOpen = false;
+            e.Handled = true;
+        }
+    }
+
+    protected override void OnDropDownClosed(EventArgs e)
+    {
+        ValidateEditableText();
+        base.OnDropDownClosed(e);
     }
 
     protected override void OnLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
@@ -59,6 +83,25 @@ public class NebulaComboBox : ComboBox
         Text = SelectedItem is null
             ? string.Empty
             : GetItemText(SelectedItem);
+    }
+
+    private void RestoreSelectedText()
+    {
+        Text = SelectedItem is null
+            ? string.Empty
+            : GetItemText(SelectedItem);
+    }
+
+    private void CommitHighlightedItem()
+    {
+        foreach (var item in Items)
+        {
+            if (ItemContainerGenerator.ContainerFromItem(item) is ComboBoxItem { IsHighlighted: true, IsEnabled: true })
+            {
+                SelectedItem = item;
+                return;
+            }
+        }
     }
 
     private object? FindMatchingItem(string? text)

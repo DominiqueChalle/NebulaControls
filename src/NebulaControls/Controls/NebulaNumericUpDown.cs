@@ -1,5 +1,5 @@
 // Nom: NebulaNumericUpDown
-// Version: V1.02
+// Version: V1.03
 // Description: NumericUpDown control exposing value, minimum, maximum and increment properties.
 
 using System;
@@ -198,11 +198,42 @@ public class NebulaNumericUpDown : Control
         {
             CommitText();
             e.Handled = true;
+            return;
         }
 
         if (e.Key == Key.Escape)
         {
             UpdateText();
+            e.Handled = true;
+            return;
+        }
+
+        if (e.Key == Key.Up)
+        {
+            CommitText();
+            ChangeValue(Step);
+            e.Handled = true;
+            return;
+        }
+
+        if (e.Key == Key.Down)
+        {
+            CommitText();
+            ChangeValue(-Step);
+            e.Handled = true;
+            return;
+        }
+
+        if (e.Key == Key.Home)
+        {
+            Value = Minimum;
+            e.Handled = true;
+            return;
+        }
+
+        if (e.Key == Key.End)
+        {
+            Value = Maximum;
             e.Handled = true;
         }
     }

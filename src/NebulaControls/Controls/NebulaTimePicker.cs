@@ -499,6 +499,14 @@ public class NebulaTimePicker : Control
 
         if (e.Key == Key.Enter)
         {
+            if (!IsDropDownOpen)
+            {
+                CommitText();
+                IsDropDownOpen = true;
+                e.Handled = true;
+                return;
+            }
+
             CommitText();
             IsDropDownOpen = false;
             e.Handled = true;
@@ -525,7 +533,58 @@ public class NebulaTimePicker : Control
         {
             IsDropDownOpen = !IsDropDownOpen;
             e.Handled = true;
+            return;
         }
+
+        if (!IsDropDownOpen)
+        {
+            return;
+        }
+
+        switch (e.Key)
+        {
+            case Key.Left:
+            case Key.Down:
+                MoveClockSelection(-1);
+                e.Handled = true;
+                break;
+
+            case Key.Right:
+            case Key.Up:
+                MoveClockSelection(1);
+                e.Handled = true;
+                break;
+
+            case Key.PageUp:
+            case Key.PageDown:
+                ToggleClockMode();
+                e.Handled = true;
+                break;
+        }
+    }
+
+    private void MoveClockSelection(int direction)
+    {
+        if (clockMode == NebulaTimePickerClockMode.Hour)
+        {
+            var currentHour = SelectedTime?.Hours ?? 0;
+            var minute = SelectedTime?.Minutes ?? 0;
+            var nextHour = (currentHour + direction + 24) % 24;
+            SelectedTime = new TimeSpan(nextHour, minute, 0);
+            return;
+        }
+
+        var currentTime = SelectedTime ?? TimeSpan.Zero;
+        var step = MinuteStep is < 1 or > 30 ? 5 : MinuteStep;
+        var totalMinutes = ((currentTime.Hours * 60) + currentTime.Minutes + (direction * step) + 1440) % 1440;
+        SelectedTime = new TimeSpan(totalMinutes / 60, totalMinutes % 60, 0);
+    }
+
+    private void ToggleClockMode()
+    {
+        SetClockMode(clockMode == NebulaTimePickerClockMode.Hour
+            ? NebulaTimePickerClockMode.Minute
+            : NebulaTimePickerClockMode.Hour);
     }
 
     private void RestoreTimeBeforeOpen()

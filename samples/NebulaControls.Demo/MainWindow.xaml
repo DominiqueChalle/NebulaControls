@@ -37,6 +37,7 @@
     <Grid>
         <DockPanel>
             <Menu DockPanel.Dock="Top"
+                  KeyboardNavigation.TabNavigation="None"
                   Style="{StaticResource NebulaWindowMenu}">
                 <MenuItem Header="File">
                     <MenuItem Header="New item"

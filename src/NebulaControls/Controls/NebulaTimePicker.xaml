@@ -17,6 +17,7 @@
         <Setter Property="SelectionBrush" Value="{DynamicResource Brush.BrandHover}"/>
         <Setter Property="SelectionOpacity" Value="0.5"/>
         <Setter Property="Padding" Value="10,0"/>
+        <Setter Property="controls:NebulaInputFocus.SelectAllOnFocus" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">

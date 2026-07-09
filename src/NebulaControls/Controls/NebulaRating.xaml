@@ -1,6 +1,6 @@
 <!--
   Nom: NebulaRating
-  Version: V1.02
+  Version: V1.03
   Description: Interactive rating control using selectable star items.
 -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -14,6 +14,7 @@
         <Setter Property="Margin" Value="0,0,4,0"/>
         <Setter Property="Padding" Value="0"/>
         <Setter Property="Content" Value="☆"/>
+        <Setter Property="Focusable" Value="False"/>
         <Setter Property="Foreground" Value="{DynamicResource Brush.TextMuted}"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
@@ -60,41 +61,56 @@
            BasedOn="{StaticResource Typography.Text.Primary}"
            TargetType="controls:NebulaRating">
         <Setter Property="Foreground" Value="{DynamicResource Brush.TextPrimary}"/>
+        <Setter Property="Focusable" Value="True"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:NebulaRating">
-                    <ItemsControl ItemsSource="{Binding Items, RelativeSource={RelativeSource TemplatedParent}}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate DataType="{x:Type controls:NebulaRatingItem}">
-                                <controls:NebulaRatingButton RatingItem="{Binding}">
-                                    <controls:NebulaRatingButton.Style>
-                                        <Style BasedOn="{StaticResource NebulaRatingStarButton}"
-                                               TargetType="controls:NebulaRatingButton">
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                                                    <Setter Property="Content" Value="★"/>
-                                                    <Setter Property="Foreground"
-                                                            Value="{DynamicResource Brush.BrandSoft}"/>
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Binding IsPreviewed}" Value="True">
-                                                    <Setter Property="Content" Value="★"/>
-                                                    <Setter Property="Foreground"
-                                                            Value="{DynamicResource Brush.Brand}"/>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </controls:NebulaRatingButton.Style>
-                                </controls:NebulaRatingButton>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                    <Border x:Name="RatingBorder"
+                            BorderBrush="Transparent"
+                            BorderThickness="1"
+                            CornerRadius="6"
+                            Padding="2"
+                            HorizontalAlignment="Left">
+                        <ItemsControl ItemsSource="{Binding Items, RelativeSource={RelativeSource TemplatedParent}}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="{x:Type controls:NebulaRatingItem}">
+                                    <controls:NebulaRatingButton RatingItem="{Binding}">
+                                        <controls:NebulaRatingButton.Style>
+                                            <Style BasedOn="{StaticResource NebulaRatingStarButton}"
+                                                   TargetType="controls:NebulaRatingButton">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                                        <Setter Property="Content" Value="★"/>
+                                                        <Setter Property="Foreground"
+                                                                Value="{DynamicResource Brush.BrandSoft}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding IsPreviewed}" Value="True">
+                                                        <Setter Property="Content" Value="★"/>
+                                                        <Setter Property="Foreground"
+                                                                Value="{DynamicResource Brush.Brand}"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </controls:NebulaRatingButton.Style>
+                                    </controls:NebulaRatingButton>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Border>
 
                     <ControlTemplate.Triggers>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter TargetName="RatingBorder"
+                                    Property="BorderBrush"
+                                    Value="{DynamicResource Brush.BorderReadOnly}"/>
+                        </Trigger>
+
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Opacity" Value="0.62"/>
                         </Trigger>
