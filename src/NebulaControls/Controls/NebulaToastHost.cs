@@ -1,5 +1,5 @@
 // Nom: NebulaToastHost
-// Version: V1.00
+// Version: V1.01
 // Description: Toast host control managing stacked notifications, auto-dismiss timers and close commands.
 
 using System.Collections.ObjectModel;
@@ -62,6 +62,31 @@ public class NebulaToastHost : ItemsControl
         Show((Style)FindResource(styleKey), title, message);
     }
 
+    public void Show(NebulaToastVariant variant, string title, string message)
+    {
+        Show(GetStyleKey(variant), title, message);
+    }
+
+    public void ShowInfo(string title, string message)
+    {
+        Show(NebulaToastVariant.Info, title, message);
+    }
+
+    public void ShowSuccess(string title, string message)
+    {
+        Show(NebulaToastVariant.Success, title, message);
+    }
+
+    public void ShowWarning(string title, string message)
+    {
+        Show(NebulaToastVariant.Warning, title, message);
+    }
+
+    public void ShowDanger(string title, string message)
+    {
+        Show(NebulaToastVariant.Danger, title, message);
+    }
+
     public void Show(Style style, string title, string message)
     {
         var toast = new NebulaToastNotification(style, title, message);
@@ -113,6 +138,17 @@ public class NebulaToastHost : ItemsControl
         {
             Toasts.Remove(toast);
         }
+    }
+
+    private static string GetStyleKey(NebulaToastVariant variant)
+    {
+        return variant switch
+        {
+            NebulaToastVariant.Success => "NebulaSuccessToast",
+            NebulaToastVariant.Warning => "NebulaWarningToast",
+            NebulaToastVariant.Danger => "NebulaDangerToast",
+            _ => "NebulaInfoToast"
+        };
     }
 }
 

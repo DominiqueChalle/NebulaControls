@@ -227,22 +227,22 @@ public partial class ButtonsFeedbackView : UserControl
 
     private void ShowInfoToastButton_Click(object sender, RoutedEventArgs e)
     {
-        ShowToast("NebulaInfoToast", "Information", "NebulaControls demo is running with the current theme.");
+        ShowToast(NebulaToastVariant.Info, "Information", "NebulaControls demo is running with the current theme.");
     }
 
     private void ShowSuccessToastButton_Click(object sender, RoutedEventArgs e)
     {
-        ShowToast("NebulaSuccessToast", "File saved", "Your local settings were saved successfully.");
+        ShowToast(NebulaToastVariant.Success, "File saved", "Your local settings were saved successfully.");
     }
 
     private void ShowWarningToastButton_Click(object sender, RoutedEventArgs e)
     {
-        ShowToast("NebulaWarningToast", "Review suggested", "Some optional fields are still empty.");
+        ShowToast(NebulaToastVariant.Warning, "Review suggested", "Some optional fields are still empty.");
     }
 
     private void ShowDangerToastButton_Click(object sender, RoutedEventArgs e)
     {
-        ShowToast("NebulaDangerToast", "Sync failed", "The remote server could not be reached.");
+        ShowToast(NebulaToastVariant.Danger, "Sync failed", "The remote server could not be reached.");
     }
 
     private void FeedbackRating_ValueChanged(object sender, System.EventArgs e)
@@ -342,9 +342,9 @@ public partial class ButtonsFeedbackView : UserControl
         InteractiveAlertMessage.Text = message;
     }
 
-    private void ShowToast(string styleKey, string title, string message)
+    private void ShowToast(NebulaToastVariant variant, string title, string message)
     {
-        ToastRequested?.Invoke(this, new ToastRequestedEventArgs(styleKey, title, message));
+        ToastRequested?.Invoke(this, new ToastRequestedEventArgs(variant, title, message));
     }
 
     private void UpdateDialogResult(string scenario, NebulaDialogResult result)
@@ -360,9 +360,9 @@ public partial class ButtonsFeedbackView : UserControl
     private sealed record ChipDemoItem(string Name, string Category);
 }
 
-public sealed class ToastRequestedEventArgs(string styleKey, string title, string message) : EventArgs
+public sealed class ToastRequestedEventArgs(NebulaToastVariant variant, string title, string message) : EventArgs
 {
-    public string StyleKey { get; } = styleKey;
+    public NebulaToastVariant Variant { get; } = variant;
 
     public string Title { get; } = title;
 

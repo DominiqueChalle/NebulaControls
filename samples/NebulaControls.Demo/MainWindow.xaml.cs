@@ -56,7 +56,7 @@ public partial class MainWindow : NebulaWindow
     {
         if (sender is MenuItem item)
         {
-            ToastHost.Show("NebulaInfoToast", "Menu command", $"{item.Header} selected.");
+            ToastHost.ShowInfo("Menu command", $"{item.Header} selected.");
         }
     }
 
@@ -137,7 +137,7 @@ public partial class MainWindow : NebulaWindow
 
     private void ButtonsFeedbackView_ToastRequested(object? sender, ToastRequestedEventArgs e)
     {
-        ToastHost.Show(e.StyleKey, e.Title, e.Message);
+        ToastHost.Show(e.Variant, e.Title, e.Message);
     }
 }
 

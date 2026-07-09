@@ -816,7 +816,7 @@ public sealed class DemoDataGridRepository
             new(1013, "NebulaWindow", "V1", "Validated", "Shell", "Dominique", "High", "2026-07-05", "Custom Windows 11 shell with DWM rounded corners"),
             new(1014, "NebulaBadge", "V2", "Validated", "Feedback", "Dominique", "Medium", "2026-06-25", "Compact status labels and variants"),
             new(1015, "NebulaChip", "V2", "Validated", "Feedback", "Dominique", "Medium", "2026-07-05", "Selectable and removable filter tokens"),
-            new(1016, "NebulaToast", "V2", "Validated", "Feedback", "Dominique", "High", "2026-07-05", "Stacked temporary notifications with individual timers"),
+            new(1016, "NebulaToast", "V2", "Validated", "Feedback", "Dominique", "High", "2026-07-09", "Stacked notifications with variants, timers and host API"),
             new(1017, "NebulaRating", "V2", "Validated", "Feedback", "Dominique", "Medium", "2026-06-27", "Interactive star rating with read-only and disabled states"),
             new(1018, "NebulaCheckBox", "Final", "Validated", "Selection", "Dominique", "Medium", "2026-06-25", "Checked, unchecked, indeterminate and disabled states"),
             new(1019, "NebulaRadioButton", "Final", "Validated", "Selection", "Dominique", "Medium", "2026-06-25", "Choice selection states"),
