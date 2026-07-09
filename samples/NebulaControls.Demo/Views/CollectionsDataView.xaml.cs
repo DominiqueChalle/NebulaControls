@@ -87,6 +87,14 @@ public partial class CollectionsDataView : UserControl
         return null;
     }
 
+    private void ContextMenuItem_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is MenuItem item)
+        {
+            ContextMenuResultText.Text = $"Context menu command: {item.Header}";
+        }
+    }
+
     private void DataGridRows_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
         if (e.NewItems is not null)
