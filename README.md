@@ -61,6 +61,7 @@ More screenshots:
 - `NebulaAlert`
 - `NebulaBadge`
 - `NebulaDialog`
+- `NebulaMessageBox`
 - `NebulaRating`
 - `NebulaSpinner`
 - `NebulaToast`

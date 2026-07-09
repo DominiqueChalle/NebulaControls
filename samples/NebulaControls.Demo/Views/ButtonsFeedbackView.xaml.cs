@@ -1,4 +1,4 @@
-﻿using System.Windows;
+using System.Windows;
 using System.Windows.Controls;
 using NebulaControls.Controls;
 
@@ -14,6 +14,7 @@ public partial class ButtonsFeedbackView : UserControl
         new("NebulaAlert", "Feedback"),
         new("NebulaRating", "Feedback"),
         new("NebulaChip", "Feedback"),
+        new("NebulaMessageBox", "Feedback"),
         new("NebulaAvatar", "New controls"),
         new("NebulaDatePicker", "New controls")
     ];
@@ -125,6 +126,83 @@ public partial class ButtonsFeedbackView : UserControl
 
         var rememberState = rememberCheckBox.IsChecked == true ? "checked" : "unchecked";
         DialogResultText.Text = $"Custom closed with {result}. Checkbox is {rememberState}. Note: \"{noteTextBox.Text}\".";
+    }
+
+    private void ShowGenericMessageBoxButton_Click(object sender, RoutedEventArgs e)
+    {
+        var result = NebulaMessageBox.Show(
+            Window.GetWindow(this),
+            NebulaMessageBoxIcon.Info,
+            "MessageBox OK",
+            "This call uses the shortest NebulaMessageBox overload with a single OK button.");
+
+        UpdateMessageBoxResult("OK", result);
+    }
+
+    private void ShowInfoMessageBoxButton_Click(object sender, RoutedEventArgs e)
+    {
+        var result = NebulaMessageBox.ShowInfo(
+            Window.GetWindow(this),
+            "Information",
+            "The operation completed and no action is required.");
+
+        UpdateMessageBoxResult("Info", result);
+    }
+
+    private void ShowSuccessMessageBoxButton_Click(object sender, RoutedEventArgs e)
+    {
+        var result = NebulaMessageBox.ShowSuccess(
+            Window.GetWindow(this),
+            "Saved",
+            "Your changes have been saved.");
+
+        UpdateMessageBoxResult("Success", result);
+    }
+
+    private void ShowWarningMessageBoxButton_Click(object sender, RoutedEventArgs e)
+    {
+        var result = NebulaMessageBox.Show(
+            Window.GetWindow(this),
+            NebulaMessageBoxIcon.Warning,
+            "Continue?",
+            "This preset returns OK or Cancel.",
+            NebulaMessageBoxButtons.OKCancel);
+
+        UpdateMessageBoxResult("OK / Cancel", result);
+    }
+
+    private void ShowDangerMessageBoxButton_Click(object sender, RoutedEventArgs e)
+    {
+        var result = NebulaMessageBox.Show(
+            Window.GetWindow(this),
+            NebulaMessageBoxIcon.Danger,
+            "Delete selected item",
+            "This action cannot be undone.",
+            NebulaMessageBoxButtons.OKCancel);
+
+        UpdateMessageBoxResult("Danger", result);
+    }
+
+    private void ShowQuestionMessageBoxButton_Click(object sender, RoutedEventArgs e)
+    {
+        var result = NebulaMessageBox.ShowQuestion(
+            Window.GetWindow(this),
+            "Apply recommended settings?",
+            "This shortcut returns Yes or No.");
+
+        UpdateMessageBoxResult("Yes / No", result);
+    }
+
+    private void ShowYesNoCancelMessageBoxButton_Click(object sender, RoutedEventArgs e)
+    {
+        var result = NebulaMessageBox.Show(
+            Window.GetWindow(this),
+            NebulaMessageBoxIcon.Question,
+            "Save before closing?",
+            "This preset returns Yes, No, Cancel, or Close.",
+            NebulaMessageBoxButtons.YesNoCancel);
+
+        UpdateMessageBoxResult("Yes / No / Cancel", result);
     }
 
     private void ShowInfoAlertButton_Click(object sender, RoutedEventArgs e)
@@ -272,6 +350,11 @@ public partial class ButtonsFeedbackView : UserControl
     private void UpdateDialogResult(string scenario, NebulaDialogResult result)
     {
         DialogResultText.Text = $"{scenario} closed with {result}.";
+    }
+
+    private void UpdateMessageBoxResult(string scenario, NebulaMessageBoxResult result)
+    {
+        MessageBoxResultText.Text = $"{scenario} returned {result}.";
     }
 
     private sealed record ChipDemoItem(string Name, string Category);

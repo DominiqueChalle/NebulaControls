@@ -5,5 +5,6 @@ public enum NebulaDialogVariant
     Info,
     Success,
     Warning,
-    Danger
+    Danger,
+    Question
 }

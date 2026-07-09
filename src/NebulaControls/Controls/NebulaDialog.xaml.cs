@@ -1,5 +1,5 @@
-﻿// Nom: NebulaDialog
-// Version: V1.04
+// Nom: NebulaDialog
+// Version: V1.05
 // Description: Dialog window logic exposing variants, content, convenience APIs, buttons and modal result behavior.
 
 using System.Windows;
@@ -340,8 +340,9 @@ public partial class NebulaDialog : Window
             _ => null
         };
 
-        if (Variant == NebulaDialogVariant.Info)
+        if (Variant is NebulaDialogVariant.Info or NebulaDialogVariant.Question)
         {
+            InfoIconText.Text = Variant == NebulaDialogVariant.Question ? "?" : "i";
             IconPath.Visibility = Visibility.Collapsed;
             InfoIconText.Visibility = Visibility.Visible;
         }
