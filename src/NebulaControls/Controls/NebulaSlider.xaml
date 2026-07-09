@@ -1,6 +1,6 @@
 <!--
   Nom: NebulaSlider
-  Version: V1.02
+  Version: V1.06
   Description: Defines Nebula slider styling for continuous numeric selection.
 -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -73,6 +73,7 @@
         <Setter Property="Foreground" Value="{DynamicResource Brush.AccentDisabled}"/>
         <Setter Property="Background" Value="{DynamicResource Brush.SurfaceActive}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource Brush.Border}"/>
+        <Setter Property="SmallChange" Value="1"/>
         <Setter Property="MinHeight" Value="36"/>
         <Setter Property="MinWidth" Value="120"/>
         <Setter Property="TickPlacement" Value="None"/>
@@ -83,6 +84,7 @@
                     <Grid x:Name="Root"
                           MinHeight="{TemplateBinding MinHeight}"
                           MinWidth="{TemplateBinding MinWidth}"
+                          Background="Transparent"
                           SnapsToDevicePixels="True">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="8"/>
@@ -131,6 +133,17 @@
                             </Track.IncreaseRepeatButton>
                         </Track>
 
+                        <Border x:Name="FocusRing"
+                                Grid.Row="1"
+                                Grid.ColumnSpan="3"
+                                Height="24"
+                                Margin="-6,0"
+                                BorderBrush="{DynamicResource Brush.BorderFocus}"
+                                BorderThickness="1"
+                                CornerRadius="12"
+                                Opacity="0"
+                                IsHitTestVisible="False"/>
+
                         <TickBar x:Name="BottomTick"
                                  Grid.Row="2"
                                  Grid.ColumnSpan="3"
@@ -148,7 +161,11 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsKeyboardFocusWithin" Value="True">
-                            <Setter Property="BorderBrush"
+                            <Setter TargetName="FocusRing"
+                                    Property="Opacity"
+                                    Value="1"/>
+                            <Setter TargetName="SliderThumb"
+                                    Property="BorderBrush"
                                     Value="{DynamicResource Brush.BorderFocus}"/>
                         </Trigger>
 
@@ -220,6 +237,27 @@
                             <Setter TargetName="PART_Track"
                                     Property="IsDirectionReversed"
                                     Value="False"/>
+                            <Setter TargetName="FocusRing"
+                                    Property="Grid.Row"
+                                    Value="0"/>
+                            <Setter TargetName="FocusRing"
+                                    Property="Grid.RowSpan"
+                                    Value="3"/>
+                            <Setter TargetName="FocusRing"
+                                    Property="Grid.Column"
+                                    Value="1"/>
+                            <Setter TargetName="FocusRing"
+                                    Property="Grid.ColumnSpan"
+                                    Value="1"/>
+                            <Setter TargetName="FocusRing"
+                                    Property="Width"
+                                    Value="24"/>
+                            <Setter TargetName="FocusRing"
+                                    Property="Height"
+                                    Value="Auto"/>
+                            <Setter TargetName="FocusRing"
+                                    Property="Margin"
+                                    Value="0,-6"/>
                             <Setter TargetName="SliderThumb"
                                     Property="Margin"
                                     Value="-5,-1"/>

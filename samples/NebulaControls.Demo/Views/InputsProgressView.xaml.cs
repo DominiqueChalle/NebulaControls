@@ -170,5 +170,16 @@ public partial class InputsProgressView : UserControl
             : comboBox.SelectedItem?.ToString() ?? "none";
     }
 
+    private void Slider_ValueChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<double> e)
+    {
+        if (SliderValueText is null)
+        {
+            return;
+        }
+
+        SliderValueText.Text =
+            $"Slider values: standard {StandardSlider.Value:0}, tick {TickSlider.Value:0}, custom {CustomTicksSlider.Value:0}, vertical {VerticalSlider.Value:0} / {VerticalTickSlider.Value:0}";
+    }
+
     public sealed record SearchDemoItem(string Name, string Category, string Description);
 }

@@ -1,6 +1,6 @@
 <!--
   Nom: NebulaProgressBar
-  Version: V1.02
+  Version: V1.03
   Description: Defines Nebula progress bar styling for determinate progress feedback.
 -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -13,32 +13,36 @@
         <Setter Property="BorderBrush" Value="{DynamicResource Brush.Border}"/>
         <Setter Property="BorderThickness" Value="2"/>
         <Setter Property="Foreground" Value="{DynamicResource Brush.Brand}"/>
-        <Setter Property="MinHeight" Value="14"/>
+        <Setter Property="MinHeight" Value="18"/>
+        <Setter Property="MinWidth" Value="120"/>
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="IsTabStop" Value="False"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:NebulaProgressBar">
                     <Grid x:Name="Root"
                           MinHeight="{TemplateBinding MinHeight}"
+                          MinWidth="{TemplateBinding MinWidth}"
                           SnapsToDevicePixels="True"
                           ClipToBounds="True">
                         <Border x:Name="PART_Track"
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="7"/>
+                                CornerRadius="9"/>
 
                         <Grid Margin="{TemplateBinding BorderThickness}"
                               ClipToBounds="True">
                             <Border x:Name="PART_Indicator"
                                     HorizontalAlignment="Left"
                                     Background="{TemplateBinding Foreground}"
-                                    CornerRadius="5"/>
+                                    CornerRadius="7"/>
 
                             <Border x:Name="IndeterminateIndicator"
                                     Width="92"
                                     HorizontalAlignment="Left"
                                     Background="{DynamicResource Brush.BrandHover}"
-                                    CornerRadius="5"
+                                    CornerRadius="7"
                                     Opacity="0"
                                     RenderTransformOrigin="0.5,0.5">
                                 <Border.RenderTransform>
@@ -46,13 +50,32 @@
                                 </Border.RenderTransform>
                             </Border>
                         </Grid>
+
+                        <TextBlock x:Name="ValueTextBlock"
+                                   Text="{TemplateBinding ProgressText}"
+                                   Foreground="{DynamicResource Brush.TextOnAccent}"
+                                   FontSize="11"
+                                   FontWeight="SemiBold"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Visibility="Collapsed"
+                                   IsHitTestVisible="False"/>
                     </Grid>
 
                     <ControlTemplate.Triggers>
+                        <Trigger Property="ShowValueText" Value="True">
+                            <Setter TargetName="ValueTextBlock"
+                                    Property="Visibility"
+                                    Value="Visible"/>
+                        </Trigger>
+
                         <Trigger Property="IsIndeterminate" Value="True">
                             <Setter TargetName="PART_Indicator"
                                     Property="Opacity"
                                     Value="0"/>
+                            <Setter TargetName="ValueTextBlock"
+                                    Property="Visibility"
+                                    Value="Collapsed"/>
                             <Setter TargetName="IndeterminateIndicator"
                                     Property="Opacity"
                                     Value="1"/>
@@ -73,12 +96,25 @@
                         </Trigger>
 
                         <Trigger Property="Orientation" Value="Vertical">
+                            <Setter Property="MinWidth"
+                                    Value="14"/>
+                            <Setter Property="MinHeight"
+                                    Value="120"/>
+                            <Setter TargetName="Root"
+                                    Property="MinWidth"
+                                    Value="14"/>
+                            <Setter TargetName="Root"
+                                    Property="MinHeight"
+                                    Value="120"/>
                             <Setter TargetName="PART_Indicator"
                                     Property="HorizontalAlignment"
                                     Value="Stretch"/>
                             <Setter TargetName="PART_Indicator"
                                     Property="VerticalAlignment"
                                     Value="Bottom"/>
+                            <Setter TargetName="ValueTextBlock"
+                                    Property="Visibility"
+                                    Value="Collapsed"/>
                             <Setter TargetName="PART_Track"
                                     Property="CornerRadius"
                                     Value="7"/>
