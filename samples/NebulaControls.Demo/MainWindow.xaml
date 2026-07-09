@@ -39,23 +39,32 @@
             <Menu DockPanel.Dock="Top"
                   Style="{StaticResource NebulaWindowMenu}">
                 <MenuItem Header="File">
-                    <MenuItem Header="New item"/>
-                    <MenuItem Header="Open"/>
+                    <MenuItem Header="New item"
+                              Click="MenuCommand_Click"/>
+                    <MenuItem Header="Open"
+                              Click="MenuCommand_Click"/>
                     <Separator Style="{StaticResource NebulaMenuSeparator}"/>
                     <MenuItem Header="Exit"
                               Click="ExitMenuItem_Click"/>
                 </MenuItem>
                 <MenuItem Header="Edit">
-                    <MenuItem Header="Undo"/>
-                    <MenuItem Header="Redo"/>
+                    <MenuItem Header="Undo"
+                              Click="MenuCommand_Click"/>
+                    <MenuItem Header="Redo"
+                              Click="MenuCommand_Click"/>
                 </MenuItem>
                 <MenuItem Header="View">
-                    <MenuItem Header="Controls"/>
-                    <MenuItem Header="Inputs"/>
-                    <MenuItem Header="Data"/>
+                    <MenuItem Header="Controls"
+                              Click="MenuCommand_Click"/>
+                    <MenuItem Header="Inputs"
+                              Click="MenuCommand_Click"/>
+                    <MenuItem Header="Data"
+                              Click="MenuCommand_Click"/>
                     <MenuItem Header="More">
-                        <MenuItem Header="Status bar"/>
-                        <MenuItem Header="Diagnostics"/>
+                        <MenuItem Header="Status bar"
+                                  Click="MenuCommand_Click"/>
+                        <MenuItem Header="Diagnostics"
+                                  Click="MenuCommand_Click"/>
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="Paramètre">
@@ -69,7 +78,8 @@
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="Help">
-                    <MenuItem Header="About NebulaControls"/>
+                    <MenuItem Header="About NebulaControls"
+                              Click="AboutMenuItem_Click"/>
                 </MenuItem>
             </Menu>
 

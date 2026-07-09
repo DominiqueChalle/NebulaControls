@@ -52,6 +52,24 @@ public partial class MainWindow : NebulaWindow
         Close();
     }
 
+    private void MenuCommand_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is MenuItem item)
+        {
+            ToastHost.Show("NebulaInfoToast", "Menu command", $"{item.Header} selected.");
+        }
+    }
+
+    private void AboutMenuItem_Click(object sender, RoutedEventArgs e)
+    {
+        var aboutWindow = new AboutWindow
+        {
+            Owner = this
+        };
+
+        aboutWindow.ShowDialog();
+    }
+
     private void ApplyDarkPurpleThemeMenuItem_Click(object sender, RoutedEventArgs e)
     {
         ApplyTheme(NebulaTheme.NebulaDarkPurple);
