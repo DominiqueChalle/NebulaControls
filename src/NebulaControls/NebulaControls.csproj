@@ -16,7 +16,7 @@
     <RepositoryUrl>https://github.com/DominiqueChalle/NebulaControls</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageReleaseNotes>NebulaControls V1.0.2 beta: introduces the clock-based NebulaTimePicker, keeps DatePicker and TimePicker as the official picker surface, removes the experimental DateTimePicker, and cleans the public demo.</PackageReleaseNotes>
+    <PackageReleaseNotes>NebulaControls V1.0.2 beta: improves keyboard navigation and focus visibility across core controls, adds typed NebulaToastHost APIs, refines demo focus/scroll behavior, and keeps the custom DatePicker and clock-based TimePicker as the official picker surface.</PackageReleaseNotes>
     <PackageOutputPath>..\..\artifacts\packages</PackageOutputPath>
   </PropertyGroup>
 

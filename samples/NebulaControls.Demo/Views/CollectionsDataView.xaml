@@ -111,9 +111,9 @@
     </UserControl.Resources>
 
     <ScrollViewer behaviors:ScrollFocusBehavior.TrackKeyboardFocus="True"
-                  KeyboardNavigation.TabNavigation="Cycle"
         VerticalScrollBarVisibility="Auto">
-        <UniformGrid Columns="2">
+        <UniformGrid Columns="2"
+                     KeyboardNavigation.TabNavigation="Cycle">
             <Border Style="{StaticResource DemoCard}">
                 <StackPanel>
                     <TextBlock Text="ListBox"

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -25,6 +26,21 @@ public static class ScrollFocusBehavior
     public static void SetTrackKeyboardFocus(DependencyObject element, bool value)
     {
         element.SetValue(TrackKeyboardFocusProperty, value);
+    }
+
+    public static bool FocusFirstKeyboardTarget(DependencyObject root)
+    {
+        foreach (var element in GetFocusableDescendants(root))
+        {
+            if (element.Focus())
+            {
+                Keyboard.Focus(element);
+                element.BringIntoView(new Rect(0, 0, element.ActualWidth, element.ActualHeight));
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private static void OnTrackKeyboardFocusChanged(DependencyObject element, DependencyPropertyChangedEventArgs e)
@@ -88,5 +104,35 @@ public static class ScrollFocusBehavior
         }
 
         return LogicalTreeHelper.GetParent(element);
+    }
+
+    private static IEnumerable<FrameworkElement> GetFocusableDescendants(DependencyObject root)
+    {
+        var count = VisualTreeHelper.GetChildrenCount(root);
+
+        for (var index = 0; index < count; index++)
+        {
+            var child = VisualTreeHelper.GetChild(root, index);
+
+            if (child is FrameworkElement element && IsKeyboardNavigationTarget(element))
+            {
+                yield return element;
+            }
+
+            foreach (var descendant in GetFocusableDescendants(child))
+            {
+                yield return descendant;
+            }
+        }
+    }
+
+    private static bool IsKeyboardNavigationTarget(FrameworkElement element)
+    {
+        if (!element.Focusable || !element.IsVisible || !element.IsEnabled)
+        {
+            return false;
+        }
+
+        return element is not Control control || control.IsTabStop;
     }
 }

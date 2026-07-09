@@ -1,7 +1,9 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 using NebulaControls.Controls;
+using NebulaControls.Demo.Behaviors;
 using NebulaControls.Demo.Views;
 using NebulaControls.Theming;
 
@@ -116,6 +118,10 @@ public partial class MainWindow : NebulaWindow
 
         selectedView.DataContext = this;
         DemoContentHost.Content = selectedView;
+
+        Dispatcher.BeginInvoke(
+            () => ScrollFocusBehavior.FocusFirstKeyboardTarget(selectedView),
+            DispatcherPriority.ContextIdle);
     }
 
     private void ApplyTheme(NebulaTheme theme)
