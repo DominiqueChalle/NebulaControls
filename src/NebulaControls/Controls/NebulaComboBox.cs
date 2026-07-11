@@ -1,5 +1,5 @@
 // Nom: NebulaComboBox
-// Version: V1.03
+// Version: V1.06
 // Description: ComboBox base control used by Nebula selection inputs.
 
 using System;
@@ -11,6 +11,11 @@ namespace NebulaControls.Controls;
 
 public class NebulaComboBox : ComboBox
 {
+    private bool _skipNextEditableValidation;
+    private bool _hasRestoreSnapshot;
+    private object? _restoreSelectedItem;
+    private string _restoreText = string.Empty;
+
     public static readonly DependencyProperty RejectInvalidTextProperty =
         DependencyProperty.Register(
             nameof(RejectInvalidText),
@@ -26,10 +31,23 @@ public class NebulaComboBox : ComboBox
 
     protected override void OnPreviewKeyDown(KeyEventArgs e)
     {
-        base.OnPreviewKeyDown(e);
+        if ((e.Key == Key.Down || e.Key == Key.Up) && !IsDropDownOpen)
+        {
+            IsDropDownOpen = true;
+            e.Handled = true;
+            return;
+        }
 
         if (e.Key == Key.Enter)
         {
+            if (!IsDropDownOpen)
+            {
+                CaptureRestoreSnapshot();
+                IsDropDownOpen = true;
+                e.Handled = true;
+                return;
+            }
+
             if (!IsEditable)
             {
                 CommitHighlightedItem();
@@ -44,17 +62,49 @@ public class NebulaComboBox : ComboBox
             return;
         }
 
-        if (e.Key == Key.Escape && IsEditable)
+        if (e.Key == Key.Escape && IsDropDownOpen)
         {
-            RestoreSelectedText();
+            if (IsEditable)
+            {
+                RestoreSnapshot();
+            }
+
+            _skipNextEditableValidation = true;
             IsDropDownOpen = false;
             e.Handled = true;
+            return;
         }
+
+        if (e.Key == Key.Escape && IsEditable)
+        {
+            RestoreSnapshot();
+            _skipNextEditableValidation = true;
+            IsDropDownOpen = false;
+            e.Handled = true;
+            return;
+        }
+
+        base.OnPreviewKeyDown(e);
+    }
+
+    protected override void OnDropDownOpened(EventArgs e)
+    {
+        CaptureRestoreSnapshot();
+        base.OnDropDownOpened(e);
     }
 
     protected override void OnDropDownClosed(EventArgs e)
     {
-        ValidateEditableText();
+        if (_skipNextEditableValidation)
+        {
+            _skipNextEditableValidation = false;
+        }
+        else
+        {
+            ValidateEditableText();
+        }
+
+        ClearRestoreSnapshot();
         base.OnDropDownClosed(e);
     }
 
@@ -62,6 +112,12 @@ public class NebulaComboBox : ComboBox
     {
         ValidateEditableText();
         base.OnLostKeyboardFocus(e);
+    }
+
+    protected override void OnGotKeyboardFocus(KeyboardFocusChangedEventArgs e)
+    {
+        CaptureRestoreSnapshot();
+        base.OnGotKeyboardFocus(e);
     }
 
     private void ValidateEditableText()
@@ -90,6 +146,37 @@ public class NebulaComboBox : ComboBox
         Text = SelectedItem is null
             ? string.Empty
             : GetItemText(SelectedItem);
+    }
+
+    private void CaptureRestoreSnapshot()
+    {
+        if (!IsEditable || _hasRestoreSnapshot)
+        {
+            return;
+        }
+
+        _restoreSelectedItem = SelectedItem;
+        _restoreText = Text;
+        _hasRestoreSnapshot = true;
+    }
+
+    private void RestoreSnapshot()
+    {
+        if (!_hasRestoreSnapshot)
+        {
+            RestoreSelectedText();
+            return;
+        }
+
+        SelectedItem = _restoreSelectedItem;
+        Text = _restoreText;
+    }
+
+    private void ClearRestoreSnapshot()
+    {
+        _restoreSelectedItem = null;
+        _restoreText = string.Empty;
+        _hasRestoreSnapshot = false;
     }
 
     private void CommitHighlightedItem()

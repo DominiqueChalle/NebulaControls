@@ -1,6 +1,6 @@
 <!--
   Nom: NebulaComboBox
-  Version: V1.03
+  Version: V1.06
   Description: Defines Nebula combo box styling for selection and editable input scenarios.
 -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"

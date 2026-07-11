@@ -160,7 +160,8 @@ public partial class InputsProgressView : UserControl
             return;
         }
 
-        ComboBoxSelectionText.Text = $"Selected ComboBox value: {GetComboBoxSelectionText(comboBox)}";
+        var source = comboBox.Tag?.ToString() ?? "ComboBox";
+        ComboBoxSelectionText.Text = $"{source} selected value: {GetComboBoxSelectionText(comboBox)}";
     }
 
     private static string GetComboBoxSelectionText(ComboBox comboBox)

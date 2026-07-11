@@ -134,6 +134,7 @@
                         <ListBoxItem Content="Navigation"/>
                         <ListBoxItem Content="Disabled"
                                      IsEnabled="False"/>
+                        <ListBoxItem Content="After disabled"/>
                     </nebula:NebulaListBox>
                     <TextBlock Text="Disabled ListBox"
                                Style="{StaticResource Typography.TextBlock.Secondary}"

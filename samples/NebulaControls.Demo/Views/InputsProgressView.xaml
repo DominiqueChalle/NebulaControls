@@ -382,6 +382,7 @@
                     <nebula:NebulaComboBox Style="{StaticResource NebulaComboBox}"
                                            Width="300"
                                            SelectedIndex="0"
+                                           Tag="Standard ComboBox"
                                            SelectionChanged="ComboBox_SelectionChanged"
                                            HorizontalAlignment="Left"
                                            Margin="0,0,0,16">
@@ -395,7 +396,8 @@
                                Margin="0,0,0,8"/>
                     <nebula:NebulaComboBox Style="{StaticResource NebulaComboBox}"
                                            Width="300"
-                                           SelectedIndex="1"
+                                           SelectedIndex="0"
+                                           Tag="With disabled item"
                                            SelectionChanged="ComboBox_SelectionChanged"
                                            HorizontalAlignment="Left"
                                            Margin="0,0,0,16">
@@ -412,6 +414,7 @@
                                            Width="300"
                                            IsEditable="True"
                                            SelectedIndex="0"
+                                           Tag="Editable ComboBox"
                                            SelectionChanged="ComboBox_SelectionChanged"
                                            HorizontalAlignment="Left"
                                            Margin="0,0,0,16">

@@ -1,6 +1,6 @@
 <!--
   Nom: NebulaListBox
-  Version: V1.03
+  Version: V1.05
   Description: Defines Nebula list box and list item styling with smooth item scrolling.
 -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
