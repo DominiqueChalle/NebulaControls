@@ -1,5 +1,5 @@
 // Nom: NebulaNumericUpDown
-// Version: V1.03
+// Version: V1.04
 // Description: NumericUpDown control exposing value, minimum, maximum and increment properties.
 
 using System;
@@ -29,6 +29,7 @@ public class NebulaNumericUpDown : Control
     {
         decreaseCommand = new NebulaRelayCommand(_ => ChangeValue(-Step), _ => CanDecrease());
         increaseCommand = new NebulaRelayCommand(_ => ChangeValue(Step), _ => CanIncrease());
+        AddHandler(MouseWheelEvent, new MouseWheelEventHandler(HandleMouseWheel), true);
     }
 
     public static readonly DependencyProperty ValueProperty =
@@ -194,6 +195,12 @@ public class NebulaNumericUpDown : Control
 
     private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
     {
+        if (e.Key == Key.Tab)
+        {
+            CommitText();
+            return;
+        }
+
         if (e.Key == Key.Enter)
         {
             CommitText();
@@ -224,6 +231,22 @@ public class NebulaNumericUpDown : Control
             return;
         }
 
+        if (e.Key == Key.PageUp)
+        {
+            CommitText();
+            ChangeValue(GetLargeStep());
+            e.Handled = true;
+            return;
+        }
+
+        if (e.Key == Key.PageDown)
+        {
+            CommitText();
+            ChangeValue(-GetLargeStep());
+            e.Handled = true;
+            return;
+        }
+
         if (e.Key == Key.Home)
         {
             Value = Minimum;
@@ -236,6 +259,18 @@ public class NebulaNumericUpDown : Control
             Value = Maximum;
             e.Handled = true;
         }
+    }
+
+    private void HandleMouseWheel(object sender, MouseWheelEventArgs e)
+    {
+        if (e.Handled || !IsEnabled || IsReadOnly)
+        {
+            return;
+        }
+
+        CommitText();
+        ChangeValue(e.Delta > 0 ? Step : -Step);
+        e.Handled = true;
     }
 
     private void CommitText()
@@ -297,5 +332,12 @@ public class NebulaNumericUpDown : Control
     {
         decreaseCommand.RaiseCanExecuteChanged();
         increaseCommand.RaiseCanExecuteChanged();
+    }
+
+    private double GetLargeStep()
+    {
+        return Step > 0
+            ? Step * 10d
+            : 10d;
     }
 }

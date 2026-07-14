@@ -1,5 +1,5 @@
 // Nom: NebulaTreeView
-// Version: V1.05
+// Version: V1.06
 // Description: TreeView base control for hierarchical Nebula navigation or selection with committed selection events.
 
 using System.Windows;
@@ -22,6 +22,12 @@ public class NebulaTreeView : TreeView
 
     private bool selectionStartedOnExpander;
     private bool commitSelectionOnNextChange;
+    private ScrollViewer? scrollViewer;
+
+    public NebulaTreeView()
+    {
+        AddHandler(MouseWheelEvent, new MouseWheelEventHandler(HandleMouseWheel), true);
+    }
 
     public static readonly DependencyProperty CommitBranchItemsProperty =
         DependencyProperty.Register(
@@ -40,6 +46,17 @@ public class NebulaTreeView : TreeView
     {
         add => AddHandler(SelectionCommittedEvent, value);
         remove => RemoveHandler(SelectionCommittedEvent, value);
+    }
+
+    public override void OnApplyTemplate()
+    {
+        base.OnApplyTemplate();
+        scrollViewer = GetTemplateChild("PART_ScrollViewer") as ScrollViewer;
+    }
+
+    protected override void OnPreviewMouseWheel(MouseWheelEventArgs e)
+    {
+        ScrollFromWheel(e);
     }
 
     protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
@@ -76,6 +93,36 @@ public class NebulaTreeView : TreeView
             return;
         }
 
+    }
+
+    private void HandleMouseWheel(object sender, MouseWheelEventArgs e)
+    {
+        if (e.Handled)
+        {
+            return;
+        }
+
+        ScrollFromWheel(e);
+    }
+
+    private void ScrollFromWheel(MouseWheelEventArgs e)
+    {
+        if (scrollViewer is null)
+        {
+            base.OnPreviewMouseWheel(e);
+            return;
+        }
+
+        if (e.Delta < 0)
+        {
+            scrollViewer.LineDown();
+        }
+        else
+        {
+            scrollViewer.LineUp();
+        }
+
+        e.Handled = true;
     }
 
     protected override void OnKeyDown(KeyEventArgs e)

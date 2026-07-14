@@ -1,6 +1,6 @@
 <!--
   Nom: NebulaNumericUpDown
-  Version: V1.03
+  Version: V1.04
   Description: Numeric input control with increment, decrement and range clamping behavior.
 -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"

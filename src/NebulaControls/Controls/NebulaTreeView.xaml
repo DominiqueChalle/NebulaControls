@@ -1,6 +1,6 @@
 <!--
   Nom: NebulaTreeView
-  Version: V1.04
+  Version: V1.06
   Description: Hierarchical selection control with Nebula expand, selection, committed selection and disabled states.
 -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -208,7 +208,8 @@
                             CornerRadius="6"
                             MinHeight="{TemplateBinding MinHeight}"
                             SnapsToDevicePixels="True">
-                        <ScrollViewer Focusable="False"
+                        <ScrollViewer x:Name="PART_ScrollViewer"
+                                      Focusable="False"
                                       Padding="{TemplateBinding Padding}">
                             <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
                         </ScrollViewer>
