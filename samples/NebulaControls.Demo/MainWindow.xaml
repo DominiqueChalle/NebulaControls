@@ -79,6 +79,8 @@
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="Help">
+                    <MenuItem Header="Documentation preview"
+                              Click="DocumentationPreviewMenuItem_Click"/>
                     <MenuItem Header="About NebulaControls"
                               Click="AboutMenuItem_Click"/>
                 </MenuItem>

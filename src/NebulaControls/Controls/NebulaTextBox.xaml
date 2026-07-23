@@ -269,6 +269,14 @@
         <Setter Property="MinHeight" Value="46"/>
     </Style>
 
+    <Style x:Key="NebulaEmailTextBox"
+           BasedOn="{StaticResource NebulaTextBox}"
+           TargetType="controls:NebulaEmailTextBox"/>
+
+    <Style x:Key="NebulaLabeledEmailTextBox"
+           BasedOn="{StaticResource NebulaLabeledTextBox}"
+           TargetType="controls:NebulaEmailTextBox"/>
+
     <Style TargetType="{x:Type TextBlock}">
         <Setter Property="TextWrapping" Value="NoWrap"/>
         <Setter Property="TextTrimming" Value="None"/>

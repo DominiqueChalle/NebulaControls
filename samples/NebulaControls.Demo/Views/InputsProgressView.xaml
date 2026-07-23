@@ -64,15 +64,13 @@
                     <TextBlock Text="Validation"
                                Style="{StaticResource Typography.TextBlock.Secondary}"
                                Margin="0,0,0,8"/>
-                    <nebula:NebulaTextBox x:Name="EmailTextBox"
-                                          Style="{StaticResource NebulaLabeledTextBox}"
-                                          Label="Email"
-                                          Placeholder="name@example.com"
-                                          HelperText="Leave the field to validate the email address."
-                                          Width="300"
-                                          HorizontalAlignment="Left"
-                                          LostFocus="EmailTextBox_LostFocus"
-                                          Margin="0,0,0,16"/>
+                    <nebula:NebulaEmailTextBox Style="{StaticResource NebulaLabeledEmailTextBox}"
+                                               Label="Email"
+                                               Placeholder="name@example.com"
+                                               HelperText="Leave the field to validate the email address."
+                                               Width="300"
+                                               HorizontalAlignment="Left"
+                                               Margin="0,0,0,16"/>
 
                     <TextBlock Text="Sizes"
                                Style="{StaticResource Typography.TextBlock.Secondary}"

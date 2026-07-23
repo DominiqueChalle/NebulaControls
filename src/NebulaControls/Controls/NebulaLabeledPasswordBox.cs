@@ -1,6 +1,6 @@
 // Nom: NebulaLabeledPasswordBox
-// Version: V1.02
-// Description: Labeled password input control with helper text and validation state support.
+// Version: V1.03
+// Description: Labeled password input control with helper text, reveal support and configurable password rule validation.
 
 using System.Windows;
 using System.Windows.Controls;
@@ -145,10 +145,101 @@ public class NebulaLabeledPasswordBox : Control
             typeof(NebulaLabeledPasswordBox),
             new PropertyMetadata(false, OnPasswordVisibilityChanged));
 
+    public static readonly DependencyProperty PasswordRuleProperty =
+        DependencyProperty.Register(
+            nameof(PasswordRule),
+            typeof(string),
+            typeof(NebulaLabeledPasswordBox),
+            new PropertyMetadata(string.Empty));
+
+    public static readonly DependencyProperty IsPasswordRequiredProperty =
+        DependencyProperty.Register(
+            nameof(IsPasswordRequired),
+            typeof(bool),
+            typeof(NebulaLabeledPasswordBox),
+            new PropertyMetadata(false));
+
+    public static readonly DependencyProperty ValidateOnLostFocusProperty =
+        DependencyProperty.Register(
+            nameof(ValidateOnLostFocus),
+            typeof(bool),
+            typeof(NebulaLabeledPasswordBox),
+            new PropertyMetadata(true));
+
+    public static readonly DependencyProperty ValidateOnPasswordChangedProperty =
+        DependencyProperty.Register(
+            nameof(ValidateOnPasswordChanged),
+            typeof(bool),
+            typeof(NebulaLabeledPasswordBox),
+            new PropertyMetadata(false));
+
+    public static readonly DependencyProperty RequiredPasswordTextProperty =
+        DependencyProperty.Register(
+            nameof(RequiredPasswordText),
+            typeof(string),
+            typeof(NebulaLabeledPasswordBox),
+            new PropertyMetadata("Password is required."));
+
+    public static readonly DependencyProperty InvalidPasswordTextProperty =
+        DependencyProperty.Register(
+            nameof(InvalidPasswordText),
+            typeof(string),
+            typeof(NebulaLabeledPasswordBox),
+            new PropertyMetadata("Password does not match the required format."));
+
+    public static readonly DependencyProperty IsPasswordValidProperty =
+        DependencyProperty.Register(
+            nameof(IsPasswordValid),
+            typeof(bool),
+            typeof(NebulaLabeledPasswordBox),
+            new PropertyMetadata(false));
+
     public bool IsPasswordVisible
     {
         get => (bool)GetValue(IsPasswordVisibleProperty);
         set => SetValue(IsPasswordVisibleProperty, value);
+    }
+
+    public string PasswordRule
+    {
+        get => (string)GetValue(PasswordRuleProperty);
+        set => SetValue(PasswordRuleProperty, value);
+    }
+
+    public bool IsPasswordRequired
+    {
+        get => (bool)GetValue(IsPasswordRequiredProperty);
+        set => SetValue(IsPasswordRequiredProperty, value);
+    }
+
+    public bool ValidateOnLostFocus
+    {
+        get => (bool)GetValue(ValidateOnLostFocusProperty);
+        set => SetValue(ValidateOnLostFocusProperty, value);
+    }
+
+    public bool ValidateOnPasswordChanged
+    {
+        get => (bool)GetValue(ValidateOnPasswordChangedProperty);
+        set => SetValue(ValidateOnPasswordChangedProperty, value);
+    }
+
+    public string RequiredPasswordText
+    {
+        get => (string)GetValue(RequiredPasswordTextProperty);
+        set => SetValue(RequiredPasswordTextProperty, value);
+    }
+
+    public string InvalidPasswordText
+    {
+        get => (string)GetValue(InvalidPasswordTextProperty);
+        set => SetValue(InvalidPasswordTextProperty, value);
+    }
+
+    public bool IsPasswordValid
+    {
+        get => (bool)GetValue(IsPasswordValidProperty);
+        private set => SetValue(IsPasswordValidProperty, value);
     }
 
     public override void OnApplyTemplate()
@@ -156,11 +247,13 @@ public class NebulaLabeledPasswordBox : Control
         if (passwordBox is not null)
         {
             passwordBox.PasswordChanged -= OnInnerPasswordChanged;
+            passwordBox.LostFocus -= OnInnerPasswordLostFocus;
         }
 
         if (revealedTextBox is not null)
         {
             revealedTextBox.TextChanged -= OnRevealedTextChanged;
+            revealedTextBox.LostFocus -= OnRevealedTextLostFocus;
         }
 
         if (revealButton is not null)
@@ -178,12 +271,14 @@ public class NebulaLabeledPasswordBox : Control
         {
             passwordBox.Password = Password;
             passwordBox.PasswordChanged += OnInnerPasswordChanged;
+            passwordBox.LostFocus += OnInnerPasswordLostFocus;
         }
 
         if (revealedTextBox is not null)
         {
             revealedTextBox.Text = Password;
             revealedTextBox.TextChanged += OnRevealedTextChanged;
+            revealedTextBox.LostFocus += OnRevealedTextLostFocus;
         }
 
         if (revealButton is not null)
@@ -249,6 +344,8 @@ public class NebulaLabeledPasswordBox : Control
         }
 
         isUpdatingPassword = false;
+
+        ValidatePasswordIfRequested();
     }
 
     private void OnRevealedTextChanged(object sender, TextChangedEventArgs e)
@@ -266,6 +363,8 @@ public class NebulaLabeledPasswordBox : Control
         }
 
         isUpdatingPassword = false;
+
+        ValidatePasswordIfRequested();
     }
 
     private void OnRevealButtonClick(object sender, RoutedEventArgs e)
@@ -276,6 +375,114 @@ public class NebulaLabeledPasswordBox : Control
         }
 
         IsPasswordVisible = !IsPasswordVisible;
+    }
+
+    private void OnInnerPasswordLostFocus(object sender, RoutedEventArgs e)
+    {
+        ValidatePasswordOnLostFocus();
+    }
+
+    private void OnRevealedTextLostFocus(object sender, RoutedEventArgs e)
+    {
+        ValidatePasswordOnLostFocus();
+    }
+
+    public void ValidatePassword()
+    {
+        ClearPasswordValidation();
+
+        if (string.IsNullOrWhiteSpace(Password))
+        {
+            IsPasswordValid = !IsPasswordRequired;
+            if (IsPasswordRequired)
+            {
+                HasError = true;
+                ErrorText = RequiredPasswordText;
+            }
+
+            return;
+        }
+
+        if (!MatchesPasswordRule(Password, PasswordRule))
+        {
+            IsPasswordValid = false;
+            HasWarning = true;
+            WarningText = InvalidPasswordText;
+            return;
+        }
+
+        IsPasswordValid = true;
+    }
+
+    private void ValidatePasswordIfRequested()
+    {
+        if (ValidateOnPasswordChanged)
+        {
+            ValidatePassword();
+        }
+    }
+
+    private void ValidatePasswordOnLostFocus()
+    {
+        if (ValidateOnLostFocus)
+        {
+            ValidatePassword();
+        }
+    }
+
+    private void ClearPasswordValidation()
+    {
+        HasError = false;
+        HasWarning = false;
+        ErrorText = string.Empty;
+        WarningText = string.Empty;
+        IsPasswordValid = false;
+    }
+
+    private static bool MatchesPasswordRule(string password, string passwordRule)
+    {
+        if (string.IsNullOrWhiteSpace(passwordRule))
+        {
+            return true;
+        }
+
+        var tokens = passwordRule.Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+        foreach (var token in tokens)
+        {
+            if (!MatchesPasswordRuleToken(password, token))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static bool MatchesPasswordRuleToken(string password, string token)
+    {
+        if (token.StartsWith("min:", StringComparison.OrdinalIgnoreCase))
+        {
+            return int.TryParse(token[4..], out var minLength) && password.Length >= minLength;
+        }
+
+        if (token.StartsWith("max:", StringComparison.OrdinalIgnoreCase))
+        {
+            return int.TryParse(token[4..], out var maxLength) && password.Length <= maxLength;
+        }
+
+        return token.ToLowerInvariant() switch
+        {
+            "upper" => password.Any(char.IsUpper),
+            "lower" => password.Any(char.IsLower),
+            "digit" => password.Any(char.IsDigit),
+            "special" => password.Any(character => !char.IsLetterOrDigit(character)),
+            "letters" => password.All(char.IsLetter),
+            "alnum" => password.All(char.IsLetterOrDigit),
+            "lowerdigit" => password.All(character => char.IsLower(character) || char.IsDigit(character))
+                && password.Any(char.IsLower)
+                && password.Any(char.IsDigit),
+            _ => true
+        };
     }
 
     private void UpdateRevealState()

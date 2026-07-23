@@ -72,6 +72,16 @@ public partial class MainWindow : NebulaWindow
         aboutWindow.ShowDialog();
     }
 
+    private void DocumentationPreviewMenuItem_Click(object sender, RoutedEventArgs e)
+    {
+        var documentationWindow = new DocumentationWindow
+        {
+            Owner = this
+        };
+
+        documentationWindow.Show();
+    }
+
     private void ApplyDarkPurpleThemeMenuItem_Click(object sender, RoutedEventArgs e)
     {
         ApplyTheme(NebulaTheme.NebulaDarkPurple);

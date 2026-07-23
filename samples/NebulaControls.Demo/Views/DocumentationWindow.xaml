@@ -1,0 +1,554 @@
+<nebula:NebulaWindow x:Class="NebulaControls.Demo.Views.DocumentationWindow"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:nebula="clr-namespace:NebulaControls.Controls;assembly=NebulaControls"
+                     xmlns:views="clr-namespace:NebulaControls.Demo.Views"
+                     Title="NebulaControls Documentation"
+                     Subtitle="Interactive usage guide"
+                     IconContent="N"
+                     Style="{StaticResource NebulaWindow}"
+                     Width="1180"
+                     Height="760"
+                     MinWidth="980"
+                     MinHeight="640"
+                     WindowStartupLocation="CenterOwner">
+
+    <nebula:NebulaWindow.TitleBarContent>
+        <Border Background="{DynamicResource Brush.Background}"
+                BorderBrush="{DynamicResource Brush.Border}"
+                BorderThickness="1"
+                CornerRadius="6"
+                Padding="12,6">
+            <StackPanel Orientation="Horizontal">
+                <Ellipse Width="8"
+                         Height="8"
+                         Fill="{DynamicResource Brush.Success}"
+                         Margin="0,0,8,0"
+                         VerticalAlignment="Center"/>
+                <TextBlock Text="Documentation preview"
+                           Style="{StaticResource Typography.TextBlock.Caption}"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
+        </Border>
+    </nebula:NebulaWindow.TitleBarContent>
+
+    <Grid Background="{DynamicResource Brush.Background}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="280"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0"
+                Background="{DynamicResource Brush.Surface}"
+                BorderBrush="{DynamicResource Brush.Border}"
+                BorderThickness="0,0,1,0"
+                Padding="22">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Top"
+                            Margin="0,0,0,18">
+                    <TextBlock Text="Controls"
+                               Style="{StaticResource Typography.TextBlock.SectionTitle}"/>
+                    <TextBlock Text="Browse controls by family and open a focused usage page."
+                               Style="{StaticResource Typography.TextBlock.Secondary}"
+                               TextWrapping="Wrap"
+                               Margin="0,8,0,0"/>
+                </StackPanel>
+
+                <nebula:NebulaTreeView x:Name="DocumentationTree"
+                                       Style="{StaticResource NebulaTreeView}"
+                                       BorderThickness="0"
+                                       CommitBranchItems="False"
+                                       SelectedItemChanged="DocumentationTree_SelectedItemChanged">
+                    <TreeViewItem Header="Inputs"
+                                  IsExpanded="True"
+                                  Style="{StaticResource NebulaTreeViewItem}">
+                        <TreeViewItem Header="TextBox"
+                                      Tag="TextBox"
+                                      IsSelected="True"
+                                      Style="{StaticResource NebulaTreeViewItem}"/>
+                        <TreeViewItem Header="EmailTextBox"
+                                      Tag="EmailTextBox"
+                                      Style="{StaticResource NebulaTreeViewItem}"/>
+                        <TreeViewItem Header="PasswordBox"
+                                      Tag="PasswordBox"
+                                      Style="{StaticResource NebulaTreeViewItem}"/>
+                        <TreeViewItem Header="NumericUpDown"
+                                      Tag="NumericUpDown"
+                                      Style="{StaticResource NebulaTreeViewItem}"/>
+                        <TreeViewItem Header="SearchBox"
+                                      Tag="SearchBox"
+                                      Style="{StaticResource NebulaTreeViewItem}"/>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Actions"
+                                  IsExpanded="True"
+                                  Style="{StaticResource NebulaTreeViewItem}">
+                        <TreeViewItem Header="Buttons"
+                                      Tag="Buttons"
+                                      Style="{StaticResource NebulaTreeViewItem}"/>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Selection"
+                                  IsExpanded="True"
+                                  Style="{StaticResource NebulaTreeViewItem}">
+                        <TreeViewItem Header="ComboBox"
+                                      Tag="ComboBox"
+                                      Style="{StaticResource NebulaTreeViewItem}"/>
+                    </TreeViewItem>
+                </nebula:NebulaTreeView>
+            </DockPanel>
+        </Border>
+
+        <Grid Grid.Column="1"
+              Margin="28">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel>
+                <TextBlock x:Name="PageTitleText"
+                           Text="NebulaTextBox"
+                           Style="{StaticResource Typography.TextBlock.PageTitle}"/>
+                <TextBlock x:Name="PageDescriptionText"
+                           Text="Text input styles with label, placeholder, helper text and validation states."
+                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                           TextWrapping="Wrap"
+                           Margin="0,8,0,0"/>
+                <TextBlock x:Name="PageMetaText"
+                           Text="Version v1.03 - Validated"
+                           Style="{StaticResource Typography.TextBlock.Brand}"
+                           Margin="0,10,0,0"/>
+            </StackPanel>
+
+            <Grid Grid.Row="1"
+                  Margin="0,26,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.05*"/>
+                    <ColumnDefinition Width="1.2*"/>
+                </Grid.ColumnDefinitions>
+
+                <ScrollViewer Grid.Column="0"
+                              VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="0,0,22,0">
+                        <Border x:Name="TextBoxPreviewPanel"
+                                Style="{StaticResource DemoCard}">
+                            <StackPanel>
+                                <TextBlock Text="Preview"
+                                           Style="{StaticResource DemoSectionTitle}"/>
+                                <TextBlock Text="Standard TextBox"
+                                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                                           Margin="0,16,0,8"/>
+                                <TextBox Style="{StaticResource NebulaTextBox}"
+                                         x:Name="DocumentationNameTextBox"
+                                         Text="Nebula text value"
+                                         Width="320"
+                                         HorizontalAlignment="Left"/>
+
+                                <TextBlock Text="Labeled TextBox"
+                                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                                           Margin="0,18,0,8"/>
+                                <nebula:NebulaTextBox x:Name="DocumentationUsernameTextBox"
+                                                      Style="{StaticResource NebulaLabeledTextBox}"
+                                                      Label="Username"
+                                                      Placeholder="Enter username"
+                                                      Text="domin"
+                                                      Width="320"
+                                                      HorizontalAlignment="Left"/>
+
+                                <TextBlock Text="Manual validation state"
+                                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                                           Margin="0,18,0,8"/>
+                                <nebula:NebulaTextBox x:Name="DocumentationRequiredTextBox"
+                                                      Style="{StaticResource NebulaLabeledTextBox}"
+                                                      Label="Required value"
+                                                      Text=""
+                                                      HelperText="Click the button below to validate this value."
+                                                      ErrorText="This field is required."
+                                                      Width="320"
+                                                      HorizontalAlignment="Left"/>
+                                <Button Content="Read values"
+                                        Style="{StaticResource NebulaPrimaryButton}"
+                                        Click="ReadTextBoxValuesButton_Click"
+                                        HorizontalAlignment="Left"
+                                        Margin="0,18,0,0"/>
+                                <TextBlock x:Name="TextBoxPreviewStatusText"
+                                           Text="Values have not been read yet."
+                                           Style="{StaticResource Typography.TextBlock.Brand}"
+                                           TextWrapping="Wrap"
+                                           Margin="0,12,0,0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border x:Name="EmailTextBoxPreviewPanel"
+                                Style="{StaticResource DemoCard}"
+                                Visibility="Collapsed">
+                            <StackPanel>
+                                <TextBlock Text="Preview"
+                                           Style="{StaticResource DemoSectionTitle}"/>
+                                <TextBlock Text="Required email"
+                                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                                           Margin="0,16,0,8"/>
+                                <nebula:NebulaEmailTextBox x:Name="DocumentationRequiredEmailTextBox"
+                                                           Style="{StaticResource NebulaLabeledEmailTextBox}"
+                                                           Label="Email"
+                                                           Placeholder="name@example.com"
+                                                           HelperText="Leave the field to validate the email address."
+                                                           Width="320"
+                                                           HorizontalAlignment="Left"/>
+
+                                <TextBlock Text="Optional email"
+                                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                                           Margin="0,18,0,8"/>
+                                <nebula:NebulaEmailTextBox x:Name="DocumentationOptionalEmailTextBox"
+                                                           Style="{StaticResource NebulaLabeledEmailTextBox}"
+                                                           Label="Recovery email"
+                                                           Placeholder="optional@example.com"
+                                                           HelperText="Empty value is accepted when IsEmailRequired is false."
+                                                           IsEmailRequired="False"
+                                                           Width="320"
+                                                           HorizontalAlignment="Left"/>
+                                <Button Content="Validate emails"
+                                        Style="{StaticResource NebulaPrimaryButton}"
+                                        Click="ValidateEmailValuesButton_Click"
+                                        HorizontalAlignment="Left"
+                                        Margin="0,18,0,0"/>
+                                <TextBlock x:Name="EmailPreviewStatusText"
+                                           Text="Emails have not been validated yet."
+                                           Style="{StaticResource Typography.TextBlock.Brand}"
+                                           TextWrapping="Wrap"
+                                           Margin="0,12,0,0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border x:Name="ButtonsPreviewPanel"
+                                Style="{StaticResource DemoCard}"
+                                Visibility="Collapsed">
+                            <StackPanel>
+                                <TextBlock Text="Preview"
+                                           Style="{StaticResource DemoSectionTitle}"/>
+                                <TextBlock Text="Primary actions"
+                                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                                           Margin="0,16,0,8"/>
+                                <WrapPanel>
+                                    <Button x:Name="PreviewSaveButton"
+                                            Content="Save profile"
+                                            Style="{StaticResource NebulaPrimaryButton}"
+                                            Click="PreviewSaveButton_Click"
+                                            Margin="0,0,12,12"/>
+                                    <Button x:Name="PreviewCancelButton"
+                                            Content="Cancel"
+                                            Style="{StaticResource NebulaSecondaryButton}"
+                                            Click="PreviewCancelButton_Click"
+                                            Margin="0,0,12,12"/>
+                                    <Button x:Name="PreviewResetButton"
+                                            Content="Reset"
+                                            Style="{StaticResource NebulaGhostButton}"
+                                            Click="PreviewResetButton_Click"
+                                            Margin="0,0,12,12"/>
+                                </WrapPanel>
+
+                                <TextBlock Text="Sizes"
+                                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                                           Margin="0,10,0,8"/>
+                                <WrapPanel>
+                                    <Button Content="Small"
+                                            Style="{StaticResource NebulaPrimarySmallButton}"
+                                            Margin="0,0,12,12"/>
+                                    <Button Content="Normal"
+                                            Style="{StaticResource NebulaPrimaryButton}"
+                                            Margin="0,0,12,12"/>
+                                    <Button Content="Large"
+                                            Style="{StaticResource NebulaPrimaryLargeButton}"
+                                            Margin="0,0,12,12"/>
+                                </WrapPanel>
+
+                                <TextBlock Text="Disabled"
+                                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                                           Margin="0,10,0,8"/>
+                                <Button Content="Disabled primary"
+                                        Style="{StaticResource NebulaPrimaryButton}"
+                                        IsEnabled="False"
+                                        HorizontalAlignment="Left"/>
+                                <TextBlock x:Name="ButtonsPreviewStatusText"
+                                           Text="No button action yet."
+                                           Style="{StaticResource Typography.TextBlock.Brand}"
+                                           TextWrapping="Wrap"
+                                           Margin="0,14,0,0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border x:Name="NumericUpDownPreviewPanel"
+                                Style="{StaticResource DemoCard}"
+                                Visibility="Collapsed">
+                            <StackPanel>
+                                <TextBlock Text="Preview"
+                                           Style="{StaticResource DemoSectionTitle}"/>
+                                <TextBlock Text="Cart quantity"
+                                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                                           Margin="0,16,0,8"/>
+                                <nebula:NebulaNumericUpDown x:Name="CartQuantityInput"
+                                                            Style="{StaticResource NebulaNumericUpDown}"
+                                                            Value="2"
+                                                            Minimum="0"
+                                                            Maximum="10"
+                                                            Step="1"
+                                                            Placeholder="Quantity"
+                                                            Width="180"
+                                                            HorizontalAlignment="Left"/>
+
+                                <TextBlock Text="Discount percentage"
+                                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                                           Margin="0,18,0,8"/>
+                                <nebula:NebulaNumericUpDown x:Name="DiscountPercentInput"
+                                                            Style="{StaticResource NebulaNumericUpDown}"
+                                                            Value="5"
+                                                            Minimum="0"
+                                                            Maximum="50"
+                                                            Step="0.5"
+                                                            Placeholder="Discount"
+                                                            Width="180"
+                                                            HorizontalAlignment="Left"/>
+
+                                <TextBlock Text="Read-only stock"
+                                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                                           Margin="0,18,0,8"/>
+                                <nebula:NebulaNumericUpDown x:Name="AvailableStockInput"
+                                                            Style="{StaticResource NebulaNumericUpDown}"
+                                                            Value="24"
+                                                            Minimum="0"
+                                                            Maximum="999"
+                                                            IsReadOnly="True"
+                                                            Width="180"
+                                                            HorizontalAlignment="Left"/>
+
+                                <Button Content="Calculate total"
+                                        Style="{StaticResource NebulaPrimaryButton}"
+                                        Click="CalculateNumericValuesButton_Click"
+                                        HorizontalAlignment="Left"
+                                        Margin="0,18,0,0"/>
+                                <TextBlock x:Name="NumericPreviewStatusText"
+                                           Text="Numeric values have not been calculated yet."
+                                           Style="{StaticResource Typography.TextBlock.Brand}"
+                                           TextWrapping="Wrap"
+                                           Margin="0,12,0,0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border x:Name="PasswordBoxPreviewPanel"
+                                Style="{StaticResource DemoCard}"
+                                Visibility="Collapsed">
+                            <StackPanel>
+                                <TextBlock Text="Preview"
+                                           Style="{StaticResource DemoSectionTitle}"/>
+                                <TextBlock Text="WPF PasswordBox styled by Nebula"
+                                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                                           Margin="0,16,0,8"/>
+                                <PasswordBox x:Name="LoginPasswordBox"
+                                             Style="{StaticResource NebulaPasswordBox}"
+                                             Password="nebula"
+                                             Width="320"
+                                             HorizontalAlignment="Left"/>
+
+                                <TextBlock Text="NebulaLabeledPasswordBox"
+                                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                                           Margin="0,18,0,8"/>
+                                <nebula:NebulaLabeledPasswordBox x:Name="SecurePasswordBox"
+                                                                 Style="{StaticResource NebulaLabeledPasswordBox}"
+                                                                 Label="Secure password"
+                                                                 Password="nebula!"
+                                                                 HelperText="Use at least 8 characters and one special character."
+                                                                 IsPasswordRequired="True"
+                                                                 PasswordRule="min:8;special"
+                                                                 InvalidPasswordText="Use at least 8 characters and one special character."
+                                                                 Width="320"
+                                                                 HorizontalAlignment="Left"/>
+
+                                <TextBlock Text="Online-style password rule"
+                                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                                           Margin="0,18,0,8"/>
+                                <nebula:NebulaLabeledPasswordBox x:Name="AccountPasswordBox"
+                                                                 Style="{StaticResource NebulaLabeledPasswordBox}"
+                                                                 Label="Account password"
+                                                                 Password="Nebula@1"
+                                                                 HelperText="Use 8+ chars with upper, lower, digit and special character."
+                                                                 IsPasswordRequired="True"
+                                                                 PasswordRule="min:8;upper;lower;digit;special"
+                                                                 InvalidPasswordText="Use 8+ chars with upper, lower, digit and special character."
+                                                                 Width="320"
+                                                                 HorizontalAlignment="Left"/>
+
+                                <Button Content="Read password values"
+                                        Style="{StaticResource NebulaPrimaryButton}"
+                                        Click="ReadPasswordValuesButton_Click"
+                                        HorizontalAlignment="Left"
+                                        Margin="0,18,0,0"/>
+                                <TextBlock x:Name="PasswordPreviewStatusText"
+                                           Text="Password values have not been read yet."
+                                           Style="{StaticResource Typography.TextBlock.Brand}"
+                                           TextWrapping="Wrap"
+                                           Margin="0,12,0,0"/>
+                                <TextBlock Text="Demo note: this page reads the password as plain text. In a real application, store a salted non-reversible hash instead."
+                                           Style="{StaticResource Typography.TextBlock.Warning}"
+                                           TextWrapping="Wrap"
+                                           Margin="0,14,0,0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border x:Name="SearchBoxPreviewPanel"
+                                Style="{StaticResource DemoCard}"
+                                Visibility="Collapsed">
+                            <StackPanel>
+                                <TextBlock Text="Preview"
+                                           Style="{StaticResource DemoSectionTitle}"/>
+                                <TextBlock Text="Filter control catalog"
+                                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                                           Margin="0,16,0,8"/>
+                                <nebula:NebulaSearchBox x:Name="ControlCatalogSearchBox"
+                                                        Style="{StaticResource NebulaSearchBox}"
+                                                        Placeholder="Search name, category, description..."
+                                                        SearchTextChanged="ControlCatalogSearchBox_SearchTextChanged"
+                                                        SearchSubmitted="ControlCatalogSearchBox_SearchSubmitted"
+                                                        Width="360"
+                                                        HorizontalAlignment="Left"
+                                                        Margin="0,0,0,14"/>
+
+                                <TextBlock x:Name="SearchBoxPreviewStatusText"
+                                           Text="Type to filter the list, press Enter to submit, Esc to clear."
+                                           Style="{StaticResource Typography.TextBlock.Brand}"
+                                           TextWrapping="Wrap"
+                                           Margin="0,0,0,10"/>
+
+                                <nebula:NebulaListBox x:Name="SearchResultsList"
+                                                      Style="{StaticResource NebulaListBox}"
+                                                      Width="360"
+                                                      Height="230"
+                                                      HorizontalAlignment="Left">
+                                    <nebula:NebulaListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+
+                                                <TextBlock Text="{Binding Name}"
+                                                           Style="{StaticResource Typography.TextBlock.Strong}"/>
+                                                <TextBlock Grid.Row="1"
+                                                           Text="{Binding Category}"
+                                                           Style="{StaticResource Typography.TextBlock.Brand}"
+                                                           Margin="0,3,0,0"/>
+                                                <TextBlock Grid.Row="2"
+                                                           Text="{Binding Description}"
+                                                           Style="{StaticResource Typography.TextBlock.Muted}"
+                                                           TextWrapping="Wrap"
+                                                           Margin="0,3,0,0"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </nebula:NebulaListBox.ItemTemplate>
+                                </nebula:NebulaListBox>
+                            </StackPanel>
+                        </Border>
+
+                        <Border x:Name="ComboBoxPreviewPanel"
+                                Style="{StaticResource DemoCard}"
+                                Visibility="Collapsed">
+                            <StackPanel>
+                                <TextBlock Text="Preview"
+                                           Style="{StaticResource DemoSectionTitle}"/>
+                                <TextBlock Text="Theme selection"
+                                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                                           Margin="0,16,0,8"/>
+                                <nebula:NebulaComboBox x:Name="ThemeComboBox"
+                                                       Style="{StaticResource NebulaComboBox}"
+                                                       Width="300"
+                                                       SelectedIndex="0"
+                                                       Tag="Theme"
+                                                       SelectionChanged="DocumentationComboBox_SelectionChanged"
+                                                       HorizontalAlignment="Left"
+                                                       Margin="0,0,0,16">
+                                    <ComboBoxItem Content="Nebula Dark Purple"/>
+                                    <ComboBoxItem Content="Nebula Dark Blue"/>
+                                    <ComboBoxItem Content="Nebula Light Purple"/>
+                                </nebula:NebulaComboBox>
+
+                                <TextBlock Text="With disabled item"
+                                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                                           Margin="0,0,0,8"/>
+                                <nebula:NebulaComboBox x:Name="StatusComboBox"
+                                                       Style="{StaticResource NebulaComboBox}"
+                                                       Width="300"
+                                                       SelectedIndex="0"
+                                                       Tag="Status"
+                                                       SelectionChanged="DocumentationComboBox_SelectionChanged"
+                                                       HorizontalAlignment="Left"
+                                                       Margin="0,0,0,16">
+                                    <ComboBoxItem Content="Ready"/>
+                                    <ComboBoxItem Content="Archived"
+                                                  IsEnabled="False"/>
+                                    <ComboBoxItem Content="Reviewing"/>
+                                </nebula:NebulaComboBox>
+
+                                <TextBlock Text="Editable ComboBox"
+                                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                                           Margin="0,0,0,8"/>
+                                <nebula:NebulaComboBox x:Name="EditableThemeComboBox"
+                                                       Style="{StaticResource NebulaComboBox}"
+                                                       Width="300"
+                                                       IsEditable="True"
+                                                       SelectedIndex="0"
+                                                       Tag="Editable theme"
+                                                       SelectionChanged="DocumentationComboBox_SelectionChanged"
+                                                       HorizontalAlignment="Left"
+                                                       Margin="0,0,0,16">
+                                    <ComboBoxItem Content="Dark Purple"/>
+                                    <ComboBoxItem Content="Dark Blue"/>
+                                    <ComboBoxItem Content="Light Purple"/>
+                                </nebula:NebulaComboBox>
+
+                                <TextBlock Text="Disabled ComboBox"
+                                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                                           Margin="0,0,0,8"/>
+                                <nebula:NebulaComboBox Style="{StaticResource NebulaComboBox}"
+                                                       Width="300"
+                                                       SelectedIndex="0"
+                                                       IsEnabled="False"
+                                                       HorizontalAlignment="Left">
+                                    <ComboBoxItem Content="Disabled selection"/>
+                                </nebula:NebulaComboBox>
+
+                                <Button Content="Read selected values"
+                                        Style="{StaticResource NebulaPrimaryButton}"
+                                        Click="ReadComboBoxValuesButton_Click"
+                                        HorizontalAlignment="Left"
+                                        Margin="0,18,0,0"/>
+                                <TextBlock x:Name="ComboBoxPreviewStatusText"
+                                           Text="Selected value: Nebula Dark Purple"
+                                           Style="{StaticResource Typography.TextBlock.Brand}"
+                                           TextWrapping="Wrap"
+                                           Margin="0,12,0,0"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+
+                <ScrollViewer Grid.Column="1"
+                              VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <TextBlock Text="XAML"
+                                   Style="{StaticResource DemoSectionTitle}"/>
+                        <views:DemoCodeBlock x:Name="XamlCodeBlock"
+                                             CodeLanguage="Xaml"
+                                             Margin="0,12,0,22"/>
+
+                        <TextBlock Text="C#"
+                                   Style="{StaticResource DemoSectionTitle}"/>
+                        <views:DemoCodeBlock x:Name="CSharpCodeBlock"
+                                             CodeLanguage="CSharp"
+                                             MinHeight="190"
+                                             Margin="0,12,0,0"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+    </Grid>
+</nebula:NebulaWindow>
