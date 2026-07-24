@@ -8,6 +8,9 @@ namespace NebulaControls.Demo.Views;
 
 public partial class DocumentationWindow : NebulaWindow
 {
+    private string currentTreeViewSelection = "NebulaTreeView";
+    private string lastCommittedTreeViewLeaf = "NebulaTreeView";
+
     private readonly SearchDocumentationItem[] searchCatalog =
     [
         new("NebulaTextBox", "Inputs", "Text input with placeholder, labels, helper text and validation states."),
@@ -15,7 +18,11 @@ public partial class DocumentationWindow : NebulaWindow
         new("NebulaPasswordBox", "Inputs", "Password input with reveal support and configurable password rules."),
         new("NebulaNumericUpDown", "Inputs", "Numeric value entry with range clamping and keyboard support."),
         new("NebulaSearchBox", "Inputs", "Search input with icon, clear action and submit event."),
+        new("NebulaSlider", "Inputs", "Range input with keyboard and mouse wheel support."),
+        new("NebulaProgressBar", "Progress", "Determinate and indeterminate progress indicator."),
         new("NebulaComboBox", "Selection", "Dropdown selection with editable and disabled item scenarios."),
+        new("NebulaListBox", "Collections", "Selectable list with keyboard navigation and disabled items."),
+        new("NebulaTreeView", "Collections", "Hierarchical selection with branch navigation and committed leaf actions."),
         new("NebulaDataGrid", "Data", "Editable grid with add row, validation and database-oriented behavior.")
     ];
 
@@ -41,11 +48,17 @@ public partial class DocumentationWindow : NebulaWindow
             case "Buttons":
                 ShowButtonsDocumentation();
                 return;
+            case "ChoiceInputs":
+                ShowChoiceInputsDocumentation();
+                return;
             case "ComboBox":
                 ShowComboBoxDocumentation();
                 return;
             case "EmailTextBox":
                 ShowEmailTextBoxDocumentation();
+                return;
+            case "ListBox":
+                ShowListBoxDocumentation();
                 return;
             case "NumericUpDown":
                 ShowNumericUpDownDocumentation();
@@ -53,8 +66,17 @@ public partial class DocumentationWindow : NebulaWindow
             case "PasswordBox":
                 ShowPasswordBoxDocumentation();
                 return;
+            case "ProgressBar":
+                ShowProgressBarDocumentation();
+                return;
             case "SearchBox":
                 ShowSearchBoxDocumentation();
+                return;
+            case "Slider":
+                ShowSliderDocumentation();
+                return;
+            case "TreeView":
+                ShowTreeViewDocumentation();
                 return;
             default:
                 ShowTextBoxDocumentation();
@@ -329,6 +351,78 @@ public partial class DocumentationWindow : NebulaWindow
             """;
     }
 
+    private void ShowChoiceInputsDocumentation()
+    {
+        if (PageTitleText is null)
+        {
+            return;
+        }
+
+        PageTitleText.Text = "Nebula choice inputs";
+        PageDescriptionText.Text = "Boolean and exclusive selection styles using WPF CheckBox, RadioButton and ToggleButton with Nebula visual resources.";
+        PageMetaText.Text = "Version v1.05 - Validated";
+
+        ShowPreviewPanel(ChoiceInputsPreviewPanel);
+        ChoiceInputsPreviewStatusText.Text = "Choice values have not been read yet.";
+
+        XamlCodeBlock.Code =
+            """
+            <CheckBox x:Name="ReceiveUpdatesCheckBox"
+                      Content="Receive product updates"
+                      Style="{StaticResource NebulaCheckBox}"
+                      IsChecked="True"/>
+
+            <CheckBox x:Name="EnableTelemetryCheckBox"
+                      Content="Share anonymous diagnostics"
+                      Style="{StaticResource NebulaCheckBox}"/>
+
+            <RadioButton x:Name="CompactLayoutRadioButton"
+                         Content="Compact layout"
+                         GroupName="DocumentationLayoutMode"
+                         Style="{StaticResource NebulaRadioButton}"
+                         IsChecked="True"/>
+
+            <RadioButton x:Name="ComfortableLayoutRadioButton"
+                         Content="Comfortable layout"
+                         GroupName="DocumentationLayoutMode"
+                         Style="{StaticResource NebulaRadioButton}"/>
+
+            <ToggleButton x:Name="NotificationsToggleButton"
+                          Content="Notifications enabled"
+                          Style="{StaticResource NebulaToggleButton}"
+                          IsChecked="True"/>
+
+            <ToggleButton x:Name="SyncToggleButton"
+                          Content="Cloud sync"
+                          Style="{StaticResource NebulaToggleButton}"/>
+
+            <Button Content="Read choice values"
+                    Style="{StaticResource NebulaPrimaryButton}"
+                    Click="ReadChoiceValuesButton_Click"/>
+            """;
+
+        CSharpCodeBlock.Code =
+            """
+            private void ReadChoiceValuesButton_Click(object sender, RoutedEventArgs e)
+            {
+                var receiveUpdates = ReceiveUpdatesCheckBox.IsChecked == true;
+                var telemetryEnabled = EnableTelemetryCheckBox.IsChecked == true;
+                var layout = CompactLayoutRadioButton.IsChecked == true
+                    ? "Compact"
+                    : "Comfortable";
+                var notificationsEnabled = NotificationsToggleButton.IsChecked == true;
+                var syncEnabled = SyncToggleButton.IsChecked == true;
+
+                ChoiceInputsPreviewStatusText.Text =
+                    $"Receive updates: {receiveUpdates}\n"
+                    + $"Share diagnostics: {telemetryEnabled}\n"
+                    + $"Layout: {layout}\n"
+                    + $"Notifications: {notificationsEnabled}\n"
+                    + $"Cloud sync: {syncEnabled}";
+            }
+            """;
+    }
+
     private void ShowNumericUpDownDocumentation()
     {
         if (PageTitleText is null)
@@ -560,6 +654,280 @@ public partial class DocumentationWindow : NebulaWindow
             """;
     }
 
+    private void ShowSliderDocumentation()
+    {
+        if (PageTitleText is null)
+        {
+            return;
+        }
+
+        PageTitleText.Text = "NebulaSlider";
+        PageDescriptionText.Text = "Range input for selecting numeric values with keyboard, mouse and mouse wheel support.";
+        PageMetaText.Text = "Version v1.07 - Validated";
+
+        ShowPreviewPanel(SliderPreviewPanel);
+        UpdateSliderPreviewStatus();
+
+        XamlCodeBlock.Code =
+            """
+            <nebula:NebulaSlider x:Name="DocumentationVolumeSlider"
+                                 Style="{StaticResource NebulaSlider}"
+                                 Minimum="0"
+                                 Maximum="100"
+                                 Value="42"
+                                 TickFrequency="10"
+                                 TickPlacement="BottomRight"
+                                 ValueChanged="DocumentationSlider_ValueChanged"
+                                 Width="340"/>
+
+            <nebula:NebulaSlider x:Name="DocumentationBrightnessSlider"
+                                 Style="{StaticResource NebulaSlider}"
+                                 Minimum="0"
+                                 Maximum="100"
+                                 Value="60"
+                                 Ticks="0,25,50,75,100"
+                                 TickPlacement="BottomRight"
+                                 ValueChanged="DocumentationSlider_ValueChanged"
+                                 Width="340"/>
+
+            <Button Content="Read slider values"
+                    Style="{StaticResource NebulaPrimaryButton}"
+                    Click="ReadSliderValuesButton_Click"/>
+            """;
+
+        CSharpCodeBlock.Code =
+            """
+            private void DocumentationSlider_ValueChanged(
+                object sender,
+                RoutedPropertyChangedEventArgs<double> e)
+            {
+                UpdateSliderPreviewStatus();
+            }
+
+            private void ReadSliderValuesButton_Click(object sender, RoutedEventArgs e)
+            {
+                UpdateSliderPreviewStatus();
+            }
+
+            private void UpdateSliderPreviewStatus()
+            {
+                SliderPreviewStatusText.Text =
+                    $"Slider values: volume {DocumentationVolumeSlider.Value:0}, "
+                    + $"brightness {DocumentationBrightnessSlider.Value:0}.";
+            }
+            """;
+    }
+
+    private void ShowProgressBarDocumentation()
+    {
+        if (PageTitleText is null)
+        {
+            return;
+        }
+
+        PageTitleText.Text = "NebulaProgressBar";
+        PageDescriptionText.Text = "Progress indicator for determinate values, indeterminate activity and disabled states.";
+        PageMetaText.Text = "Version v1.03 - Validated";
+
+        ShowPreviewPanel(ProgressBarPreviewPanel);
+        UpdateProgressPreviewStatus();
+
+        XamlCodeBlock.Code =
+            """
+            <nebula:NebulaProgressBar x:Name="DocumentationProgressBar"
+                                      Style="{StaticResource NebulaProgressBar}"
+                                      Minimum="0"
+                                      Maximum="100"
+                                      Value="64"
+                                      ShowValueText="True"
+                                      Width="340"/>
+
+            <Button Content="Advance"
+                    Style="{StaticResource NebulaPrimaryButton}"
+                    Click="AdvanceProgressButton_Click"/>
+
+            <Button Content="Reset"
+                    Style="{StaticResource NebulaSecondaryButton}"
+                    Click="ResetProgressButton_Click"/>
+
+            <nebula:NebulaProgressBar Style="{StaticResource NebulaProgressBar}"
+                                      IsIndeterminate="True"
+                                      Width="340"/>
+            """;
+
+        CSharpCodeBlock.Code =
+            """
+            private void AdvanceProgressButton_Click(object sender, RoutedEventArgs e)
+            {
+                DocumentationProgressBar.Value =
+                    DocumentationProgressBar.Value >= DocumentationProgressBar.Maximum
+                        ? DocumentationProgressBar.Maximum
+                        : DocumentationProgressBar.Value + 10;
+
+                UpdateProgressPreviewStatus();
+            }
+
+            private void ResetProgressButton_Click(object sender, RoutedEventArgs e)
+            {
+                DocumentationProgressBar.Value = 0;
+                UpdateProgressPreviewStatus();
+            }
+
+            private void UpdateProgressPreviewStatus()
+            {
+                ProgressPreviewStatusText.Text =
+                    $"Progress value: {DocumentationProgressBar.Value:0}%.";
+            }
+            """;
+    }
+
+    private void ShowListBoxDocumentation()
+    {
+        if (PageTitleText is null)
+        {
+            return;
+        }
+
+        PageTitleText.Text = "NebulaListBox";
+        PageDescriptionText.Text = "Selectable list control with Nebula item styling, keyboard navigation, disabled items and smooth item scrolling.";
+        PageMetaText.Text = "Version v1.05 - Validated";
+
+        ShowPreviewPanel(ListBoxPreviewPanel);
+        UpdateListBoxPreviewStatus();
+
+        XamlCodeBlock.Code =
+            """
+            <nebula:NebulaListBox x:Name="DocumentationListBox"
+                                  Style="{StaticResource NebulaListBox}"
+                                  SelectedIndex="1"
+                                  SelectionChanged="DocumentationListBox_SelectionChanged"
+                                  Width="340"
+                                  Height="180">
+                <ListBoxItem Content="Buttons"/>
+                <ListBoxItem Content="Inputs"/>
+                <ListBoxItem Content="Selection"/>
+                <ListBoxItem Content="Data"/>
+                <ListBoxItem Content="Navigation"/>
+                <ListBoxItem Content="Disabled"
+                             IsEnabled="False"/>
+                <ListBoxItem Content="After disabled"/>
+            </nebula:NebulaListBox>
+
+            <Button Content="Read selected item"
+                    Style="{StaticResource NebulaPrimaryButton}"
+                    Click="ReadListBoxSelectionButton_Click"/>
+            """;
+
+        CSharpCodeBlock.Code =
+            """
+            private void DocumentationListBox_SelectionChanged(
+                object sender,
+                SelectionChangedEventArgs e)
+            {
+                UpdateListBoxPreviewStatus();
+            }
+
+            private void ReadListBoxSelectionButton_Click(object sender, RoutedEventArgs e)
+            {
+                UpdateListBoxPreviewStatus();
+            }
+
+            private void UpdateListBoxPreviewStatus()
+            {
+                var selectedText = DocumentationListBox.SelectedItem is ListBoxItem item
+                    ? item.Content?.ToString() ?? "none"
+                    : DocumentationListBox.SelectedItem?.ToString() ?? "none";
+
+                ListBoxPreviewStatusText.Text = $"Selected item: {selectedText}.";
+            }
+            """;
+    }
+
+    private void ShowTreeViewDocumentation()
+    {
+        if (PageTitleText is null)
+        {
+            return;
+        }
+
+        PageTitleText.Text = "NebulaTreeView";
+        PageDescriptionText.Text = "Hierarchical navigation control where branches expand/collapse and leaf items can commit an application action.";
+        PageMetaText.Text = "Version v1.06 - Validated";
+
+        ShowPreviewPanel(TreeViewPreviewPanel);
+        currentTreeViewSelection = GetTreeViewSelectionText(DocumentationPreviewTreeView.SelectedItem);
+        lastCommittedTreeViewLeaf = "NebulaTreeView";
+        UpdateTreeViewPreviewStatus();
+
+        XamlCodeBlock.Code =
+            """
+            <nebula:NebulaTreeView x:Name="DocumentationPreviewTreeView"
+                                   Style="{StaticResource NebulaTreeView}"
+                                   CommitBranchItems="False"
+                                   SelectedItemChanged="DocumentationPreviewTreeView_SelectedItemChanged"
+                                   SelectionCommitted="DocumentationPreviewTreeView_SelectionCommitted"
+                                   Width="360"
+                                   Height="250">
+                <TreeViewItem Header="NebulaControls"
+                              IsExpanded="True"
+                              Style="{StaticResource NebulaTreeViewItem}">
+                    <TreeViewItem Header="Inputs"
+                                  IsExpanded="True"
+                                  Style="{StaticResource NebulaTreeViewItem}">
+                        <TreeViewItem Header="NebulaTextBox"
+                                      Style="{StaticResource NebulaTreeViewItem}"/>
+                        <TreeViewItem Header="NebulaPasswordBox"
+                                      Style="{StaticResource NebulaTreeViewItem}"/>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Collections"
+                                  IsExpanded="True"
+                                  Style="{StaticResource NebulaTreeViewItem}">
+                        <TreeViewItem Header="NebulaListBox"
+                                      Style="{StaticResource NebulaTreeViewItem}"/>
+                        <TreeViewItem Header="NebulaTreeView"
+                                      Style="{StaticResource NebulaTreeViewItem}"/>
+                    </TreeViewItem>
+                </TreeViewItem>
+            </nebula:NebulaTreeView>
+            """;
+
+            CSharpCodeBlock.Code =
+            """
+            private string currentTreeViewSelection = "NebulaTreeView";
+            private string lastCommittedTreeViewLeaf = "NebulaTreeView";
+
+            private void DocumentationPreviewTreeView_SelectedItemChanged(
+                object sender,
+                RoutedPropertyChangedEventArgs<object> e)
+            {
+                currentTreeViewSelection = GetTreeViewSelectionText(e.NewValue);
+                UpdateTreeViewPreviewStatus();
+            }
+
+            private void DocumentationPreviewTreeView_SelectionCommitted(
+                object sender,
+                RoutedPropertyChangedEventArgs<object> e)
+            {
+                lastCommittedTreeViewLeaf = GetTreeViewSelectionText(e.NewValue);
+                UpdateTreeViewPreviewStatus();
+            }
+
+            private void UpdateTreeViewPreviewStatus()
+            {
+                TreeViewPreviewStatusText.Text =
+                    $"Current selection: {currentTreeViewSelection}. "
+                    + $"Last committed leaf: {lastCommittedTreeViewLeaf}.";
+            }
+
+            private static string GetTreeViewSelectionText(object? item)
+            {
+                return item is TreeViewItem treeViewItem
+                    ? treeViewItem.Header?.ToString() ?? "Tree item"
+                    : "none";
+            }
+            """;
+    }
+
     private void ReadTextBoxValuesButton_Click(object sender, RoutedEventArgs e)
     {
         DocumentationRequiredTextBox.HasError =
@@ -675,6 +1043,92 @@ public partial class DocumentationWindow : NebulaWindow
             $"Theme: {theme}; status: {status}; editable: {editableTheme}";
     }
 
+    private void ReadChoiceValuesButton_Click(object sender, RoutedEventArgs e)
+    {
+        var receiveUpdates = ReceiveUpdatesCheckBox.IsChecked == true;
+        var telemetryEnabled = EnableTelemetryCheckBox.IsChecked == true;
+        var layout = CompactLayoutRadioButton.IsChecked == true
+            ? "Compact"
+            : "Comfortable";
+        var notificationsEnabled = NotificationsToggleButton.IsChecked == true;
+        var syncEnabled = SyncToggleButton.IsChecked == true;
+
+        ChoiceInputsPreviewStatusText.Text =
+            $"Receive updates: {receiveUpdates}\n"
+            + $"Share diagnostics: {telemetryEnabled}\n"
+            + $"Layout: {layout}\n"
+            + $"Notifications: {notificationsEnabled}\n"
+            + $"Cloud sync: {syncEnabled}";
+    }
+
+    private void DocumentationSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+    {
+        if (SliderPreviewStatusText is null)
+        {
+            return;
+        }
+
+        UpdateSliderPreviewStatus();
+    }
+
+    private void ReadSliderValuesButton_Click(object sender, RoutedEventArgs e)
+    {
+        UpdateSliderPreviewStatus();
+    }
+
+    private void AdvanceProgressButton_Click(object sender, RoutedEventArgs e)
+    {
+        DocumentationProgressBar.Value =
+            DocumentationProgressBar.Value >= DocumentationProgressBar.Maximum
+                ? DocumentationProgressBar.Maximum
+                : DocumentationProgressBar.Value + 10;
+
+        UpdateProgressPreviewStatus();
+    }
+
+    private void ResetProgressButton_Click(object sender, RoutedEventArgs e)
+    {
+        DocumentationProgressBar.Value = 0;
+        UpdateProgressPreviewStatus();
+    }
+
+    private void DocumentationListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (ListBoxPreviewStatusText is null)
+        {
+            return;
+        }
+
+        UpdateListBoxPreviewStatus();
+    }
+
+    private void ReadListBoxSelectionButton_Click(object sender, RoutedEventArgs e)
+    {
+        UpdateListBoxPreviewStatus();
+    }
+
+    private void DocumentationPreviewTreeView_SelectionCommitted(object sender, RoutedPropertyChangedEventArgs<object> e)
+    {
+        if (TreeViewPreviewStatusText is null)
+        {
+            return;
+        }
+
+        lastCommittedTreeViewLeaf = GetTreeViewSelectionText(e.NewValue);
+        UpdateTreeViewPreviewStatus();
+    }
+
+    private void DocumentationPreviewTreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+    {
+        if (TreeViewPreviewStatusText is null)
+        {
+            return;
+        }
+
+        currentTreeViewSelection = GetTreeViewSelectionText(e.NewValue);
+        UpdateTreeViewPreviewStatus();
+    }
+
     private void PreviewSaveButton_Click(object sender, RoutedEventArgs e)
     {
         ButtonsPreviewStatusText.Text = "Save profile clicked.";
@@ -693,14 +1147,75 @@ public partial class DocumentationWindow : NebulaWindow
     private void ShowPreviewPanel(UIElement visiblePanel)
     {
         TextBoxPreviewPanel.Visibility = Visibility.Collapsed;
+        ChoiceInputsPreviewPanel.Visibility = Visibility.Collapsed;
         ComboBoxPreviewPanel.Visibility = Visibility.Collapsed;
         EmailTextBoxPreviewPanel.Visibility = Visibility.Collapsed;
         NumericUpDownPreviewPanel.Visibility = Visibility.Collapsed;
         PasswordBoxPreviewPanel.Visibility = Visibility.Collapsed;
         SearchBoxPreviewPanel.Visibility = Visibility.Collapsed;
         ButtonsPreviewPanel.Visibility = Visibility.Collapsed;
+        ProgressBarPreviewPanel.Visibility = Visibility.Collapsed;
+        SliderPreviewPanel.Visibility = Visibility.Collapsed;
+        ListBoxPreviewPanel.Visibility = Visibility.Collapsed;
+        TreeViewPreviewPanel.Visibility = Visibility.Collapsed;
 
         visiblePanel.Visibility = Visibility.Visible;
+    }
+
+    private void UpdateSliderPreviewStatus()
+    {
+        if (SliderPreviewStatusText is null)
+        {
+            return;
+        }
+
+        SliderPreviewStatusText.Text =
+            $"Slider values: volume {DocumentationVolumeSlider.Value:0}, "
+            + $"brightness {DocumentationBrightnessSlider.Value:0}.";
+    }
+
+    private void UpdateProgressPreviewStatus()
+    {
+        if (ProgressPreviewStatusText is null)
+        {
+            return;
+        }
+
+        ProgressPreviewStatusText.Text =
+            $"Progress value: {DocumentationProgressBar.Value:0}%.";
+    }
+
+    private void UpdateListBoxPreviewStatus()
+    {
+        if (ListBoxPreviewStatusText is null)
+        {
+            return;
+        }
+
+        var selectedText = DocumentationListBox.SelectedItem is ListBoxItem item
+            ? item.Content?.ToString() ?? "none"
+            : DocumentationListBox.SelectedItem?.ToString() ?? "none";
+
+        ListBoxPreviewStatusText.Text = $"Selected item: {selectedText}.";
+    }
+
+    private void UpdateTreeViewPreviewStatus()
+    {
+        if (TreeViewPreviewStatusText is null)
+        {
+            return;
+        }
+
+        TreeViewPreviewStatusText.Text =
+            $"Current selection: {currentTreeViewSelection}. "
+            + $"Last committed leaf: {lastCommittedTreeViewLeaf}.";
+    }
+
+    private static string GetTreeViewSelectionText(object? item)
+    {
+        return item is TreeViewItem treeViewItem
+            ? treeViewItem.Header?.ToString() ?? "Tree item"
+            : "none";
     }
 
     private void ApplySearchDocumentationFilter(string searchText)

@@ -1,5 +1,5 @@
 // Nom: NebulaTreeView
-// Version: V1.06
+// Version: V1.07
 // Description: TreeView base control for hierarchical Nebula navigation or selection with committed selection events.
 
 using System.Windows;
@@ -23,10 +23,13 @@ public class NebulaTreeView : TreeView
     private bool selectionStartedOnExpander;
     private bool commitSelectionOnNextChange;
     private ScrollViewer? scrollViewer;
+    private readonly Dictionary<TreeViewItem, TreeViewItem> collapsedSelections = [];
 
     public NebulaTreeView()
     {
         AddHandler(MouseWheelEvent, new MouseWheelEventHandler(HandleMouseWheel), true);
+        AddHandler(TreeViewItem.CollapsedEvent, new RoutedEventHandler(HandleTreeViewItemCollapsed), true);
+        AddHandler(TreeViewItem.ExpandedEvent, new RoutedEventHandler(HandleTreeViewItemExpanded), true);
     }
 
     public static readonly DependencyProperty CommitBranchItemsProperty =
@@ -61,10 +64,13 @@ public class NebulaTreeView : TreeView
 
     protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
     {
-        selectionStartedOnExpander = IsInsideExpander(e.OriginalSource as DependencyObject);
+        var source = e.OriginalSource as DependencyObject;
+        selectionStartedOnExpander = IsInsideExpander(source);
 
         if (selectionStartedOnExpander)
         {
+            SelectCollapsingBranchWhenNeeded(source);
+
             Dispatcher.BeginInvoke(
                 () => selectionStartedOnExpander = false,
                 DispatcherPriority.Input);
@@ -79,6 +85,12 @@ public class NebulaTreeView : TreeView
 
     protected override void OnPreviewKeyDown(KeyEventArgs e)
     {
+        if (e.Key is Key.Left or Key.Subtract or Key.OemMinus
+            && SelectedItem is TreeViewItem { IsExpanded: true } selectedBranch)
+        {
+            selectedBranch.Focus();
+        }
+
         base.OnPreviewKeyDown(e);
 
         if (e.Key == Key.Enter && SelectedItem is not null)
@@ -103,6 +115,57 @@ public class NebulaTreeView : TreeView
         }
 
         ScrollFromWheel(e);
+    }
+
+    private void HandleTreeViewItemCollapsed(object sender, RoutedEventArgs e)
+    {
+        if (e.OriginalSource is not TreeViewItem collapsedItem)
+        {
+            return;
+        }
+
+        if (SelectedItem is not TreeViewItem selectedItem
+            || selectedItem == collapsedItem
+            || !IsTreeViewItemDescendantOf(selectedItem, collapsedItem))
+        {
+            return;
+        }
+
+        collapsedSelections[collapsedItem] = selectedItem;
+        selectionStartedOnExpander = true;
+        SelectTreeViewItemWithoutCommit(collapsedItem);
+
+        Dispatcher.BeginInvoke(
+            () => selectionStartedOnExpander = false,
+            DispatcherPriority.Input);
+    }
+
+    private void HandleTreeViewItemExpanded(object sender, RoutedEventArgs e)
+    {
+        if (e.OriginalSource is not TreeViewItem expandedItem
+            || !collapsedSelections.TryGetValue(expandedItem, out var restoreItem))
+        {
+            return;
+        }
+
+        collapsedSelections.Remove(expandedItem);
+
+        if (SelectedItem != expandedItem || !IsTreeViewItemDescendantOf(restoreItem, expandedItem))
+        {
+            return;
+        }
+
+        Dispatcher.BeginInvoke(
+            () =>
+            {
+                selectionStartedOnExpander = true;
+                SelectTreeViewItemWithoutCommit(restoreItem);
+
+                Dispatcher.BeginInvoke(
+                    () => selectionStartedOnExpander = false,
+                    DispatcherPriority.Input);
+            },
+            DispatcherPriority.Input);
     }
 
     private void ScrollFromWheel(MouseWheelEventArgs e)
@@ -202,6 +265,61 @@ public class NebulaTreeView : TreeView
             }
 
             source = VisualTreeHelper.GetParent(source);
+        }
+
+        return false;
+    }
+
+    private void SelectCollapsingBranchWhenNeeded(DependencyObject? source)
+    {
+        var collapsedItem = FindVisualParent<TreeViewItem>(source);
+        if (collapsedItem is not { IsExpanded: true }
+            || SelectedItem is not TreeViewItem selectedItem
+            || selectedItem == collapsedItem
+            || !IsTreeViewItemDescendantOf(selectedItem, collapsedItem))
+        {
+            return;
+        }
+
+        collapsedSelections[collapsedItem] = selectedItem;
+        SelectTreeViewItemWithoutCommit(collapsedItem);
+    }
+
+    private void SelectTreeViewItemWithoutCommit(TreeViewItem item)
+    {
+        selectionStartedOnExpander = true;
+        item.IsSelected = true;
+        item.Focus();
+    }
+
+    private static T? FindVisualParent<T>(DependencyObject? source)
+        where T : DependencyObject
+    {
+        while (source is not null)
+        {
+            if (source is T match)
+            {
+                return match;
+            }
+
+            source = VisualTreeHelper.GetParent(source);
+        }
+
+        return null;
+    }
+
+    private static bool IsTreeViewItemDescendantOf(TreeViewItem item, TreeViewItem ancestor)
+    {
+        var parent = ItemsControl.ItemsControlFromItemContainer(item) as TreeViewItem;
+
+        while (parent is not null)
+        {
+            if (parent == ancestor)
+            {
+                return true;
+            }
+
+            parent = ItemsControl.ItemsControlFromItemContainer(parent) as TreeViewItem;
         }
 
         return false;

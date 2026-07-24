@@ -78,6 +78,16 @@
                         <TreeViewItem Header="SearchBox"
                                       Tag="SearchBox"
                                       Style="{StaticResource NebulaTreeViewItem}"/>
+                        <TreeViewItem Header="Slider"
+                                      Tag="Slider"
+                                      Style="{StaticResource NebulaTreeViewItem}"/>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Progress"
+                                  IsExpanded="True"
+                                  Style="{StaticResource NebulaTreeViewItem}">
+                        <TreeViewItem Header="ProgressBar"
+                                      Tag="ProgressBar"
+                                      Style="{StaticResource NebulaTreeViewItem}"/>
                     </TreeViewItem>
                     <TreeViewItem Header="Actions"
                                   IsExpanded="True"
@@ -89,8 +99,21 @@
                     <TreeViewItem Header="Selection"
                                   IsExpanded="True"
                                   Style="{StaticResource NebulaTreeViewItem}">
+                        <TreeViewItem Header="Choice inputs"
+                                      Tag="ChoiceInputs"
+                                      Style="{StaticResource NebulaTreeViewItem}"/>
                         <TreeViewItem Header="ComboBox"
                                       Tag="ComboBox"
+                                      Style="{StaticResource NebulaTreeViewItem}"/>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Collections"
+                                  IsExpanded="True"
+                                  Style="{StaticResource NebulaTreeViewItem}">
+                        <TreeViewItem Header="ListBox"
+                                      Tag="ListBox"
+                                      Style="{StaticResource NebulaTreeViewItem}"/>
+                        <TreeViewItem Header="TreeView"
+                                      Tag="TreeView"
                                       Style="{StaticResource NebulaTreeViewItem}"/>
                     </TreeViewItem>
                 </nebula:NebulaTreeView>
@@ -526,6 +549,324 @@
                                            Style="{StaticResource Typography.TextBlock.Brand}"
                                            TextWrapping="Wrap"
                                            Margin="0,12,0,0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border x:Name="ChoiceInputsPreviewPanel"
+                                Style="{StaticResource DemoCard}"
+                                Visibility="Collapsed">
+                            <StackPanel>
+                                <TextBlock Text="Preview"
+                                           Style="{StaticResource DemoSectionTitle}"/>
+
+                                <TextBlock Text="CheckBox"
+                                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                                           Margin="0,16,0,8"/>
+                                <CheckBox x:Name="ReceiveUpdatesCheckBox"
+                                          Content="Receive product updates"
+                                          Style="{StaticResource NebulaCheckBox}"
+                                          IsChecked="True"
+                                          Margin="0,0,0,10"/>
+                                <CheckBox x:Name="EnableTelemetryCheckBox"
+                                          Content="Share anonymous diagnostics"
+                                          Style="{StaticResource NebulaCheckBox}"
+                                          Margin="0,0,0,10"/>
+                                <CheckBox Content="Unavailable option"
+                                          Style="{StaticResource NebulaCheckBox}"
+                                          IsEnabled="False"
+                                          Margin="0,0,0,16"/>
+
+                                <TextBlock Text="RadioButton"
+                                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                                           Margin="0,0,0,8"/>
+                                <RadioButton x:Name="CompactLayoutRadioButton"
+                                             Content="Compact layout"
+                                             GroupName="DocumentationLayoutMode"
+                                             Style="{StaticResource NebulaRadioButton}"
+                                             IsChecked="True"
+                                             Margin="0,0,0,10"/>
+                                <RadioButton x:Name="ComfortableLayoutRadioButton"
+                                             Content="Comfortable layout"
+                                             GroupName="DocumentationLayoutMode"
+                                             Style="{StaticResource NebulaRadioButton}"
+                                             Margin="0,0,0,10"/>
+                                <RadioButton Content="Disabled layout"
+                                             GroupName="DocumentationLayoutMode"
+                                             Style="{StaticResource NebulaRadioButton}"
+                                             IsEnabled="False"
+                                             Margin="0,0,0,16"/>
+
+                                <TextBlock Text="ToggleButton"
+                                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                                           Margin="0,0,0,8"/>
+                                <ToggleButton x:Name="NotificationsToggleButton"
+                                              Content="Notifications enabled"
+                                              Style="{StaticResource NebulaToggleButton}"
+                                              IsChecked="True"
+                                              Margin="0,0,0,10"/>
+                                <ToggleButton x:Name="SyncToggleButton"
+                                              Content="Cloud sync"
+                                              Style="{StaticResource NebulaToggleButton}"
+                                              Margin="0,0,0,10"/>
+                                <ToggleButton Content="Disabled setting"
+                                              Style="{StaticResource NebulaToggleButton}"
+                                              IsEnabled="False"/>
+
+                                <Button Content="Read choice values"
+                                        Style="{StaticResource NebulaPrimaryButton}"
+                                        Click="ReadChoiceValuesButton_Click"
+                                        HorizontalAlignment="Left"
+                                        Margin="0,18,0,0"/>
+                                <TextBlock x:Name="ChoiceInputsPreviewStatusText"
+                                           Text="Choice values have not been read yet."
+                                           Style="{StaticResource Typography.TextBlock.Brand}"
+                                           TextWrapping="Wrap"
+                                           Margin="0,12,0,0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border x:Name="SliderPreviewPanel"
+                                Style="{StaticResource DemoCard}"
+                                Visibility="Collapsed">
+                            <StackPanel>
+                                <TextBlock Text="Preview"
+                                           Style="{StaticResource DemoSectionTitle}"/>
+
+                                <TextBlock Text="Volume"
+                                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                                           Margin="0,16,0,8"/>
+                                <nebula:NebulaSlider x:Name="DocumentationVolumeSlider"
+                                                     Style="{StaticResource NebulaSlider}"
+                                                     Minimum="0"
+                                                     Maximum="100"
+                                                     Value="42"
+                                                     TickFrequency="10"
+                                                     TickPlacement="BottomRight"
+                                                     ValueChanged="DocumentationSlider_ValueChanged"
+                                                     Width="340"
+                                                     HorizontalAlignment="Left"
+                                                     Margin="0,0,0,16"/>
+
+                                <TextBlock Text="Brightness with custom ticks"
+                                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                                           Margin="0,0,0,8"/>
+                                <nebula:NebulaSlider x:Name="DocumentationBrightnessSlider"
+                                                     Style="{StaticResource NebulaSlider}"
+                                                     Minimum="0"
+                                                     Maximum="100"
+                                                     Value="60"
+                                                     Ticks="0,25,50,75,100"
+                                                     TickPlacement="BottomRight"
+                                                     ValueChanged="DocumentationSlider_ValueChanged"
+                                                     Width="340"
+                                                     HorizontalAlignment="Left"
+                                                     Margin="0,0,0,16"/>
+
+                                <TextBlock Text="Disabled"
+                                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                                           Margin="0,0,0,8"/>
+                                <nebula:NebulaSlider Style="{StaticResource NebulaSlider}"
+                                                     Minimum="0"
+                                                     Maximum="100"
+                                                     Value="35"
+                                                     IsEnabled="False"
+                                                     Width="340"
+                                                     HorizontalAlignment="Left"/>
+
+                                <Button Content="Read slider values"
+                                        Style="{StaticResource NebulaPrimaryButton}"
+                                        Click="ReadSliderValuesButton_Click"
+                                        HorizontalAlignment="Left"
+                                        Margin="0,18,0,0"/>
+                                <TextBlock x:Name="SliderPreviewStatusText"
+                                           Text="Slider values: volume 42, brightness 60."
+                                           Style="{StaticResource Typography.TextBlock.Brand}"
+                                           TextWrapping="Wrap"
+                                           Margin="0,12,0,0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border x:Name="ProgressBarPreviewPanel"
+                                Style="{StaticResource DemoCard}"
+                                Visibility="Collapsed">
+                            <StackPanel>
+                                <TextBlock Text="Preview"
+                                           Style="{StaticResource DemoSectionTitle}"/>
+
+                                <TextBlock Text="Download progress"
+                                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                                           Margin="0,16,0,8"/>
+                                <nebula:NebulaProgressBar x:Name="DocumentationProgressBar"
+                                                          Style="{StaticResource NebulaProgressBar}"
+                                                          Minimum="0"
+                                                          Maximum="100"
+                                                          Value="64"
+                                                          ShowValueText="True"
+                                                          Width="340"
+                                                          HorizontalAlignment="Left"
+                                                          Margin="0,0,0,16"/>
+
+                                <WrapPanel>
+                                    <Button Content="Advance"
+                                            Style="{StaticResource NebulaPrimaryButton}"
+                                            Click="AdvanceProgressButton_Click"
+                                            Margin="0,0,12,12"/>
+                                    <Button Content="Reset"
+                                            Style="{StaticResource NebulaSecondaryButton}"
+                                            Click="ResetProgressButton_Click"
+                                            Margin="0,0,12,12"/>
+                                </WrapPanel>
+
+                                <TextBlock Text="Indeterminate activity"
+                                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                                           Margin="0,6,0,8"/>
+                                <nebula:NebulaProgressBar Style="{StaticResource NebulaProgressBar}"
+                                                          IsIndeterminate="True"
+                                                          Width="340"
+                                                          HorizontalAlignment="Left"
+                                                          Margin="0,0,0,16"/>
+
+                                <TextBlock Text="Disabled"
+                                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                                           Margin="0,0,0,8"/>
+                                <nebula:NebulaProgressBar Style="{StaticResource NebulaProgressBar}"
+                                                          Value="42"
+                                                          IsEnabled="False"
+                                                          Width="340"
+                                                          HorizontalAlignment="Left"/>
+
+                                <TextBlock x:Name="ProgressPreviewStatusText"
+                                           Text="Progress value: 64%."
+                                           Style="{StaticResource Typography.TextBlock.Brand}"
+                                           TextWrapping="Wrap"
+                                           Margin="0,14,0,0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border x:Name="ListBoxPreviewPanel"
+                                Style="{StaticResource DemoCard}"
+                                Visibility="Collapsed">
+                            <StackPanel>
+                                <TextBlock Text="Preview"
+                                           Style="{StaticResource DemoSectionTitle}"/>
+
+                                <TextBlock Text="Selectable sections"
+                                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                                           Margin="0,16,0,8"/>
+                                <nebula:NebulaListBox x:Name="DocumentationListBox"
+                                                      Style="{StaticResource NebulaListBox}"
+                                                      SelectedIndex="1"
+                                                      SelectionChanged="DocumentationListBox_SelectionChanged"
+                                                      Width="340"
+                                                      Height="180"
+                                                      HorizontalAlignment="Left"
+                                                      Margin="0,0,0,16">
+                                    <ListBoxItem Content="Buttons"/>
+                                    <ListBoxItem Content="Inputs"/>
+                                    <ListBoxItem Content="Selection"/>
+                                    <ListBoxItem Content="Data"/>
+                                    <ListBoxItem Content="Navigation"/>
+                                    <ListBoxItem Content="Disabled"
+                                                 IsEnabled="False"/>
+                                    <ListBoxItem Content="After disabled"/>
+                                </nebula:NebulaListBox>
+
+                                <Button Content="Read selected item"
+                                        Style="{StaticResource NebulaPrimaryButton}"
+                                        Click="ReadListBoxSelectionButton_Click"
+                                        HorizontalAlignment="Left"/>
+                                <TextBlock x:Name="ListBoxPreviewStatusText"
+                                           Text="Selected item: Inputs."
+                                           Style="{StaticResource Typography.TextBlock.Brand}"
+                                           TextWrapping="Wrap"
+                                           Margin="0,12,0,16"/>
+
+                                <TextBlock Text="Disabled ListBox"
+                                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                                           Margin="0,0,0,8"/>
+                                <nebula:NebulaListBox Style="{StaticResource NebulaListBox}"
+                                                      SelectedIndex="0"
+                                                      Width="340"
+                                                      Height="112"
+                                                      IsEnabled="False"
+                                                      HorizontalAlignment="Left">
+                                    <ListBoxItem Content="Read-only item"/>
+                                    <ListBoxItem Content="Disabled container"/>
+                                    <ListBoxItem Content="Unavailable selection"/>
+                                </nebula:NebulaListBox>
+                            </StackPanel>
+                        </Border>
+
+                        <Border x:Name="TreeViewPreviewPanel"
+                                Style="{StaticResource DemoCard}"
+                                Visibility="Collapsed">
+                            <StackPanel>
+                                <TextBlock Text="Preview"
+                                           Style="{StaticResource DemoSectionTitle}"/>
+
+                                <TextBlock Text="Hierarchy with committed leaf selection"
+                                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                                           Margin="0,16,0,8"/>
+                                <nebula:NebulaTreeView x:Name="DocumentationPreviewTreeView"
+                                                       Style="{StaticResource NebulaTreeView}"
+                                                       Width="360"
+                                                       Height="250"
+                                                       CommitBranchItems="False"
+                                                       SelectedItemChanged="DocumentationPreviewTreeView_SelectedItemChanged"
+                                                       SelectionCommitted="DocumentationPreviewTreeView_SelectionCommitted"
+                                                       HorizontalAlignment="Left"
+                                                       Margin="0,0,0,16">
+                                    <TreeViewItem Header="NebulaControls"
+                                                  IsExpanded="True"
+                                                  Style="{StaticResource NebulaTreeViewItem}">
+                                        <TreeViewItem Header="Inputs"
+                                                      IsExpanded="True"
+                                                      Style="{StaticResource NebulaTreeViewItem}">
+                                            <TreeViewItem Header="NebulaTextBox"
+                                                          Style="{StaticResource NebulaTreeViewItem}"/>
+                                            <TreeViewItem Header="NebulaPasswordBox"
+                                                          Style="{StaticResource NebulaTreeViewItem}"/>
+                                            <TreeViewItem Header="NebulaDatePicker"
+                                                          Style="{StaticResource NebulaTreeViewItem}"/>
+                                        </TreeViewItem>
+                                        <TreeViewItem Header="Collections"
+                                                      IsExpanded="True"
+                                                      Style="{StaticResource NebulaTreeViewItem}">
+                                            <TreeViewItem Header="NebulaListBox"
+                                                          Style="{StaticResource NebulaTreeViewItem}"/>
+                                            <TreeViewItem Header="NebulaTreeView"
+                                                          IsSelected="True"
+                                                          Style="{StaticResource NebulaTreeViewItem}"/>
+                                            <TreeViewItem Header="NebulaDataGrid"
+                                                          Style="{StaticResource NebulaTreeViewItem}"/>
+                                        </TreeViewItem>
+                                        <TreeViewItem Header="Disabled branch"
+                                                      IsEnabled="False"
+                                                      Style="{StaticResource NebulaTreeViewItem}"/>
+                                    </TreeViewItem>
+                                </nebula:NebulaTreeView>
+
+                                <TextBlock x:Name="TreeViewPreviewStatusText"
+                                           Text="Current selection: NebulaTreeView. Last committed leaf: NebulaTreeView."
+                                           Style="{StaticResource Typography.TextBlock.Brand}"
+                                           TextWrapping="Wrap"
+                                           Margin="0,0,0,16"/>
+
+                                <TextBlock Text="Disabled TreeView"
+                                           Style="{StaticResource Typography.TextBlock.Secondary}"
+                                           Margin="0,0,0,8"/>
+                                <nebula:NebulaTreeView Style="{StaticResource NebulaTreeView}"
+                                                       Width="360"
+                                                       Height="120"
+                                                       IsEnabled="False"
+                                                       HorizontalAlignment="Left">
+                                    <TreeViewItem Header="Disabled root"
+                                                  IsExpanded="True"
+                                                  Style="{StaticResource NebulaTreeViewItem}">
+                                        <TreeViewItem Header="Child item"
+                                                      Style="{StaticResource NebulaTreeViewItem}"/>
+                                    </TreeViewItem>
+                                </nebula:NebulaTreeView>
                             </StackPanel>
                         </Border>
                     </StackPanel>

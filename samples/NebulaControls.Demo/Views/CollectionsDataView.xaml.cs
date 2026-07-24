@@ -809,7 +809,7 @@ public sealed class DemoDataGridRepository
             new(1006, "NebulaDataGrid", "v1.04", "Validated", "Data", "Dominique", "High", "2026-07-15", "Editing, add-row, delete-row, required cells and SQLite sandbox scenario"),
             new(1007, "NebulaListBox", "v1.05", "Validated", "Collections", "Dominique", "Medium", "2026-07-15", "Keyboard navigation, disabled items and smooth item scrolling"),
             new(1008, "NebulaComboBox", "v1.06", "Validated", "Selection", "Dominique", "Medium", "2026-07-15", "Standard, editable, keyboard and disabled states"),
-            new(1009, "NebulaTreeView", "v1.06", "Validated", "Collections", "Dominique", "Medium", "2026-07-15", "Hierarchy with keyboard navigation and committed leaf selection"),
+            new(1009, "NebulaTreeView", "v1.07", "Validated", "Collections", "Dominique", "Medium", "2026-07-24", "Hierarchy with keyboard navigation, collapse-safe selection and committed leaf selection"),
             new(1010, "NebulaTabControl", "v1.06", "Validated", "Layout", "Dominique", "Medium", "2026-07-15", "Top tab surface with keyboard navigation and disabled tab skipping"),
             new(1011, "NebulaAlert", "v1.02", "Validated", "Feedback", "Dominique", "High", "2026-07-15", "Interactive inline feedback"),
             new(1012, "NebulaDialog", "v1.05", "Validated", "Feedback", "Dominique", "High", "2026-07-15", "Modal dialog window with variants, results and custom content"),

@@ -6,6 +6,14 @@ Current release: `1.0.2-beta`
 
 > Beta status: NebulaControls is usable and packaged, but some controls will continue to evolve based on real-world feedback.
 
+## Project Status
+
+NebulaControls is actively developed.
+
+The current focus is to stabilize validated controls, improve keyboard and mouse behavior, and replace the initial validation demo with a clearer documentation-first demo. The goal of the next beta packages is not to add controls as fast as possible, but to make the existing controls easy to understand, test, and reuse in real WPF applications.
+
+See [docs/ROADMAP.md](docs/ROADMAP.md) for the current direction.
+
 ## Highlights
 
 - WPF control library targeting `net10.0-windows`
@@ -192,11 +200,13 @@ The demo is the best way to inspect the current control surface, validate theme 
 
 ## Roadmap
 
-- Improve public documentation and screenshots
-- Add more real-world demo scenarios
-- Continue finalizing controls based on feedback
-- Refine `NebulaWindow` with future shell features
-- Revisit old-school `NebulaTabControl` styling in a focused phase
+See [docs/ROADMAP.md](docs/ROADMAP.md) for the active roadmap.
+
+Short-term priorities:
+
+- Expand the documentation preview with real XAML and C# examples
+- Keep validated controls stable while improving edge cases
+- Package the next beta only when the new demo/docs are useful enough for external testers
 - Prepare a stable `1.0.0` after beta feedback
 
 ## Documentation
